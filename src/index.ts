@@ -61,10 +61,20 @@ const visit = (prev: any, node: ts.Node): void => {
 		};
 		prev['decorators'] = [...(prev['decorators'] || []), curr];
 	} else if (ts.isCallExpression(node)) {
-		console.log(node?._declarationBrand);
-		console.log(node?._expressionBrand);
-		console.log(node?._leftHandSideExpressionBrand);
-		console.log(node?.expression?.getText());
+		curr = {
+			expression: node?.expression?.getText(),
+		};
+		prev['functions'] = [...(prev['functions'] || []), curr];
+	} else if (ts.isArrowFunction(node)) {
+		curr = {
+			def: node?.getText(),
+		};
+		prev['arrowFn'] = [...(prev['arrowFn'] || []), curr];
+	} else if (ts.isPropertyAssignment(node)) {
+		curr = {
+			statement: node?.getText(),
+		};
+		prev['props'] = [...(prev['props'] || []), curr];
 	}
 	node.forEachChild((child) => visit(curr, child));
 };
