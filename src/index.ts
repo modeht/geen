@@ -14,20 +14,49 @@ function parseTsFile(file: string): ts.SourceFile {
 const file = readTsFile(join(process.cwd(), 'entities', 'category.entity.ts'));
 const ast = parseTsFile(file);
 
-const classes: Record<any, any> = {};
+const extractDecorators = (ds: readonly ts.Decorator[] | undefined) => {
+	if (!ds) return;
+
+	function getExpres(node: ts.Node) {
+		// if (ts.isPropertyAccessExpression(node)) {
+		// 	console.log(node.getText());
+		// }
+		if (ts.isFunctionDeclaration(node)) {
+			console.log(node.getText());
+		}
+		if (ts.isFunctionLike(node)) {
+			console.log(node.getText());
+		}
+		// if (ts.isExpression(node)) {
+		// 	console.log(node.getText());
+		// }
+
+		// if (ts.isFunctionExpression(node)) {
+		// 	console.log(node.getText());
+		// }
+		node.forEachChild(getExpres);
+	}
+
+	for (const d of ds) {
+		getExpres(d);
+	}
+};
+
 const visit = (node: ts.Node): void => {
 	if (ts.isClassDeclaration(node)) {
 		// if (node.name?.text) classes[node?.name?.text] = node;
-		console.log('class', node?.name?.getText());
+		console.log('class', node.getText());
 	}
 	if (ts.isDecorator(node)) {
-		// console.log('deco', node?.getText());
+		console.log('decorator', node?.getText());
 	}
 	if (ts.isPropertyDeclaration(node)) {
-		console.log(ts.getDecorators(node)?.map((i) => i.getText()));
-		console.log(node.name?.getText());
-		// console.log('property', node?.getText());
+		extractDecorators(ts.getDecorators(node));
+		// console.log(node.name?.getText());
+		// console.log(node.type?.getText());
+		console.log('property', node?.getText());
 	}
+	// if(ts.i)
 
 	node.forEachChild(visit);
 };
