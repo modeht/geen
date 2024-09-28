@@ -17,44 +17,34 @@ const ast = parseTsFile(file);
 const extractDecorators = (ds: readonly ts.Decorator[] | undefined) => {
 	if (!ds) return;
 
-	function getExpres(node: ts.Node) {
-		// if (ts.isPropertyAccessExpression(node)) {
-		// 	console.log(node.getText());
-		// }
-		if (ts.isFunctionDeclaration(node)) {
-			console.log(node.getText());
-		}
-		if (ts.isFunctionLike(node)) {
-			console.log(node.getText());
-		}
-		// if (ts.isExpression(node)) {
-		// 	console.log(node.getText());
-		// }
-
-		// if (ts.isFunctionExpression(node)) {
-		// 	console.log(node.getText());
-		// }
-		node.forEachChild(getExpres);
+	function getExpres(dlvl = 1, node: ts.Node) {
+		if (dlvl > 1) return;
+		console.log('node text', node.getText());
+		console.log('kind', getKindLabel(node.kind));
+		console.log('-------------------------');
+		dlvl++;
+		node.forEachChild((...args) => getExpres(dlvl, ...args));
 	}
 
 	for (const d of ds) {
-		getExpres(d);
+		getExpres(1, d);
 	}
 };
-
+const r: Record<string, any> = {};
 const visit = (node: ts.Node): void => {
 	if (ts.isClassDeclaration(node)) {
 		// if (node.name?.text) classes[node?.name?.text] = node;
 		console.log('class', node.getText());
 	}
-	if (ts.isDecorator(node)) {
-		console.log('decorator', node?.getText());
-	}
+	// if (ts.isDecorator(node)) {
+	// 	console.log('decorator', node?.getText());
+	// }
 	if (ts.isPropertyDeclaration(node)) {
 		extractDecorators(ts.getDecorators(node));
+
 		// console.log(node.name?.getText());
 		// console.log(node.type?.getText());
-		console.log('property', node?.getText());
+		// console.log('property', node?.getText());
 	}
 	// if(ts.i)
 
@@ -78,6 +68,6 @@ visit(ast);
 
 // findFields(Object.values(classes));
 
-// function getKindLabel(n: number) {
-// 	return Object.entries(ts.SyntaxKind).find(([k, v]) => v === n);
-// }
+function getKindLabel(n: number) {
+	return Object.entries(ts.SyntaxKind).find(([k, v]) => v === n);
+}
