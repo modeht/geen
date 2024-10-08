@@ -18,30 +18,12 @@ function getKindLabel(n: number) {
 const file = readTsFile(join(process.cwd(), 'entities', 'category.entity.ts'));
 const ast = parseTsFile(file);
 
-// const extractDecorators = (ds: readonly ts.Decorator[] | undefined) => {
-// 	if (!ds) return;
-
-// 	function getExpres(dlvl = 1, node: ts.Node) {
-// 		if (dlvl > 1) return;
-// 		console.log('node text', node.getText());
-// 		console.log('kind', getKindLabel(node.kind));
-// 		console.log('-------------------------');
-// 		dlvl++;
-// 		node.forEachChild((...args) => getExpres(dlvl, ...args));
-// 	}
-
-// 	for (const d of ds) {
-// 		getExpres(1, d);
-// 	}
-// };
-
 const r: Record<string, any> = {};
 const visit = (prev: any, node: ts.Node): void => {
 	let curr = prev;
-	// console.log(prev);
 	if (ts.isImportDeclaration(node)) {
 		curr = {
-			module: node.moduleSpecifier?.getText(),
+			module: node?.moduleSpecifier?.getText(),
 		};
 		prev['imports'] = [...(prev['imports'] || []), curr];
 	} else if (ts.isClassDeclaration(node)) {
@@ -59,7 +41,16 @@ const visit = (prev: any, node: ts.Node): void => {
 		curr = {
 			fullText: node?.getText(),
 		};
+		// if (node?.getText() === "@Entity({\r\n\tname: 'categories',\r\n})") {
+		// 	const { parent, ...rest } = node;
+		// 	console.dir(rest, { depth: 2 });
+		// }
 		prev['decorators'] = [...(prev['decorators'] || []), curr];
+	} else if (ts.isIdentifier(node)) {
+		curr = {
+			expression: node?.getText(),
+		};
+		prev['identifiers'] = [...(prev['identifiers'] || []), curr];
 	} else if (ts.isCallExpression(node)) {
 		curr = {
 			expression: node?.expression?.getText(),
@@ -85,3 +76,4 @@ console.dir(r, { depth: null });
 
 //get all classes
 //find that entity?
+// console.log(getKindLabel(80));
