@@ -4,8 +4,9 @@
 		"module": "NodeNext",
 		"outDir": "./dist",
 		"allowJs": true,
-		"strict": true
+		"strict": true,
+		"noImplicitAny": false
 	},
 	"include": ["src/**/*"],
-	"exclude": ["dist/**/*", "entities/**/*"]
+	"exclude": ["dist/**/*", "entities/**/*", "*.template"]
 }

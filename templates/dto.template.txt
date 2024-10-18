@@ -1,0 +1,4 @@
+<<imports>>
+export class <<dtoClass>> {
+<<properties>>
+}
