@@ -19,7 +19,7 @@ import { UserEntity } from '../../users/entities/user.entity';
 import { UserInterestEntity } from '../../users/entities/user-interests.entity';
 import { BannerEntity } from '../../banners/entities/banner.entity';
 
-enum testenum {}
+export enum testenum {}
 @Entity({
 	name: 'categories',
 })

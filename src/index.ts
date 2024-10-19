@@ -4,7 +4,7 @@ import { DepthManager } from './DepthManager';
 import { parseFiles } from './file-parser';
 
 (async () => {
-	const allEntities = sync('**/*/*.entity.ts');
+	const allEntities = sync('**/*/*.entity.ts', { absolute: true });
 
 	const ASTs = await parseFiles(allEntities);
 

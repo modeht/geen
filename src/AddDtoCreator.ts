@@ -1,9 +1,9 @@
 import ts from 'typescript';
 import { Node, TreeParser } from './TreeParser';
-import { warn } from 'console';
+import { log, warn } from 'console';
 import { DepthManager } from './DepthManager';
 import { readFile, writeFile } from 'fs/promises';
-import { join } from 'path';
+import { dirname, join, normalize, relative, resolve, sep } from 'path';
 import { ASTs } from './lib/types';
 
 export class AddDtoCreator {
@@ -37,6 +37,20 @@ export class AddDtoCreator {
 		this._setEnums();
 		await this._setFields();
 
+		const savedFileName = `add${parentFileName ? '-' + parentFileName : ''}-${
+			this.fileName
+		}.dto.ts`;
+
+		const dtoFolderRelativePath = relative(
+			this.ogFilePath,
+			join(dirname(this.ogFilePath), '../dtos')
+		);
+		const dtoFilePath = join(
+			this.ogFilePath,
+			`${dtoFolderRelativePath}/${savedFileName}`
+		);
+		const originalDirPath = relative(dirname(dtoFilePath), this.ogFilePath);
+
 		let dtoTemplate = await readFile(
 			join(process.cwd(), 'templates/dto.template'),
 			'utf8'
@@ -45,10 +59,12 @@ export class AddDtoCreator {
 		dtoTemplate = dtoTemplate.replace('<<enums>>', this.enums.join('\n'));
 		dtoTemplate = dtoTemplate.replace('<<dtoClass>>', this.className!);
 		dtoTemplate = dtoTemplate.replace('<<properties>>', this.properties.join('\n\n'));
-		const savedFileName = `add${parentFileName ? '-' + parentFileName : ''}-${
-			this.fileName
-		}.dto.ts`;
-		await writeFile(join(process.cwd(), `dtos/${savedFileName}`), dtoTemplate);
+		dtoTemplate = dtoTemplate.replace(
+			'<<pathToOriginal>>',
+			originalDirPath.split(sep).join('/')
+		);
+
+		await writeFile(dtoFilePath, dtoTemplate);
 		DepthManager.currDepth++;
 		return { fileName: savedFileName, className: this.className };
 	}
@@ -91,8 +107,7 @@ export class AddDtoCreator {
 				//make an import statement
 				const enumKey = e.identifiers?.[0]?.expression;
 				if (enumKey) {
-					//TODO file path should be dynamic
-					const importStmnt = `import { ${enumKey} } from '../../${this.ogFilePath}'`;
+					const importStmnt = `import { ${enumKey} } from '<<pathToOriginal>>'`;
 					this.imports.push(importStmnt);
 				}
 			} else {
@@ -145,16 +160,12 @@ export class AddDtoCreator {
 
 			const decorators = field.decorators || [];
 			for (const deco of decorators) {
-				//normalize quotes
-				deco.text?.replace('"', "'");
-
 				//handle enums
 				if (deco.text?.startsWith('@Column') && deco.text?.includes('enum')) {
 					if (fieldEnumOrClass) validations.push(`@IsEnum(${fieldEnumOrClass})`);
 				}
 
 				//handle relations
-				console.log(DepthManager.currDepth);
 				if (DepthManager.currDepth < this.maxDepth) {
 					if (deco.text?.startsWith('@OneToOne')) {
 					}
