@@ -19,6 +19,7 @@ import { UserEntity } from '../../users/entities/user.entity';
 import { UserInterestEntity } from '../../users/entities/user-interests.entity';
 import { BannerEntity } from '../../banners/entities/banner.entity';
 
+enum testenum {}
 @Entity({
 	name: 'categories',
 })
@@ -28,6 +29,9 @@ export class CategoryEntity {
 
 	@Column({ type: 'varchar', nullable: true })
 	name: string | null;
+
+	@Column({ type: 'enum', enum: testenum, nullable: true })
+	testenum: testenum;
 
 	@OneToMany(() => UserInterestEntity, (interest) => interest.category, {
 		nullable: true,

@@ -1,4 +1,8 @@
+//@ts-nocheck
 <<imports>>
+
+<<enums>>
+
 export class <<dtoClass>> {
 <<properties>>
 }
