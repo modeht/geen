@@ -3,10 +3,11 @@
 		"target": "ESNext",
 		"module": "NodeNext",
 		"outDir": "./dist",
+		"rootDir": "./src",
 		"allowJs": true,
 		"strict": true,
 		"noImplicitAny": false
 	},
 	"include": ["src/**/*"],
-	"exclude": ["dist/**/*", "entities/**/*", "*.template"]
+	"exclude": ["dist/**/*"]
 }
