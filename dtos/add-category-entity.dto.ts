@@ -6,56 +6,55 @@ import { AdEntity } from '../../ads/entities/ad.entity';
 import { UserEntity } from '../../users/entities/user.entity';
 import { UserInterestEntity } from '../../users/entities/user-interests.entity';
 import { BannerEntity } from '../../banners/entities/banner.entity';
-import * as v from "class-validator";
-import * as t from "class-transformer";
-import { AddMediaEntityDto } from './add-media-entity.dto.ts';
+import * as v from 'class-validator';
+import * as t from 'class-transformer';
+import { AddMediaEntityDto } from './add-category-entity-media-entity.dto.ts';
 
 enum testenum {}
 
 export class AddCategoryEntityDto {
-@v.IsString()
-@v.IsOptional()
-name?: string | null;
+	@v.IsString()
+	@v.IsOptional()
+	name?: string | null;
 
-@IsEnum(testenum)
-testenum: testenum;
+	@IsEnum(testenum)
+	testenum: testenum;
 
-@v.IsOptional()
-interestedIn?: UserInterestEntity[] | null;
+	@v.IsOptional()
+	interestedIn?: UserInterestEntity[] | null;
 
-@v.IsOptional()
-banners?: BannerEntity | null;
+	@v.IsOptional()
+	banners?: BannerEntity | null;
 
-@v.IsOptional()
-icon?: MediaEntity | null;
+	@v.IsOptional()
+	icon?: MediaEntity | null;
 
-@v.IsOptional()
-translations?: TranslationEntity[] | null;
+	@v.IsOptional()
+	translations?: TranslationEntity[] | null;
 
-@v.IsOptional()
-filters?: CategoryFilterEntity[] | null;
+	@v.IsOptional()
+	filters?: CategoryFilterEntity[] | null;
 
+	ads: AdEntity[];
 
-ads: AdEntity[];
+	@v.IsOptional()
+	filter?: CategoryFilterEntity | null;
 
-@v.IsOptional()
-filter?: CategoryFilterEntity | null;
+	@v.IsBoolean()
+	visible: boolean;
 
-@v.IsBoolean()
-visible: boolean;
+	@v.IsBoolean()
+	isArchived: boolean;
 
-@v.IsBoolean()
-isArchived: boolean;
+	@v.IsNumber()
+	@v.IsOptional()
+	index?: number | null;
 
-@v.IsNumber()
-@v.IsOptional()
-index?: number | null;
+	@v.IsDate()
+	@t.Type(() => Date)
+	createdAt: Date;
 
-@v.IsDate()
-@t.Type(()=>Date)
-createdAt: Date;
-
-@v.IsDate()
-@t.Type(()=>Date)
-updatedAt: Date;
+	@v.IsDate()
+	@t.Type(() => Date)
+	updatedAt: Date;
 }

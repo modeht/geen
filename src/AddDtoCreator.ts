@@ -29,7 +29,7 @@ export class AddDtoCreator {
 		this.maxDepth = maxDepth;
 	}
 
-	async build() {
+	async build(parentFileName: string = '') {
 		this._setEntityName();
 		this._setClassName();
 		this._setFilename();
@@ -45,7 +45,9 @@ export class AddDtoCreator {
 		dtoTemplate = dtoTemplate.replace('<<enums>>', this.enums.join('\n'));
 		dtoTemplate = dtoTemplate.replace('<<dtoClass>>', this.className!);
 		dtoTemplate = dtoTemplate.replace('<<properties>>', this.properties.join('\n\n'));
-		const savedFileName = `add-${this.fileName}.dto.ts`;
+		const savedFileName = `add${parentFileName ? '-' + parentFileName : ''}-${
+			this.fileName
+		}.dto.ts`;
 		await writeFile(join(process.cwd(), `dtos/${savedFileName}`), dtoTemplate);
 		DepthManager.currDepth++;
 		return { fileName: savedFileName, className: this.className };
@@ -173,7 +175,9 @@ export class AddDtoCreator {
 									this.asts,
 									this.asts[fileName].fullPath
 								);
-								const { fileName: newDtoFileName, className } = await newFile.build();
+								const { fileName: newDtoFileName, className } = await newFile.build(
+									this.fileName
+								);
 								this.addImport(`import { ${className} } from './${newDtoFileName}';`);
 							} else {
 								warn(`No ast available for ${fileName}`);

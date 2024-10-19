@@ -34,11 +34,10 @@ import { DepthManager } from './DepthManager';
 	const ASTs = await parseFiles(allEntities);
 
 	const testAst = Object.values(ASTs)[0];
-	DepthManager.currDepth = 0;
 	const addDtoCreator = new AddDtoCreator(testAst.sourceFile, ASTs, testAst.fullPath, {
 		maxDepth: 1,
 	});
-	const r = await addDtoCreator.build();
-	console.log(r);
+	await addDtoCreator.build();
+	//reset depth
 	DepthManager.currDepth = 0;
 })();

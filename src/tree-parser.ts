@@ -1,5 +1,6 @@
 import ts from 'typescript';
 
+//
 export function parseTreeV2(accu: any, node: ts.Node) {
 	const key = ts.SyntaxKind[node.kind];
 	const value = node.getText();
