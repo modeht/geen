@@ -41,15 +41,12 @@ export class AddDtoCreator {
 			this.fileName
 		}.dto.ts`;
 
-		const dtoFolderRelativePath = relative(
+		const dtoDirRelativePath = relative(
 			this.ogFilePath,
 			join(dirname(this.ogFilePath), '../dtos')
 		);
-		const dtoFilePath = join(
-			this.ogFilePath,
-			`${dtoFolderRelativePath}/${savedFileName}`
-		);
-		const originalDirPath = relative(dirname(dtoFilePath), this.ogFilePath);
+		const dtoFilePath = join(this.ogFilePath, `${dtoDirRelativePath}/${savedFileName}`);
+		const ogFileDirPath = relative(dirname(dtoFilePath), this.ogFilePath);
 
 		let dtoTemplate = await readFile(
 			join(process.cwd(), 'templates/dto.template'),
@@ -61,7 +58,7 @@ export class AddDtoCreator {
 		dtoTemplate = dtoTemplate.replace('<<properties>>', this.properties.join('\n\n'));
 		dtoTemplate = dtoTemplate.replace(
 			'<<pathToOriginal>>',
-			originalDirPath.split(sep).join('/')
+			ogFileDirPath.split(sep).join('/')
 		);
 
 		await writeFile(dtoFilePath, dtoTemplate);
