@@ -17,6 +17,8 @@ export class AddDtoCreator {
 	private properties: string[] = [];
 	private ogFilePath: string;
 	private maxDepth: number = 1;
+	private validationsImports: Set<string> = new Set();
+	private transformationsImports: Set<string> = new Set();
 
 	constructor(
 		ast: ts.SourceFile,
@@ -57,12 +59,19 @@ export class AddDtoCreator {
 		dtoTemplate = dtoTemplate.replace('<<dtoClass>>', this.className!);
 		dtoTemplate = dtoTemplate.replace('<<properties>>', this.properties.join('\n\n'));
 		dtoTemplate = dtoTemplate.replace(
+			'<<validationsImports>>',
+			Array.from(this.validationsImports).join(', ')
+		);
+		dtoTemplate = dtoTemplate.replace(
+			'<<transformationsImports>>',
+			Array.from(this.transformationsImports).join(', ')
+		);
+		dtoTemplate = dtoTemplate.replace(
 			'<<pathToOriginal>>',
 			ogFileDirPath.split(sep).join('/')
 		);
 
 		await writeFile(dtoFilePath, dtoTemplate);
-		DepthManager.currDepth++;
 		return { fileName: savedFileName, className: this.className };
 	}
 
@@ -92,8 +101,8 @@ export class AddDtoCreator {
 			this.parsedTree.imports
 				?.filter((i) => i.module?.startsWith("'."))
 				.map((i) => i.text!) || [];
-		imports?.push('import * as v from "class-validator";');
-		imports?.push('import * as t from "class-transformer";');
+		imports?.push('import { <<validationsImports>> } from "class-validator";');
+		imports?.push('import { <<transformationsImports>> } from "class-transformer";');
 		this.imports = imports;
 	}
 
@@ -129,48 +138,77 @@ export class AddDtoCreator {
 			if (field.name === 'id') continue;
 			let fieldText = '';
 			let fieldNullable = false;
+			let fieldEnum = false;
+			let includeFieldRelated: boolean | null = null;
+			let fieldPrimitive = true;
 			const validations: string[] = [];
 			const types = field.type?.split('|').map((t) => t.trim()) || [];
 
-			let fieldEnumOrClass: string | undefined;
-
 			for (const type of types) {
 				if (type === 'null' || type === 'undefined') {
-					validations.push('@v.IsOptional()');
+					validations.push('@IsOptional()');
+					this.validationsImports.add('IsOptional');
 					fieldNullable = true;
 				} else if (type === 'string') {
-					validations.push('@v.IsString()');
+					validations.push('@IsString()');
+					this.validationsImports.add('IsString');
 				} else if (type === 'string[]') {
-					validations.push('@v.IsString({each:true})');
+					validations.push('@IsString({each:true})');
+					this.validationsImports.add('IsString');
 				} else if (type === 'number') {
-					validations.push('@v.IsNumber()');
+					validations.push('@IsNumber()');
+					this.validationsImports.add('IsNumber');
 				} else if (type === 'number[]') {
-					validations.push('@v.IsNumber({},{each:true})');
+					validations.push('@IsNumber({},{each:true})');
+					this.validationsImports.add('IsNumber');
 				} else if (type === 'Date') {
-					validations.push('@v.IsDate()\n@t.Type(()=>Date)');
+					validations.push('@IsDate()\n@Type(()=>Date)');
+					this.validationsImports.add('IsDate');
+					this.transformationsImports.add('Type');
 				} else if (type === 'boolean') {
-					validations.push('@v.IsBoolean()');
+					validations.push('@IsBoolean()');
+					this.validationsImports.add('IsBoolean');
 				} else {
-					fieldEnumOrClass = type;
+					fieldPrimitive = false;
 				}
 			}
+			const enums: Node[] = [];
+			const relationships: Node[] = [];
 
-			const decorators = field.decorators || [];
-			for (const deco of decorators) {
-				//handle enums
-				if (deco.text?.startsWith('@Column') && deco.text?.includes('enum')) {
-					if (fieldEnumOrClass) validations.push(`@IsEnum(${fieldEnumOrClass})`);
+			field.decorators?.forEach((d) => {
+				if (d.text?.startsWith('@Column') && d.text?.includes('enum')) {
+					enums.push(d);
+				} else {
+					relationships.push(d);
 				}
+			});
 
-				//handle relations
-				if (DepthManager.currDepth < this.maxDepth) {
-					if (deco.text?.startsWith('@OneToOne')) {
+			for (const em of enums) {
+				//handle enums
+				fieldEnum = true;
+				field.type?.split('|').forEach((t) => {
+					if (t === 'null' || t === 'undefined') {
+						validations.push('@IsOptional()');
+					} else {
+						validations.push(`@IsEnum(${t})`);
+						this.validationsImports.add('IsEnum');
 					}
-					if (deco.text?.startsWith('@OneToMany')) {
+				});
+			}
+			console.log(DepthManager.currDepth, this.maxDepth);
+			if (DepthManager.currDepth < this.maxDepth) {
+				for (const rel of relationships) {
+					//handle relations
+					if (rel.text?.startsWith('@OneToOne')) {
+						includeFieldRelated = true;
 					}
-					if (deco.text?.startsWith('@ManyToOne')) {
-						const mtmDeco = deco.functions?.find((f) => f.expression === 'ManyToOne');
-						const relatedClass = mtmDeco?.arrowFn?.[0]?.identifiers?.[0].expression;
+					if (rel.text?.startsWith('@OneToMany')) {
+						includeFieldRelated = true;
+					}
+					if (rel.text?.startsWith('@ManyToOne')) {
+						includeFieldRelated = true;
+						const mtmRel = rel.functions?.find((f) => f.expression === 'ManyToOne');
+						const relatedClass = mtmRel?.arrowFn?.[0]?.identifiers?.[0].expression;
 						const fileImport = this.parsedTree.imports?.find(
 							(i) =>
 								i?.identifiers?.findIndex((id) => id?.expression === relatedClass)! > -1
@@ -183,6 +221,7 @@ export class AddDtoCreator {
 									this.asts,
 									this.asts[fileName].fullPath
 								);
+								DepthManager.currDepth++;
 								const { fileName: newDtoFileName, className } = await newFile.build(
 									this.fileName
 								);
@@ -194,11 +233,16 @@ export class AddDtoCreator {
 							warn(`Import of class ${relatedClass} is not found`);
 						}
 					}
-					if (deco.text?.startsWith('@ManyToMany')) {
+					if (rel.text?.startsWith('@ManyToMany')) {
+						includeFieldRelated = true;
 					}
 				}
+			} else {
+				includeFieldRelated = false;
 			}
 
+			if (!fieldPrimitive && includeFieldRelated === false) continue;
+			log(field.name);
 			fieldText += validations.join('\n') + '\n';
 			fieldText += `${field.name}${fieldNullable ? '?' : ''}: ${field.type};`;
 			fieldsStringified.push(fieldText);

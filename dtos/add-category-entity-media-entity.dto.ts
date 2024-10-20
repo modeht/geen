@@ -11,79 +11,37 @@ import { ProductEntity } from '../../products/entities/product.entity';
 import { StoryEntity } from '../../stories/entities/story.entity';
 import { BrandProfileEntity } from '../../users/entities/brand-profile.entity';
 import { ShopperProfileEntity } from '../../users/entities/shopper-profile.entity';
-import * as v from "class-validator";
-import * as t from "class-transformer";
+import { IsDate, IsOptional, IsString, IsNumber } from "class-validator";
+import { Type } from "class-transformer";
 
 
 
 export class AddMediaEntityDto {
-@v.IsDate()
-@t.Type(()=>Date)
+@IsDate()
+@Type(()=>Date)
 createdAt: Date;
 
-@v.IsDate()
-@t.Type(()=>Date)
+@IsDate()
+@Type(()=>Date)
 updatedAt: Date;
 
-
-preference: PreferenceEntity;
-
-
-collectionCover: CollectionEntity;
-
-
-user: ShopperProfileEntity;
-
-
-story: StoryEntity;
-
-
-brandStoreCover: BrandProfileEntity;
-
-
-brandStoreLogo: BrandProfileEntity;
-
-
-category: CategoryEntity;
-
-
-country: CountryEntity;
-
-
-postThumbnail: PostEntity;
-
-@v.IsOptional()
-product?: ProductEntity | null;
-
-@v.IsOptional()
-productVariant?: ProductVariantEntity | null;
-
-@v.IsOptional()
-message?: MessageEntity | null;
-
-@v.IsOptional()
-post?: PostEntity | null;
-
-
-review: ProductReviewEntity;
-
-@v.IsString()
-@v.IsOptional()
+@IsString()
+@IsOptional()
 mimetype?: string | null;
 
-@v.IsString()
-@v.IsOptional()
+@IsString()
+@IsOptional()
 url?: string | null;
 
-@v.IsNumber()
-@v.IsOptional()
+@IsNumber()
+@IsOptional()
 size?: number | null;
 
-@v.IsNumber()
-@v.IsOptional()
+@IsNumber()
+@IsOptional()
 width?: number | null;
 
-@v.IsNumber()
-@v.IsOptional()
+@IsNumber()
+@IsOptional()
 height?: number | null;
 }

@@ -6,57 +6,45 @@ import { AdEntity } from '../../ads/entities/ad.entity';
 import { UserEntity } from '../../users/entities/user.entity';
 import { UserInterestEntity } from '../../users/entities/user-interests.entity';
 import { BannerEntity } from '../../banners/entities/banner.entity';
-import * as v from "class-validator";
-import * as t from "class-transformer";
+import { IsString, IsOptional, IsEnum, IsBoolean, IsNumber, IsDate } from "class-validator";
+import { Type } from "class-transformer";
 import { testenum } from '../entities/category.entity.ts'
 import { AddMediaEntityDto } from './add-category-entity-media-entity.dto.ts';
 
 
 
 export class AddCategoryEntityDto {
-@v.IsString()
-@v.IsOptional()
+@IsString()
+@IsOptional()
 name?: string | null;
 
 @IsEnum(testenum)
 testenum: testenum;
 
-@v.IsOptional()
+@IsOptional()
 interestedIn?: UserInterestEntity[] | null;
 
-@v.IsOptional()
+@IsOptional()
 banners?: BannerEntity | null;
 
-@v.IsOptional()
+@IsOptional()
 icon?: MediaEntity | null;
 
-@v.IsOptional()
-translations?: TranslationEntity[] | null;
-
-@v.IsOptional()
-filters?: CategoryFilterEntity[] | null;
-
-
-ads: AdEntity[];
-
-@v.IsOptional()
-filter?: CategoryFilterEntity | null;
-
-@v.IsBoolean()
+@IsBoolean()
 visible: boolean;
 
-@v.IsBoolean()
+@IsBoolean()
 isArchived: boolean;
 
-@v.IsNumber()
-@v.IsOptional()
+@IsNumber()
+@IsOptional()
 index?: number | null;
 
-@v.IsDate()
-@t.Type(()=>Date)
+@IsDate()
+@Type(()=>Date)
 createdAt: Date;
 
-@v.IsDate()
-@t.Type(()=>Date)
+@IsDate()
+@Type(()=>Date)
 updatedAt: Date;
 }
