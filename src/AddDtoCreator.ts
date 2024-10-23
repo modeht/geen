@@ -2,8 +2,8 @@ import ts from 'typescript';
 import { Node, TreeParser } from './TreeParser';
 import { log, warn } from 'console';
 import { DepthManager } from './DepthManager';
-import { readFile, writeFile } from 'fs/promises';
-import { dirname, join, normalize, relative, resolve, sep } from 'path';
+import { readFile, writeFile, mkdir } from 'fs/promises';
+import path, { dirname, join, normalize, relative, resolve, sep } from 'path';
 import { ASTs } from './lib/types';
 
 export class AddDtoCreator {
@@ -13,6 +13,7 @@ export class AddDtoCreator {
 	private entityClass: Node | undefined;
 	private fileName: string | undefined;
 	private imports: string[] = [];
+	private absoluteImports: { absPath: string; importedFields: string[] }[] = [];
 	private enums: string[] = [];
 	private properties: string[] = [];
 	private ogFilePath: string;
@@ -32,6 +33,7 @@ export class AddDtoCreator {
 	}
 
 	async build(parentFileName: string = '') {
+		await mkdir(join(dirname(this.ogFilePath), '../generated-dtos'), { recursive: true });
 		this._setEntityName();
 		this._setClassName();
 		this._setFilename();
@@ -45,10 +47,24 @@ export class AddDtoCreator {
 
 		const dtoDirRelativePath = relative(
 			this.ogFilePath,
-			join(dirname(this.ogFilePath), '../dtos')
+			join(dirname(this.ogFilePath), '../generated-dtos')
 		);
+
 		const dtoFilePath = join(this.ogFilePath, `${dtoDirRelativePath}/${savedFileName}`);
 		const ogFileDirPath = relative(dirname(dtoFilePath), this.ogFilePath);
+
+		this.imports = [
+			...this.imports,
+			...this.absoluteImports?.map((i) => {
+				const relativePath = relative(dirname(dtoFilePath), i.absPath)
+					.split(sep)
+					.join('/')
+					.replaceAll('.ts', '');
+				return `import { ${i.importedFields.join(', ')} } from '${
+					relativePath.startsWith('.') ? relativePath : './' + relativePath
+				}'`;
+			}),
+		];
 
 		let dtoTemplate = await readFile(
 			join(process.cwd(), 'templates/dto.template'),
@@ -68,7 +84,7 @@ export class AddDtoCreator {
 		);
 		dtoTemplate = dtoTemplate.replace(
 			'<<pathToOriginal>>',
-			ogFileDirPath.split(sep).join('/')
+			ogFileDirPath.split(sep).join('/').replaceAll('.ts', '')
 		);
 
 		await writeFile(dtoFilePath, dtoTemplate);
@@ -97,13 +113,22 @@ export class AddDtoCreator {
 	}
 
 	private _setDefaultImports() {
-		const imports =
-			this.parsedTree.imports
-				?.filter((i) => i.module?.startsWith("'."))
-				.map((i) => i.text!) || [];
-		imports?.push('import { <<validationsImports>> } from "class-validator";');
-		imports?.push('import { <<transformationsImports>> } from "class-transformer";');
-		this.imports = imports;
+		this.parsedTree.imports?.forEach((i) => {
+			i.module = i.module?.replaceAll("'", '');
+			if (i.module?.startsWith('.')) {
+				const targetDestAbs = join(dirname(this.ogFilePath), i.module);
+				this.absoluteImports.push({
+					absPath: targetDestAbs.replaceAll('.ts', ''),
+					importedFields: i.identifiers?.map((i) => i.expression!)!,
+				});
+			} else if (i.module === 'typeorm') {
+			} else {
+				this.imports.push(i.text?.replaceAll('.ts', '')!);
+			}
+		});
+		//validation lib
+		this.imports?.push('import { <<validationsImports>> } from "class-validator";');
+		this.imports?.push('import { <<transformationsImports>> } from "class-transformer";');
 	}
 
 	private _setEnums() {
@@ -183,8 +208,7 @@ export class AddDtoCreator {
 				}
 			});
 
-			for (const em of enums) {
-				//handle enums
+			enums?.forEach((e) => {
 				fieldEnum = true;
 				field.type?.split('|').forEach((t) => {
 					if (t === 'null' || t === 'undefined') {
@@ -194,8 +218,8 @@ export class AddDtoCreator {
 						this.validationsImports.add('IsEnum');
 					}
 				});
-			}
-			console.log(DepthManager.currDepth, this.maxDepth);
+			});
+
 			if (DepthManager.currDepth < this.maxDepth) {
 				for (const rel of relationships) {
 					//handle relations
@@ -207,6 +231,7 @@ export class AddDtoCreator {
 					}
 					if (rel.text?.startsWith('@ManyToOne')) {
 						includeFieldRelated = true;
+						fieldText += '//many to one\n';
 						const mtmRel = rel.functions?.find((f) => f.expression === 'ManyToOne');
 						const relatedClass = mtmRel?.arrowFn?.[0]?.identifiers?.[0].expression;
 						const fileImport = this.parsedTree.imports?.find(
@@ -225,7 +250,12 @@ export class AddDtoCreator {
 								const { fileName: newDtoFileName, className } = await newFile.build(
 									this.fileName
 								);
-								this.addImport(`import { ${className} } from './${newDtoFileName}';`);
+								this.addImport(
+									`import { ${className} } from './${newDtoFileName.replaceAll(
+										'.ts',
+										''
+									)}';`
+								);
 							} else {
 								warn(`No ast available for ${fileName}`);
 							}
@@ -242,7 +272,7 @@ export class AddDtoCreator {
 			}
 
 			if (!fieldPrimitive && includeFieldRelated === false) continue;
-			log(field.name);
+
 			fieldText += validations.join('\n') + '\n';
 			fieldText += `${field.name}${fieldNullable ? '?' : ''}: ${field.type};`;
 			fieldsStringified.push(fieldText);
