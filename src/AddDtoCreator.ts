@@ -1,8 +1,8 @@
 import ts from 'typescript';
 import { Node, TreeParser } from './TreeParser';
-import { log, warn } from 'console';
+import { dir, log, warn } from 'console';
 import { DepthManager } from './DepthManager';
-import { readFile, writeFile, mkdir } from 'fs/promises';
+import { readFile, writeFile, mkdir, rmdir } from 'fs/promises';
 import path, { dirname, join, normalize, relative, resolve, sep } from 'path';
 import { ASTs } from './lib/types';
 
@@ -88,7 +88,7 @@ export class AddDtoCreator {
 		);
 
 		await writeFile(dtoFilePath, dtoTemplate);
-		return { fileName: savedFileName, className: this.className };
+		return { fileName: savedFileName, dtoFilePath, className: this.className };
 	}
 
 	private _setEntityName() {
@@ -160,7 +160,11 @@ export class AddDtoCreator {
 		const fieldsStringified: string[] = [];
 
 		for (const field of fields) {
-			if (field.name === 'id') continue;
+			if (
+				['id', 'updatedAt', 'createdAt', 'updated_at', 'created_at'].includes(field.name!)
+			)
+				continue;
+
 			let fieldText = '';
 			let fieldNullable = false;
 			let fieldEnum = false;
@@ -222,49 +226,51 @@ export class AddDtoCreator {
 
 			if (DepthManager.currDepth < this.maxDepth) {
 				for (const rel of relationships) {
-					//handle relations
-					if (rel.text?.startsWith('@OneToOne')) {
-						includeFieldRelated = true;
+					includeFieldRelated = true;
+					const relFn = rel.functions?.find((f) =>
+						['ManyToMany', 'OneToOne', 'OneToMany', 'ManyToOne'].includes(f.expression!)
+					);
+
+					if (!relFn) {
+						log('Not a relation field');
+						continue;
 					}
-					if (rel.text?.startsWith('@OneToMany')) {
-						includeFieldRelated = true;
-					}
-					if (rel.text?.startsWith('@ManyToOne')) {
-						includeFieldRelated = true;
-						fieldText += '//many to one\n';
-						const mtmRel = rel.functions?.find((f) => f.expression === 'ManyToOne');
-						const relatedClass = mtmRel?.arrowFn?.[0]?.identifiers?.[0].expression;
-						const fileImport = this.parsedTree.imports?.find(
-							(i) =>
-								i?.identifiers?.findIndex((id) => id?.expression === relatedClass)! > -1
-						);
-						if (fileImport) {
-							const fileName = fileImport.module?.split('/')?.at(-1)?.replace("'", '');
-							if (fileName && this.asts[fileName]) {
-								const newFile = new AddDtoCreator(
-									this.asts[fileName].sourceFile,
-									this.asts,
-									this.asts[fileName].fullPath
-								);
-								DepthManager.currDepth++;
-								const { fileName: newDtoFileName, className } = await newFile.build(
-									this.fileName
-								);
-								this.addImport(
-									`import { ${className} } from './${newDtoFileName.replaceAll(
-										'.ts',
-										''
-									)}';`
-								);
-							} else {
-								warn(`No ast available for ${fileName}`);
-							}
+
+					const relatedClass = relFn?.arrowFn?.[0]?.identifiers?.[0].expression;
+
+					const fileImport = this.parsedTree.imports?.find(
+						(i) =>
+							i?.identifiers?.findIndex((id) => id?.expression === relatedClass)! > -1
+					);
+
+					if (fileImport) {
+						const fileName = fileImport.module?.split('/')?.at(-1)?.replace("'", '');
+						if (fileName && this.asts[fileName]) {
+							const newFile = new AddDtoCreator(
+								this.asts[fileName].sourceFile,
+								this.asts,
+								this.asts[fileName].fullPath
+							);
+
+							DepthManager.currDepth++;
+							const {
+								fileName: newDtoFileName,
+								dtoFilePath,
+								className,
+							} = await newFile.build(this.fileName);
+							field.type = field.type?.replace(relatedClass!, className!);
+							const childRelPath = relative(dirname(this.ogFilePath), dtoFilePath);
+							this.addImport(
+								`import { ${className} } from '${childRelPath
+									.split(sep)
+									.join('/')
+									.replaceAll('.ts', '')}';`
+							);
 						} else {
-							warn(`Import of class ${relatedClass} is not found`);
+							warn(`No ast available for ${fileName}`);
 						}
-					}
-					if (rel.text?.startsWith('@ManyToMany')) {
-						includeFieldRelated = true;
+					} else {
+						warn(`Import of class ${relatedClass} is not found`);
 					}
 				}
 			} else {

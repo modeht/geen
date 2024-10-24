@@ -9,15 +9,22 @@ import { log } from 'console';
 	// log(allEntities);
 
 	const ASTs = await parseFiles(allEntities);
-	log(Object.keys(ASTs).length);
+	// log(Object.keys(ASTs).length);
 
-	const testAst = Object.values(ASTs)[0];
-	// log(testAst);
-	const addDtoCreator = new AddDtoCreator(testAst.sourceFile, ASTs, testAst.fullPath, {
-		maxDepth: 1,
-	});
-	await addDtoCreator.build();
+	// const testAst = Object.values(ASTs)[0];
+	// // log(testAst);
+	for (const ast in ASTs) {
+		const addDtoCreator = new AddDtoCreator(
+			ASTs[ast].sourceFile,
+			ASTs,
+			ASTs[ast].fullPath,
+			{
+				maxDepth: 1,
+			}
+		);
+		await addDtoCreator.build();
+		DepthManager.currDepth = 0;
+	}
 
 	// reset depth
-	DepthManager.currDepth = 0;
 })();
