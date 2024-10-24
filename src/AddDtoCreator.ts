@@ -88,7 +88,7 @@ export class AddDtoCreator {
 		);
 
 		await writeFile(dtoFilePath, dtoTemplate);
-		return { fileName: savedFileName, dtoFilePath, className: this.className };
+		return { dtoFilePath, className: this.className };
 	}
 
 	private _setEntityName() {
@@ -207,7 +207,7 @@ export class AddDtoCreator {
 			field.decorators?.forEach((d) => {
 				if (d.text?.startsWith('@Column') && d.text?.includes('enum')) {
 					enums.push(d);
-				} else {
+				} else if (d.text?.match(/(One|Many)To(One|Many)/)?.length) {
 					relationships.push(d);
 				}
 			});
@@ -253,11 +253,7 @@ export class AddDtoCreator {
 							);
 
 							DepthManager.currDepth++;
-							const {
-								fileName: newDtoFileName,
-								dtoFilePath,
-								className,
-							} = await newFile.build(this.fileName);
+							const { dtoFilePath, className } = await newFile.build(this.fileName);
 							field.type = field.type?.replace(relatedClass!, className!);
 							const childRelPath = relative(dirname(this.ogFilePath), dtoFilePath);
 							this.addImport(
