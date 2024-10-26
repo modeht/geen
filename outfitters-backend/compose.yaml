@@ -1,0 +1,34 @@
+services:
+  postgres-db:
+    container_name: outfitters-postgres-db
+    image: postgres:latest
+    restart: unless-stopped
+    env_file: '.env.staging.local'
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_DOCKER_PORT}
+    volumes:
+      - outfitters-db-vol:/var/lib/postgresql/data
+    networks:
+      - outfitters-net
+
+  outfitters-api:
+    container_name: outfitters-api
+    depends_on:
+      - postgres-db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: '.env.staging.local'
+    ports:
+      - ${PORT}:${DOCKER_PORT}
+    networks:
+      - outfitters-net
+
+networks:
+  outfitters-net:
+volumes:
+  outfitters-db-vol:

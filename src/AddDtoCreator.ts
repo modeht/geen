@@ -98,7 +98,7 @@ export class AddDtoCreator {
 			log(ogFileDirPath);
 		}
 		await writeFile(dtoFilePath, dtoTemplate);
-		return { dtoFilePath, className: this.className };
+		return { dtoFilePath, className: this.className, entityName: this.entityName };
 	}
 
 	private _setEntityName() {
@@ -137,9 +137,18 @@ export class AddDtoCreator {
 				this.imports.add(i.text?.replaceAll('.ts', '')!);
 			}
 		});
+
 		//validation lib
 		this.imports?.add('import { <<validationsImports>> } from "class-validator";');
 		this.imports?.add('import { <<transformationsImports>> } from "class-transformer";');
+
+		//TODO: fixed relative import here is risky, think of something
+		this.imports?.add(
+			"import { Relation } from '../../globals/decorators/relation.decorator';"
+		);
+		this.imports.add(
+			"import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';"
+		);
 	}
 
 	private _setEnums() {
@@ -174,19 +183,17 @@ export class AddDtoCreator {
 			if (['updatedAt', 'createdAt', 'updated_at', 'created_at'].includes(field.name!))
 				continue;
 
-			//leave id for nested because it might be used
-			if (['id'].includes(field.name!) && this.currDepth === 0) continue;
-			if (field.name === 'id') {
-				field.type += '| null';
-			}
-
 			let fieldText = '';
 			let fieldNullable = false;
 			let fieldEnum = false;
+			let fieldNotSupported = false;
 			let includeFieldRelated: boolean | null = null;
 			let fieldPrimitive = true;
 			const validations: string[] = [];
 			const types = field.type?.split('|').map((t) => t.trim()) || [];
+
+			//leave id for nested because it might be used
+			if (['id'].includes(field.name!) && this.currDepth === 0) continue;
 
 			for (const type of types) {
 				if (type === 'null' || type === 'undefined') {
@@ -214,22 +221,47 @@ export class AddDtoCreator {
 					this.validationsImports.add('IsBoolean');
 				} else {
 					fieldPrimitive = false;
+					//get the import no matter what or ignore field?
+				}
+			}
+
+			if (field.name === 'id') {
+				if (!field.type?.includes('null')) field.type += '| null';
+				validations.push(`@IsOptional()`);
+				this.validationsImports.add('IsOptional');
+				fieldNullable = true;
+			} else if (field.name !== 'id' && this.currDepth > 0) {
+				if (!fieldNullable) {
+					if (!field.type?.includes('null')) field.type += '| null';
+					fieldNullable = true;
+					validations.push(`@IsOptionalIf((obj,_)=>!!obj.id)`);
 				}
 			}
 
 			let enumCol: Node | undefined;
 			let relationCol: Node | undefined;
 			let relationExtra: Node | undefined;
+			let relationHasFk: boolean = false;
 
 			field.decorators?.forEach((d) => {
 				if (d.text?.startsWith('@Column') && d.text?.includes('enum')) {
 					enumCol = d;
 				} else if (d.text?.match(/(One|Many)To(One|Many)/)?.length) {
 					relationCol = d;
-				} else if (d.text?.includes('JoinColumn') || d.text?.includes('JoinTable')) {
+				} else if (d.text?.includes('JoinColumn')) {
 					relationExtra = d;
+					relationHasFk = true;
+				} else if (d.text?.includes('JoinTable')) {
+					relationExtra = d;
+					//TODO: handle conjuction table
+				} else if (d.text?.match(/Tree(Parent|Children)/)?.length) {
+					fieldNotSupported = true;
 				}
 			});
+
+			if (fieldNotSupported) {
+				continue;
+			}
 
 			if (enumCol) {
 				fieldEnum = true;
@@ -247,7 +279,13 @@ export class AddDtoCreator {
 				includeFieldRelated = true;
 				if (relationCol) {
 					const relationFn = relationCol.functions?.find((f) =>
-						['ManyToMany', 'OneToOne', 'OneToMany', 'ManyToOne'].includes(f.expression!)
+						[
+							'ManyToMany',
+							'OneToOne',
+							'OneToMany',
+							'ManyToOne',
+							//TODO: support tree structures
+						].includes(f.expression!)
 					);
 
 					if (!relationFn) {
@@ -256,10 +294,11 @@ export class AddDtoCreator {
 					}
 
 					// dir(relationFn, { depth: null });
-					const relationNullable = relationFn.props?.find(
-						(p) => p.statement?.replaceAll(' ', '') === 'nullable:true'
+					const relationRequired = relationFn.props?.find(
+						(p) => p.statement?.replaceAll(' ', '') === 'nullable:false'
 					);
-					if (relationNullable) {
+					//by default nullable
+					if (!relationRequired) {
 						if (!field.type?.includes('null')) field.type += '| null';
 						fieldNullable = true;
 						validations.push('@IsOptional()');
@@ -287,7 +326,7 @@ export class AddDtoCreator {
 								this.asts[fileName].fullPath,
 								{ currDepth: this.currDepth + 1, maxDepth: 1 }
 							);
-							const { dtoFilePath, className } = await newFile.build(
+							const { dtoFilePath, className, entityName } = await newFile.build(
 								this.entityName,
 								this.fileName
 							);
@@ -302,6 +341,18 @@ export class AddDtoCreator {
 									.replaceAll('.ts', '')}';`
 							);
 
+							switch (relationType) {
+								case 'OneToOne':
+									validations.push(
+										`@Relation({entity:'${entityName}',type:'${
+											relationHasFk ? 'hasOne' : 'belongsToOne'
+										}'})`
+									);
+									break;
+								case 'OneToMany':
+								case 'ManyToOne':
+								case 'ManyToMany':
+							}
 							//add proper validations of nested class
 							if (field.type?.includes('[]')) {
 								validations.push(`@ValidateNested({ each: true })`);

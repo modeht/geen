@@ -1,5 +1,6 @@
-
-	async generatedCreate(body: AddCategoryEntityDto) {
+//@ts-nocheck
+export class AbstractService {
+	async create(entryClass:  body: AddCategoryEntityDto) {
 		const bodyInstance = plainToInstance(AddCategoryEntityDto, body);
 		const row = new CategoryEntity();
 		for (const key in bodyInstance) {
@@ -21,3 +22,4 @@
 		const r = await this.datasource.manager.save('CategoryEntity', row);
 		return r;
 	}
+}
