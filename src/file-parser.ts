@@ -16,6 +16,7 @@ export async function parseFiles(entries: string[]): Promise<ASTs> {
 	const r = {};
 	for (let i = 0; i < entries.length; i++) {
 		const key = entries[i].split('/').at(-1)?.replace('.ts', '');
+
 		if (key)
 			r[key] = {
 				fullPath: entries[i],

@@ -1,10 +1,13 @@
 import ts from 'typescript';
 import { Node, TreeParser } from './TreeParser';
-import { dir, log, warn } from 'console';
+import { dir, error, log, warn } from 'console';
 import { DepthManager } from './DepthManager';
 import { readFile, writeFile, mkdir, rmdir } from 'fs/promises';
 import path, { dirname, join, normalize, relative, resolve, sep } from 'path';
 import { ASTs } from './lib/types';
+
+type TypeKeywords = 'One' | 'Many';
+type Relationships = `${TypeKeywords}To${TypeKeywords}`;
 
 export class AddDtoCreator {
 	private parsedTree: Node;
@@ -12,12 +15,13 @@ export class AddDtoCreator {
 	private entityName: string | undefined;
 	private entityClass: Node | undefined;
 	private fileName: string | undefined;
-	private imports: string[] = [];
+	private imports: Set<string> = new Set();
 	private absoluteImports: { absPath: string; importedFields: string[] }[] = [];
 	private enums: string[] = [];
 	private properties: string[] = [];
 	private ogFilePath: string;
 	private maxDepth: number = 1;
+	private currDepth: number = 0;
 	private validationsImports: Set<string> = new Set();
 	private transformationsImports: Set<string> = new Set();
 
@@ -25,17 +29,18 @@ export class AddDtoCreator {
 		ast: ts.SourceFile,
 		private asts: ASTs,
 		ogPath: string,
-		{ maxDepth } = { maxDepth: 1 }
+		{ maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 }
 	) {
 		this.parsedTree = TreeParser.parse(ast);
 		this.ogFilePath = ogPath;
 		this.maxDepth = maxDepth;
+		this.currDepth = currDepth;
 	}
 
-	async build(parentFileName: string = '') {
+	async build(parenClassName: string = '', parentFileName: string = '') {
 		await mkdir(join(dirname(this.ogFilePath), '../generated-dtos'), { recursive: true });
 		this._setEntityName();
-		this._setClassName();
+		this._setClassName(parenClassName);
 		this._setFilename();
 		this._setDefaultImports();
 		this._setEnums();
@@ -53,7 +58,7 @@ export class AddDtoCreator {
 		const dtoFilePath = join(this.ogFilePath, `${dtoDirRelativePath}/${savedFileName}`);
 		const ogFileDirPath = relative(dirname(dtoFilePath), this.ogFilePath);
 
-		this.imports = [
+		this.imports = new Set([
 			...this.imports,
 			...this.absoluteImports?.map((i) => {
 				const relativePath = relative(dirname(dtoFilePath), i.absPath)
@@ -64,29 +69,35 @@ export class AddDtoCreator {
 					relativePath.startsWith('.') ? relativePath : './' + relativePath
 				}'`;
 			}),
-		];
+		]);
 
 		let dtoTemplate = await readFile(
 			join(process.cwd(), 'templates/dto.template'),
 			'utf8'
 		);
-		dtoTemplate = dtoTemplate.replace('<<imports>>', this.imports.join('\n'));
-		dtoTemplate = dtoTemplate.replace('<<enums>>', this.enums.join('\n'));
-		dtoTemplate = dtoTemplate.replace('<<dtoClass>>', this.className!);
-		dtoTemplate = dtoTemplate.replace('<<properties>>', this.properties.join('\n\n'));
-		dtoTemplate = dtoTemplate.replace(
+		dtoTemplate = dtoTemplate.replaceAll(
+			'<<imports>>',
+			Array.from(this.imports).join('\n')
+		);
+		dtoTemplate = dtoTemplate.replaceAll('<<enums>>', this.enums.join('\n'));
+		dtoTemplate = dtoTemplate.replaceAll('<<dtoClass>>', this.className!);
+		dtoTemplate = dtoTemplate.replaceAll('<<properties>>', this.properties.join('\n\n'));
+		dtoTemplate = dtoTemplate.replaceAll(
 			'<<validationsImports>>',
 			Array.from(this.validationsImports).join(', ')
 		);
-		dtoTemplate = dtoTemplate.replace(
+		dtoTemplate = dtoTemplate.replaceAll(
 			'<<transformationsImports>>',
 			Array.from(this.transformationsImports).join(', ')
 		);
-		dtoTemplate = dtoTemplate.replace(
+		dtoTemplate = dtoTemplate.replaceAll(
 			'<<pathToOriginal>>',
 			ogFileDirPath.split(sep).join('/').replaceAll('.ts', '')
 		);
 
+		if (dtoTemplate.includes('<<pathToOriginal>>')) {
+			log(ogFileDirPath);
+		}
 		await writeFile(dtoFilePath, dtoTemplate);
 		return { dtoFilePath, className: this.className };
 	}
@@ -100,8 +111,8 @@ export class AddDtoCreator {
 		this.entityClass = entityClass;
 	}
 
-	private _setClassName() {
-		this.className = `Add${this.entityName}Dto`;
+	private _setClassName(customName?: string) {
+		this.className = `Add${(customName ?? '') + this.entityName}Dto`;
 	}
 
 	private _setFilename() {
@@ -123,12 +134,12 @@ export class AddDtoCreator {
 				});
 			} else if (i.module === 'typeorm') {
 			} else {
-				this.imports.push(i.text?.replaceAll('.ts', '')!);
+				this.imports.add(i.text?.replaceAll('.ts', '')!);
 			}
 		});
 		//validation lib
-		this.imports?.push('import { <<validationsImports>> } from "class-validator";');
-		this.imports?.push('import { <<transformationsImports>> } from "class-transformer";');
+		this.imports?.add('import { <<validationsImports>> } from "class-validator";');
+		this.imports?.add('import { <<transformationsImports>> } from "class-transformer";');
 	}
 
 	private _setEnums() {
@@ -139,7 +150,7 @@ export class AddDtoCreator {
 				const enumKey = e.identifiers?.[0]?.expression;
 				if (enumKey) {
 					const importStmnt = `import { ${enumKey} } from '<<pathToOriginal>>'`;
-					this.imports.push(importStmnt);
+					this.imports.add(importStmnt);
 				}
 			} else {
 				this.enums.push(e.text!);
@@ -148,7 +159,7 @@ export class AddDtoCreator {
 	}
 
 	private addImport(importStr: string) {
-		this.imports.push(importStr);
+		this.imports.add(importStr);
 	}
 
 	getParsedTree() {
@@ -160,10 +171,14 @@ export class AddDtoCreator {
 		const fieldsStringified: string[] = [];
 
 		for (const field of fields) {
-			if (
-				['id', 'updatedAt', 'createdAt', 'updated_at', 'created_at'].includes(field.name!)
-			)
+			if (['updatedAt', 'createdAt', 'updated_at', 'created_at'].includes(field.name!))
 				continue;
+
+			//leave id for nested because it might be used
+			if (['id'].includes(field.name!) && this.currDepth === 0) continue;
+			if (field.name === 'id') {
+				field.type += '| null';
+			}
 
 			let fieldText = '';
 			let fieldNullable = false;
@@ -201,18 +216,22 @@ export class AddDtoCreator {
 					fieldPrimitive = false;
 				}
 			}
-			const enums: Node[] = [];
-			const relationships: Node[] = [];
+
+			let enumCol: Node | undefined;
+			let relationCol: Node | undefined;
+			let relationExtra: Node | undefined;
 
 			field.decorators?.forEach((d) => {
 				if (d.text?.startsWith('@Column') && d.text?.includes('enum')) {
-					enums.push(d);
+					enumCol = d;
 				} else if (d.text?.match(/(One|Many)To(One|Many)/)?.length) {
-					relationships.push(d);
+					relationCol = d;
+				} else if (d.text?.includes('JoinColumn') || d.text?.includes('JoinTable')) {
+					relationExtra = d;
 				}
 			});
 
-			enums?.forEach((e) => {
+			if (enumCol) {
 				fieldEnum = true;
 				field.type?.split('|').forEach((t) => {
 					if (t === 'null' || t === 'undefined') {
@@ -222,26 +241,42 @@ export class AddDtoCreator {
 						this.validationsImports.add('IsEnum');
 					}
 				});
-			});
+			}
 
-			if (DepthManager.currDepth < this.maxDepth) {
-				for (const rel of relationships) {
-					includeFieldRelated = true;
-					const relFn = rel.functions?.find((f) =>
+			if (this.currDepth < this.maxDepth) {
+				includeFieldRelated = true;
+				if (relationCol) {
+					const relationFn = relationCol.functions?.find((f) =>
 						['ManyToMany', 'OneToOne', 'OneToMany', 'ManyToOne'].includes(f.expression!)
 					);
 
-					if (!relFn) {
+					if (!relationFn) {
 						log('Not a relation field');
 						continue;
 					}
 
-					const relatedClass = relFn?.arrowFn?.[0]?.identifiers?.[0].expression;
+					// dir(relationFn, { depth: null });
+					const nullable = relationFn.props?.find(
+						(p) => p.statement?.replaceAll(' ', '') === 'nullable:true'
+					);
+					if (nullable) {
+						if (!field.type?.includes('null')) field.type += '| null';
+						fieldNullable = true;
+						validations.push('@IsOptional()');
+						this.validationsImports.add('IsOptional');
+					}
 
+					const relationType = relationFn?.identifiers?.[0].expression as Relationships;
+					const relatedClass = relationFn?.arrowFn?.[0]?.identifiers?.[0].expression;
 					const fileImport = this.parsedTree.imports?.find(
 						(i) =>
 							i?.identifiers?.findIndex((id) => id?.expression === relatedClass)! > -1
-					);
+					) || {
+						module: `import { ${relatedClass!} } from '${this.ogFilePath.replaceAll(
+							'.ts',
+							''
+						)}'`,
+					};
 
 					if (fileImport) {
 						const fileName = fileImport.module?.split('/')?.at(-1)?.replace("'", '');
@@ -249,11 +284,15 @@ export class AddDtoCreator {
 							const newFile = new AddDtoCreator(
 								this.asts[fileName].sourceFile,
 								this.asts,
-								this.asts[fileName].fullPath
+								this.asts[fileName].fullPath,
+								{ currDepth: this.currDepth + 1, maxDepth: 1 }
+							);
+							const { dtoFilePath, className } = await newFile.build(
+								this.entityName,
+								this.fileName
 							);
 
-							DepthManager.currDepth++;
-							const { dtoFilePath, className } = await newFile.build(this.fileName);
+							//change the type to the new created dto
 							field.type = field.type?.replace(relatedClass!, className!);
 							const childRelPath = relative(dirname(this.ogFilePath), dtoFilePath);
 							this.addImport(
@@ -262,10 +301,23 @@ export class AddDtoCreator {
 									.join('/')
 									.replaceAll('.ts', '')}';`
 							);
+
+							//add proper validations of nested class
+							if (field.type?.includes('[]')) {
+								validations.push(`@ValidateNested({ each: true })`);
+							} else {
+								validations.push(`@ValidateNested()`);
+							}
+							validations.push(`@Type(() => ${className})`);
+							this.validationsImports.add('ValidateNested');
+							this.transformationsImports.add('Type');
+
+							//handle different types of relationships
 						} else {
-							warn(`No ast available for ${fileName}`);
+							error(`No ast available for ${fileName}`);
 						}
 					} else {
+						log(this.ogFilePath);
 						warn(`Import of class ${relatedClass} is not found`);
 					}
 				}
@@ -279,6 +331,7 @@ export class AddDtoCreator {
 			fieldText += `${field.name}${fieldNullable ? '?' : ''}: ${field.type};`;
 			fieldsStringified.push(fieldText);
 		}
+		this.currDepth++;
 		this.properties.push(...fieldsStringified);
 	}
 }
