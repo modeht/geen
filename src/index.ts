@@ -1,18 +1,19 @@
-import { sync } from 'fast-glob';
+import { async } from 'fast-glob';
 import { AddDtoCreator } from './AddDtoCreator';
 import { DepthManager } from './DepthManager';
 import { parseFiles } from './file-parser';
-import { log } from 'console';
+import { log, time, timeEnd } from 'console';
 
 (async () => {
-	const allEntities = sync('**/*/*.entity.ts', { absolute: true });
-	// log(allEntities);
+	time('Loading entities');
+	const allEntities = await async('**/*/*.entity.ts', { absolute: true });
+	timeEnd('Loading entities');
 
+	time('Parsing');
 	const ASTs = await parseFiles(allEntities);
-	// log(Object.keys(ASTs).length);
+	timeEnd('Parsing');
 
-	// const testAst = Object.values(ASTs)[0];
-	// // log(testAst);
+	time('Creating dtos');
 	for (const ast in ASTs) {
 		const addDtoCreator = new AddDtoCreator(
 			ASTs[ast].sourceFile,
@@ -25,6 +26,5 @@ import { log } from 'console';
 		await addDtoCreator.build();
 		DepthManager.currDepth = 0;
 	}
-
-	// reset depth
+	timeEnd('Creating dtos');
 })();
