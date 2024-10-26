@@ -4,6 +4,7 @@ import {
 	QUERY_PARSER,
 	QueryParserService,
 } from './globals/services/query-parser.service';
+
 @Controller()
 export class AppController {
 	constructor(

@@ -1,0 +1,8 @@
+<<imports>>
+
+@Injectable(<<name>>)
+export class <<serviceClass>> {
+  <<classProperties>>
+  <<classConsturctor>>
+  <<classMethods>>
+}

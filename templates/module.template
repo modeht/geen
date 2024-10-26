@@ -1,0 +1,9 @@
+<<imports>>
+
+@Module({
+  imports:[<<moduleImports>>],
+  controller:[<<moduleControllers>>],
+  providers:[<<moduleProviders>>],
+  exports:[<<moduleExports>>],
+})
+export class <<moduleClass>> {}
