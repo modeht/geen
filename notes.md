@@ -1,8 +1,8 @@
-- take cascade into account
+# Nestgen
 
-- ```ts
-  type RelationDecoratorParams = {
-  	entity: string;
-  	type: 'hasOne' | 'belongsToOne' | 'hasMany' | 'belongsToMany';
-  };
-  ```
+## Steps
+
+- [x] create dtos
+- [ ] create module
+- [ ] create controller
+- [ ] create service

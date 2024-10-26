@@ -6,6 +6,7 @@ const dirs = sync('**/*/generated-dtos', {
 	onlyDirectories: true,
 	absolute: true,
 });
+
 dirs.forEach((dir) => {
 	rmdir(dir, { recursive: true })
 		.then((r) => log(r))
