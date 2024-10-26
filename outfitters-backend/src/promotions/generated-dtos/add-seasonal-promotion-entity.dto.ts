@@ -26,6 +26,7 @@ end: Date;
 status: PromotionStatusEnum;
 
 @IsOptional()
+@Relation({entity:'PromotionEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddSeasonalPromotionEntityPromotionEntityDto)
 promotions?: AddSeasonalPromotionEntityPromotionEntityDto[]| null;

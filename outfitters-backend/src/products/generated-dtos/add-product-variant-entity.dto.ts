@@ -37,21 +37,25 @@ sku?: string | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'MediaEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddProductVariantEntityMediaEntityDto)
 media?: AddProductVariantEntityMediaEntityDto[] | null;
 
 @IsOptional()
+@Relation({entity:'OrderItemEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddProductVariantEntityOrderItemEntityDto)
 orderItems?: AddProductVariantEntityOrderItemEntityDto[]| null;
 
 @IsOptional()
+@Relation({entity:'CartItemsEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddProductVariantEntityCartItemsEntityDto)
 carts?: AddProductVariantEntityCartItemsEntityDto[]| null;
 
 @IsOptional()
+@Relation({entity:'ProductEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddProductVariantEntityProductEntityDto)
 mainProduct?: AddProductVariantEntityProductEntityDto| null;

@@ -46,16 +46,19 @@ status: PromotionStatusEnum;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'NotificationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddPromotionEntityNotificationEntityDto)
 notifications?: AddPromotionEntityNotificationEntityDto[] | null;
 
 @IsOptional()
+@Relation({entity:'BrandProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddPromotionEntityBrandProfileEntityDto)
 brand?: AddPromotionEntityBrandProfileEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'SeasonalPromotionEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddPromotionEntitySeasonalPromotionEntityDto)
 seasonalPromotion?: AddPromotionEntitySeasonalPromotionEntityDto| null;

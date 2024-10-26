@@ -62,16 +62,19 @@ deliveredAt?: Date | null;
 cancelledAt?: Date | null;
 
 @IsOptional()
+@Relation({entity:'OrderItemEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddBrandOrderEntityOrderItemEntityDto)
 items?: AddBrandOrderEntityOrderItemEntityDto[]| null;
 
 @IsOptional()
+@Relation({entity:'BrandProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddBrandOrderEntityBrandProfileEntityDto)
 brand?: AddBrandOrderEntityBrandProfileEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'OrderEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddBrandOrderEntityOrderEntityDto)
 order?: AddBrandOrderEntityOrderEntityDto| null;

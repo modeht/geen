@@ -11,11 +11,13 @@ import { StoryEntity } from '../entities/story.entity'
 
 export class AddStoryLikesEntityDto {
 @IsOptional()
+@Relation({entity:'UserEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddStoryLikesEntityUserEntityDto)
 user?: AddStoryLikesEntityUserEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'StoryEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddStoryLikesEntityStoryEntityDto)
 story?: AddStoryLikesEntityStoryEntityDto| null;

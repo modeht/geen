@@ -32,6 +32,7 @@ content?: string | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'MediaEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddMessageEntityMediaEntityDto)
 media?: AddMessageEntityMediaEntityDto[] | null;
@@ -48,36 +49,43 @@ reaction?: string | null;
 collaboration?: AddMessageEntityCollaborationEntityDto | null;
 
 @IsOptional()
+@Relation({entity:'PostEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddMessageEntityPostEntityDto)
 post?: AddMessageEntityPostEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'StoryEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddMessageEntityStoryEntityDto)
 story?: AddMessageEntityStoryEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'ProductEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddMessageEntityProductEntityDto)
 product?: AddMessageEntityProductEntityDto| null;
 
+@Relation({entity:'ConversationEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddMessageEntityConversationEntityDto)
 conversation: AddMessageEntityConversationEntityDto;
 
 @IsOptional()
+@Relation({entity:'UserEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddMessageEntityUserEntityDto)
 from?: AddMessageEntityUserEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'UserEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddMessageEntityUserEntityDto)
 to?: AddMessageEntityUserEntityDto| null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'CommentEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddMessageEntityCommentEntityDto)
 comment?: AddMessageEntityCommentEntityDto | null;

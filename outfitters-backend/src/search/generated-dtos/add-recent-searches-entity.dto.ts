@@ -17,6 +17,7 @@ keyword?: string | null;
 mode: searchMode;
 
 @IsOptional()
+@Relation({entity:'UserEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddRecentSearchesEntityUserEntityDto)
 user?: AddRecentSearchesEntityUserEntityDto| null;

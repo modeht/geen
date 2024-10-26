@@ -3,9 +3,7 @@ import { DataSource, In } from 'typeorm';
 import { UploadedFile } from '..';
 import { MediaEntity } from './entities/media.entity';
 import { AddMediaEntityDto } from './generated-dtos/add-media-entity.dto';
-import { AbstractService } from './AbstractService';
-
-export type ClassRef<T> = { new (...args: any[]): T };
+import { AbstractService } from '../globals/services/abstract-service';
 
 @Injectable()
 export class MediaService {

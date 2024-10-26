@@ -13,16 +13,19 @@ import { SavedCollectionEntity } from '../entities/saved-collection.entity'
 
 export class AddSavedCollectionItemEntityDto {
 @IsOptional()
+@Relation({entity:'SavedCollectionEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddSavedCollectionItemEntitySavedCollectionEntityDto)
 savedCollection?: AddSavedCollectionItemEntitySavedCollectionEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'ProductEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddSavedCollectionItemEntityProductEntityDto)
 product?: AddSavedCollectionItemEntityProductEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'PostEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddSavedCollectionItemEntityPostEntityDto)
 post?: AddSavedCollectionItemEntityPostEntityDto| null;

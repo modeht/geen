@@ -18,11 +18,13 @@ export class AddCommentEntityDto {
 content: string;
 
 @IsOptional()
+@Relation({entity:'UserEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddCommentEntityUserEntityDto)
 commentor?: AddCommentEntityUserEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'PostEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddCommentEntityPostEntityDto)
 post?: AddCommentEntityPostEntityDto| null;
@@ -32,12 +34,14 @@ level: number;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'NotificationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddCommentEntityNotificationEntityDto)
 notifications?: AddCommentEntityNotificationEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddCommentEntityMessageEntityDto)
 messages?: AddCommentEntityMessageEntityDto[] | null;

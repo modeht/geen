@@ -221,7 +221,6 @@ export class AddDtoCreator {
 					this.validationsImports.add('IsBoolean');
 				} else {
 					fieldPrimitive = false;
-					//get the import no matter what or ignore field?
 				}
 			}
 
@@ -350,7 +349,13 @@ export class AddDtoCreator {
 									);
 									break;
 								case 'OneToMany':
+									validations.push(`@Relation({entity:'${entityName}',type:'hasMany'})`);
+									break;
 								case 'ManyToOne':
+									validations.push(
+										`@Relation({entity:'${entityName}',type:'belongsToOne'})`
+									);
+									break;
 								case 'ManyToMany':
 							}
 							//add proper validations of nested class

@@ -57,8 +57,8 @@ export class CategoryEntity {
 	@JoinColumn({ name: 'superCategoryId' })
 	superCategory: CategoryEntity;
 
-	@Column({ nullable: true })
-	superCategoryId: number | null;
+	// @Column({ nullable: true })
+	// superCategoryId: number | null;
 
 	@OneToMany(() => ProductEntity, (product) => product.category, {
 		nullable: true,

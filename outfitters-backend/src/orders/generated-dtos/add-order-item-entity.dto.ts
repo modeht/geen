@@ -37,21 +37,25 @@ totalSalePrice?: number | null;
 totalPurchasePrice?: number | null;
 
 @IsOptional()
+@Relation({entity:'BrandOrderEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddOrderItemEntityBrandOrderEntityDto)
 brandOrder?: AddOrderItemEntityBrandOrderEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'ProductVariantEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddOrderItemEntityProductVariantEntityDto)
 variant?: AddOrderItemEntityProductVariantEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'ProductEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddOrderItemEntityProductEntityDto)
 product?: AddOrderItemEntityProductEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'PromoCodeEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddOrderItemEntityPromoCodeEntityDto)
 appliedPromoCode?: AddOrderItemEntityPromoCodeEntityDto| null;

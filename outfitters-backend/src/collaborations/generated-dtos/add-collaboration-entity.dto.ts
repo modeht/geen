@@ -23,11 +23,13 @@ export class AddCollaborationEntityDto {
 message?: AddCollaborationEntityMessageEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'BrandProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddCollaborationEntityBrandProfileEntityDto)
 brandProfile?: AddCollaborationEntityBrandProfileEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'ShopperProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddCollaborationEntityShopperProfileEntityDto)
 shopperProfile?: AddCollaborationEntityShopperProfileEntityDto| null;
@@ -37,6 +39,7 @@ status: CollaborationStatusEnum;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'NotificationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddCollaborationEntityNotificationEntityDto)
 notifications?: AddCollaborationEntityNotificationEntityDto[] | null;

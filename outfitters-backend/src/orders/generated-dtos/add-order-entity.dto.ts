@@ -46,16 +46,19 @@ totalShippingFees?: number | null;
 cart?: AddOrderEntityCartEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'BrandOrderEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddOrderEntityBrandOrderEntityDto)
 brandOrders?: AddOrderEntityBrandOrderEntityDto[]| null;
 
 @IsOptional()
+@Relation({entity:'ShippingAddressEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddOrderEntityShippingAddressEntityDto)
 shippingAddress?: AddOrderEntityShippingAddressEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'ShopperProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddOrderEntityShopperProfileEntityDto)
 shopperProfile?: AddOrderEntityShopperProfileEntityDto| null;

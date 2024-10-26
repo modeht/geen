@@ -72,12 +72,14 @@ user?: AddShopperProfileEntityUserEntityDto| null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'ProductReviewEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddShopperProfileEntityProductReviewEntityDto)
 reviews?: AddShopperProfileEntityProductReviewEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'ShippingAddressEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddShopperProfileEntityShippingAddressEntityDto)
 addresses?: AddShopperProfileEntityShippingAddressEntityDto[] | null;
@@ -91,12 +93,14 @@ profilePicture?: AddShopperProfileEntityMediaEntityDto | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'CartEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddShopperProfileEntityCartEntityDto)
 carts?: AddShopperProfileEntityCartEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'OrderEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddShopperProfileEntityOrderEntityDto)
 orders?: AddShopperProfileEntityOrderEntityDto[] | null;
@@ -109,18 +113,21 @@ preferences?: AddShopperProfileEntityPreferenceEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'CollaborationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddShopperProfileEntityCollaborationEntityDto)
 collaborations?: AddShopperProfileEntityCollaborationEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'AffiliationLinkEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddShopperProfileEntityAffiliationLinkEntityDto)
 affiliationLinks?: AddShopperProfileEntityAffiliationLinkEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'PromoCodeEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddShopperProfileEntityPromoCodeEntityDto)
 promoCodes?: AddShopperProfileEntityPromoCodeEntityDto[] | null;

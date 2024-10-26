@@ -11,11 +11,13 @@ import { AffiliationLinkEntity } from '../entities/affiliation-link.entity'
 
 export class AddAffiliationLinkTrackingEntityDto {
 @IsOptional()
+@Relation({entity:'AffiliationLinkEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddAffiliationLinkTrackingEntityAffiliationLinkEntityDto)
 affiliationLink?: AddAffiliationLinkTrackingEntityAffiliationLinkEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'UserEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddAffiliationLinkTrackingEntityUserEntityDto)
 user?: AddAffiliationLinkTrackingEntityUserEntityDto| null;

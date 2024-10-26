@@ -81,30 +81,35 @@ cover?: AddBrandProfileEntityMediaEntityDto | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'CollectionEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddBrandProfileEntityCollectionEntityDto)
 collections?: AddBrandProfileEntityCollectionEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'ProductEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddBrandProfileEntityProductEntityDto)
 products?: AddBrandProfileEntityProductEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'PromotionEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddBrandProfileEntityPromotionEntityDto)
 promotions?: AddBrandProfileEntityPromotionEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'PromoCodeEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddBrandProfileEntityPromoCodeEntityDto)
 promoCodes?: AddBrandProfileEntityPromoCodeEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'BrandOrderEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddBrandProfileEntityBrandOrderEntityDto)
 brandOrders?: AddBrandProfileEntityBrandOrderEntityDto[] | null;
@@ -117,6 +122,7 @@ preferences?: AddBrandProfileEntityPreferenceEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'CollaborationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddBrandProfileEntityCollaborationEntityDto)
 collaborations?: AddBrandProfileEntityCollaborationEntityDto[] | null;

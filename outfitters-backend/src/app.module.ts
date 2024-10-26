@@ -40,6 +40,7 @@ import { SearchModule } from './search/search.module';
 import { StoriesModule } from './stories/stories.module';
 import { UiModule } from './ui/ui.module';
 import { UsersModule } from './users/users.module';
+import { GlobalModule } from './globals/global.module';
 @Module({
 	imports: [
 		I18nModule.forRoot({
@@ -76,6 +77,7 @@ import { UsersModule } from './users/users.module';
 		}),
 		DbModule,
 		UsersModule,
+		GlobalModule,
 		AuthModule,
 		MediaModule,
 		UiModule,

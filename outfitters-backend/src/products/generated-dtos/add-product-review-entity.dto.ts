@@ -14,6 +14,7 @@ import { ProductEntity } from '../entities/product.entity'
 export class AddProductReviewEntityDto {
 @IsOptional()
 @IsOptional()
+@Relation({entity:'ShopperProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddProductReviewEntityShopperProfileEntityDto)
 shopperProfile?: AddProductReviewEntityShopperProfileEntityDto | null;
@@ -28,12 +29,14 @@ comment?: string | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'MediaEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddProductReviewEntityMediaEntityDto)
 media?: AddProductReviewEntityMediaEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'ProductEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddProductReviewEntityProductEntityDto)
 product?: AddProductReviewEntityProductEntityDto | null;

@@ -33,11 +33,13 @@ media?: AddStoryEntityMediaEntityDto | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'TaggedProductEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddStoryEntityTaggedProductEntityDto)
 taggedProducts?: AddStoryEntityTaggedProductEntityDto[] | null;
 
 @IsOptional()
+@Relation({entity:'UserEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddStoryEntityUserEntityDto)
 postedBy?: AddStoryEntityUserEntityDto| null;
@@ -50,12 +52,14 @@ taggedUsers?: AddStoryEntityUserEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'StoryLikesEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddStoryEntityStoryLikesEntityDto)
 likedByUsers?: AddStoryEntityStoryLikesEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddStoryEntityMessageEntityDto)
 shares?: AddStoryEntityMessageEntityDto[] | null;

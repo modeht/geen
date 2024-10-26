@@ -16,24 +16,28 @@ import { ProductEntity } from '../entities/product.entity'
 export class AddTaggedProductEntityDto {
 @IsOptional()
 @IsOptional()
+@Relation({entity:'ProductEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddTaggedProductEntityProductEntityDto)
 product?: AddTaggedProductEntityProductEntityDto | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'PostEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddTaggedProductEntityPostEntityDto)
 post?: AddTaggedProductEntityPostEntityDto | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'StoryEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddTaggedProductEntityStoryEntityDto)
 story?: AddTaggedProductEntityStoryEntityDto | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'AffiliationLinkEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddTaggedProductEntityAffiliationLinkEntityDto)
 affiliationLink?: AddTaggedProductEntityAffiliationLinkEntityDto | null;

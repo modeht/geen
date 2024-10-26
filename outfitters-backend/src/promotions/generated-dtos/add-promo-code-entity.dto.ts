@@ -57,21 +57,25 @@ type: PromotionTypeEnum;
 status: PromotionStatusEnum;
 
 @IsOptional()
+@Relation({entity:'CartEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddPromoCodeEntityCartEntityDto)
 carts?: AddPromoCodeEntityCartEntityDto[]| null;
 
 @IsOptional()
+@Relation({entity:'OrderItemEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddPromoCodeEntityOrderItemEntityDto)
 orderItems?: AddPromoCodeEntityOrderItemEntityDto[]| null;
 
 @IsOptional()
+@Relation({entity:'BrandProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddPromoCodeEntityBrandProfileEntityDto)
 brand?: AddPromoCodeEntityBrandProfileEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'ShopperProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddPromoCodeEntityShopperProfileEntityDto)
 shopperProfile?: AddPromoCodeEntityShopperProfileEntityDto| null;

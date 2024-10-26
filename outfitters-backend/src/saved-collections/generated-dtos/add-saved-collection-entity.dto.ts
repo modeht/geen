@@ -15,11 +15,13 @@ export class AddSavedCollectionEntityDto {
 name?: string | null;
 
 @IsOptional()
+@Relation({entity:'SavedCollectionItemEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddSavedCollectionEntitySavedCollectionItemEntityDto)
 items?: AddSavedCollectionEntitySavedCollectionItemEntityDto[]| null;
 
 @IsOptional()
+@Relation({entity:'UserEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddSavedCollectionEntityUserEntityDto)
 user?: AddSavedCollectionEntityUserEntityDto| null;

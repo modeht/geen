@@ -27,26 +27,31 @@ customContent: string;
 isRead: boolean;
 
 @IsOptional()
+@Relation({entity:'UserEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddNotificationEntityUserEntityDto)
 user?: AddNotificationEntityUserEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'CollaborationEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddNotificationEntityCollaborationEntityDto)
 collaboration?: AddNotificationEntityCollaborationEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'CommentEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddNotificationEntityCommentEntityDto)
 comment?: AddNotificationEntityCommentEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'PromotionEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddNotificationEntityPromotionEntityDto)
 promotion?: AddNotificationEntityPromotionEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'ProductEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddNotificationEntityProductEntityDto)
 product?: AddNotificationEntityProductEntityDto| null;

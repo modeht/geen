@@ -4,10 +4,20 @@ import { MediaEntity } from '../media/entities/media.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CategoryEntity } from './entities/category.entity';
+import { AddCategoryEntityDto } from './generated-dtos/add-category-entity.dto';
+import { AbstractService } from '../globals/services/abstract-service';
 
 @Injectable()
 export class CategoriesService {
-	constructor(private datasource: DataSource) {}
+	constructor(
+		private datasource: DataSource,
+		private service: AbstractService,
+	) {}
+
+	async testCreate(body: AddCategoryEntityDto) {
+		const d = await this.service.create(CategoryEntity, AddCategoryEntityDto, body);
+		return d;
+	}
 
 	async create(createCategoryDto: CreateCategoryDto) {
 		const category = new CategoryEntity();
@@ -18,7 +28,7 @@ export class CategoriesService {
 		}
 
 		if (createCategoryDto.superCategoryId) {
-			category.superCategoryId = createCategoryDto.superCategoryId;
+			// category.superCategoryId = createCategoryDto.superCategoryId;
 		} else if (createCategoryDto.subCategories) {
 			category.subCategories = createCategoryDto.subCategories.map(
 				(name) =>
@@ -56,7 +66,7 @@ export class CategoriesService {
 	async update(id: number, updateCategoryDto: UpdateCategoryDto) {
 		const category = await this.findOne({ where: { id } });
 		category.name = updateCategoryDto.name;
-		category.superCategoryId = updateCategoryDto.superCategoryId;
+		// category.superCategoryId = updateCategoryDto.superCategoryId;
 		if (updateCategoryDto.mediaId) {
 			category.media = { id: updateCategoryDto.mediaId } as MediaEntity;
 		}

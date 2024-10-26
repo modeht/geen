@@ -25,16 +25,19 @@ status: CartStatus;
 order?: AddCartEntityOrderEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'CartItemsEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddCartEntityCartItemsEntityDto)
 items?: AddCartEntityCartItemsEntityDto[]| null;
 
 @IsOptional()
+@Relation({entity:'ShopperProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddCartEntityShopperProfileEntityDto)
 shopperProfile?: AddCartEntityShopperProfileEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'PromoCodeEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddCartEntityPromoCodeEntityDto)
 promoCode?: AddCartEntityPromoCodeEntityDto| null;

@@ -20,6 +20,7 @@ optionName: string;
 productId: number;
 
 @IsOptional()
+@Relation({entity:'ProductOptionEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddProductOptionValueEntityProductOptionEntityDto)
 option?: AddProductOptionValueEntityProductOptionEntityDto| null;

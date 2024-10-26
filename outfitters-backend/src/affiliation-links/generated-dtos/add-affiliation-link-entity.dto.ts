@@ -24,28 +24,33 @@ url: string;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'TaggedProductEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddAffiliationLinkEntityTaggedProductEntityDto)
 taggedProducts?: AddAffiliationLinkEntityTaggedProductEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'CartItemsEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddAffiliationLinkEntityCartItemsEntityDto)
 cartItems?: AddAffiliationLinkEntityCartItemsEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'AffiliationLinkTrackingEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddAffiliationLinkEntityAffiliationLinkTrackingEntityDto)
 affiliationLinkTracking?: AddAffiliationLinkEntityAffiliationLinkTrackingEntityDto[] | null;
 
 @IsOptional()
+@Relation({entity:'ShopperProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddAffiliationLinkEntityShopperProfileEntityDto)
 shopperProfile?: AddAffiliationLinkEntityShopperProfileEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'ProductEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddAffiliationLinkEntityProductEntityDto)
 product?: AddAffiliationLinkEntityProductEntityDto| null;

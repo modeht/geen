@@ -49,11 +49,13 @@ longitude: string;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'OrderEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddShippingAddressEntityOrderEntityDto)
 orders?: AddShippingAddressEntityOrderEntityDto[] | null;
 
 @IsOptional()
+@Relation({entity:'ShopperProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddShippingAddressEntityShopperProfileEntityDto)
 shopperProfile?: AddShippingAddressEntityShopperProfileEntityDto| null;

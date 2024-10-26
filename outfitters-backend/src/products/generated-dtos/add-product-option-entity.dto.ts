@@ -17,11 +17,13 @@ name: string;
 productId: number;
 
 @IsOptional()
+@Relation({entity:'ProductEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddProductOptionEntityProductEntityDto)
 product?: AddProductOptionEntityProductEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'ProductOptionValueEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddProductOptionEntityProductOptionValueEntityDto)
 values?: AddProductOptionEntityProductOptionValueEntityDto[]| null;

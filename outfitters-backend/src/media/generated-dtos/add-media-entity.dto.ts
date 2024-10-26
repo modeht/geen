@@ -84,29 +84,34 @@ export class AddMediaEntityDto {
 
 	@IsOptional()
 	@IsOptional()
+	@Relation({ entity: 'ProductEntity', type: 'belongsToOne' })
 	@ValidateNested()
 	@Type(() => AddMediaEntityProductEntityDto)
 	product?: AddMediaEntityProductEntityDto | null;
 
 	@IsOptional()
 	@IsOptional()
+	@Relation({ entity: 'ProductVariantEntity', type: 'belongsToOne' })
 	@ValidateNested()
 	@Type(() => AddMediaEntityProductVariantEntityDto)
 	productVariant?: AddMediaEntityProductVariantEntityDto | null;
 
 	@IsOptional()
 	@IsOptional()
+	@Relation({ entity: 'MessageEntity', type: 'belongsToOne' })
 	@ValidateNested()
 	@Type(() => AddMediaEntityMessageEntityDto)
 	message?: AddMediaEntityMessageEntityDto | null;
 
 	@IsOptional()
 	@IsOptional()
+	@Relation({ entity: 'PostEntity', type: 'belongsToOne' })
 	@ValidateNested()
 	@Type(() => AddMediaEntityPostEntityDto)
 	post?: AddMediaEntityPostEntityDto | null;
 
 	@IsOptional()
+	@Relation({ entity: 'ProductReviewEntity', type: 'belongsToOne' })
 	@ValidateNested()
 	@Type(() => AddMediaEntityProductReviewEntityDto)
 	review?: AddMediaEntityProductReviewEntityDto | null;

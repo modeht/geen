@@ -25,6 +25,7 @@ export class AddPostEntityDto {
 caption?: string | null;
 
 @IsOptional()
+@Relation({entity:'MediaEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddPostEntityMediaEntityDto)
 media?: AddPostEntityMediaEntityDto[] | null;
@@ -38,11 +39,13 @@ thumbnail?: AddPostEntityMediaEntityDto | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'TaggedProductEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddPostEntityTaggedProductEntityDto)
 taggedProducts?: AddPostEntityTaggedProductEntityDto[] | null;
 
 @IsOptional()
+@Relation({entity:'UserEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddPostEntityUserEntityDto)
 postedBy?: AddPostEntityUserEntityDto| null;
@@ -58,24 +61,28 @@ taggedUsers?: AddPostEntityUserEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'PostLikesEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddPostEntityPostLikesEntityDto)
 likedByUsers?: AddPostEntityPostLikesEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'CommentEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddPostEntityCommentEntityDto)
 comments?: AddPostEntityCommentEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddPostEntityMessageEntityDto)
 shares?: AddPostEntityMessageEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'SavedCollectionItemEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddPostEntitySavedCollectionItemEntityDto)
 savedInCollections?: AddPostEntitySavedCollectionItemEntityDto[] | null;

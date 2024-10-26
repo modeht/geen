@@ -14,17 +14,20 @@ export class AddConversationEntityDto {
 isSupport: boolean;
 
 @IsOptional()
+@Relation({entity:'UserEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddConversationEntityUserEntityDto)
 from?: AddConversationEntityUserEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'UserEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddConversationEntityUserEntityDto)
 to?: AddConversationEntityUserEntityDto| null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddConversationEntityMessageEntityDto)
 messages?: AddConversationEntityMessageEntityDto[] | null;

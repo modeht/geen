@@ -20,22 +20,26 @@ export class AddCartItemsEntityDto {
 quantity?: number | null;
 
 @IsOptional()
+@Relation({entity:'CartEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddCartItemsEntityCartEntityDto)
 cart?: AddCartItemsEntityCartEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'ProductEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddCartItemsEntityProductEntityDto)
 product?: AddCartItemsEntityProductEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'ProductVariantEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddCartItemsEntityProductVariantEntityDto)
 variant?: AddCartItemsEntityProductVariantEntityDto| null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'AffiliationLinkEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddCartItemsEntityAffiliationLinkEntityDto)
 affiliationLink?: AddCartItemsEntityAffiliationLinkEntityDto | null;

@@ -11,11 +11,13 @@ import { PostEntity } from '../entities/post.entity'
 
 export class AddPostLikesEntityDto {
 @IsOptional()
+@Relation({entity:'UserEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddPostLikesEntityUserEntityDto)
 user?: AddPostLikesEntityUserEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'PostEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddPostLikesEntityPostEntityDto)
 post?: AddPostLikesEntityPostEntityDto| null;

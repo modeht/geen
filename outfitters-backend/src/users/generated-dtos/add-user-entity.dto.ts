@@ -89,75 +89,88 @@ brandProfile?: AddUserEntityBrandProfileEntityDto | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'CommentEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddUserEntityCommentEntityDto)
 comments?: AddUserEntityCommentEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'AffiliationLinkTrackingEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddUserEntityAffiliationLinkTrackingEntityDto)
 affiliationLinkTracking?: AddUserEntityAffiliationLinkTrackingEntityDto[] | null;
 
 @IsOptional()
+@Relation({entity:'NotificationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddUserEntityNotificationEntityDto)
 notifications?: AddUserEntityNotificationEntityDto[]| null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'ConversationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddUserEntityConversationEntityDto)
 initiatedConversations?: AddUserEntityConversationEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'ConversationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddUserEntityConversationEntityDto)
 receivedConversations?: AddUserEntityConversationEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddUserEntityMessageEntityDto)
 sentMessages?: AddUserEntityMessageEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddUserEntityMessageEntityDto)
 receivedMessages?: AddUserEntityMessageEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'PostEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddUserEntityPostEntityDto)
 posts?: AddUserEntityPostEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'StoryEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddUserEntityStoryEntityDto)
 stories?: AddUserEntityStoryEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'SavedCollectionEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddUserEntitySavedCollectionEntityDto)
 savedCollections?: AddUserEntitySavedCollectionEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
+@Relation({entity:'RecentSearchesEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @Type(() => AddUserEntityRecentSearchesEntityDto)
 recentSearches?: AddUserEntityRecentSearchesEntityDto[] | null;
 
 @IsOptional()
+@Relation({entity:'PostLikesEntity',type:'hasMany'})
 @ValidateNested()
 @Type(() => AddUserEntityPostLikesEntityDto)
 likedPosts?: AddUserEntityPostLikesEntityDto| null;
 
 @IsOptional()
+@Relation({entity:'StoryLikesEntity',type:'hasMany'})
 @ValidateNested()
 @Type(() => AddUserEntityStoryLikesEntityDto)
 likedStories?: AddUserEntityStoryLikesEntityDto| null;

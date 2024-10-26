@@ -1,8 +1,9 @@
 import { plainToInstance } from 'class-transformer';
-import { ClassRef } from './media.service';
 import { DataSource } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { log } from 'console';
+import { dir, log } from 'console';
+import { RelationDecoratorParams } from '../decorators/relation.decorator';
+export type ClassRef<T> = { new (...args: any[]): T };
 
 @Injectable()
 export class AbstractService {
@@ -18,9 +19,16 @@ export class AbstractService {
 		for (const key in bodyInstance) {
 			let val = bodyInstance[key] as any;
 			if (!val) continue;
-			const relation = Reflect.getMetadata('relation', bodyInstance, key);
+			const relation = Reflect.getMetadata(
+				'relation',
+				bodyInstance,
+				key,
+			) as RelationDecoratorParams;
 			if (relation) {
 				if (relation.type === 'hasOne' || relation.type === 'belongsToOne') {
+					val = await this.datasource.manager.save(relation.entity, val);
+				} else if (relation.type === 'hasMany') {
+					dir(val, { depth: null });
 					val = await this.datasource.manager.save(relation.entity, val);
 				}
 			}
