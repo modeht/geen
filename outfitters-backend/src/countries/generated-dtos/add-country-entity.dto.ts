@@ -1,5 +1,5 @@
 import { ApiHideProperty } from '@nestjs/swagger';
-import { IsString, IsBoolean, IsOptional, ValidateNested, IsNumber } from "class-validator";
+import { IsString, IsBoolean, IsOptional, ValidateNested, IsArray, IsNumber } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -31,6 +31,7 @@ icon?: AddCountryEntityMediaEntityDto| null;
 
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddCountryEntityBrandProfileEntityDto)
 brands?: AddCountryEntityBrandProfileEntityDto[]| null;
 

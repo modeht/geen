@@ -1,4 +1,4 @@
-import { IsDate, IsString, IsNumber, IsOptional, IsEnum, ValidateNested } from "class-validator";
+import { IsDate, IsString, IsNumber, IsOptional, IsEnum, IsArray, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -59,12 +59,14 @@ status: PromotionStatusEnum;
 @IsOptional()
 @Relation({entity:'CartEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPromoCodeEntityCartEntityDto)
 carts?: AddPromoCodeEntityCartEntityDto[]| null;
 
 @IsOptional()
 @Relation({entity:'OrderItemEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPromoCodeEntityOrderItemEntityDto)
 orderItems?: AddPromoCodeEntityOrderItemEntityDto[]| null;
 
@@ -82,6 +84,7 @@ shopperProfile?: AddPromoCodeEntityShopperProfileEntityDto| null;
 
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPromoCodeEntityProductEntityDto)
 products?: AddPromoCodeEntityProductEntityDto[]| null;
 

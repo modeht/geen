@@ -1,5 +1,5 @@
 import { ProductEntity } from 'src/products/entities/product.entity';
-import { IsString, IsOptional, IsBoolean, IsNumber, ValidateNested } from "class-validator";
+import { IsString, IsOptional, IsBoolean, IsNumber, ValidateNested, IsArray } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -83,6 +83,7 @@ cover?: AddBrandProfileEntityMediaEntityDto | null;
 @IsOptional()
 @Relation({entity:'CollectionEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddBrandProfileEntityCollectionEntityDto)
 collections?: AddBrandProfileEntityCollectionEntityDto[] | null;
 
@@ -90,6 +91,7 @@ collections?: AddBrandProfileEntityCollectionEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'ProductEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddBrandProfileEntityProductEntityDto)
 products?: AddBrandProfileEntityProductEntityDto[] | null;
 
@@ -97,6 +99,7 @@ products?: AddBrandProfileEntityProductEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'PromotionEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddBrandProfileEntityPromotionEntityDto)
 promotions?: AddBrandProfileEntityPromotionEntityDto[] | null;
 
@@ -104,6 +107,7 @@ promotions?: AddBrandProfileEntityPromotionEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'PromoCodeEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddBrandProfileEntityPromoCodeEntityDto)
 promoCodes?: AddBrandProfileEntityPromoCodeEntityDto[] | null;
 
@@ -111,12 +115,14 @@ promoCodes?: AddBrandProfileEntityPromoCodeEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'BrandOrderEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddBrandProfileEntityBrandOrderEntityDto)
 brandOrders?: AddBrandProfileEntityBrandOrderEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddBrandProfileEntityPreferenceEntityDto)
 preferences?: AddBrandProfileEntityPreferenceEntityDto[] | null;
 
@@ -124,24 +130,28 @@ preferences?: AddBrandProfileEntityPreferenceEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'CollaborationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddBrandProfileEntityCollaborationEntityDto)
 collaborations?: AddBrandProfileEntityCollaborationEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddBrandProfileEntityCategoryEntityDto)
 categories?: AddBrandProfileEntityCategoryEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddBrandProfileEntityCategoryEntityDto)
 subCategories?: AddBrandProfileEntityCategoryEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddBrandProfileEntityCountryEntityDto)
 countries?: AddBrandProfileEntityCountryEntityDto[] | null;
 

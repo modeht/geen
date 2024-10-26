@@ -1,6 +1,6 @@
 import { NotificationEntity } from 'src/notifications/entities/notification.entity';
 import { BrandProfileEntity } from 'src/users/entities/brand-profile.entity';
-import { IsString, IsEnum, IsNumber, IsOptional, IsDate, ValidateNested, IsBoolean } from "class-validator";
+import { IsString, IsEnum, IsNumber, IsOptional, IsDate, IsArray, ValidateNested, IsBoolean } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -48,6 +48,7 @@ status: PromotionStatusEnum;
 @IsOptional()
 @Relation({entity:'NotificationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPromotionEntityNotificationEntityDto)
 notifications?: AddPromotionEntityNotificationEntityDto[] | null;
 
@@ -65,12 +66,14 @@ seasonalPromotion?: AddPromotionEntitySeasonalPromotionEntityDto| null;
 
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPromotionEntityProductEntityDto)
 products?: AddPromotionEntityProductEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPromotionEntityOrderItemEntityDto)
 orderItems?: AddPromotionEntityOrderItemEntityDto[] | null;
 

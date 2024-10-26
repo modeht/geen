@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, ValidateNested } from "class-validator";
+import { IsNumber, IsOptional, ValidateNested, IsArray } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -62,6 +62,7 @@ appliedPromoCode?: AddOrderItemEntityPromoCodeEntityDto| null;
 
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddOrderItemEntityPromotionEntityDto)
 appliedPromotions?: AddOrderItemEntityPromotionEntityDto[]| null;
 

@@ -1,4 +1,4 @@
-import { IsDate, IsBoolean, IsString, IsOptional, ValidateNested, IsNumber } from "class-validator";
+import { IsDate, IsBoolean, IsString, IsOptional, IsArray, ValidateNested, IsNumber } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -51,6 +51,7 @@ longitude: string;
 @IsOptional()
 @Relation({entity:'OrderEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddShippingAddressEntityOrderEntityDto)
 orders?: AddShippingAddressEntityOrderEntityDto[] | null;
 

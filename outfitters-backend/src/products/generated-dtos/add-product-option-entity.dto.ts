@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsOptional, ValidateNested } from "class-validator";
+import { IsString, IsNumber, IsOptional, ValidateNested, IsArray } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -25,6 +25,7 @@ product?: AddProductOptionEntityProductEntityDto| null;
 @IsOptional()
 @Relation({entity:'ProductOptionValueEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductOptionEntityProductOptionValueEntityDto)
 values?: AddProductOptionEntityProductOptionValueEntityDto[]| null;
 }

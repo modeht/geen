@@ -2,7 +2,7 @@ import { AffiliationLinkEntity } from 'src/affiliation-links/entities/affiliatio
 import { CategoryEntity } from 'src/categories/entities/category.entity';
 import { NotificationEntity } from 'src/notifications/entities/notification.entity';
 import { BrandProfileEntity } from 'src/users/entities/brand-profile.entity';
-import { IsBoolean, IsString, IsOptional, IsNumber, IsDate, ValidateNested } from "class-validator";
+import { IsBoolean, IsString, IsOptional, IsNumber, IsDate, IsArray, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -82,6 +82,7 @@ deliveryEstimationInDays: number;
 @IsOptional()
 @Relation({entity:'MediaEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntityMediaEntityDto)
 media?: AddProductEntityMediaEntityDto[] | null;
 
@@ -89,12 +90,14 @@ media?: AddProductEntityMediaEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'ProductVariantEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntityProductVariantEntityDto)
 variants?: AddProductEntityProductVariantEntityDto[] | null;
 
 @IsOptional()
 @Relation({entity:'ProductOptionEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntityProductOptionEntityDto)
 options?: AddProductEntityProductOptionEntityDto[]| null;
 
@@ -102,6 +105,7 @@ options?: AddProductEntityProductOptionEntityDto[]| null;
 @IsOptional()
 @Relation({entity:'ProductReviewEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntityProductReviewEntityDto)
 ratings?: AddProductEntityProductReviewEntityDto[] | null;
 
@@ -109,6 +113,7 @@ ratings?: AddProductEntityProductReviewEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'TaggedProductEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntityTaggedProductEntityDto)
 taggedIn?: AddProductEntityTaggedProductEntityDto[] | null;
 
@@ -116,6 +121,7 @@ taggedIn?: AddProductEntityTaggedProductEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'AffiliationLinkEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntityAffiliationLinkEntityDto)
 affiliationLinks?: AddProductEntityAffiliationLinkEntityDto[] | null;
 
@@ -123,18 +129,21 @@ affiliationLinks?: AddProductEntityAffiliationLinkEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'NotificationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntityNotificationEntityDto)
 notifications?: AddProductEntityNotificationEntityDto[] | null;
 
 @IsOptional()
 @Relation({entity:'OrderItemEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntityOrderItemEntityDto)
 orderItems?: AddProductEntityOrderItemEntityDto[]| null;
 
 @IsOptional()
 @Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntityMessageEntityDto)
 messages?: AddProductEntityMessageEntityDto[]| null;
 
@@ -162,30 +171,35 @@ subCategory?: AddProductEntityCategoryEntityDto | null;
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntityCollectionEntityDto)
 collections?: AddProductEntityCollectionEntityDto[] | null;
 
 @IsOptional()
 @Relation({entity:'CartItemsEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntityCartItemsEntityDto)
 carts?: AddProductEntityCartItemsEntityDto[]| null;
 
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntityPromotionEntityDto)
 promotions?: AddProductEntityPromotionEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntityPromoCodeEntityDto)
 promoCodes?: AddProductEntityPromoCodeEntityDto[] | null;
 
 @IsOptional()
 @Relation({entity:'SavedCollectionItemEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductEntitySavedCollectionItemEntityDto)
 savedInCollections?: AddProductEntitySavedCollectionItemEntityDto[]| null;
 

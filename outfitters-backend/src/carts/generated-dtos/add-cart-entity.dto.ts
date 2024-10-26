@@ -1,4 +1,4 @@
-import { IsEnum, IsOptional, ValidateNested, IsNumber } from "class-validator";
+import { IsEnum, IsOptional, ValidateNested, IsArray, IsNumber } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -27,6 +27,7 @@ order?: AddCartEntityOrderEntityDto| null;
 @IsOptional()
 @Relation({entity:'CartItemsEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddCartEntityCartItemsEntityDto)
 items?: AddCartEntityCartItemsEntityDto[]| null;
 

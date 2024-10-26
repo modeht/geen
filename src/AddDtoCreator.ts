@@ -99,9 +99,6 @@ export class AddDtoCreator {
 			ogFileDirPath.split(sep).join('/').replaceAll('.ts', '')
 		);
 
-		if (dtoTemplate.includes('<<pathToOriginal>>')) {
-			log(ogFileDirPath);
-		}
 		await writeFile(dtoFilePath, dtoTemplate);
 		return { dtoFilePath, className: this.className, entityName: this.entityName };
 	}

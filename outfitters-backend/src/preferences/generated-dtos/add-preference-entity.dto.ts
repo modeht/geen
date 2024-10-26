@@ -1,4 +1,4 @@
-import { IsOptional, ValidateNested, IsString, IsNumber } from "class-validator";
+import { IsOptional, ValidateNested, IsString, IsArray, IsNumber } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -26,12 +26,14 @@ name?: string | null;
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPreferenceEntityBrandProfileEntityDto)
 brandProfile?: AddPreferenceEntityBrandProfileEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPreferenceEntityShopperProfileEntityDto)
 shopperProfile?: AddPreferenceEntityShopperProfileEntityDto[] | null;
 

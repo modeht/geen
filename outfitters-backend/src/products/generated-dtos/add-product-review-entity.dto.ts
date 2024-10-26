@@ -1,4 +1,4 @@
-import { IsOptional, ValidateNested, IsNumber, IsString } from "class-validator";
+import { IsOptional, ValidateNested, IsNumber, IsString, IsArray } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -31,6 +31,7 @@ comment?: string | null;
 @IsOptional()
 @Relation({entity:'MediaEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductReviewEntityMediaEntityDto)
 media?: AddProductReviewEntityMediaEntityDto[] | null;
 

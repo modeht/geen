@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsDate, IsEnum, IsNumber, IsBoolean, ValidateNested } from "class-validator";
+import { IsString, IsOptional, IsDate, IsEnum, IsNumber, IsBoolean, ValidateNested, IsArray } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -74,6 +74,7 @@ user?: AddShopperProfileEntityUserEntityDto| null;
 @IsOptional()
 @Relation({entity:'ProductReviewEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddShopperProfileEntityProductReviewEntityDto)
 reviews?: AddShopperProfileEntityProductReviewEntityDto[] | null;
 
@@ -81,6 +82,7 @@ reviews?: AddShopperProfileEntityProductReviewEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'ShippingAddressEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddShopperProfileEntityShippingAddressEntityDto)
 addresses?: AddShopperProfileEntityShippingAddressEntityDto[] | null;
 
@@ -95,6 +97,7 @@ profilePicture?: AddShopperProfileEntityMediaEntityDto | null;
 @IsOptional()
 @Relation({entity:'CartEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddShopperProfileEntityCartEntityDto)
 carts?: AddShopperProfileEntityCartEntityDto[] | null;
 
@@ -102,12 +105,14 @@ carts?: AddShopperProfileEntityCartEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'OrderEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddShopperProfileEntityOrderEntityDto)
 orders?: AddShopperProfileEntityOrderEntityDto[] | null;
 
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddShopperProfileEntityPreferenceEntityDto)
 preferences?: AddShopperProfileEntityPreferenceEntityDto[] | null;
 
@@ -115,6 +120,7 @@ preferences?: AddShopperProfileEntityPreferenceEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'CollaborationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddShopperProfileEntityCollaborationEntityDto)
 collaborations?: AddShopperProfileEntityCollaborationEntityDto[] | null;
 
@@ -122,6 +128,7 @@ collaborations?: AddShopperProfileEntityCollaborationEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'AffiliationLinkEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddShopperProfileEntityAffiliationLinkEntityDto)
 affiliationLinks?: AddShopperProfileEntityAffiliationLinkEntityDto[] | null;
 
@@ -129,6 +136,7 @@ affiliationLinks?: AddShopperProfileEntityAffiliationLinkEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'PromoCodeEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddShopperProfileEntityPromoCodeEntityDto)
 promoCodes?: AddShopperProfileEntityPromoCodeEntityDto[] | null;
 

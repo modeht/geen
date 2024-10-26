@@ -1,5 +1,5 @@
 import { NotificationEntity } from 'src/notifications/entities/notification.entity';
-import { IsOptional, ValidateNested, IsEnum, IsNumber } from "class-validator";
+import { IsOptional, ValidateNested, IsEnum, IsArray, IsNumber } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -41,6 +41,7 @@ status: CollaborationStatusEnum;
 @IsOptional()
 @Relation({entity:'NotificationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddCollaborationEntityNotificationEntityDto)
 notifications?: AddCollaborationEntityNotificationEntityDto[] | null;
 

@@ -1,7 +1,7 @@
 import { CommentEntity } from 'src/comments/entities/comment.entity';
 import { MessageEntity } from 'src/messages/entities/message.entity';
 import { TaggedProductEntity } from 'src/products/entities/tagged-product.entity';
-import { IsString, IsOptional, ValidateNested, IsNumber, IsBoolean } from "class-validator";
+import { IsString, IsOptional, IsArray, ValidateNested, IsNumber, IsBoolean } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -27,6 +27,7 @@ caption?: string | null;
 @IsOptional()
 @Relation({entity:'MediaEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPostEntityMediaEntityDto)
 media?: AddPostEntityMediaEntityDto[] | null;
 
@@ -41,6 +42,7 @@ thumbnail?: AddPostEntityMediaEntityDto | null;
 @IsOptional()
 @Relation({entity:'TaggedProductEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPostEntityTaggedProductEntityDto)
 taggedProducts?: AddPostEntityTaggedProductEntityDto[] | null;
 
@@ -56,6 +58,7 @@ postedById: number;
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPostEntityUserEntityDto)
 taggedUsers?: AddPostEntityUserEntityDto[] | null;
 
@@ -63,6 +66,7 @@ taggedUsers?: AddPostEntityUserEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'PostLikesEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPostEntityPostLikesEntityDto)
 likedByUsers?: AddPostEntityPostLikesEntityDto[] | null;
 
@@ -70,6 +74,7 @@ likedByUsers?: AddPostEntityPostLikesEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'CommentEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPostEntityCommentEntityDto)
 comments?: AddPostEntityCommentEntityDto[] | null;
 
@@ -77,6 +82,7 @@ comments?: AddPostEntityCommentEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPostEntityMessageEntityDto)
 shares?: AddPostEntityMessageEntityDto[] | null;
 
@@ -84,6 +90,7 @@ shares?: AddPostEntityMessageEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'SavedCollectionItemEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddPostEntitySavedCollectionItemEntityDto)
 savedInCollections?: AddPostEntitySavedCollectionItemEntityDto[] | null;
 

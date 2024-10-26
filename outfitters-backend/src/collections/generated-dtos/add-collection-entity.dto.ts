@@ -1,5 +1,5 @@
 import { BrandProfileEntity } from 'src/users/entities/brand-profile.entity';
-import { IsString, IsOptional, IsBoolean, ValidateNested, IsNumber } from "class-validator";
+import { IsString, IsOptional, IsBoolean, ValidateNested, IsArray, IsNumber } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -39,6 +39,7 @@ brand?: AddCollectionEntityBrandProfileEntityDto | null;
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddCollectionEntityProductEntityDto)
 products?: AddCollectionEntityProductEntityDto[] | null;
 

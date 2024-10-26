@@ -1,6 +1,6 @@
 import { ProductEntity } from 'src/products/entities/product.entity';
 import { TaggedProductEntity } from 'src/products/entities/tagged-product.entity';
-import { IsBoolean, IsString, IsOptional, ValidateNested, IsNumber } from "class-validator";
+import { IsBoolean, IsString, IsOptional, IsArray, ValidateNested, IsNumber } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -26,6 +26,7 @@ url: string;
 @IsOptional()
 @Relation({entity:'TaggedProductEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddAffiliationLinkEntityTaggedProductEntityDto)
 taggedProducts?: AddAffiliationLinkEntityTaggedProductEntityDto[] | null;
 
@@ -33,6 +34,7 @@ taggedProducts?: AddAffiliationLinkEntityTaggedProductEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'CartItemsEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddAffiliationLinkEntityCartItemsEntityDto)
 cartItems?: AddAffiliationLinkEntityCartItemsEntityDto[] | null;
 
@@ -40,6 +42,7 @@ cartItems?: AddAffiliationLinkEntityCartItemsEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'AffiliationLinkTrackingEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddAffiliationLinkEntityAffiliationLinkTrackingEntityDto)
 affiliationLinkTracking?: AddAffiliationLinkEntityAffiliationLinkTrackingEntityDto[] | null;
 

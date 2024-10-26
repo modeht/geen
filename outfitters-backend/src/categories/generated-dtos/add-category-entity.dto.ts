@@ -4,6 +4,7 @@ import {
 	IsBoolean,
 	IsOptional,
 	ValidateNested,
+	IsArray,
 	IsNumber,
 } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -35,6 +36,7 @@ export class AddCategoryEntityDto {
 	@IsOptional()
 	@Relation({ entity: 'CategoryEntity', type: 'hasMany' })
 	@ValidateNested({ each: true })
+	@IsArray()
 	@Type(() => AddCategoryEntityCategoryEntityDto)
 	subCategories?: AddCategoryEntityCategoryEntityDto[] | null;
 
@@ -52,21 +54,25 @@ export class AddCategoryEntityDto {
 	@IsOptional()
 	@Relation({ entity: 'ProductEntity', type: 'hasMany' })
 	@ValidateNested({ each: true })
+	@IsArray()
 	@Type(() => AddCategoryEntityProductEntityDto)
 	products?: AddCategoryEntityProductEntityDto[] | null;
 
 	@IsOptional()
 	@ValidateNested({ each: true })
+	@IsArray()
 	@Type(() => AddCategoryEntityBrandProfileEntityDto)
 	categorybrandProfiles?: AddCategoryEntityBrandProfileEntityDto[] | null;
 
 	@IsOptional()
 	@ValidateNested({ each: true })
+	@IsArray()
 	@Type(() => AddCategoryEntityBrandProfileEntityDto)
 	subCategoriesBrandProfiles?: AddCategoryEntityBrandProfileEntityDto[] | null;
 
 	@IsOptional()
 	@ValidateNested({ each: true })
+	@IsArray()
 	@Type(() => AddCategoryEntitySeasonalPromotionEntityDto)
 	seasonalPromotions?: AddCategoryEntitySeasonalPromotionEntityDto[] | null;
 }

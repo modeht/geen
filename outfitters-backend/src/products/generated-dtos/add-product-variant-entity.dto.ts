@@ -1,4 +1,4 @@
-import { IsBoolean, IsNumber, IsOptional, IsDate, IsString, ValidateNested } from "class-validator";
+import { IsBoolean, IsNumber, IsOptional, IsDate, IsString, IsArray, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -39,18 +39,21 @@ sku?: string | null;
 @IsOptional()
 @Relation({entity:'MediaEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductVariantEntityMediaEntityDto)
 media?: AddProductVariantEntityMediaEntityDto[] | null;
 
 @IsOptional()
 @Relation({entity:'OrderItemEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductVariantEntityOrderItemEntityDto)
 orderItems?: AddProductVariantEntityOrderItemEntityDto[]| null;
 
 @IsOptional()
 @Relation({entity:'CartItemsEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductVariantEntityCartItemsEntityDto)
 carts?: AddProductVariantEntityCartItemsEntityDto[]| null;
 
@@ -62,6 +65,7 @@ mainProduct?: AddProductVariantEntityProductEntityDto| null;
 
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddProductVariantEntityProductOptionValueEntityDto)
 optionValues?: AddProductVariantEntityProductOptionValueEntityDto[]| null;
 

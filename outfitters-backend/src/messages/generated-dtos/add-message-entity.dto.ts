@@ -1,6 +1,6 @@
 import { PostEntity } from 'src/posts/entities/post.entity';
 import { StoryEntity } from 'src/stories/entities/story.entity';
-import { IsDate, IsString, IsOptional, ValidateNested, IsNumber } from "class-validator";
+import { IsDate, IsString, IsOptional, IsArray, ValidateNested, IsNumber } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -34,6 +34,7 @@ content?: string | null;
 @IsOptional()
 @Relation({entity:'MediaEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddMessageEntityMediaEntityDto)
 media?: AddMessageEntityMediaEntityDto[] | null;
 

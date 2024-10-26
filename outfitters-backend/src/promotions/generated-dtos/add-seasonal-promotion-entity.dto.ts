@@ -1,4 +1,4 @@
-import { IsString, IsDate, IsEnum, IsOptional, ValidateNested } from "class-validator";
+import { IsString, IsDate, IsEnum, IsOptional, IsArray, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -28,11 +28,13 @@ status: PromotionStatusEnum;
 @IsOptional()
 @Relation({entity:'PromotionEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddSeasonalPromotionEntityPromotionEntityDto)
 promotions?: AddSeasonalPromotionEntityPromotionEntityDto[]| null;
 
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddSeasonalPromotionEntityCategoryEntityDto)
 subCategories?: AddSeasonalPromotionEntityCategoryEntityDto[]| null;
 }

@@ -1,7 +1,7 @@
 import { NotificationEntity } from 'src/notifications/entities/notification.entity';
 import { PostEntity } from 'src/posts/entities/post.entity';
 import { UserEntity } from 'src/users/entities/user.entity';
-import { IsString, IsOptional, ValidateNested, IsNumber } from "class-validator";
+import { IsString, IsOptional, ValidateNested, IsNumber, IsArray } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -36,6 +36,7 @@ level: number;
 @IsOptional()
 @Relation({entity:'NotificationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddCommentEntityNotificationEntityDto)
 notifications?: AddCommentEntityNotificationEntityDto[] | null;
 
@@ -43,6 +44,7 @@ notifications?: AddCommentEntityNotificationEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddCommentEntityMessageEntityDto)
 messages?: AddCommentEntityMessageEntityDto[] | null;
 

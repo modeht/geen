@@ -1,4 +1,4 @@
-import { IsEnum, IsNumber, IsOptional, IsString, IsDate, ValidateNested } from "class-validator";
+import { IsEnum, IsNumber, IsOptional, IsString, IsDate, IsArray, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -64,6 +64,7 @@ cancelledAt?: Date | null;
 @IsOptional()
 @Relation({entity:'OrderItemEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddBrandOrderEntityOrderItemEntityDto)
 items?: AddBrandOrderEntityOrderItemEntityDto[]| null;
 

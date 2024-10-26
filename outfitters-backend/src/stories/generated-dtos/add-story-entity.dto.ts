@@ -1,7 +1,7 @@
 import { MessageEntity } from 'src/messages/entities/message.entity';
 import { TaggedProductEntity } from 'src/products/entities/tagged-product.entity';
 import { UserEntity } from 'src/users/entities/user.entity';
-import { IsString, IsOptional, ValidateNested, IsNumber, IsBoolean } from "class-validator";
+import { IsString, IsOptional, ValidateNested, IsArray, IsNumber, IsBoolean } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';
@@ -35,6 +35,7 @@ media?: AddStoryEntityMediaEntityDto | null;
 @IsOptional()
 @Relation({entity:'TaggedProductEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddStoryEntityTaggedProductEntityDto)
 taggedProducts?: AddStoryEntityTaggedProductEntityDto[] | null;
 
@@ -47,6 +48,7 @@ postedBy?: AddStoryEntityUserEntityDto| null;
 @IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddStoryEntityUserEntityDto)
 taggedUsers?: AddStoryEntityUserEntityDto[] | null;
 
@@ -54,6 +56,7 @@ taggedUsers?: AddStoryEntityUserEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'StoryLikesEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddStoryEntityStoryLikesEntityDto)
 likedByUsers?: AddStoryEntityStoryLikesEntityDto[] | null;
 
@@ -61,6 +64,7 @@ likedByUsers?: AddStoryEntityStoryLikesEntityDto[] | null;
 @IsOptional()
 @Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
+@IsArray()
 @Type(() => AddStoryEntityMessageEntityDto)
 shares?: AddStoryEntityMessageEntityDto[] | null;
 
