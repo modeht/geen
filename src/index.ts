@@ -1,6 +1,5 @@
 import { async } from 'fast-glob';
 import { AddDtoCreator } from './AddDtoCreator';
-import { DepthManager } from './DepthManager';
 import { parseFiles } from './file-parser';
 import { log, time, timeEnd } from 'console';
 
@@ -18,13 +17,9 @@ import { log, time, timeEnd } from 'console';
 		const addDtoCreator = new AddDtoCreator(
 			ASTs[ast].sourceFile,
 			ASTs,
-			ASTs[ast].fullPath,
-			{
-				maxDepth: 1,
-			}
+			ASTs[ast].fullPath
 		);
 		await addDtoCreator.build();
-		DepthManager.currDepth = 0;
 	}
 	timeEnd('Creating dtos');
 })();

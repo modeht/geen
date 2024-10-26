@@ -6,7 +6,9 @@
 		"rootDir": "./src",
 		"allowJs": true,
 		"strict": true,
-		"noImplicitAny": false
+		"noImplicitAny": false,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true
 	},
 	"include": ["src/**/*"],
 	"exclude": ["dist/**/*"]
