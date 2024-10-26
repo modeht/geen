@@ -1,9 +1,8 @@
 import ts from 'typescript';
 import { Node, TreeParser } from './TreeParser';
 import { dir, error, log, warn } from 'console';
-import { DepthManager } from './DepthManager';
-import { readFile, writeFile, mkdir, rmdir } from 'fs/promises';
-import path, { dirname, join, normalize, relative, resolve, sep } from 'path';
+import { readFile, writeFile, mkdir } from 'fs/promises';
+import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types';
 
 type TypeKeywords = 'One' | 'Many';
@@ -133,6 +132,7 @@ export class AddDtoCreator {
 					importedFields: i.identifiers?.map((i) => i.expression!)!,
 				});
 			} else if (i.module === 'typeorm') {
+				//do nothing
 			} else {
 				this.imports.add(i.text?.replaceAll('.ts', '')!);
 			}
@@ -256,10 +256,10 @@ export class AddDtoCreator {
 					}
 
 					// dir(relationFn, { depth: null });
-					const nullable = relationFn.props?.find(
+					const relationNullable = relationFn.props?.find(
 						(p) => p.statement?.replaceAll(' ', '') === 'nullable:true'
 					);
-					if (nullable) {
+					if (relationNullable) {
 						if (!field.type?.includes('null')) field.type += '| null';
 						fieldNullable = true;
 						validations.push('@IsOptional()');
@@ -331,7 +331,6 @@ export class AddDtoCreator {
 			fieldText += `${field.name}${fieldNullable ? '?' : ''}: ${field.type};`;
 			fieldsStringified.push(fieldText);
 		}
-		this.currDepth++;
 		this.properties.push(...fieldsStringified);
 	}
 }
