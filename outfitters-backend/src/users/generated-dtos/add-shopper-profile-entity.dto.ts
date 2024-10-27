@@ -44,7 +44,6 @@ bio: string;
 
 @IsOptional()
 @IsEnum(GenderEnum )
-@IsEnum( null)
 gender?: GenderEnum | null;
 
 @IsNumber()
@@ -71,14 +70,12 @@ isOutfitter: boolean;
 user?: AddShopperProfileEntityUserEntityDto| null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'ProductReviewEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddShopperProfileEntityProductReviewEntityDto)
 reviews?: AddShopperProfileEntityProductReviewEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'ShippingAddressEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -87,13 +84,11 @@ reviews?: AddShopperProfileEntityProductReviewEntityDto[] | null;
 addresses?: AddShopperProfileEntityShippingAddressEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'MediaEntity',type:'hasOne'})
 @ValidateNested()
 @Type(() => AddShopperProfileEntityMediaEntityDto)
 profilePicture?: AddShopperProfileEntityMediaEntityDto | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'CartEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -102,7 +97,6 @@ profilePicture?: AddShopperProfileEntityMediaEntityDto | null;
 carts?: AddShopperProfileEntityCartEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'OrderEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
@@ -110,13 +104,11 @@ carts?: AddShopperProfileEntityCartEntityDto[] | null;
 orders?: AddShopperProfileEntityOrderEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddShopperProfileEntityPreferenceEntityDto)
 preferences?: AddShopperProfileEntityPreferenceEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'CollaborationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -125,14 +117,12 @@ preferences?: AddShopperProfileEntityPreferenceEntityDto[] | null;
 collaborations?: AddShopperProfileEntityCollaborationEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'AffiliationLinkEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddShopperProfileEntityAffiliationLinkEntityDto)
 affiliationLinks?: AddShopperProfileEntityAffiliationLinkEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'PromoCodeEntity',type:'hasMany'})
 @ValidateNested({ each: true })

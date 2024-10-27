@@ -1,8 +1,8 @@
 <<imports>>
 
-@Injectable(<<name>>)
+@Injectable()
 export class <<serviceClass>> {
   <<classProperties>>
-  <<classConsturctor>>
+  <<classConstructor>>
   <<classMethods>>
 }

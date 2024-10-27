@@ -79,14 +79,12 @@ isFeatured: boolean;
 deliveryEstimationInDays: number;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'MediaEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddProductEntityMediaEntityDto)
 media?: AddProductEntityMediaEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'ProductVariantEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -102,14 +100,12 @@ variants?: AddProductEntityProductVariantEntityDto[] | null;
 options?: AddProductEntityProductOptionEntityDto[]| null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'ProductReviewEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddProductEntityProductReviewEntityDto)
 ratings?: AddProductEntityProductReviewEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'TaggedProductEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -118,14 +114,12 @@ ratings?: AddProductEntityProductReviewEntityDto[] | null;
 taggedIn?: AddProductEntityTaggedProductEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'AffiliationLinkEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddProductEntityAffiliationLinkEntityDto)
 affiliationLinks?: AddProductEntityAffiliationLinkEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'NotificationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -148,13 +142,11 @@ orderItems?: AddProductEntityOrderItemEntityDto[]| null;
 messages?: AddProductEntityMessageEntityDto[]| null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'BrandProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddProductEntityBrandProfileEntityDto)
 brand?: AddProductEntityBrandProfileEntityDto | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'CategoryEntity',type:'belongsToOne'})
 @ValidateNested()
@@ -162,13 +154,11 @@ brand?: AddProductEntityBrandProfileEntityDto | null;
 category?: AddProductEntityCategoryEntityDto | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'CategoryEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddProductEntityCategoryEntityDto)
 subCategory?: AddProductEntityCategoryEntityDto | null;
 
-@IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
@@ -183,13 +173,11 @@ collections?: AddProductEntityCollectionEntityDto[] | null;
 carts?: AddProductEntityCartItemsEntityDto[]| null;
 
 @IsOptional()
-@IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddProductEntityPromotionEntityDto)
 promotions?: AddProductEntityPromotionEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
 @IsArray()

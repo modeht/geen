@@ -48,7 +48,6 @@ latitude: string;
 longitude: string;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'OrderEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()

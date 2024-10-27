@@ -31,7 +31,6 @@ readAt: Date;
 content?: string | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'MediaEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
@@ -42,7 +41,6 @@ media?: AddMessageEntityMediaEntityDto[] | null;
 @IsOptional()
 reaction?: string | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'CollaborationEntity',type:'hasOne'})
 @ValidateNested()
@@ -84,7 +82,6 @@ from?: AddMessageEntityUserEntityDto| null;
 @Type(() => AddMessageEntityUserEntityDto)
 to?: AddMessageEntityUserEntityDto| null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'CommentEntity',type:'belongsToOne'})
 @ValidateNested()

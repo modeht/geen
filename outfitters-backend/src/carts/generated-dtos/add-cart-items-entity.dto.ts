@@ -38,7 +38,6 @@ product?: AddCartItemsEntityProductEntityDto| null;
 variant?: AddCartItemsEntityProductVariantEntityDto| null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'AffiliationLinkEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddCartItemsEntityAffiliationLinkEntityDto)

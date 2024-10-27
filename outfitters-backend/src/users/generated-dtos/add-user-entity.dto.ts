@@ -74,13 +74,11 @@ isAppleSignin?: boolean | null;
 defaultLang: LanguageEnum;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'ShopperProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddUserEntityShopperProfileEntityDto)
 shopperProfile?: AddUserEntityShopperProfileEntityDto | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'BrandProfileEntity',type:'belongsToOne'})
 @ValidateNested()
@@ -88,14 +86,12 @@ shopperProfile?: AddUserEntityShopperProfileEntityDto | null;
 brandProfile?: AddUserEntityBrandProfileEntityDto | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'CommentEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddUserEntityCommentEntityDto)
 comments?: AddUserEntityCommentEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'AffiliationLinkTrackingEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -111,14 +107,12 @@ affiliationLinkTracking?: AddUserEntityAffiliationLinkTrackingEntityDto[] | null
 notifications?: AddUserEntityNotificationEntityDto[]| null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'ConversationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddUserEntityConversationEntityDto)
 initiatedConversations?: AddUserEntityConversationEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'ConversationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -127,14 +121,12 @@ initiatedConversations?: AddUserEntityConversationEntityDto[] | null;
 receivedConversations?: AddUserEntityConversationEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddUserEntityMessageEntityDto)
 sentMessages?: AddUserEntityMessageEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -143,14 +135,12 @@ sentMessages?: AddUserEntityMessageEntityDto[] | null;
 receivedMessages?: AddUserEntityMessageEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'PostEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddUserEntityPostEntityDto)
 posts?: AddUserEntityPostEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'StoryEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -159,14 +149,12 @@ posts?: AddUserEntityPostEntityDto[] | null;
 stories?: AddUserEntityStoryEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'SavedCollectionEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddUserEntitySavedCollectionEntityDto)
 savedCollections?: AddUserEntitySavedCollectionEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'RecentSearchesEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -187,13 +175,11 @@ likedPosts?: AddUserEntityPostLikesEntityDto| null;
 likedStories?: AddUserEntityStoryLikesEntityDto| null;
 
 @IsOptional()
-@IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddUserEntityPostEntityDto)
 taggedInPosts?: AddUserEntityPostEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
@@ -201,13 +187,11 @@ taggedInPosts?: AddUserEntityPostEntityDto[] | null;
 taggedInStories?: AddUserEntityStoryEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddUserEntityUserEntityDto)
 following?: AddUserEntityUserEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
@@ -215,13 +199,11 @@ following?: AddUserEntityUserEntityDto[] | null;
 follows?: AddUserEntityUserEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddUserEntityUserEntityDto)
 blockedBy?: AddUserEntityUserEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
 @IsArray()

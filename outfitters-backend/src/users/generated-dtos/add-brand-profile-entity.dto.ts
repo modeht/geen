@@ -66,20 +66,17 @@ brandManagerFullName?: string | null;
 user?: AddBrandProfileEntityUserEntityDto| null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'MediaEntity',type:'hasOne'})
 @ValidateNested()
 @Type(() => AddBrandProfileEntityMediaEntityDto)
 logo?: AddBrandProfileEntityMediaEntityDto | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'MediaEntity',type:'hasOne'})
 @ValidateNested()
 @Type(() => AddBrandProfileEntityMediaEntityDto)
 cover?: AddBrandProfileEntityMediaEntityDto | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'CollectionEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -88,14 +85,12 @@ cover?: AddBrandProfileEntityMediaEntityDto | null;
 collections?: AddBrandProfileEntityCollectionEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'ProductEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddBrandProfileEntityProductEntityDto)
 products?: AddBrandProfileEntityProductEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'PromotionEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -104,14 +99,12 @@ products?: AddBrandProfileEntityProductEntityDto[] | null;
 promotions?: AddBrandProfileEntityPromotionEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'PromoCodeEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddBrandProfileEntityPromoCodeEntityDto)
 promoCodes?: AddBrandProfileEntityPromoCodeEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'BrandOrderEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -120,13 +113,11 @@ promoCodes?: AddBrandProfileEntityPromoCodeEntityDto[] | null;
 brandOrders?: AddBrandProfileEntityBrandOrderEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddBrandProfileEntityPreferenceEntityDto)
 preferences?: AddBrandProfileEntityPreferenceEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'CollaborationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -135,20 +126,17 @@ preferences?: AddBrandProfileEntityPreferenceEntityDto[] | null;
 collaborations?: AddBrandProfileEntityCollaborationEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddBrandProfileEntityCategoryEntityDto)
 categories?: AddBrandProfileEntityCategoryEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddBrandProfileEntityCategoryEntityDto)
 subCategories?: AddBrandProfileEntityCategoryEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
 @IsArray()

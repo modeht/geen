@@ -26,7 +26,6 @@ from?: AddConversationEntityUserEntityDto| null;
 to?: AddConversationEntityUserEntityDto| null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()

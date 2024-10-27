@@ -7,7 +7,7 @@ import { IsNull } from 'typeorm';
 import { QueryableRelations } from '../globals/lib/type-helpers';
 import { CategoriesService } from './categories.service';
 import { categoryQueryableRelations, FindCategoryDto } from './dto/find-category.dto';
-import { AddCategoryEntityDto } from './generated-dtos/add-category-entity.dto';
+// import { AddCategoryEntityDto } from './generated-dtos/add-category-entity.dto';
 
 @ApiTags('Categories')
 @Controller('categories')
@@ -45,8 +45,8 @@ export class CategoriesController {
 		});
 	}
 
-	@Post('test')
-	test(@Body() body: AddCategoryEntityDto) {
-		return this.categoriesService.testCreate(body);
-	}
+	// @Post('test')
+	// test(@Body() body: AddCategoryEntityDto) {
+	// 	return this.categoriesService.testCreate(body);
+	// }
 }

@@ -3,9 +3,9 @@ import { MediaService } from './media.service';
 import { MediaInterceptor } from './interceptors/media.interceptor';
 import { FastifyRequest } from 'fastify';
 import { ConfigService } from '@nestjs/config';
-import { AddMediaEntityDto } from './generated-dtos/add-media-entity.dto';
+// import { AddMediaEntityDto } from './generated-dtos/add-media-entity.dto';
 
-@Controller('media')
+@Controller('old-media')
 export class MediaController {
 	constructor(private readonly mediaService: MediaService) {}
 
@@ -30,8 +30,8 @@ export class MediaController {
 		return this.mediaService.create(req.uploads);
 	}
 
-	@Post('test')
-	test(@Body() body: AddMediaEntityDto) {
-		return this.mediaService.testCreate(body);
-	}
+	// @Post('test')
+	// test(@Body() body: AddMediaEntityDto) {
+	// 	return this.mediaService.testCreate(body);
+	// }
 }

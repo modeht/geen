@@ -24,7 +24,6 @@ paymentMethod: OrderPaymentMethod;
 
 @IsOptional()
 @IsEnum(OrderPaymentStatusEnum )
-@IsEnum( null)
 paymentStatus?: OrderPaymentStatusEnum | null;
 
 @IsNumber()

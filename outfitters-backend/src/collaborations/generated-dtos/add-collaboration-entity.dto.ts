@@ -38,7 +38,6 @@ shopperProfile?: AddCollaborationEntityShopperProfileEntityDto| null;
 status: CollaborationStatusEnum;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'NotificationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()

@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { DataSource, In } from 'typeorm';
 import { UploadedFile } from '..';
 import { MediaEntity } from './entities/media.entity';
-import { AddMediaEntityDto } from './generated-dtos/add-media-entity.dto';
 import { AbstractService } from '../globals/services/abstract-service';
+// import { AddMediaEntityDto } from './generated-dtos/add-media-entity.dto';
 
 @Injectable()
 export class MediaService {
@@ -12,10 +12,10 @@ export class MediaService {
 		private service: AbstractService,
 	) {}
 
-	async testCreate(body: AddMediaEntityDto) {
-		const d = await this.service.create(MediaEntity, AddMediaEntityDto, body);
-		return d;
-	}
+	// async testCreate(body: AddMediaEntityDto) {
+	// 	const d = await this.service.create(MediaEntity, AddMediaEntityDto, body);
+	// 	return d;
+	// }
 
 	async create(media: UploadedFile[]): Promise<{ id: number; url: string }[]> {
 		const promises = [];

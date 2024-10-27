@@ -1,8 +1,8 @@
 <<imports>>
 
-@Controller(<<name>>)
+@Controller(<<routeName>>)
 export class <<controllerClass>> {
   <<classProperties>>
-  <<classConsturctor>>
+  <<classConstructor>>
   <<classMethods>>
 }

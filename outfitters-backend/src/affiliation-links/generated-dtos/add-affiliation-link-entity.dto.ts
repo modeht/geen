@@ -23,7 +23,6 @@ isDisabled: boolean;
 url: string;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'TaggedProductEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
@@ -31,14 +30,12 @@ url: string;
 taggedProducts?: AddAffiliationLinkEntityTaggedProductEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'CartItemsEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddAffiliationLinkEntityCartItemsEntityDto)
 cartItems?: AddAffiliationLinkEntityCartItemsEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'AffiliationLinkTrackingEntity',type:'hasMany'})
 @ValidateNested({ each: true })

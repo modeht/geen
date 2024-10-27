@@ -26,7 +26,7 @@ export class DtoFieldBuilder {
 			let fieldNotSupported = false;
 			let includeFieldRelated: boolean | null = null;
 			let fieldPrimitive = true;
-			let fieldValidations: string[] = [];
+			let fieldValidations: Set<string> = new Set();
 			const types = field.type?.split('|').map((t) => t.trim()) || [];
 
 			//leave id for nested because it might be used
@@ -34,28 +34,28 @@ export class DtoFieldBuilder {
 
 			for (const type of types) {
 				if (type === 'null' || type === 'undefined') {
-					fieldValidations.push('@IsOptional()');
+					fieldValidations.add('@IsOptional()');
 					this.addDtoCreator.validationsImports.add('IsOptional');
 					fieldNullable = true;
 				} else if (type === 'string') {
-					fieldValidations.push('@IsString()');
+					fieldValidations.add('@IsString()');
 					this.addDtoCreator.validationsImports.add('IsString');
 				} else if (type === 'string[]') {
-					fieldValidations.push('@IsString({each:true})');
+					fieldValidations.add('@IsString({each:true})');
 					this.addDtoCreator.validationsImports.add('IsString');
 				} else if (type === 'number') {
-					fieldValidations.push('@IsNumber()');
+					fieldValidations.add('@IsNumber()');
 					this.addDtoCreator.validationsImports.add('IsNumber');
 				} else if (type === 'number[]') {
-					fieldValidations.push('@IsNumber({},{each:true})');
+					fieldValidations.add('@IsNumber({},{each:true})');
 					this.addDtoCreator.validationsImports.add('IsNumber');
 				} else if (type === 'Date') {
-					fieldValidations.push('@IsDate()');
-					fieldValidations.push('@Type(()=>Date)');
+					fieldValidations.add('@IsDate()');
+					fieldValidations.add('@Type(()=>Date)');
 					this.addDtoCreator.validationsImports.add('IsDate');
 					this.addDtoCreator.transformationsImports.add('Type');
 				} else if (type === 'boolean') {
-					fieldValidations.push('@IsBoolean()');
+					fieldValidations.add('@IsBoolean()');
 					this.addDtoCreator.validationsImports.add('IsBoolean');
 				} else {
 					fieldPrimitive = false;
@@ -64,14 +64,14 @@ export class DtoFieldBuilder {
 
 			if (field.name === 'id') {
 				if (!field.type?.includes('null')) field.type += '| null';
-				fieldValidations.push(`@IsOptional()`);
+				fieldValidations.add(`@IsOptional()`);
 				this.addDtoCreator.validationsImports.add('IsOptional');
 				fieldNullable = true;
 			} else if (field.name !== 'id' && this.addDtoCreator.currDepth > 0) {
 				if (!fieldNullable) {
-					if (!field.type?.includes('null')) field.type += '| null';
 					fieldNullable = true;
-					fieldValidations.push(`@IsOptionalIf((obj,_)=>!!obj.id)`);
+					if (!field.type?.includes('null')) field.type += '| null';
+					fieldValidations.add(`@IsOptionalIf((obj,_)=>!!obj.id)`);
 				}
 			}
 
@@ -103,10 +103,10 @@ export class DtoFieldBuilder {
 			if (enumCol) {
 				fieldEnum = true;
 				field.type?.split('|').forEach((t) => {
-					if (t === 'null' || t === 'undefined') {
-						fieldValidations.push('@IsOptional()');
+					if (t?.trim() === 'null' || t?.trim() === 'undefined') {
+						fieldValidations.add('@IsOptional()');
 					} else {
-						fieldValidations.push(`@IsEnum(${t})`);
+						fieldValidations.add(`@IsEnum(${t})`);
 						this.addDtoCreator.validationsImports.add('IsEnum');
 					}
 				});
@@ -137,7 +137,7 @@ export class DtoFieldBuilder {
 					if (!isRelRequired) {
 						if (!field.type?.includes('null')) field.type += '| null';
 						fieldNullable = true;
-						fieldValidations.push('@IsOptional()');
+						fieldValidations.add('@IsOptional()');
 						this.addDtoCreator.validationsImports.add('IsOptional');
 					}
 
@@ -173,7 +173,7 @@ export class DtoFieldBuilder {
 								dirname(this.addDtoCreator.ogFilePath),
 								dtoFilePath
 							);
-							this.addDtoCreator.addImport(
+							this.addDtoCreator.imports.add(
 								`import { ${className} } from '${childRelPath
 									.split(sep)
 									.join('/')
@@ -182,19 +182,19 @@ export class DtoFieldBuilder {
 
 							switch (relationType) {
 								case 'OneToOne':
-									fieldValidations.push(
+									fieldValidations.add(
 										`@Relation({entity:'${entityName}',type:'${
 											relationHasFk ? 'hasOne' : 'belongsToOne'
 										}'})`
 									);
 									break;
 								case 'OneToMany':
-									fieldValidations.push(
+									fieldValidations.add(
 										`@Relation({entity:'${entityName}',type:'hasMany'})`
 									);
 									break;
 								case 'ManyToOne':
-									fieldValidations.push(
+									fieldValidations.add(
 										`@Relation({entity:'${entityName}',type:'belongsToOne'})`
 									);
 									break;
@@ -203,13 +203,13 @@ export class DtoFieldBuilder {
 
 							//add proper validations of nested class
 							if (field.type?.includes('[]')) {
-								fieldValidations.push(`@ValidateNested({ each: true })`);
-								fieldValidations.push(`@IsArray()`);
+								fieldValidations.add(`@ValidateNested({ each: true })`);
+								fieldValidations.add(`@IsArray()`);
 								this.addDtoCreator.validationsImports.add('IsArray');
 							} else {
-								fieldValidations.push(`@ValidateNested()`);
+								fieldValidations.add(`@ValidateNested()`);
 							}
-							fieldValidations.push(`@Type(() => ${className})`);
+							fieldValidations.add(`@Type(() => ${className})`);
 							this.addDtoCreator.validationsImports.add('ValidateNested');
 							this.addDtoCreator.transformationsImports.add('Type');
 
@@ -228,7 +228,7 @@ export class DtoFieldBuilder {
 
 			if (!fieldPrimitive && includeFieldRelated === false) continue;
 
-			fieldAsString += fieldValidations.join('\n') + '\n';
+			fieldAsString += Array.from(fieldValidations).join('\n') + '\n';
 			fieldAsString += `${field.name}${fieldNullable ? '?' : ''}: ${field.type};`;
 			fieldsStringified.push(fieldAsString);
 		}

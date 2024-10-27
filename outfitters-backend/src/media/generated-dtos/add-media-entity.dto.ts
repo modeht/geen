@@ -85,13 +85,11 @@ country?: AddMediaEntityCountryEntityDto| null;
 postThumbnail?: AddMediaEntityPostEntityDto| null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'ProductEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddMediaEntityProductEntityDto)
 product?: AddMediaEntityProductEntityDto | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'ProductVariantEntity',type:'belongsToOne'})
 @ValidateNested()
@@ -99,13 +97,11 @@ product?: AddMediaEntityProductEntityDto | null;
 productVariant?: AddMediaEntityProductVariantEntityDto | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'MessageEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddMediaEntityMessageEntityDto)
 message?: AddMediaEntityMessageEntityDto | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'PostEntity',type:'belongsToOne'})
 @ValidateNested()

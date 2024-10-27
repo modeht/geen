@@ -1,7 +1,9 @@
-import { async } from 'fast-glob';
+import { async, sync } from 'fast-glob';
 import { AddDtoCreator } from './AddDtoCreator';
 import { parseFiles } from './file-parser';
 import { log, time, timeEnd } from 'console';
+
+export const appModulePath = sync('**/*/app.module.ts', { absolute: true })[0];
 
 (async () => {
 	time('Loading entities');

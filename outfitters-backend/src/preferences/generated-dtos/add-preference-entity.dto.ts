@@ -13,7 +13,6 @@ import { ShopperProfileEntity } from '../../users/entities/shopper-profile.entit
 
 export class AddPreferenceEntityDto {
 @IsOptional()
-@IsOptional()
 @Relation({entity:'MediaEntity',type:'hasOne'})
 @ValidateNested()
 @Type(() => AddPreferenceEntityMediaEntityDto)
@@ -24,13 +23,11 @@ media?: AddPreferenceEntityMediaEntityDto | null;
 name?: string | null;
 
 @IsOptional()
-@IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddPreferenceEntityBrandProfileEntityDto)
 brandProfile?: AddPreferenceEntityBrandProfileEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
 @IsArray()

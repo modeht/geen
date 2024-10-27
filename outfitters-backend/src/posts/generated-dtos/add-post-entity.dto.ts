@@ -32,13 +32,11 @@ caption?: string | null;
 media?: AddPostEntityMediaEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'MediaEntity',type:'hasOne'})
 @ValidateNested()
 @Type(() => AddPostEntityMediaEntityDto)
 thumbnail?: AddPostEntityMediaEntityDto | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'TaggedProductEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -56,13 +54,11 @@ postedBy?: AddPostEntityUserEntityDto| null;
 postedById: number;
 
 @IsOptional()
-@IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddPostEntityUserEntityDto)
 taggedUsers?: AddPostEntityUserEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'PostLikesEntity',type:'hasMany'})
 @ValidateNested({ each: true })
@@ -71,7 +67,6 @@ taggedUsers?: AddPostEntityUserEntityDto[] | null;
 likedByUsers?: AddPostEntityPostLikesEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'CommentEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
@@ -79,14 +74,12 @@ likedByUsers?: AddPostEntityPostLikesEntityDto[] | null;
 comments?: AddPostEntityCommentEntityDto[] | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddPostEntityMessageEntityDto)
 shares?: AddPostEntityMessageEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'SavedCollectionItemEntity',type:'hasMany'})
 @ValidateNested({ each: true })

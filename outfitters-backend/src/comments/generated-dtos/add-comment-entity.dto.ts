@@ -33,14 +33,12 @@ post?: AddCommentEntityPostEntityDto| null;
 level: number;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'NotificationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddCommentEntityNotificationEntityDto)
 notifications?: AddCommentEntityNotificationEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'MessageEntity',type:'hasMany'})
 @ValidateNested({ each: true })

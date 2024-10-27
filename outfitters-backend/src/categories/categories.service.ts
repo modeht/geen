@@ -4,7 +4,7 @@ import { MediaEntity } from '../media/entities/media.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CategoryEntity } from './entities/category.entity';
-import { AddCategoryEntityDto } from './generated-dtos/add-category-entity.dto';
+// import { AddCategoryEntityDto } from './generated-dtos/add-category-entity.dto';
 import { AbstractService } from '../globals/services/abstract-service';
 
 @Injectable()
@@ -14,10 +14,10 @@ export class CategoriesService {
 		private service: AbstractService,
 	) {}
 
-	async testCreate(body: AddCategoryEntityDto) {
-		const d = await this.service.create(CategoryEntity, AddCategoryEntityDto, body);
-		return d;
-	}
+	// async testCreate(body: AddCategoryEntityDto) {
+	// 	const d = await this.service.create(CategoryEntity, AddCategoryEntityDto, body);
+	// 	return d;
+	// }
 
 	async create(createCategoryDto: CreateCategoryDto) {
 		const category = new CategoryEntity();

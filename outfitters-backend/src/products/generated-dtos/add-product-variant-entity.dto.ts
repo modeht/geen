@@ -36,7 +36,6 @@ lastStockUpdate?: Date | null;
 sku?: string | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'MediaEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()

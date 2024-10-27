@@ -2,7 +2,7 @@
 
 @Module({
   imports:[<<moduleImports>>],
-  controller:[<<moduleControllers>>],
+  controllers:[<<moduleControllers>>],
   providers:[<<moduleProviders>>],
   exports:[<<moduleExports>>],
 })

@@ -13,7 +13,6 @@ import { ProductEntity } from '../entities/product.entity'
 
 export class AddProductReviewEntityDto {
 @IsOptional()
-@IsOptional()
 @Relation({entity:'ShopperProfileEntity',type:'belongsToOne'})
 @ValidateNested()
 @Type(() => AddProductReviewEntityShopperProfileEntityDto)
@@ -28,14 +27,12 @@ stars?: number | null;
 comment?: string | null;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'MediaEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
 @Type(() => AddProductReviewEntityMediaEntityDto)
 media?: AddProductReviewEntityMediaEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @Relation({entity:'ProductEntity',type:'belongsToOne'})
 @ValidateNested()

@@ -8,7 +8,17 @@ const dirs = sync('**/*/generated-dtos', {
 });
 
 dirs.forEach((dir) => {
-	rmdir(dir, { recursive: true })
-		.then((r) => log(r))
+	rm(dir, { recursive: true })
+		.then((r) => log('removed'))
+		.catch((e) => error(e));
+});
+
+const controllers = sync('**/*/generated-*', {
+	absolute: true,
+});
+
+controllers.forEach((co) => {
+	rm(co, { recursive: true })
+		.then((r) => log('removed'))
 		.catch((e) => error(e));
 });

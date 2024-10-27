@@ -45,7 +45,6 @@ target: PromotionTargetEnum;
 status: PromotionStatusEnum;
 
 @IsOptional()
-@IsOptional()
 @Relation({entity:'NotificationEntity',type:'hasMany'})
 @ValidateNested({ each: true })
 @IsArray()
@@ -70,7 +69,6 @@ seasonalPromotion?: AddPromotionEntitySeasonalPromotionEntityDto| null;
 @Type(() => AddPromotionEntityProductEntityDto)
 products?: AddPromotionEntityProductEntityDto[] | null;
 
-@IsOptional()
 @IsOptional()
 @ValidateNested({ each: true })
 @IsArray()
