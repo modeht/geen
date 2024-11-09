@@ -7,9 +7,5 @@ import { LanguageEnum } from '../../../../lib/enums'
 
 
 export class AddTranslationEntityDto {
-@IsOptional()
-columns?: Record<string, any> | null;
 
-@IsEnum(LanguageEnum)
-language: LanguageEnum;
 }

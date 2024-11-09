@@ -1,11 +1,8 @@
-import { IsEnum, IsNumber, IsOptional, IsString, IsDate, IsArray, ValidateNested } from "class-validator";
+import { IsEnum, IsNumber, IsOptional, IsString, IsDate } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../../globals/validators/is-option-if.validator';
 import { OrderStatusEnum } from '../../entities/brand-orders.entity'
-import { AddBrandOrderEntityOrderItemEntityDto } from '../../generated-dtos/create/create-brand-order-entity-order-item-entity.dto';
-import { AddBrandOrderEntityBrandProfileEntityDto } from '../../../users/generated-dtos/create/create-brand-order-entity-brand-profile-entity.dto';
-import { AddBrandOrderEntityOrderEntityDto } from '../../generated-dtos/create/create-brand-order-entity-order-entity.dto';
 import { OrderEntity } from '../../entities/order.entity'
 import { BrandProfileEntity } from '../../../users/entities/brand-profile.entity'
 import { OrderItemEntity } from '../../entities/order-item.entity'
@@ -13,9 +10,6 @@ import { OrderItemEntity } from '../../entities/order-item.entity'
 
 
 export class AddBrandOrderEntityDto {
-@IsEnum(OrderStatusEnum)
-status: OrderStatusEnum;
-
 @IsNumber()
 @IsOptional()
 totalSalePrice?: number | null;
@@ -60,25 +54,6 @@ deliveredAt?: Date | null;
 @Type(()=>Date)
 @IsOptional()
 cancelledAt?: Date | null;
-
-@IsOptional()
-@Relation({entity:'OrderItemEntity',type:'hasMany'})
-@ValidateNested({ each: true })
-@IsArray()
-@Type(() => AddBrandOrderEntityOrderItemEntityDto)
-items?: AddBrandOrderEntityOrderItemEntityDto[]| null;
-
-@IsOptional()
-@Relation({entity:'BrandProfileEntity',type:'belongsToOne'})
-@ValidateNested()
-@Type(() => AddBrandOrderEntityBrandProfileEntityDto)
-brand?: AddBrandOrderEntityBrandProfileEntityDto| null;
-
-@IsOptional()
-@Relation({entity:'OrderEntity',type:'belongsToOne'})
-@ValidateNested()
-@Type(() => AddBrandOrderEntityOrderEntityDto)
-order?: AddBrandOrderEntityOrderEntityDto| null;
 
 @IsNumber()
 orderId: number;

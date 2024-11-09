@@ -1,14 +1,13 @@
 import ts from 'typescript';
 import { Node, TreeParser } from './TreeParser';
-import { readFile, writeFile, mkdir } from 'fs/promises';
-import { dirname, join, relative, resolve, sep } from 'path';
+import { readFile, writeFile } from 'fs/promises';
+import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types';
-import { DtoFieldBuilder } from './DtoFieldBuilder';
-import { appModulePath, globalDirPath as globalsDirPath } from './utils';
+import { CreateDtoFieldBuilder } from './CreateDtoFieldBuilder';
+import { appModulePath, globalsDirPath as globalsDirPath } from './utils';
 import { mkdirSync } from 'fs';
-import { log } from 'console';
 
-export type AddDtoInfo = {
+export type CreateDtoInfo = {
 	absPath: string;
 	className: string;
 	entityName: string; //remove entity or model name from it
@@ -32,7 +31,7 @@ export type ModuleFileInfo = {
 export type TypeKeywords = 'One' | 'Many';
 export type Relationships = `${TypeKeywords}To${TypeKeywords}`;
 
-export class AddDtoCreator {
+export class CreateDtoCreator {
 	parsedTree: Node;
 	className: string | undefined;
 	entityName: string | undefined;
@@ -48,7 +47,7 @@ export class AddDtoCreator {
 	validationsImports: Set<string> = new Set();
 	transformationsImports: Set<string> = new Set();
 	asts: ASTs;
-	dtoFieldBuilder: DtoFieldBuilder;
+	dtoFieldBuilder: CreateDtoFieldBuilder;
 	dtoDirName: string;
 	dtoDirPath: string;
 	dtoDirRelPath: string;
@@ -65,7 +64,7 @@ export class AddDtoCreator {
 		this.maxDepth = maxDepth;
 		this.currDepth = currDepth;
 		this.asts = asts;
-		this.dtoFieldBuilder = new DtoFieldBuilder(this);
+		this.dtoFieldBuilder = new CreateDtoFieldBuilder(this);
 
 		this.dtoDirName = 'create';
 		this.dtoDirPath = `generated-dtos/${this.dtoDirName}`;
@@ -89,7 +88,7 @@ export class AddDtoCreator {
 		this._setFilename();
 		this._setDefaultImports();
 		this._setEnums();
-		await this.dtoFieldBuilder._setFields();
+		await this.dtoFieldBuilder._parseFields();
 
 		//the dto will be saved with this name
 		const savedFileName = `create${parentFileName ? '-' + parentFileName : ''}-${
@@ -207,7 +206,7 @@ export class AddDtoCreator {
 		await writeFile(appModulePath, moduleTemplate);
 	}
 
-	async _createService(addDtoInfo: AddDtoInfo) {
+	async _createService(addDtoInfo: CreateDtoInfo) {
 		let serviceTemplate = await readFile(
 			join(process.cwd(), 'templates/service.template'),
 			'utf8'
@@ -274,7 +273,7 @@ export class AddDtoCreator {
 		};
 	}
 
-	async _createController(addDtoInfo: AddDtoInfo, serviceFileInfo: ServiceFileInfo) {
+	async _createController(addDtoInfo: CreateDtoInfo, serviceFileInfo: ServiceFileInfo) {
 		let controllerTemplate = await readFile(
 			join(process.cwd(), 'templates/controller.template'),
 			'utf8'
@@ -350,7 +349,7 @@ export class AddDtoCreator {
 	}
 
 	async _createModule(
-		addDtoInfo: AddDtoInfo,
+		addDtoInfo: CreateDtoInfo,
 		serviceFileInfo: ServiceFileInfo,
 		controllerFileInfo: ControllerFileInfo
 	) {
@@ -425,7 +424,7 @@ export class AddDtoCreator {
 	}
 
 	_setClassName(customName?: string) {
-		this.className = `Add${(customName ?? '') + this.entityName}Dto`;
+		this.className = `Create${(customName ?? '') + this.entityName}Dto`;
 	}
 
 	_setFilename() {
@@ -457,10 +456,6 @@ export class AddDtoCreator {
 		this.imports?.add('import { <<transformationsImports>> } from "class-transformer";');
 
 		//TODO: we need a script to make sure these important files exists
-		//find relative path to them,
-		//i have their absolute path from project directory
-		//find relative to them from the current file
-		//TODO: fixed relative import here is risky, think of something
 		const relationDecoRelPath = relative(this.dtoDirAbsPath, globalsDirPath)
 			.split(sep)
 			.join('/');

@@ -1,9 +1,7 @@
-import { IsDate, IsBoolean, IsString, IsOptional, IsArray, ValidateNested, IsNumber } from "class-validator";
+import { IsDate, IsBoolean, IsString, IsOptional, IsNumber } from "class-validator";
 import { Type } from "class-transformer";
 import { Relation } from '../../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../../globals/validators/is-option-if.validator';
-import { AddShippingAddressEntityOrderEntityDto } from '../../../orders/generated-dtos/create/create-shipping-address-entity-order-entity.dto';
-import { AddShippingAddressEntityShopperProfileEntityDto } from '../../generated-dtos/create/create-shipping-address-entity-shopper-profile-entity.dto';
 import { OrderEntity } from '../../../orders/entities/order.entity'
 import { ShopperProfileEntity } from '../../entities/shopper-profile.entity'
 
@@ -46,19 +44,6 @@ latitude: string;
 
 @IsString()
 longitude: string;
-
-@IsOptional()
-@Relation({entity:'OrderEntity',type:'hasMany'})
-@ValidateNested({ each: true })
-@IsArray()
-@Type(() => AddShippingAddressEntityOrderEntityDto)
-orders?: AddShippingAddressEntityOrderEntityDto[] | null;
-
-@IsOptional()
-@Relation({entity:'ShopperProfileEntity',type:'belongsToOne'})
-@ValidateNested()
-@Type(() => AddShippingAddressEntityShopperProfileEntityDto)
-shopperProfile?: AddShippingAddressEntityShopperProfileEntityDto| null;
 
 @IsNumber()
 shopperId: number;

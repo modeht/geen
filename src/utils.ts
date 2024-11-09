@@ -9,4 +9,4 @@ export const appModulePath = sync('generated-modules.ts', {
 	cwd: join(projectPath, 'src'),
 })[0];
 
-export const globalDirPath = join(projectPath, 'src/globals');
+export const globalsDirPath = join(projectPath, 'src/globals');

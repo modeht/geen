@@ -1,10 +1,10 @@
 import { error, log, warn } from 'console';
-import { AddDtoCreator, Relationships } from './AddDtoCreator';
+import { CreateDtoCreator, Relationships } from './DtoCreator';
 import { Node } from './TreeParser';
 import { dirname, relative, sep } from 'path';
 
-export class DtoFieldBuilder {
-	constructor(public addDtoCreator: AddDtoCreator) {}
+export class CreateDtoFieldBuilder {
+	constructor(public addDtoCreator: CreateDtoCreator) {}
 
 	defaultExcludedFields: string[] = [
 		'updatedAt',
@@ -13,7 +13,7 @@ export class DtoFieldBuilder {
 		'created_at',
 	];
 
-	async _setFields() {
+	async _parseFields() {
 		const fields = this.addDtoCreator.entityClass?.properties || [];
 		const fieldsStringified: string[] = [];
 
@@ -156,7 +156,7 @@ export class DtoFieldBuilder {
 					if (fileImport) {
 						const fileName = fileImport.module?.split('/')?.at(-1)?.replace("'", '');
 						if (fileName && this.addDtoCreator.asts[fileName]) {
-							const newFile = new AddDtoCreator(
+							const newFile = new CreateDtoCreator(
 								this.addDtoCreator.asts[fileName].sourceFile,
 								this.addDtoCreator.asts[fileName].fullPath,
 								this.addDtoCreator.asts,
@@ -167,14 +167,15 @@ export class DtoFieldBuilder {
 								this.addDtoCreator.fileName
 							);
 
-							//change the type to the new created dto
+							//change the type to the new created dto not the original entity.
 							field.type = field.type?.replace(relatedClass!, className!);
-							const childRelPath = relative(this.addDtoCreator.ogFilePath, dtoFilePath);
+							const childRelPath = relative(this.addDtoCreator.ogFilePath, dtoFilePath)
+								.split(sep)
+								.join('/')
+								.replaceAll('.ts', '');
+
 							this.addDtoCreator.imports.add(
-								`import { ${className} } from '${childRelPath
-									.split(sep)
-									.join('/')
-									.replaceAll('.ts', '')}';`
+								`import { ${className} } from '${childRelPath}';`
 							);
 
 							switch (relationType) {
@@ -196,6 +197,10 @@ export class DtoFieldBuilder {
 									);
 									break;
 								case 'ManyToMany':
+									fieldValidations.add(
+										`@Relation({entity:'${entityName}',type:'belongsToMany'})`
+									);
+									break;
 							}
 
 							//add proper validations of nested class
@@ -212,10 +217,11 @@ export class DtoFieldBuilder {
 
 							//handle different types of relationships
 						} else {
-							error(`No ast available for ${fileName}`);
+							error(
+								`No ast available for ${fileName}. this will result in broken generation, it shouldn't happen`
+							);
 						}
 					} else {
-						log(this.addDtoCreator.ogFilePath);
 						warn(`Import of class ${relatedClass} is not found`);
 					}
 				}

@@ -1,9 +1,7 @@
-import { IsBoolean, IsOptional, ValidateNested, IsArray, IsNumber } from "class-validator";
-import { Type } from "class-transformer";
+import { IsBoolean, IsOptional, IsNumber } from "class-validator";
+import {  } from "class-transformer";
 import { Relation } from '../../../globals/decorators/relation.decorator';
 import { IsOptionalIf } from '../../../globals/validators/is-option-if.validator';
-import { AddConversationEntityUserEntityDto } from '../../../users/generated-dtos/create/create-conversation-entity-user-entity.dto';
-import { AddConversationEntityMessageEntityDto } from '../../../messages/generated-dtos/create/create-conversation-entity-message-entity.dto';
 import { MessageEntity } from '../../../messages/entities/message.entity'
 import { UserEntity } from '../../../users/entities/user.entity'
 
@@ -12,25 +10,6 @@ import { UserEntity } from '../../../users/entities/user.entity'
 export class AddConversationEntityDto {
 @IsBoolean()
 isSupport: boolean;
-
-@IsOptional()
-@Relation({entity:'UserEntity',type:'belongsToOne'})
-@ValidateNested()
-@Type(() => AddConversationEntityUserEntityDto)
-from?: AddConversationEntityUserEntityDto| null;
-
-@IsOptional()
-@Relation({entity:'UserEntity',type:'belongsToOne'})
-@ValidateNested()
-@Type(() => AddConversationEntityUserEntityDto)
-to?: AddConversationEntityUserEntityDto| null;
-
-@IsOptional()
-@Relation({entity:'MessageEntity',type:'hasMany'})
-@ValidateNested({ each: true })
-@IsArray()
-@Type(() => AddConversationEntityMessageEntityDto)
-messages?: AddConversationEntityMessageEntityDto[] | null;
 
 @IsBoolean()
 archivedByFrom: boolean;

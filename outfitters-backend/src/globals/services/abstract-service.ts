@@ -34,6 +34,8 @@ export class AbstractService {
 					val = await this.datasource.manager.save(relation.entity, val);
 				} else if (relation.type === 'hasMany') {
 					val = await this.datasource.manager.save(relation.entity, val);
+				} else if (relation.type === 'belongsToMany') {
+					val = await this.datasource.manager.save(relation.entity, val);
 				}
 			}
 			row[key] = val;

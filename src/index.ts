@@ -1,5 +1,5 @@
 import { async, sync } from 'fast-glob';
-import { AddDtoCreator } from './AddDtoCreator';
+import { CreateDtoCreator } from './DtoCreator';
 import { parseFiles } from './file-parser';
 import { time, timeEnd } from 'console';
 import { prereq } from './prereq';
@@ -13,14 +13,20 @@ async function main() {
 	const ASTs = await parseFiles(allEntities);
 	timeEnd('Parsing');
 
+	time('Prerequistes');
 	await prereq();
+	timeEnd('Prerequistes');
 
 	time('Creating dtos');
 	for (const ast in ASTs) {
-		const addDtoCreator = new AddDtoCreator(
+		const addDtoCreator = new CreateDtoCreator(
 			ASTs[ast].sourceFile,
 			ASTs[ast].fullPath,
-			ASTs
+			ASTs,
+			{
+				maxDepth: 1, //TODO: this already can generate way to much dtos, i am thinking of limiting it to only one level anyways
+				currDepth: 0,
+			}
 		);
 		await addDtoCreator.build();
 	}
