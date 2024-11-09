@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddConversationEntityDto } from './generated-dtos/add-conversation-entity.dto'
+import { AddConversationEntityDto } from './generated-dtos/create/create-conversation-entity.dto'
 import { ConversationService } from './generated-conversation.service'
 
 @Controller('conversation')

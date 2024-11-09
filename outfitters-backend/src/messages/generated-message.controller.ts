@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddMessageEntityDto } from './generated-dtos/add-message-entity.dto'
+import { AddMessageEntityDto } from './generated-dtos/create/create-message-entity.dto'
 import { MessageService } from './generated-message.service'
 
 @Controller('message')

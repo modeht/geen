@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AbstractService } from '../globals/services/abstract-service'
-import { AddPromoCodeEntityDto } from './generated-dtos/add-promo-code-entity.dto'
+import { AddPromoCodeEntityDto } from './generated-dtos/create/create-promo-code-entity.dto'
 import { PromoCodeEntity } from './entities/promo-code.entity'
 
 @Injectable()

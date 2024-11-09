@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AbstractService } from '../globals/services/abstract-service'
-import { AddRecentSearchesEntityDto } from './generated-dtos/add-recent-searches-entity.dto'
+import { AddRecentSearchesEntityDto } from './generated-dtos/create/create-recent-searches-entity.dto'
 import { RecentSearchesEntity } from './entities/recent-searches.entity'
 
 @Injectable()

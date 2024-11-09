@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AbstractService } from '../globals/services/abstract-service'
-import { AddAffiliationLinkEntityDto } from './generated-dtos/add-affiliation-link-entity.dto'
+import { AddAffiliationLinkEntityDto } from './generated-dtos/create/create-affiliation-link-entity.dto'
 import { AffiliationLinkEntity } from './entities/affiliation-link.entity'
 
 @Injectable()

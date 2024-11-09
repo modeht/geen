@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddOrderItemEntityDto } from './generated-dtos/add-order-item-entity.dto'
+import { AddOrderItemEntityDto } from './generated-dtos/create/create-order-item-entity.dto'
 import { OrderItemService } from './generated-order-item.service'
 
 @Controller('order-item')

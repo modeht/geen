@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddProductOptionValueEntityDto } from './generated-dtos/add-product-option-value-entity.dto'
+import { AddProductOptionValueEntityDto } from './generated-dtos/create/create-product-option-value-entity.dto'
 import { ProductOptionValueService } from './generated-product-option-value.service'
 
 @Controller('product-option-value')

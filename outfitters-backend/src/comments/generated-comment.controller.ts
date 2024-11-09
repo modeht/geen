@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddCommentEntityDto } from './generated-dtos/add-comment-entity.dto'
+import { AddCommentEntityDto } from './generated-dtos/create/create-comment-entity.dto'
 import { CommentService } from './generated-comment.service'
 
 @Controller('comment')

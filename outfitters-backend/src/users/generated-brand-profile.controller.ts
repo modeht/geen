@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddBrandProfileEntityDto } from './generated-dtos/add-brand-profile-entity.dto'
+import { AddBrandProfileEntityDto } from './generated-dtos/create/create-brand-profile-entity.dto'
 import { BrandProfileService } from './generated-brand-profile.service'
 
 @Controller('brand-profile')

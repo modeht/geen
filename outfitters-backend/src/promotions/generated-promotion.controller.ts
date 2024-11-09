@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddPromotionEntityDto } from './generated-dtos/add-promotion-entity.dto'
+import { AddPromotionEntityDto } from './generated-dtos/create/create-promotion-entity.dto'
 import { PromotionService } from './generated-promotion.service'
 
 @Controller('promotion')

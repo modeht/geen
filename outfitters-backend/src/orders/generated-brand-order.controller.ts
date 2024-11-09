@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddBrandOrderEntityDto } from './generated-dtos/add-brand-order-entity.dto'
+import { AddBrandOrderEntityDto } from './generated-dtos/create/create-brand-order-entity.dto'
 import { BrandOrderService } from './generated-brand-order.service'
 
 @Controller('brand-order')

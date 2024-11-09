@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddRefundEntityDto } from './generated-dtos/add-refund-entity.dto'
+import { AddRefundEntityDto } from './generated-dtos/create/create-refund-entity.dto'
 import { RefundService } from './generated-refund.service'
 
 @Controller('refund')

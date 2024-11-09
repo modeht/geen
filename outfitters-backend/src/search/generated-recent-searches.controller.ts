@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddRecentSearchesEntityDto } from './generated-dtos/add-recent-searches-entity.dto'
+import { AddRecentSearchesEntityDto } from './generated-dtos/create/create-recent-searches-entity.dto'
 import { RecentSearchesService } from './generated-recent-searches.service'
 
 @Controller('recent-searches')

@@ -1,10 +1,12 @@
 import ts from 'typescript';
 import { Node, TreeParser } from './TreeParser';
 import { readFile, writeFile, mkdir } from 'fs/promises';
-import { dirname, join, relative, sep } from 'path';
+import { dirname, join, relative, resolve, sep } from 'path';
 import { ASTs } from './lib/types';
 import { DtoFieldBuilder } from './DtoFieldBuilder';
-import { appModulePath } from './utils';
+import { appModulePath, globalDirPath as globalsDirPath } from './utils';
+import { mkdirSync } from 'fs';
+import { log } from 'console';
 
 export type AddDtoInfo = {
 	absPath: string;
@@ -47,6 +49,10 @@ export class AddDtoCreator {
 	transformationsImports: Set<string> = new Set();
 	asts: ASTs;
 	dtoFieldBuilder: DtoFieldBuilder;
+	dtoDirName: string;
+	dtoDirPath: string;
+	dtoDirRelPath: string;
+	dtoDirAbsPath: string;
 
 	constructor(
 		ast: ts.SourceFile,
@@ -60,10 +66,24 @@ export class AddDtoCreator {
 		this.currDepth = currDepth;
 		this.asts = asts;
 		this.dtoFieldBuilder = new DtoFieldBuilder(this);
+
+		this.dtoDirName = 'create';
+		this.dtoDirPath = `generated-dtos/${this.dtoDirName}`;
+		//this is supposed to be under same module
+		//entity should be under main module
+		//
+		this.dtoDirAbsPath = join(dirname(this.ogFilePath), '..', this.dtoDirPath);
+		//make sure the dto directory exists
+		mkdirSync(this.dtoDirAbsPath, { recursive: true });
+
+		//relative path to dto directory from entity
+		this.dtoDirRelPath = relative(
+			this.ogFilePath,
+			join(dirname(this.ogFilePath), '..', this.dtoDirPath)
+		);
 	}
 
 	async build(parenClassName: string = '', parentFileName: string = '') {
-		await mkdir(join(dirname(this.ogFilePath), '../generated-dtos'), { recursive: true });
 		this._setEntityName();
 		this._setClassName(parenClassName);
 		this._setFilename();
@@ -71,22 +91,25 @@ export class AddDtoCreator {
 		this._setEnums();
 		await this.dtoFieldBuilder._setFields();
 
-		const savedFileName = `add${parentFileName ? '-' + parentFileName : ''}-${
+		//the dto will be saved with this name
+		const savedFileName = `create${parentFileName ? '-' + parentFileName : ''}-${
 			this.fileName
 		}.dto.ts`;
 
-		const dtoDirRelativePath = relative(
+		//path of the dto exactly
+		const newDtoFilePath = join(
 			this.ogFilePath,
-			join(dirname(this.ogFilePath), '../generated-dtos')
+			`${this.dtoDirRelPath}/${savedFileName}`
 		);
 
-		const dtoFilePath = join(this.ogFilePath, `${dtoDirRelativePath}/${savedFileName}`);
-		const ogFileDirPath = relative(dirname(dtoFilePath), this.ogFilePath);
+		//relative path from the new to be saved file to the original entity file for imports use
+		const ogDirRelPath = relative(dirname(newDtoFilePath), this.ogFilePath);
 
 		this.imports = new Set([
 			...this.imports,
 			...this.absoluteImports?.map((i) => {
-				const relativePath = relative(dirname(dtoFilePath), i.absPath)
+				//take relative imports from main entity file and map those imports to the dto file with the correct relative paths
+				const relativePath = relative(dirname(newDtoFilePath), i.absPath)
 					.split(sep)
 					.join('/')
 					.replaceAll('.ts', '');
@@ -117,29 +140,30 @@ export class AddDtoCreator {
 		);
 		dtoTemplate = dtoTemplate.replaceAll(
 			'<<pathToOriginal>>',
-			ogFileDirPath.split(sep).join('/').replaceAll('.ts', '')
+			ogDirRelPath.split(sep).join('/').replaceAll('.ts', '')
 		);
 
-		await writeFile(dtoFilePath, dtoTemplate);
-		//i need the dto classname, dto absolue path
+		await writeFile(newDtoFilePath, dtoTemplate);
+
 		if (this.currDepth === 0) {
 			//this checks if it is entry point file
 			const dto = {
-				absPath: dtoFilePath,
+				absPath: newDtoFilePath,
 				className: this.className!,
 				entityName: this.entityName!,
 				fileName: this.fileName!,
 				savedFileName: savedFileName,
 			};
 
-			const service = await this._initService(dto);
-			const controller = await this._initController(dto, service);
-			const module = await this._initModule(dto, service, controller);
-			//add module to app.module.ts
+			const service = await this._createService(dto);
+			const controller = await this._createController(dto, service);
+			const module = await this._createModule(dto, service, controller);
+
+			//add module to generated-modules.ts
 			await this.addToEntry(module);
 		}
 		return {
-			dtoFilePath,
+			dtoFilePath: newDtoFilePath,
 			className: this.className,
 			entityName: this.entityName,
 		};
@@ -183,7 +207,7 @@ export class AddDtoCreator {
 		await writeFile(appModulePath, moduleTemplate);
 	}
 
-	async _initService(addDtoInfo: AddDtoInfo) {
+	async _createService(addDtoInfo: AddDtoInfo) {
 		let serviceTemplate = await readFile(
 			join(process.cwd(), 'templates/service.template'),
 			'utf8'
@@ -193,9 +217,9 @@ export class AddDtoCreator {
 		imports.add(`import { DataSource } from 'typeorm'`);
 		imports.add(`import { AbstractService } from '../globals/services/abstract-service'`);
 		imports.add(
-			`import { ${
-				addDtoInfo.className
-			} } from './generated-dtos/${addDtoInfo.savedFileName?.replace('.ts', '')}'`
+			`import { ${addDtoInfo.className} } from './${
+				this.dtoDirPath
+			}/${addDtoInfo.savedFileName?.replace('.ts', '')}'`
 		);
 		imports.add(
 			`import { ${addDtoInfo.entityName} } from './entities/${this.ogFilePath
@@ -250,7 +274,7 @@ export class AddDtoCreator {
 		};
 	}
 
-	async _initController(addDtoInfo: AddDtoInfo, serviceFileInfo: ServiceFileInfo) {
+	async _createController(addDtoInfo: AddDtoInfo, serviceFileInfo: ServiceFileInfo) {
 		let controllerTemplate = await readFile(
 			join(process.cwd(), 'templates/controller.template'),
 			'utf8'
@@ -258,9 +282,9 @@ export class AddDtoCreator {
 		const imports = new Set();
 		imports.add(`import { Controller, Post, Body } from '@nestjs/common';`);
 		imports.add(
-			`import { ${
-				addDtoInfo.className
-			} } from './generated-dtos/${addDtoInfo.savedFileName?.replace('.ts', '')}'`
+			`import { ${addDtoInfo.className} } from './${
+				this.dtoDirPath
+			}/${addDtoInfo.savedFileName?.replace('.ts', '')}'`
 		);
 		imports.add(
 			`import { ${
@@ -325,7 +349,7 @@ export class AddDtoCreator {
 		};
 	}
 
-	async _initModule(
+	async _createModule(
 		addDtoInfo: AddDtoInfo,
 		serviceFileInfo: ServiceFileInfo,
 		controllerFileInfo: ControllerFileInfo
@@ -432,12 +456,20 @@ export class AddDtoCreator {
 		this.imports?.add('import { <<validationsImports>> } from "class-validator";');
 		this.imports?.add('import { <<transformationsImports>> } from "class-transformer";');
 
+		//TODO: we need a script to make sure these important files exists
+		//find relative path to them,
+		//i have their absolute path from project directory
+		//find relative to them from the current file
 		//TODO: fixed relative import here is risky, think of something
+		const relationDecoRelPath = relative(this.dtoDirAbsPath, globalsDirPath)
+			.split(sep)
+			.join('/');
+
 		this.imports?.add(
-			"import { Relation } from '../../globals/decorators/relation.decorator';"
+			`import { Relation } from '${relationDecoRelPath}/decorators/relation.decorator';`
 		);
 		this.imports.add(
-			"import { IsOptionalIf } from '../../globals/validators/is-option-if.validator';"
+			`import { IsOptionalIf } from '${relationDecoRelPath}/validators/is-option-if.validator';`
 		);
 	}
 

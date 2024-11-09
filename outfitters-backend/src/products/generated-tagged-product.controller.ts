@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddTaggedProductEntityDto } from './generated-dtos/add-tagged-product-entity.dto'
+import { AddTaggedProductEntityDto } from './generated-dtos/create/create-tagged-product-entity.dto'
 import { TaggedProductService } from './generated-tagged-product.service'
 
 @Controller('tagged-product')

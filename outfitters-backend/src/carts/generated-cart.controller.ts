@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddCartEntityDto } from './generated-dtos/add-cart-entity.dto'
+import { AddCartEntityDto } from './generated-dtos/create/create-cart-entity.dto'
 import { CartService } from './generated-cart.service'
 
 @Controller('cart')

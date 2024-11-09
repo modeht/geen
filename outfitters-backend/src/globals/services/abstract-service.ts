@@ -1,7 +1,9 @@
 import { plainToInstance } from 'class-transformer';
 import { DataSource } from 'typeorm';
 import { Injectable } from '@nestjs/common';
+
 import { RelationDecoratorParams } from '../decorators/relation.decorator';
+
 export type ClassRef<T> = { new (...args: any[]): T };
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AbstractService } from '../globals/services/abstract-service'
-import { AddSeasonalPromotionEntityDto } from './generated-dtos/add-seasonal-promotion-entity.dto'
+import { AddSeasonalPromotionEntityDto } from './generated-dtos/create/create-seasonal-promotion-entity.dto'
 import { SeasonalPromotionEntity } from './entities/seasonal-promotion.entity'
 
 @Injectable()

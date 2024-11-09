@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddAffiliationLinkTrackingEntityDto } from './generated-dtos/add-affiliation-link-tracking-entity.dto'
+import { AddAffiliationLinkTrackingEntityDto } from './generated-dtos/create/create-affiliation-link-tracking-entity.dto'
 import { AffiliationLinkTrackingService } from './generated-affiliation-link-tracking.service'
 
 @Controller('affiliation-link-tracking')

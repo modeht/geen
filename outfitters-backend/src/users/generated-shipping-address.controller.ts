@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddShippingAddressEntityDto } from './generated-dtos/add-shipping-address-entity.dto'
+import { AddShippingAddressEntityDto } from './generated-dtos/create/create-shipping-address-entity.dto'
 import { ShippingAddressService } from './generated-shipping-address.service'
 
 @Controller('shipping-address')

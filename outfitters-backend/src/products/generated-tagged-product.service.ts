@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AbstractService } from '../globals/services/abstract-service'
-import { AddTaggedProductEntityDto } from './generated-dtos/add-tagged-product-entity.dto'
+import { AddTaggedProductEntityDto } from './generated-dtos/create/create-tagged-product-entity.dto'
 import { TaggedProductEntity } from './entities/tagged-product.entity'
 
 @Injectable()

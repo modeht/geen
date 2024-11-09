@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddNotificationEntityDto } from './generated-dtos/add-notification-entity.dto'
+import { AddNotificationEntityDto } from './generated-dtos/create/create-notification-entity.dto'
 import { NotificationService } from './generated-notification.service'
 
 @Controller('notification')

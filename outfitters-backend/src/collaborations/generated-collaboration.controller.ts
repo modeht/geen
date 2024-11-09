@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddCollaborationEntityDto } from './generated-dtos/add-collaboration-entity.dto'
+import { AddCollaborationEntityDto } from './generated-dtos/create/create-collaboration-entity.dto'
 import { CollaborationService } from './generated-collaboration.service'
 
 @Controller('collaboration')

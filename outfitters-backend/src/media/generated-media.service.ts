@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AbstractService } from '../globals/services/abstract-service'
-import { AddMediaEntityDto } from './generated-dtos/add-media-entity.dto'
+import { AddMediaEntityDto } from './generated-dtos/create/create-media-entity.dto'
 import { MediaEntity } from './entities/media.entity'
 
 @Injectable()

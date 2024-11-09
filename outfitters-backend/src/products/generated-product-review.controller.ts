@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddProductReviewEntityDto } from './generated-dtos/add-product-review-entity.dto'
+import { AddProductReviewEntityDto } from './generated-dtos/create/create-product-review-entity.dto'
 import { ProductReviewService } from './generated-product-review.service'
 
 @Controller('product-review')

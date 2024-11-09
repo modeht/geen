@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AbstractService } from '../globals/services/abstract-service'
-import { AddBrandOrderEntityDto } from './generated-dtos/add-brand-order-entity.dto'
+import { AddBrandOrderEntityDto } from './generated-dtos/create/create-brand-order-entity.dto'
 import { BrandOrderEntity } from './entities/brand-orders.entity'
 
 @Injectable()

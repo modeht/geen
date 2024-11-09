@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddSeasonalPromotionEntityDto } from './generated-dtos/add-seasonal-promotion-entity.dto'
+import { AddSeasonalPromotionEntityDto } from './generated-dtos/create/create-seasonal-promotion-entity.dto'
 import { SeasonalPromotionService } from './generated-seasonal-promotion.service'
 
 @Controller('seasonal-promotion')

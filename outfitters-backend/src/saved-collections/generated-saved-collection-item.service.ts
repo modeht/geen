@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AbstractService } from '../globals/services/abstract-service'
-import { AddSavedCollectionItemEntityDto } from './generated-dtos/add-saved-collection-item-entity.dto'
+import { AddSavedCollectionItemEntityDto } from './generated-dtos/create/create-saved-collection-item-entity.dto'
 import { SavedCollectionItemEntity } from './entities/saved-collection-item.entity'
 
 @Injectable()

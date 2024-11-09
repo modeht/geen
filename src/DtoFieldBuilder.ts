@@ -169,10 +169,7 @@ export class DtoFieldBuilder {
 
 							//change the type to the new created dto
 							field.type = field.type?.replace(relatedClass!, className!);
-							const childRelPath = relative(
-								dirname(this.addDtoCreator.ogFilePath),
-								dtoFilePath
-							);
+							const childRelPath = relative(this.addDtoCreator.ogFilePath, dtoFilePath);
 							this.addDtoCreator.imports.add(
 								`import { ${className} } from '${childRelPath
 									.split(sep)

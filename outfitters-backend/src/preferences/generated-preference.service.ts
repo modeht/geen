@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AbstractService } from '../globals/services/abstract-service'
-import { AddPreferenceEntityDto } from './generated-dtos/add-preference-entity.dto'
+import { AddPreferenceEntityDto } from './generated-dtos/create/create-preference-entity.dto'
 import { PreferenceEntity } from './entities/preference.entity'
 
 @Injectable()

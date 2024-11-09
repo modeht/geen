@@ -2,7 +2,7 @@ import { async, sync } from 'fast-glob';
 import { AddDtoCreator } from './AddDtoCreator';
 import { parseFiles } from './file-parser';
 import { time, timeEnd } from 'console';
-import { join } from 'path';
+import { prereq } from './prereq';
 
 async function main() {
 	time('Loading entities');
@@ -12,6 +12,8 @@ async function main() {
 	time('Parsing');
 	const ASTs = await parseFiles(allEntities);
 	timeEnd('Parsing');
+
+	await prereq();
 
 	time('Creating dtos');
 	for (const ast in ASTs) {

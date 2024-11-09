@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AbstractService } from '../globals/services/abstract-service'
-import { AddShopperProfileEntityDto } from './generated-dtos/add-shopper-profile-entity.dto'
+import { AddShopperProfileEntityDto } from './generated-dtos/create/create-shopper-profile-entity.dto'
 import { ShopperProfileEntity } from './entities/shopper-profile.entity'
 
 @Injectable()

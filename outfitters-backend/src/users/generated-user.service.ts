@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AbstractService } from '../globals/services/abstract-service'
-import { AddUserEntityDto } from './generated-dtos/add-user-entity.dto'
+import { AddUserEntityDto } from './generated-dtos/create/create-user-entity.dto'
 import { UserEntity } from './entities/user.entity'
 
 @Injectable()

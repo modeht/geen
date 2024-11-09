@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AbstractService } from '../globals/services/abstract-service'
-import { AddCountryEntityDto } from './generated-dtos/add-country-entity.dto'
+import { AddCountryEntityDto } from './generated-dtos/create/create-country-entity.dto'
 import { CountryEntity } from './entities/countries.entity'
 
 @Injectable()

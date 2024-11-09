@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddCollectionEntityDto } from './generated-dtos/add-collection-entity.dto'
+import { AddCollectionEntityDto } from './generated-dtos/create/create-collection-entity.dto'
 import { CollectionService } from './generated-collection.service'
 
 @Controller('collection')

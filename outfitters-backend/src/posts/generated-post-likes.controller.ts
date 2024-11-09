@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddPostLikesEntityDto } from './generated-dtos/add-post-likes-entity.dto'
+import { AddPostLikesEntityDto } from './generated-dtos/create/create-post-likes-entity.dto'
 import { PostLikesService } from './generated-post-likes.service'
 
 @Controller('post-likes')

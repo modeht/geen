@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddTranslationEntityDto } from './generated-dtos/add-translation-entity.dto'
+import { AddTranslationEntityDto } from './generated-dtos/create/create-translation-entity.dto'
 import { TranslationService } from './generated-translation.service'
 
 @Controller('translation')

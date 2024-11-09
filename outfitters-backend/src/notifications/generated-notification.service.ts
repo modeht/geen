@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { AbstractService } from '../globals/services/abstract-service'
-import { AddNotificationEntityDto } from './generated-dtos/add-notification-entity.dto'
+import { AddNotificationEntityDto } from './generated-dtos/create/create-notification-entity.dto'
 import { NotificationEntity } from './entities/notification.entity'
 
 @Injectable()

@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AddPostEntityDto } from './generated-dtos/add-post-entity.dto'
+import { AddPostEntityDto } from './generated-dtos/create/create-post-entity.dto'
 import { PostService } from './generated-post.service'
 
 @Controller('post')
