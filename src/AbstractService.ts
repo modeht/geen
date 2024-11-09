@@ -1,6 +1,6 @@
 //@ts-nocheck
 export class AbstractService {
-	async create(entryClass:  body: AddCategoryEntityDto) {
+	async create(entryClass: any, body: AddCategoryEntityDto) {
 		const bodyInstance = plainToInstance(AddCategoryEntityDto, body);
 		const row = new CategoryEntity();
 		for (const key in bodyInstance) {

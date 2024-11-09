@@ -1,6 +1,9 @@
 import { error, log } from 'console';
 import { sync } from 'fast-glob';
-import { rm, rmdir } from 'fs/promises';
+import { rm, rmdir, writeFile } from 'fs/promises';
+import { join } from 'path';
+import { readFileSync } from 'fs';
+import { projectPath } from './utils';
 
 const dirs = sync('**/*/generated-dtos', {
 	onlyDirectories: true,
@@ -22,3 +25,8 @@ controllers.forEach((co) => {
 		.then((r) => log('removed'))
 		.catch((e) => error(e));
 });
+
+writeFile(
+	join(projectPath, 'src', 'generated-modules.ts'),
+	readFileSync(join(process.cwd(), 'templates', 'app-module.template'), 'utf8')
+).then((r) => log('reset modules'));

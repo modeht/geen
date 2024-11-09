@@ -158,8 +158,8 @@ export class DtoFieldBuilder {
 						if (fileName && this.addDtoCreator.asts[fileName]) {
 							const newFile = new AddDtoCreator(
 								this.addDtoCreator.asts[fileName].sourceFile,
-								this.addDtoCreator.asts,
 								this.addDtoCreator.asts[fileName].fullPath,
+								this.addDtoCreator.asts,
 								{ currDepth: this.addDtoCreator.currDepth + 1, maxDepth: 1 }
 							);
 							const { dtoFilePath, className, entityName } = await newFile.build(

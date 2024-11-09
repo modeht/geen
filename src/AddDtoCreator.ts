@@ -4,7 +4,7 @@ import { readFile, writeFile, mkdir } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types';
 import { DtoFieldBuilder } from './DtoFieldBuilder';
-import { appModulePath } from '.';
+import { appModulePath } from './utils';
 
 export type AddDtoInfo = {
 	absPath: string;
@@ -50,8 +50,8 @@ export class AddDtoCreator {
 
 	constructor(
 		ast: ts.SourceFile,
-		asts: ASTs,
 		ogPath: string,
+		asts: ASTs,
 		{ maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 }
 	) {
 		this.parsedTree = TreeParser.parse(ast);
@@ -147,20 +147,37 @@ export class AddDtoCreator {
 
 	async addToEntry(module: ModuleFileInfo) {
 		let moduleTemplate = await readFile(appModulePath, 'utf8');
-		moduleTemplate = moduleTemplate.replace(
-			'//insert-generated-class',
-			'Generated' + module.moduleClassName + ',\n' + '//insert-generated-class'
+
+		const importsToken = '//imports';
+		const modulesToken = '//modules';
+		const modulesStart = moduleTemplate.indexOf(modulesToken);
+		if (modulesStart === -1) {
+			throw new Error('Malformed generated module file');
+		}
+
+		const moduleName = '\nGenerated' + module.moduleClassName + ',';
+		moduleTemplate = ''.concat(
+			moduleTemplate.slice(0, modulesStart + modulesToken.length),
+			moduleName,
+			moduleTemplate.slice(modulesStart + modulesToken.length)
 		);
-		moduleTemplate = moduleTemplate.replace(
-			'//insert-generated-import',
-			`import { ${module.moduleClassName} as Generated${module.moduleClassName} } from "./` +
-				relative(dirname(appModulePath), module.moduleAbsPath)
-					.split(sep)
-					.join('/')
-					.replace('.ts', '') +
-				'";' +
-				'\n' +
-				'//insert-generated-import'
+
+		const importsStart = moduleTemplate.indexOf(importsToken);
+		if (importsStart === -1) {
+			throw new Error('Malformed generated module file');
+		}
+		const importStr =
+			`\nimport { ${module.moduleClassName} as Generated${module.moduleClassName} } from "./` +
+			relative(dirname(appModulePath), module.moduleAbsPath)
+				.split(sep)
+				.join('/')
+				.replace('.ts', '') +
+			'";';
+
+		moduleTemplate = ''.concat(
+			moduleTemplate.slice(0, importsStart + importsToken.length),
+			importStr,
+			moduleTemplate.slice(importsStart + importsToken.length)
 		);
 
 		await writeFile(appModulePath, moduleTemplate);
