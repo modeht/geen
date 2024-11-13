@@ -31,7 +31,7 @@ export class BrandEngagementsService {
 	};
 
 	async getCommentsEngagement(paginated: Paginated) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const [comments, totalCount] = await this.dataSource.manager.findAndCount(
 			CommentEntity,
 			{
@@ -57,7 +57,7 @@ export class BrandEngagementsService {
 	}
 
 	async getLikesEngagement(paginated: Paginated) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const postLikesQuery = this.dataSource.manager
 			.createQueryBuilder(PostLikesEntity, 'postLikes')
 			.select([
@@ -130,7 +130,7 @@ export class BrandEngagementsService {
 	}
 
 	async getPostsLikesEngagement(paginated: Paginated) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const [likes, totalCount] = await this.dataSource.manager.find(PostLikesEntity, {
 			select: {
 				createdAt: true,
@@ -152,7 +152,7 @@ export class BrandEngagementsService {
 	}
 
 	async getStoriesLikesEngagement(paginated: Paginated) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const [likes, totalCount] = await this.dataSource.manager.find(StoryLikesEntity, {
 			select: {
 				createdAt: true,
@@ -174,7 +174,7 @@ export class BrandEngagementsService {
 	}
 
 	async getSavesEngagement(paginated: Paginated) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const [saves, totalCount] = await this.dataSource.manager
 			.createQueryBuilder(SavedCollectionItemEntity, 'saves')
 			.select([
@@ -210,7 +210,7 @@ export class BrandEngagementsService {
 	}
 
 	async getSharesEngagement(paginated: Paginated) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const [shares, totalCount] = await this.dataSource.manager
 			.createQueryBuilder(MessageEntity, 'message')
 			.select([

@@ -8,7 +8,7 @@ import { PromotionStatusEnum } from '../../entities/enums'
 
 
 
-export class AddSeasonalPromotionEntityDto {
+export class CreateSeasonalPromotionEntityDto {
 @IsString()
 title: string;
 

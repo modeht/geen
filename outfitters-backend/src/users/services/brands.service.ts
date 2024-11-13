@@ -39,7 +39,7 @@ export class BrandsService {
 		};
 
 	private _buildQuery(opts: FindManyOptions<BrandProfileEntity>) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const qb = this.dataSource.manager.createQueryBuilder(
 			BrandProfileEntity,
 			'brandProfile',
@@ -61,7 +61,7 @@ export class BrandsService {
 	}
 
 	async manageProfile(payload: ManageBrandProfileDto) {
-		const id = this.authContext.getUser().sub;
+		const id = this.authContext.getUser()!.sub;
 		Utils.validateNullProperties(
 			payload,
 			Object.keys(this.noneNullableFields)

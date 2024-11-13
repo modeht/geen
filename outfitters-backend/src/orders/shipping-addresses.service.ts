@@ -14,7 +14,7 @@ export class ShippingAddressesService {
 	) {}
 
 	async create(createShippingAddressDto: CreateShippingAddressDto) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const shippingAddress = new ShippingAddressEntity();
 		shippingAddress.shopperId = userId;
 		shippingAddress.latitude = createShippingAddressDto.latitude;
@@ -31,7 +31,7 @@ export class ShippingAddressesService {
 	}
 
 	async findAll(paginated: Paginated) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const [shippingAddresses, totalCount] = await this.datasource.manager.findAndCount(
 			ShippingAddressEntity,
 			{
@@ -50,7 +50,7 @@ export class ShippingAddressesService {
 	}
 
 	async update(id: number, updateShippingAddressDto: UpdateShippingAddressDto) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const shippingAddress = await this.findOne({ id, shopperId: userId });
 
 		shippingAddress.latitude =
@@ -72,7 +72,7 @@ export class ShippingAddressesService {
 	}
 
 	async remove(id: number) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const shippingAddress = await this.findOne({ id, shopperId: userId });
 		await this.datasource.manager.softRemove(shippingAddress);
 		return shippingAddress;

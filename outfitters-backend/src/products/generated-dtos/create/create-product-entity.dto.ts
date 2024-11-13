@@ -21,7 +21,7 @@ import { CartItemsEntity } from '../../../carts/entities/cart-item.entity'
 
 
 
-export class AddProductEntityDto {
+export class CreateProductEntityDto {
 @IsBoolean()
 isArchived: boolean;
 

@@ -17,7 +17,7 @@ export class SearchService {
 	) {}
 
 	async searchProducts(keyword: string, paginated: Paginated) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 
 		const tr = this.dataSource.createQueryRunner();
 		await tr.connect();
@@ -77,7 +77,7 @@ export class SearchService {
 	}
 
 	async searchUsers(keyword: string, paginated: Paginated) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 
 		const tr = this.dataSource.createQueryRunner();
 		await tr.connect();
@@ -111,7 +111,7 @@ export class SearchService {
 	}
 
 	async findRecentSearches(mode: searchMode, paginated: Paginated) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const [searches, totalCount] = await this.dataSource.manager.findAndCount(
 			RecentSearchesEntity,
 			{
@@ -124,7 +124,7 @@ export class SearchService {
 	}
 
 	async deleteRecentSearches(mode: searchMode) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		await this.dataSource.manager.delete(RecentSearchesEntity, {
 			userId,
 			mode,

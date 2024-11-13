@@ -8,7 +8,7 @@ import { ProductEntity } from '../../entities/product.entity'
 
 
 
-export class AddProductReviewEntityDto {
+export class CreateProductReviewEntityDto {
 @IsNumber()
 @IsOptional()
 stars?: number | null;

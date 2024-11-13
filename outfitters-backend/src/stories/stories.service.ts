@@ -25,7 +25,7 @@ export class StoriesService {
 	) {}
 
 	private _buildQuery(postedById?: number): SelectQueryBuilder<UserEntity> {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 
 		const queryBuilder = this.datasource.manager
 			.createQueryBuilder(UserEntity, 'user')
@@ -49,7 +49,7 @@ export class StoriesService {
 	}
 
 	async create(createStoryDto: CreateStoryDto) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 
 		const newStory = new StoryEntity();
 		newStory.background = createStoryDto.background;
@@ -121,7 +121,7 @@ export class StoriesService {
 		return story;
 	}
 	async findFeed(pagination: Paginated) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		console.log(userId);
 
 		const past24Hours = new Date();
@@ -144,7 +144,7 @@ export class StoriesService {
 	}
 
 	async findLikes(storyId: number, pagination: Paginated) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 
 		return this.usersService.findAll({
 			where: {
@@ -197,7 +197,7 @@ export class StoriesService {
 	}
 
 	async setLike(storyId: number, setLikeDto: SetLikeDto) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const isLiked = setLikeDto.isLiked;
 		if (isLiked) return this._addLike(storyId, userId);
 		return this._removeLike(storyId, userId);
@@ -231,7 +231,7 @@ export class StoriesService {
 	}
 
 	async remove(storyId: number) {
-		const postedById = this.authContext.getUser().sub;
+		const postedById = this.authContext.getUser()!.sub;
 		const story = await this.datasource.manager.findOne(StoryEntity, {
 			where: { id: storyId, postedById },
 		});

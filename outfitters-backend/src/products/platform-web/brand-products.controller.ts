@@ -68,7 +68,7 @@ export class WebBrandProductsController {
 		@Relations(productrQueryableRelations)
 		relations: QueryableRelations<typeof productrQueryableRelations>,
 	) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const findOptionsWhere: FindOptionsWhere<ProductEntity> = {
 			isArchived: false,
 			brandId,

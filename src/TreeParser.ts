@@ -5,6 +5,7 @@ export type Node = {
 	text?: string;
 	name?: string;
 	type?: string;
+	optional?: boolean;
 	expression?: string;
 	statement?: string;
 	def?: string;
@@ -71,7 +72,10 @@ export class TreeParser {
 					text: node?.getText(),
 				};
 				prev['enums'] = [...(prev['enums'] || []), curr];
+			} else if (ts.isQuestionToken(node)) {
+				prev['optional'] = true;
 			}
+
 			node.forEachChild((child) => visit(curr, child));
 		};
 		visit(start, ast);

@@ -15,7 +15,7 @@ export class PromotionsService {
 	) {}
 
 	async create(createPromotionDto: CreatePromotionDto): Promise<PromotionEntity> {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 
 		const newPromotion = new PromotionEntity();
 		newPromotion.title = createPromotionDto.title;
@@ -64,7 +64,7 @@ export class PromotionsService {
 	}
 	// TODO: Handle case where promotion is already applied to the product
 	async update(id: number, updatePromotionDto: UpdatePromotionDto) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const promotion = await this.findOne(id);
 		if (promotion.brandId !== brandId) {
 			throw new NotFoundException('Promotion not found');
@@ -99,7 +99,7 @@ export class PromotionsService {
 	}
 
 	async remove(id: number) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const promotion = await this.findOne(id);
 		if (promotion.brandId !== brandId) {
 			throw new NotFoundException('Promotion not found');

@@ -161,6 +161,7 @@ export class CreateDtoCreator {
 			//add module to generated-modules.ts
 			await this.addToEntry(module);
 		}
+
 		return {
 			dtoFilePath: newDtoFilePath,
 			className: this.className,

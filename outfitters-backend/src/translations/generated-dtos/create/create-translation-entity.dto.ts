@@ -6,6 +6,6 @@ import { LanguageEnum } from '../../../../lib/enums'
 
 
 
-export class AddTranslationEntityDto {
+export class CreateTranslationEntityDto {
 
 }

@@ -11,7 +11,7 @@ import { BrandOrderEntity } from '../../entities/brand-orders.entity'
 
 
 
-export class AddOrderEntityDto {
+export class CreateOrderEntityDto {
 @IsNumber()
 @IsOptional()
 totalSalePrice?: number | null;

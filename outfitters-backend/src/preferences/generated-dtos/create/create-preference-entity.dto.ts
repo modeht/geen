@@ -8,7 +8,7 @@ import { ShopperProfileEntity } from '../../../users/entities/shopper-profile.en
 
 
 
-export class AddPreferenceEntityDto {
+export class CreatePreferenceEntityDto {
 @IsString()
 @IsOptional()
 name?: string | null;

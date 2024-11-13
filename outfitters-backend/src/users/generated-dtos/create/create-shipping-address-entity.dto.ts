@@ -7,7 +7,7 @@ import { ShopperProfileEntity } from '../../entities/shopper-profile.entity'
 
 
 
-export class AddShippingAddressEntityDto {
+export class CreateShippingAddressEntityDto {
 @IsDate()
 @Type(()=>Date)
 deletedAt: Date;

@@ -8,7 +8,7 @@ import { SavedCollectionEntity } from '../../entities/saved-collection.entity'
 
 
 
-export class AddSavedCollectionItemEntityDto {
+export class CreateSavedCollectionItemEntityDto {
 @IsNumber()
 savedCollectionId: number;
 

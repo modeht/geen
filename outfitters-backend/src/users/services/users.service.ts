@@ -83,8 +83,11 @@ export class UsersService {
 		addHasStoryToQuery('user__brandProfile', qb);
 		const row = await qb.getOne();
 		if (!row && throwIfNotFound) throw new NotFoundException('Record was not found');
-		if (row.shopperProfile.id === null) delete row.shopperProfile;
-		if (row.brandProfile.id === null) delete row.brandProfile;
+
+		if (row !== null) {
+			if (row.shopperProfile?.id === null) row.shopperProfile = null;
+			if (row.brandProfile?.id === null) row.brandProfile = null;
+		}
 
 		return row;
 	}
@@ -106,12 +109,13 @@ export class UsersService {
 
 		const row = await this.dataSource.manager.findOne(UserEntity, opts);
 		if (!row && throwIfNotFound) throw new NotFoundException('Record was not found');
-		return row;
+		return row!;
 	}
 
 	// TODO: move this to auth service with and then require otp to update email/phone
 	async update(id: number, updateUserDto: UpdateUserDto) {
 		const user = await this.findOne({ where: { id } });
+
 		if (updateUserDto.email && updateUserDto.email !== user.email) {
 			if (user.isAppleSignin || user.isGoogleSignin) {
 				throw new ConflictException('Email cannot be updated for social signin users');
@@ -180,21 +184,18 @@ export class UsersService {
 		const brandProfile = new BrandProfileEntity();
 		brandProfile.storeName = createBrandDto.storeName;
 		brandProfile.brandName = createBrandDto.brandName;
-		brandProfile.website = createBrandDto.website;
-		brandProfile.currency = createBrandDto.currency;
-		brandProfile.storeBio = createBrandDto.storeBio;
+		brandProfile.website = createBrandDto.website!;
+		brandProfile.currency = createBrandDto.currency!;
+		brandProfile.storeBio = createBrandDto.storeBio!;
 		brandProfile.brandManagerFullName = createBrandDto.brandManagerFullName;
-		brandProfile.logoId = createBrandDto.logoId;
+		brandProfile.logoId = createBrandDto.logoId!;
 
-		brandProfile.countries = createBrandDto.countriesIds?.map(
-			(id) => ({ id }) as CountryEntity,
-		);
-		brandProfile.categories = createBrandDto.categoriesIds?.map(
-			(id) => ({ id }) as CategoryEntity,
-		);
-		brandProfile.subCategories = createBrandDto.subCategoriesIds?.map(
-			(id) => ({ id }) as CategoryEntity,
-		);
+		brandProfile.countries =
+			createBrandDto.countriesIds?.map((id) => ({ id }) as CountryEntity) || null;
+		brandProfile.categories =
+			createBrandDto.categoriesIds?.map((id) => ({ id }) as CategoryEntity) || null;
+		brandProfile.subCategories =
+			createBrandDto.subCategoriesIds?.map((id) => ({ id }) as CategoryEntity) || null;
 
 		const emailExists = await this.exists({ email: user.email });
 		if (emailExists) throw new ConflictException('Email already exists');
@@ -211,7 +212,7 @@ export class UsersService {
 		await tr.startTransaction();
 		try {
 			const newUser = await tr.manager.save(UserEntity, user);
-			this.authService.onboardBrand(newUser.id, newUser.email, isTestRun);
+			this.authService.onboardBrand(newUser.id, newUser.email!, isTestRun);
 			await tr.commitTransaction();
 			return newUser;
 		} catch (error) {
@@ -223,7 +224,7 @@ export class UsersService {
 	}
 
 	async findAll(opts: FindManyOptions<UserEntity>) {
-		const userId = this.authContext.getUser()?.sub;
+		const userId = this.authContext.getUser()!!.sub;
 		const qb = this.dataSource.manager
 			.createQueryBuilder(UserEntity, 'user')
 			.setFindOptions({
@@ -238,8 +239,10 @@ export class UsersService {
 		// FE needs these fields under shopperProfile/brandProfile for some reason
 		users.forEach((user) => {
 			const key = user.shopperProfile ? 'shopperProfile' : 'brandProfile';
-			user[key].isFollowing = user.isFollowing;
-			user[key].followersCount = user.followersCount;
+			if (user[key] !== null) {
+				user[key].isFollowing = user.isFollowing;
+				user[key].followersCount = user.followersCount;
+			}
 		});
 
 		return { users, totalCount };

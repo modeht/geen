@@ -22,6 +22,7 @@ import { join } from 'path';
 					charset: 'utf8mb4',
 					poolSize: 20,
 					logging: 'all',
+					maxQueryExecutionTime: 2000,
 				};
 			},
 			inject: [ConfigService],

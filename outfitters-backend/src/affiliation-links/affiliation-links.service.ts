@@ -33,7 +33,7 @@ export class AffiliationLinksService {
 	}
 
 	async create(productId: number) {
-		const shopperId = this.authContext.getUser().sub;
+		const shopperId = this.authContext.getUser()!.sub;
 		const isProductAffiliated = await this.collaborationsService.isProductAffiliated(
 			shopperId,
 			productId,

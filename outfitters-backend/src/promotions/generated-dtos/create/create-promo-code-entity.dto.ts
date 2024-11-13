@@ -11,7 +11,7 @@ import { PromotionStatusEnum, PromotionTypeEnum } from '../../entities/enums'
 
 
 
-export class AddPromoCodeEntityDto {
+export class CreatePromoCodeEntityDto {
 @IsDate()
 @Type(()=>Date)
 deletedAt: Date;

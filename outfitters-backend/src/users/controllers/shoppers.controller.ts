@@ -23,7 +23,7 @@ export class ShoppersController {
 	@Patch('me')
 	@Roles([Role.Shopper, Role.Outfitter])
 	async updateMe(@Body() updateShopperProfileDto: UpdateShopperProfileDto) {
-		const id = this.authContext.getUser().sub;
+		const id = this.authContext.getUser()!.sub;
 		return this.shoppersService.update(id, updateShopperProfileDto);
 	}
 

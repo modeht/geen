@@ -10,7 +10,7 @@ import { CartItemsEntity } from '../../../carts/entities/cart-item.entity'
 
 
 
-export class AddProductVariantEntityDto {
+export class CreateProductVariantEntityDto {
 @IsBoolean()
 isArchived: boolean;
 

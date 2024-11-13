@@ -17,7 +17,7 @@ import { ShopperProfileEntity } from '../../../users/entities/shopper-profile.en
 
 
 
-export class AddMediaEntityDto {
+export class CreateMediaEntityDto {
 @IsString()
 @IsOptional()
 mimetype?: string | null;

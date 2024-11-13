@@ -24,7 +24,7 @@ import { StoryLikesEntity } from '../../../stories/entities/stories-likes.entity
 
 
 
-export class AddUserEntityDto {
+export class CreateUserEntityDto {
 @IsString()
 @IsOptional()
 email?: string | null;

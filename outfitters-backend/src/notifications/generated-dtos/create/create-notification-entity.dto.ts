@@ -11,7 +11,7 @@ import { NotificationType } from '../../entities/notification.entity'
 
 
 
-export class AddNotificationEntityDto {
+export class CreateNotificationEntityDto {
 @IsString()
 customContent: string;
 

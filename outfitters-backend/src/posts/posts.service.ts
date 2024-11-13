@@ -36,7 +36,7 @@ export class PostsService {
 		findPostsDto: FindPostsDto,
 		relations: FindOptionsRelations<PostEntity>,
 	): SelectQueryBuilder<PostEntity> {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const { postedById, productId, taggedUserId } = findPostsDto;
 
 		const queryBuilder = this.datasource.manager
@@ -130,7 +130,7 @@ export class PostsService {
 	}
 
 	async findFeed(relations: FindOptionsRelations<PostEntity>, pagination: Paginated) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const queryBuilder = this._buildQuery({}, relations);
 		const [posts, totalCount] = await queryBuilder
 			.where(
@@ -146,7 +146,7 @@ export class PostsService {
 		return { posts, totalCount };
 	}
 	async findLikes(postId: number, pagination: Paginated) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		return this.usersService.findAll({
 			where: {
 				id: Not(userId),
@@ -196,7 +196,7 @@ export class PostsService {
 	// TODO: Add check for tagged products, taggedUsers and media existance + affiliationLinks consistency(afflink could belong to another product/user) (For better error messages)
 	// TODO: notify users tagged in the post
 	async create(createPostDto: CreatePostDto) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 
 		const newPost = new PostEntity();
 		newPost.caption = createPostDto.caption;
@@ -249,7 +249,7 @@ export class PostsService {
 	}
 
 	async setLike(postId: number, setLikeDto: SetLikeDto) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const isLiked = setLikeDto.isLiked;
 		if (isLiked) return this._addLike(postId, userId);
 		else return this._removeLike(postId, userId);
@@ -302,7 +302,7 @@ export class PostsService {
 	}
 
 	async remove(postId: number) {
-		const postedById = this.authContext.getUser().sub;
+		const postedById = this.authContext.getUser()!.sub;
 		const post = await this.datasource.manager.findOne(PostEntity, {
 			where: { id: postId },
 		});

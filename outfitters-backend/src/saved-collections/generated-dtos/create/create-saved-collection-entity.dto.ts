@@ -7,7 +7,7 @@ import { SavedCollectionItemEntity } from '../../entities/saved-collection-item.
 
 
 
-export class AddSavedCollectionEntityDto {
+export class CreateSavedCollectionEntityDto {
 @IsString()
 @IsOptional()
 name?: string | null;

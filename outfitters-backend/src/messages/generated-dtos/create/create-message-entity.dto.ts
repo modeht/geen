@@ -13,7 +13,7 @@ import { UserEntity } from '../../../users/entities/user.entity'
 
 
 
-export class AddMessageEntityDto {
+export class CreateMessageEntityDto {
 @IsDate()
 @Type(()=>Date)
 readAt: Date;

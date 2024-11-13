@@ -7,7 +7,7 @@ import { MediaEntity } from '../../../media/entities/media.entity';
 import { BrandProfileEntity } from '../../../users/entities/brand-profile.entity';
 import { SeasonalPromotionEntity } from '../../../promotions/entities/seasonal-promotion.entity';
 
-export class AddCategoryEntityDto {
+export class CreateCategoryEntityDto {
 	@IsString()
 	name: string;
 

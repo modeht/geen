@@ -9,7 +9,7 @@ import { ProductEntity } from '../../entities/product.entity'
 
 
 
-export class AddTaggedProductEntityDto {
+export class CreateTaggedProductEntityDto {
 @IsNumber()
 @IsOptional()
 productId?: number | null;

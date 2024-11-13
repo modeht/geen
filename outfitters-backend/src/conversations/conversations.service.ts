@@ -18,7 +18,7 @@ export class ConversationsService {
 	) {}
 
 	async findAll(paginated: Paginated, findConversationDto: FindConversationDto) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 
 		const archivedOnly =
 			findConversationDto.type === ConversationType.ARCHIVED ? true : undefined;
@@ -102,7 +102,7 @@ export class ConversationsService {
 	}
 
 	async update(id: number, updateConversationDto: UpdateConversationDto) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 
 		const conversation = await this.dataSource.manager.findOne(ConversationEntity, {
 			where: { id },

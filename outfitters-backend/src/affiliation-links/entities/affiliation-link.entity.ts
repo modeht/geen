@@ -14,6 +14,7 @@ import {
 import { ShopperProfileEntity } from '../../users/entities/shopper-profile.entity';
 import { AffiliationLinkTrackingEntity } from './affiliation-link-tracking.entity';
 import { CartItemsEntity } from '../../carts/entities/cart-item.entity';
+
 @Entity({ name: 'affiliation_links' })
 @Unique(['shopperId', 'productId', 'isDisabled'])
 export class AffiliationLinkEntity {

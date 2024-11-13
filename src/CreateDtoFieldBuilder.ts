@@ -237,4 +237,10 @@ export class CreateDtoFieldBuilder {
 		}
 		this.addDtoCreator.properties.push(...fieldsStringified);
 	}
+
+	async prepFields() {
+		//read fields from ast
+		//construct the validation object
+		//
+	}
 }

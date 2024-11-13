@@ -7,7 +7,7 @@ import { UserEntity } from '../../../users/entities/user.entity'
 
 
 
-export class AddRecentSearchesEntityDto {
+export class CreateRecentSearchesEntityDto {
 @IsString()
 @IsOptional()
 keyword?: string | null;

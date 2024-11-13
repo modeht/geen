@@ -51,5 +51,5 @@ export class AffiliationLinkTrackingEntity {
 		length: 255,
 		nullable: true,
 	})
-	userAgent: string | null;
+	userAgent?: string | null;
 }

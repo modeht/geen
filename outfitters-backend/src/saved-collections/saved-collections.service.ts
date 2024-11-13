@@ -23,7 +23,7 @@ export class SavedCollectionsService {
 	) {}
 
 	create(createSavedCollectionDto: CreateSavedCollectionDto) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const savedCollection = new SavedCollectionEntity();
 		savedCollection.userId = userId;
 		savedCollection.name = createSavedCollectionDto.name;
@@ -46,7 +46,7 @@ export class SavedCollectionsService {
 	}
 
 	async update(id: number, updateSavedCollectionDto: UpdateSavedCollectionDto) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const savedCollection = await this.findOne(id);
 		savedCollection.name = updateSavedCollectionDto?.name;
 
@@ -80,7 +80,7 @@ export class SavedCollectionsService {
 		itemType: 'post' | 'product',
 		id: string | undefined,
 	) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const tr = this.dataSource.createQueryRunner();
 		await tr.connect();
 		await tr.startTransaction();
@@ -145,7 +145,7 @@ export class SavedCollectionsService {
 	}
 
 	async removePost(id: number, postId: number) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		await this.dataSource.manager.delete('saved_collection_items', {
 			savedCollectionId: id,
 			postId,
@@ -155,7 +155,7 @@ export class SavedCollectionsService {
 	}
 
 	async removeProduct(id: number, productId: number) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		await this.dataSource.manager.delete('saved_collection_items', {
 			savedCollectionId: id,
 			productId,
@@ -165,7 +165,7 @@ export class SavedCollectionsService {
 	}
 
 	async findAll(paginated: Paginated) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const [collections, totalCount] = await this.dataSource.manager.findAndCount(
 			SavedCollectionEntity,
 			{
@@ -180,7 +180,7 @@ export class SavedCollectionsService {
 	}
 
 	async findOne(id: number) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const collection = await this.dataSource.manager.findOne(SavedCollectionEntity, {
 			where: { id, userId },
 			relations: { items: { post: { media: true }, product: { media: true } } },

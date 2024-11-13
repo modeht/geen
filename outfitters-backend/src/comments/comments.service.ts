@@ -58,7 +58,7 @@ export class CommentsService {
 	}
 
 	async _saveComment(comment: CommentEntity, postId) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		comment.userId = userId;
 		comment.level = comment.replyTo ? comment.replyTo.level + 1 : 0;
 
@@ -96,7 +96,7 @@ export class CommentsService {
 	}
 
 	async update(id: number, updateCommentDto: UpdateCommentDto) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const comment = await this.findOne({ where: { id, userId } });
 		await this.datasource.manager.update(
 			CommentEntity,
@@ -113,7 +113,7 @@ export class CommentsService {
 	}
 
 	async remove(id: number) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const comment = await this.datasource.manager.findOne(CommentEntity, {
 			where: { id, userId },
 			relations: ['commentor', 'replies', 'post', 'post.postedBy'],

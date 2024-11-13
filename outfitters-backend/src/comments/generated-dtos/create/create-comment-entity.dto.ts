@@ -9,7 +9,7 @@ import { MessageEntity } from '../../../messages/entities/message.entity'
 
 
 
-export class AddCommentEntityDto {
+export class CreateCommentEntityDto {
 @IsString()
 content: string;
 

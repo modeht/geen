@@ -53,7 +53,7 @@ export class WebCollectionsController {
 		@Relations(collectionQueryableRelations)
 		relations: QueryableRelations<typeof collectionQueryableRelations>,
 	) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		return this.collectionsService.findAll({
 			take: +paginated.limit,
 			skip: +paginated.limit * +paginated.page,
@@ -71,7 +71,7 @@ export class WebCollectionsController {
 		@Relations(collectionQueryableRelations)
 		relations: QueryableRelations<typeof collectionQueryableRelations>,
 	) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		return this.collectionsService.findOne({
 			where: {
 				brandId,

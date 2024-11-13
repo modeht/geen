@@ -10,7 +10,7 @@ import { PromoCodeEntity } from '../../../promotions/entities/promo-code.entity'
 
 
 
-export class AddOrderItemEntityDto {
+export class CreateOrderItemEntityDto {
 @IsNumber()
 @IsOptional()
 quantity?: number | null;

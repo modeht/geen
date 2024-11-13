@@ -8,7 +8,7 @@ import { BrandProfileEntity } from '../../../users/entities/brand-profile.entity
 
 
 
-export class AddCountryEntityDto {
+export class CreateCountryEntityDto {
 @IsString()
 name: string;
 

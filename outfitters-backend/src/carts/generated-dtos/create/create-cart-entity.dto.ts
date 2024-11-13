@@ -10,7 +10,7 @@ import { OrderEntity } from '../../../orders/entities/order.entity'
 
 
 
-export class AddCartEntityDto {
+export class CreateCartEntityDto {
 @IsNumber()
 @IsOptional()
 promoCodeId?: number | null;

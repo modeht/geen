@@ -46,7 +46,7 @@ export class ShoppersService {
 	) {}
 
 	private _buildQuery(opts: FindManyOptions<ShopperProfileEntity>) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const qb = this.dataSource.manager.createQueryBuilder(
 			ShopperProfileEntity,
 			'shopperProfile',

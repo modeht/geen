@@ -16,7 +16,7 @@ import { BrandOrderEntity } from '../../../orders/entities/brand-orders.entity'
 
 
 
-export class AddBrandProfileEntityDto {
+export class CreateBrandProfileEntityDto {
 @IsString()
 @IsOptional()
 storeName?: string | null;

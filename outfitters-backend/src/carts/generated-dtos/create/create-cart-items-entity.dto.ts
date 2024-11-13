@@ -10,7 +10,7 @@ import { AffiliationLinkEntity } from '../../../affiliation-links/entities/affil
 
 
 
-export class AddCartItemsEntityDto {
+export class CreateCartItemsEntityDto {
 @IsNumber()
 @IsOptional()
 quantity?: number | null;

@@ -63,7 +63,7 @@ export class BrandOrdersService {
 	// TODO: Discuss with product the conditions for updating the status of an order
 	// TODO: If the status is cancelled, revert the stock of the products? and revert the transaction
 	async updateStatus(id: number, status: OrderStatusEnum) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const brandOrder = await this.datasource.manager.findOneBy(BrandOrderEntity, {
 			id,
 			brandId,
@@ -90,7 +90,7 @@ export class BrandOrdersService {
 	}
 
 	async rate(orderId: number, brandOrderId: number, rateOrderDto: RateOrderDto) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const brandOrder = await this.datasource.manager.findOneBy(BrandOrderEntity, {
 			orderId: orderId,
 			id: brandOrderId,

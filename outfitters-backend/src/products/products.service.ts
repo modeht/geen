@@ -58,7 +58,7 @@ export class ProductsService {
 	// TODO: Refactor this with eager relations later
 	async findAll(opts: FindManyOptions<ProductEntity>, options?, rating?) {
 		const today = new Date();
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const qb = this.dataSource.manager
 			.createQueryBuilder(ProductEntity, 'product')
 			.setFindOptions({
@@ -121,7 +121,7 @@ export class ProductsService {
 	}
 
 	async findOne(opts: FindOneOptions<ProductEntity>, throwIfNotFound = true) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const row = await this.dataSource.manager
 			.createQueryBuilder(ProductEntity, 'product')
 			.setFindOptions(opts)
@@ -156,7 +156,7 @@ export class ProductsService {
 	}
 
 	async create(createProductDto: CreateProductDto) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const newProduct = new ProductEntity();
 		newProduct.brandId = brandId;
 		newProduct.title = createProductDto.title;
@@ -226,7 +226,7 @@ export class ProductsService {
 	}
 
 	async remove(id: number) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const product = await this.findOne({
 			where: {
 				isArchived: false,
@@ -251,7 +251,7 @@ export class ProductsService {
 				.map((k) => k),
 		);
 
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const product = await this.dataSource.manager.findOne(ProductEntity, {
 			where: {
 				isArchived: false,
@@ -363,7 +363,7 @@ export class ProductsService {
 	}
 	// TODO: go through this later
 	async getInventory(findInventoryDto: FindInventoryDto, pagination: Paginated) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const mainQuery = this.dataSource.manager
 			.createQueryBuilder(ProductEntity, 'product')
 			.where('product.brandId = :brandId', { brandId })
@@ -461,7 +461,7 @@ export class ProductsService {
 	}
 
 	async markOutOfStock(ids: number[]) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const { products, totalCount } = await this.findAll({
 			where: { id: In(ids), brandId, isArchived: false },
 		});
@@ -473,7 +473,7 @@ export class ProductsService {
 	}
 
 	async updateStock(id: number, stock: number) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const product = await this.findOne({
 			where: { id, brandId, isArchived: false },
 		});

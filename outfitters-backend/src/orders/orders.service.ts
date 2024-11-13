@@ -21,7 +21,7 @@ export class OrdersService {
 		private readonly cartsService: CartsService,
 	) {}
 	async create(createOrderDto: CreateOrderDto) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const cart = await this.cartsService.find(createOrderDto.cartId);
 
 		const shippingAdress = await this.datasource.manager.findOneBy(
@@ -151,7 +151,7 @@ export class OrdersService {
 	}
 
 	async findAll(paginated: Paginated) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const [orders, totalCount] = await this.datasource.manager.findAndCount(OrderEntity, {
 			where: { shopperId: userId },
 			relations: {
@@ -169,7 +169,7 @@ export class OrdersService {
 	}
 
 	findOne(id: number) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		return this.datasource.manager.findOne(OrderEntity, {
 			where: { id, shopperId: userId },
 			relations: {

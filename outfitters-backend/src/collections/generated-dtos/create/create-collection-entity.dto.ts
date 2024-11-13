@@ -8,7 +8,7 @@ import { ProductEntity } from '../../../products/entities/product.entity'
 
 
 
-export class AddCollectionEntityDto {
+export class CreateCollectionEntityDto {
 @IsString()
 @IsOptional()
 name?: string | null;

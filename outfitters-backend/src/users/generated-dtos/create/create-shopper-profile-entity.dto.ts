@@ -16,7 +16,7 @@ import { PromoCodeEntity } from '../../../promotions/entities/promo-code.entity'
 
 
 
-export class AddShopperProfileEntityDto {
+export class CreateShopperProfileEntityDto {
 @IsString()
 @IsOptional()
 username?: string | null;

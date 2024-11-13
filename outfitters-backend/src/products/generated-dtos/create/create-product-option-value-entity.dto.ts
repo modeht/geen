@@ -7,7 +7,7 @@ import { ProductVariantEntity } from '../../entities/product-variant.entity'
 
 
 
-export class AddProductOptionValueEntityDto {
+export class CreateProductOptionValueEntityDto {
 @IsString()
 value: string;
 

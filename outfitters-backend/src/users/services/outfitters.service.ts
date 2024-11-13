@@ -19,7 +19,7 @@ export class OutfittersService {
 	}
 
 	async findAll(paginated: Paginated) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const qb = this.dataSource.manager
 			.createQueryBuilder(ShopperProfileEntity, 'shopperProfile')
 			.setFindOptions({
@@ -39,7 +39,7 @@ export class OutfittersService {
 
 	// TODO: adjust criteria for suggestions
 	async findSuggestions(paginated: Paginated) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const qb = this.dataSource
 			.createQueryBuilder(ShopperProfileEntity, 'shopperProfile')
 			.leftJoinAndSelect('shopperProfile.profilePicture', 'profilePicture')

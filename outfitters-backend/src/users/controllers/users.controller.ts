@@ -19,7 +19,7 @@ export class UsersController {
 
 	@Get('me')
 	async getMe() {
-		const id = this.authContext.getUser().sub;
+		const id = this.authContext.getUser()!.sub;
 		return this.usersService.findOneDetailed({
 			id,
 		});
@@ -27,7 +27,7 @@ export class UsersController {
 
 	@Patch('me')
 	async updateMe(@Body() updateUserDto: UpdateUserDto) {
-		const shopperId = this.authContext.getUser().sub;
+		const shopperId = this.authContext.getUser()!.sub;
 		return this.usersService.update(shopperId, updateUserDto);
 	}
 

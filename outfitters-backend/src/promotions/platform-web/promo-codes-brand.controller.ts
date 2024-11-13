@@ -53,7 +53,7 @@ export class PromoCodesBrandController {
 		@Query() findPromoCodeDto: FindPromoCodeDto,
 		@Query() paginated: Paginated,
 	) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const baseConditions = { brandId, status: findPromoCodeDto.status };
 
 		return this.promoCodesService.findAll({
@@ -77,7 +77,7 @@ export class PromoCodesBrandController {
 	@Get(':id')
 	@Roles([Role.Brand])
 	async findOne(@Param('id', ParseIntPipe) id: number) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		return this.promoCodesService.findOne({ id, brandId });
 	}
 

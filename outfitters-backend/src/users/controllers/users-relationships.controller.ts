@@ -65,7 +65,7 @@ export class UsersRelationShipsController {
 		@Query() paginated: Paginated,
 		@Query('keyword') keyword?: string,
 	) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		if (userId !== id)
 			throw new UnauthorizedException('You are not authorized to view this resource');
 

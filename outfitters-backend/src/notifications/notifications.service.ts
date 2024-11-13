@@ -15,7 +15,7 @@ export class NotificationsService {
 	) {}
 
 	async findAll(paginated?: Paginated) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const [notifications, totalCount] = await this.dataSource.manager.findAndCount(
 			NotificationEntity,
 			{

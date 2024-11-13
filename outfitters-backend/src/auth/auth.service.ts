@@ -185,7 +185,7 @@ export class AuthService {
 		const userExists = await this.usersService.findOne(
 			{
 				where: {
-					id: this.authContext.getUser().sub,
+					id: this.authContext.getUser()!.sub,
 				},
 			},
 			false,

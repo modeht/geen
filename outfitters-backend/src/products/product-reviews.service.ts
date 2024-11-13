@@ -40,7 +40,7 @@ export class ProductReviewsService {
 	}
 
 	create(productId: number, createProductReviewDto: CreateProductReviewDto) {
-		const shopperId = this.authContext.getUser().sub;
+		const shopperId = this.authContext.getUser()!.sub;
 		const productReview = new ProductReviewEntity();
 		productReview.productId = productId;
 		productReview.shopperId = shopperId;
@@ -58,7 +58,7 @@ export class ProductReviewsService {
 		id: number,
 		createProductReviewDto: CreateProductReviewDto,
 	) {
-		const shopperId = this.authContext.getUser().sub;
+		const shopperId = this.authContext.getUser()!.sub;
 		const productReview = await this.findOne({ where: { id, productId, shopperId } });
 
 		productReview.stars = Utils.updatePrimitiveField(
@@ -108,7 +108,7 @@ export class ProductReviewsService {
 	}
 
 	async remove(productId: number, id: number) {
-		const shopperId = this.authContext.getUser().sub;
+		const shopperId = this.authContext.getUser()!.sub;
 		const review = await this.findOne({ where: { id, productId, shopperId } });
 		await this.dataSource.manager.remove(review);
 		return review;

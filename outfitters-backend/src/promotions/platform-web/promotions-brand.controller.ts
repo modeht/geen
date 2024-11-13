@@ -42,7 +42,7 @@ export class PromotionsBrandController {
 	@Get()
 	@Roles([Role.Brand])
 	findAll(@Query() findPromotionDto: FindPromotionDto, @Query() paginated: Paginated) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		return this.promotionsService.findAll({
 			take: paginated.limit,
 			skip: paginated.limit * paginated.page,

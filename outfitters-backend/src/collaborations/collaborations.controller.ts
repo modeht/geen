@@ -42,7 +42,7 @@ export class CollaborationsController {
 		@Query() findCollaborationDto: FindCollaborationDto,
 		@Query() paginated: Paginated,
 	) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		return this.collaborationsService.findAll({
 			where: [
 				{ shopperId: userId, status: findCollaborationDto.status },
@@ -63,7 +63,7 @@ export class CollaborationsController {
 	@Get(':productId/affiliated')
 	@Roles([Role.Outfitter])
 	isAffiliated(@Param('productId', ParseIntPipe) productId: number) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		return this.collaborationsService.isProductAffiliated(userId, productId);
 	}
 

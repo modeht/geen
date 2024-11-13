@@ -5,6 +5,6 @@ import { IsOptionalIf } from '../../../globals/validators/is-option-if.validator
 
 
 
-export class AddRefundEntityDto {
+export class CreateRefundEntityDto {
 
 }

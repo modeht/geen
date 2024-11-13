@@ -18,7 +18,7 @@ export class ProductVariantsService {
 
 	async create(productId: number, createProductVariantDto: CreateProductVariantDto) {
 		const productVariant = new ProductVariantEntity();
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 
 		if (createProductVariantDto.sku) {
 			await this._skuExistsCheck(createProductVariantDto.sku);
@@ -59,7 +59,7 @@ export class ProductVariantsService {
 		id: number,
 		updateProductVariantDto: UpdateProductVariantDto,
 	) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		let productVariant = await this.findOne(productId, id, brandId, {
 			orderItems: true,
 			media: true,
@@ -175,7 +175,7 @@ export class ProductVariantsService {
 	}
 
 	async remove(productId: number, id: number) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const productVariant = await this.findOne(productId, id, brandId);
 		productVariant.isArchived = true;
 		await this.dataSource.manager.save(productVariant);
@@ -183,7 +183,7 @@ export class ProductVariantsService {
 	}
 
 	async updateStock(productId: number, id: number, stock: number) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const productVariant = await this.findOne(productId, id, brandId);
 		productVariant.stock = stock;
 		productVariant.lastStockUpdate = stock ? new Date() : null;

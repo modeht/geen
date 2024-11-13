@@ -36,7 +36,7 @@ export class CollaborationsService {
 	// TODO: send notification to outfitter
 	async create(createCollaborationDto: CreateCollaborationDto) {
 		const { shopperId } = createCollaborationDto;
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 
 		const outfitter = await this.outfittersService.findOne(shopperId);
 
@@ -85,7 +85,7 @@ export class CollaborationsService {
 	}
 
 	async findOne(id: number) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const collaberation = await this.datasource.manager.findOne(CollaborationEntity, {
 			where: [
 				{ id, shopperId: userId },
@@ -118,7 +118,7 @@ export class CollaborationsService {
 		updateCollaborationStatusDto: UpdateCollaborationStatusDto,
 	) {
 		const { status } = updateCollaborationStatusDto;
-		const shopperId = this.authContext.getUser().sub;
+		const shopperId = this.authContext.getUser()!.sub;
 		const collaboration = await this.findOne(id);
 
 		if (!collaboration) {

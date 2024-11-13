@@ -28,7 +28,7 @@ export class CollectionsService {
 		await tr.connect();
 		await tr.startTransaction();
 
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 
 		try {
 			const newCollection = new CollectionEntity();
@@ -72,7 +72,7 @@ export class CollectionsService {
 	}
 
 	async update(id: number, payload: UpdateCollectionDto) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		Utils.validateNullProperties(
 			payload,
 			Object.keys(this.noneNullableFields)
@@ -123,7 +123,7 @@ export class CollectionsService {
 	}
 
 	async remove(id: number) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const collection = await this.findOne({
 			where: {
 				id,

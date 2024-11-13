@@ -12,7 +12,7 @@ import { SavedCollectionItemEntity } from '../../../saved-collections/entities/s
 
 
 
-export class AddPostEntityDto {
+export class CreatePostEntityDto {
 @IsString()
 @IsOptional()
 caption?: string | null;

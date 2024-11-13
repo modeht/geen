@@ -423,7 +423,7 @@ export class CartsService {
 	}
 
 	private async _getDefaultCartId() {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const cart = await this.dataSource.manager.findOneBy(CartEntity, {
 			shopperId: userId,
 			status: CartStatus.ACTIVE,

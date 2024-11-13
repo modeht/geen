@@ -7,7 +7,7 @@ import { ProductEntity } from '../../entities/product.entity'
 
 
 
-export class AddProductOptionEntityDto {
+export class CreateProductOptionEntityDto {
 @IsString()
 name: string;
 

@@ -21,7 +21,7 @@ export class UsersRelationshipsService {
 	) {}
 
 	_buildQuery(paginated: Paginated, keyword?: string) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const queryBuilder = this.dataSource.manager
 			.createQueryBuilder(UserEntity, 'user')
 			.leftJoinAndSelect('user.shopperProfile', 'shopper_profile')
@@ -30,7 +30,7 @@ export class UsersRelationshipsService {
 			.leftJoinAndSelect('brand_profile.logo', 'logo')
 			.orderBy('"user_isFollowing"', 'DESC')
 			.limit(paginated.limit)
-			.offset(paginated.limit * paginated.page);
+			.offset(paginated.limit! * paginated.page!);
 
 		addIsFollowingToQuery(userId, 'user', queryBuilder);
 
@@ -57,7 +57,7 @@ export class UsersRelationshipsService {
 	}
 
 	async getRelationship(id: number) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		const [result] = await this.dataSource.manager.query(
 			`SELECT 
 				EXISTS(SELECT 1 FROM user_follows WHERE "followerId" = $1 AND "followingId" = $2) AS follows,
@@ -118,7 +118,7 @@ export class UsersRelationshipsService {
 	}
 
 	async followMany(ids: number[]) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		if (ids.includes(userId)) throw new MethodNotAllowedException('Cannot follow self');
 		const count = await this.usersService.count({ id: In(ids) });
 		if (count !== ids.length) throw new NotFoundException('User not found');
@@ -135,7 +135,7 @@ export class UsersRelationshipsService {
 	}
 
 	async follow(id: number) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		if (userId === id) throw new MethodNotAllowedException('Cannot follow self');
 		const exists = await this.usersService.exists({ id });
 		if (!exists) throw new NotFoundException('User not found');
@@ -152,7 +152,7 @@ export class UsersRelationshipsService {
 	}
 
 	async unfollow(id: number) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		await this.dataSource.manager.delete('user_follows', {
 			followerId: userId,
 			followingId: id,
@@ -161,7 +161,7 @@ export class UsersRelationshipsService {
 	}
 
 	async block(id: number) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		if (userId === id) throw new MethodNotAllowedException('Cannot block self');
 		const exists = await this.usersService.exists({ id });
 		if (!exists) throw new NotFoundException('User not found');
@@ -191,7 +191,7 @@ export class UsersRelationshipsService {
 	}
 
 	async unblock(id: number) {
-		const userId = this.authContext.getUser().sub;
+		const userId = this.authContext.getUser()!.sub;
 		await this.dataSource.manager.delete('user_blocks', {
 			blockerId: userId,
 			blockedId: id,

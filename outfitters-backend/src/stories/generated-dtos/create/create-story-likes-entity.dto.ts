@@ -7,7 +7,7 @@ import { StoryEntity } from '../../entities/story.entity'
 
 
 
-export class AddStoryLikesEntityDto {
+export class CreateStoryLikesEntityDto {
 @IsNumber()
 userId: number;
 

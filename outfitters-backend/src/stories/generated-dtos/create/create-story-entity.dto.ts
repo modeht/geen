@@ -10,7 +10,7 @@ import { StoryLikesEntity } from '../../entities/stories-likes.entity'
 
 
 
-export class AddStoryEntityDto {
+export class CreateStoryEntityDto {
 @IsString()
 @IsOptional()
 background?: string | null;

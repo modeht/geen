@@ -11,7 +11,7 @@ import { ShopperProfileEntity } from '../../../users/entities/shopper-profile.en
 
 
 
-export class AddCollaborationEntityDto {
+export class CreateCollaborationEntityDto {
 @IsNumber()
 @IsOptional()
 brandId?: number | null;

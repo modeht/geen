@@ -17,7 +17,7 @@ export class PromoCodesService {
 	) {}
 
 	async create(createPromoCodeDto: CreatePromoCodeDto) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const promoCode = new PromoCodeEntity();
 		promoCode.brandId = brandId;
 		promoCode.title = createPromoCodeDto.title;
@@ -49,7 +49,7 @@ export class PromoCodesService {
 
 	// TODO: Handle case when promo code is used in an order
 	async update(id: number, updatePromoCodeDto: UpdatePromoCodeDto) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const promoCode = await this.findOne({ id, brandId });
 		promoCode.title = updatePromoCodeDto.title ?? promoCode.title;
 		promoCode.minPurchaseAmount =
@@ -139,7 +139,7 @@ export class PromoCodesService {
 	}
 
 	async remove(id: number) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const promoCode = await this.findOne({ id, brandId });
 		await this.datasource.manager.softDelete(PromoCodeEntity, id);
 		return promoCode;

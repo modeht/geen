@@ -11,7 +11,7 @@ import { SeasonalPromotionEntity } from '../../entities/seasonal-promotion.entit
 
 
 
-export class AddPromotionEntityDto {
+export class CreatePromotionEntityDto {
 @IsString()
 title: string;
 

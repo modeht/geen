@@ -33,7 +33,7 @@ export class OrdersBrandController {
 	@Get()
 	@Roles([Role.Brand])
 	findAll(@Query() brandFindOrderDto: BrandFindOrderDto, @Query() paginated: Paginated) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		const baseCondition = {
 			brandId,
 			status: brandFindOrderDto.status,
@@ -79,7 +79,7 @@ export class OrdersBrandController {
 	@Get(':id')
 	@Roles([Role.Brand])
 	findOne(@Param('id', ParseIntPipe) id: number) {
-		const brandId = this.authContext.getUser().sub;
+		const brandId = this.authContext.getUser()!.sub;
 		return this.brandOrdersService.findOne({ id, brandId });
 	}
 
