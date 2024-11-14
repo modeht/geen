@@ -19,25 +19,36 @@ async function main() {
 	time('Prerequistes');
 	await prereq();
 	timeEnd('Prerequistes');
-
 	time('Creating dtos');
 	// console.dir(TreeParser.parse(ASTs[Object.keys(ASTs)[0]].sourceFile), { depth: null });
+
+	const addDtoCreator = new CreateSchemaCreator(
+		ASTs['category.entity'].sourceFile,
+		ASTs['category.entity'].fullPath,
+		ASTs,
+		{
+			maxDepth: 0,
+			currDepth: 0,
+		}
+	);
+	await addDtoCreator.build();
+	console.log(addDtoCreator.nested);
 
 	// const acc = {};
 	// parseTreeV2(acc, ASTs[Object.keys(ASTs)[0]].sourceFile);
 	// console.dir(acc, { depth: null });
-	for (const ast in ASTs) {
-		const addDtoCreator = new CreateSchemaCreator(
-			ASTs[ast].sourceFile,
-			ASTs[ast].fullPath,
-			ASTs,
-			{
-				maxDepth: 0, //TODO: this already can generate way to much dtos, i am thinking of limiting it to only one level anyways
-				currDepth: 0,
-			}
-		);
-		await addDtoCreator.build();
-	}
+	// for (const ast in ASTs) {
+	// 	const addDtoCreator = new CreateSchemaCreator(
+	// 		ASTs[ast].sourceFile,
+	// 		ASTs[ast].fullPath,
+	// 		ASTs,
+	// 		{
+	// 			maxDepth: 1, //TODO: this already can generate way to much dtos, i am thinking of limiting it to only one level anyways
+	// 			currDepth: 0,
+	// 		}
+	// 	);
+	// 	await addDtoCreator.build();
+	// }
 	timeEnd('Creating dtos');
 }
 

@@ -131,23 +131,23 @@ export class ShopperProfileEntity {
 	promoCodes: PromoCodeEntity[] | null;
 
 	@VirtualColumn({ query: () => `FALSE` })
-	isFollowing?: boolean = null;
+	isFollowing?: null | boolean = null;
 
 	@VirtualColumn({ query: () => `False` })
-	hasStory?: boolean = null;
+	hasStory?: null | boolean = null;
 
 	@VirtualColumn({ query: () => `0` })
-	followersCount?: number = null;
+	followersCount?: null | number = null;
 
 	@VirtualColumn({ query: () => `0` })
-	followingCount?: number = null;
+	followingCount?: null | number = null;
 
 	@VirtualColumn({ query: () => `0` })
-	postsCount?: number = null;
+	postsCount?: null | number = null;
 
 	@VirtualColumn({ query: () => `0` })
-	brandsCount?: number = null;
+	brandsCount?: null | number = null;
 
 	@VirtualColumn({ query: () => `0` })
-	engagementCount?: number = null;
+	engagementCount?: null | number = null;
 }

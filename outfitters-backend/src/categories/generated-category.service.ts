@@ -14,4 +14,10 @@ export class CategoryService {
 	async createRow(body: CreateCategoryEntityDto) {
 		return await this.service.create(CategoryEntity, CreateCategoryEntityDto, body);
 	}
+
+	async readRow() {
+		this.datasource.manager.find(CategoryEntity, {
+			relations: {},
+		});
+	}
 }

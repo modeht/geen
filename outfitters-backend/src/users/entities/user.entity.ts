@@ -219,13 +219,13 @@ export class UserEntity {
 	blockedUsers: UserEntity[] | null;
 
 	@VirtualColumn({ query: () => `FALSE` })
-	isFollowing?: boolean = null;
+	isFollowing?: boolean | null = null;
 
 	@VirtualColumn({ query: () => `FALSE` })
-	isBlockedBy?: boolean = null;
+	isBlockedBy?: boolean | null = null;
 
 	@VirtualColumn({ query: () => `FALSE` })
-	followersCount?: number = null;
+	followersCount?: number | null = null;
 	//
 	// Manually set via auth service during signIn
 	role?: Role | null;

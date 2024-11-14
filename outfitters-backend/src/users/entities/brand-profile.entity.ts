@@ -166,17 +166,17 @@ export class BrandProfileEntity {
 	logoId: number | null;
 
 	@VirtualColumn({ query: () => `FALSE` })
-	isFollowing?: boolean = null;
+	isFollowing?: boolean | null = null;
 
 	@VirtualColumn({ query: () => `FALSE` })
-	hasStory?: boolean = null;
+	hasStory?: boolean | null = null;
 
 	@VirtualColumn({ query: () => `0` })
-	followersCount?: number = null;
+	followersCount?: number | null = null;
 
 	@VirtualColumn({ query: () => `0` })
-	followingCount?: number = null;
+	followingCount?: number | null = null;
 
 	@VirtualColumn({ query: () => `0` })
-	postsCount?: number = null;
+	postsCount?: number | null = null;
 }

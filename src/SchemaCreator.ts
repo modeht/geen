@@ -52,20 +52,29 @@ export class CreateSchemaCreator {
 	dtoDirPath: string;
 	dtoDirRelPath: string;
 	dtoDirAbsPath: string;
+	visited: Set<string>;
+	parents: Set<string>;
+	nested: Record<string, any>;
 
 	constructor(
 		ast: ts.SourceFile,
 		ogPath: string,
 		asts: ASTs,
-		{ maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 }
+		{ maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 },
+		visited?: Set<string>,
+		parents?: Set<string>,
+		nested?: Record<string, any>
 	) {
 		this.parsedTree = TreeParser.parse(ast);
 		this.ogFilePath = ogPath;
 		this.maxDepth = maxDepth;
 		this.currDepth = currDepth;
 		this.asts = asts;
-
 		this.dtoDirName = '';
+		this.visited = visited ?? new Set();
+		this.parents = parents ?? new Set();
+		this.nested = nested ?? {};
+
 		this.dtoDirPath = `generated-schemas/${this.dtoDirName}`;
 		//this is supposed to be under same module
 		//entity should be under main module
@@ -82,13 +91,21 @@ export class CreateSchemaCreator {
 	}
 
 	async build() {
+		// let entityName: string = '';
+		// if (this.parents.size > 0) {
+		// 	entityName = Array.from(this.parents).join('');
+		// }
+		// console.log(this.parents);
 		this._setEntityName();
 		this._setSchemaName();
 		this._setFilename();
 		this._setSavedFilename();
 		this._setDefaultImports();
 		this._setEnums();
-		console.log(this._parseFields());
+		// console.log(this._parseFields());
+		this._traverse();
+
+		// await writeFile(`./tmp/${this.entityName}.ts`, JSON.stringify(this.nested, null, 4));
 		//handle fields
 		//recursivly parse fields till max depth
 	}
@@ -122,9 +139,9 @@ export class CreateSchemaCreator {
 			// let fieldEnum = false;
 			// let fieldNotSupported = false;
 			// let includeRelationField: boolean | null = null;
-			//construct the json schema
 
-			let tbType = '';
+			//construct the json schema
+			let typeBoxType = '';
 			const unionTypes: string[] = [];
 
 			for (const type of fieldTypes) {
@@ -148,16 +165,16 @@ export class CreateSchemaCreator {
 			}
 
 			if (unionTypes.length > 1) {
-				tbType = `Type.Union([${unionTypes.join(', ')}])`;
+				typeBoxType = `Type.Union([${unionTypes.join(', ')}])`;
 			} else if (unionTypes.length === 1) {
-				tbType = unionTypes[0];
+				typeBoxType = unionTypes[0];
 			}
 
 			if (fieldOptional) {
-				tbType = `Type.Optional(${tbType})`;
+				typeBoxType = `Type.Optional(${typeBoxType})`;
 			}
 
-			fieldAsString = `${field.name}: ${tbType}`;
+			fieldAsString = `${field.name}: ${typeBoxType}`;
 			all.push(fieldAsString);
 		}
 
@@ -166,6 +183,97 @@ ${all.join(',\n')}
 })`;
 
 		return tbObject;
+	}
+
+	async _traverse() {
+		const fields = this.entityClass?.properties || [];
+		for (const field of fields) {
+			//keep track of field name
+			//keep track of field other side of relation name
+			//for each recursive call, check if the
+			let enumCol: Node | undefined;
+			let relationCol: Node | undefined;
+			let relationExtra: Node | undefined;
+			let relationHasFk: boolean = false;
+			let fieldNotSupported = false;
+
+			field.decorators?.forEach((d) => {
+				if (d.text?.startsWith('@Column') && d.text?.includes('enum')) {
+					enumCol = d;
+				} else if (d.text?.match(/(One|Many)To(One|Many)/)?.length) {
+					relationCol = d;
+				} else if (d.text?.includes('JoinColumn')) {
+					relationExtra = d;
+					relationHasFk = true;
+				} else if (d.text?.includes('JoinTable')) {
+					relationExtra = d;
+					//TODO: handle conjuction table
+				} else if (d.text?.match(/Tree(Parent|Children)/)?.length) {
+					fieldNotSupported = true;
+				}
+			});
+
+			if (fieldNotSupported) {
+				continue;
+			}
+
+			// console.log(this.currDepth);
+
+			if (relationCol && this.currDepth < 5) {
+				const currKey = `${this.entityName}:${
+					field.name
+				}:${relationCol.functions?.[0].arrowFn?.[1].def?.split('.').at(-1)}`;
+				if (this.visited.has(currKey)) {
+					continue;
+				}
+
+				this.visited.add(currKey);
+
+				const relationFn = relationCol.functions?.find((f) =>
+					[
+						'ManyToMany',
+						'OneToOne',
+						'OneToMany',
+						'ManyToOne',
+						//TODO: support tree structures
+					].includes(f.expression!)
+				);
+
+				const relationType = relationFn?.identifiers?.[0].expression as Relationships;
+				const relatedClass = relationFn?.arrowFn?.[0]?.identifiers?.[0].expression;
+				const fileImport = this.parsedTree.imports?.find(
+					(i) => i?.identifiers?.findIndex((id) => id?.expression === relatedClass)! > -1
+				) || {
+					module: `import { ${relatedClass!} } from '${this.ogFilePath.replaceAll(
+						'.ts',
+						''
+					)}'`,
+				};
+
+				if (fileImport) {
+					const fileName = fileImport.module?.split('/')?.at(-1)?.replace("'", '');
+					if (fileName && this.asts[fileName]) {
+						//got the filename of the ast
+						//asts contains all the asts of all entities and the keys are the entity file name
+						const newFile = new CreateSchemaCreator(
+							this.asts[fileName].sourceFile,
+							this.asts[fileName].fullPath,
+							this.asts,
+							{ currDepth: this.currDepth + 1, maxDepth: 1 },
+							this.visited,
+							this.parents.add(this.entityName.replace('.ts', '')),
+							(this.nested[field.name!] = {})
+						);
+
+						await newFile.build();
+						// console.log(this.nested);
+					}
+				}
+			}
+		}
+
+		// console.log(this.nested);
+		//
 	}
 
 	_setEntityName(name?: string) {

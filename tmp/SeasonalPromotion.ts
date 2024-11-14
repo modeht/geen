@@ -1,0 +1,7 @@
+{
+    "promotions": {
+        "seasonalPromotion": {
+            "subCategories": {}
+        }
+    }
+}

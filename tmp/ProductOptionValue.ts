@@ -1,0 +1,7 @@
+{
+    "option": {
+        "values": {
+            "variants": {}
+        }
+    }
+}
