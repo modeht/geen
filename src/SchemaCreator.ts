@@ -1,11 +1,12 @@
 import ts from 'typescript';
 import { Node, TreeParser } from './TreeParser';
-import { readFile, writeFile } from 'fs/promises';
+import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types';
 import { CreateDtoFieldBuilder } from './CreateDtoFieldBuilder';
 import { appModulePath, globalsDirPath as globalsDirPath } from './utils';
 import { mkdirSync } from 'fs';
+import { log } from 'console';
 
 export type CreateDtoInfo = {
 	absPath: string;
@@ -28,6 +29,15 @@ export type ModuleFileInfo = {
 	moduleAbsPath: string;
 };
 
+export enum PrimitiveTypes {
+	'number',
+	'string',
+	'boolean',
+	'string[]',
+	'number[]',
+	'boolean[]',
+}
+
 export type TypeKeywords = 'One' | 'Many';
 export type Relationships = `${TypeKeywords}To${TypeKeywords}`;
 
@@ -42,7 +52,7 @@ export class CreateSchemaCreator {
 	absoluteImports: { absPath: string; importedFields: string[] }[] = [];
 	enums: string[] = [];
 	properties: string[] = [];
-	ogFilePath: string;
+	entityPath: string;
 	maxDepth: number = 1;
 	currDepth: number = 0;
 	validationsImports: Set<string> = new Set();
@@ -58,222 +68,244 @@ export class CreateSchemaCreator {
 
 	constructor(
 		ast: ts.SourceFile,
-		ogPath: string,
+		entityPath: string,
 		asts: ASTs,
-		{ maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 },
-		visited?: Set<string>,
-		parents?: Set<string>,
-		nested?: Record<string, any>
+		{ maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 }
 	) {
 		this.parsedTree = TreeParser.parse(ast);
-		this.ogFilePath = ogPath;
+		this.entityPath = entityPath;
 		this.maxDepth = maxDepth;
 		this.currDepth = currDepth;
 		this.asts = asts;
-		this.dtoDirName = '';
-		this.visited = visited ?? new Set();
-		this.parents = parents ?? new Set();
-		this.nested = nested ?? {};
 
-		this.dtoDirPath = `generated-schemas/${this.dtoDirName}`;
-		//this is supposed to be under same module
-		//entity should be under main module
-		//
-		this.dtoDirAbsPath = join(dirname(this.ogFilePath), '..', this.dtoDirPath);
-		//make sure the dto directory exists
-		mkdirSync(this.dtoDirAbsPath, { recursive: true });
-
-		//relative path to dto directory from entity
-		this.dtoDirRelPath = relative(
-			this.ogFilePath,
-			join(dirname(this.ogFilePath), '..', this.dtoDirPath)
-		);
+		//some defaults
+		this.baseSetup();
 	}
 
-	async build() {
-		// let entityName: string = '';
-		// if (this.parents.size > 0) {
-		// 	entityName = Array.from(this.parents).join('');
-		// }
-		// console.log(this.parents);
+	baseSetup() {
 		this._setEntityName();
 		this._setSchemaName();
 		this._setFilename();
 		this._setSavedFilename();
 		this._setDefaultImports();
-		this._setEnums();
-		// console.log(this._parseFields());
-		this._traverse();
-
-		// await writeFile(`./tmp/${this.entityName}.ts`, JSON.stringify(this.nested, null, 4));
-		//handle fields
-		//recursivly parse fields till max depth
+		this._setEnumImports();
 	}
 
-	defaultExcludedFields: string[] = [
-		'updatedAt',
-		'createdAt',
-		'updated_at',
-		'created_at',
-	];
+	async prepDir() {
+		this.dtoDirName = '';
+		this.dtoDirPath = `generated-schemas/${this.dtoDirName}`;
+		//this is supposed to be under same module
+		//entity should be under main module
+		//assuming entity dir is one level inside of the module dir. TODO: i am not sure if this is the best approach maybe refactor later
+		this.dtoDirAbsPath = join(dirname(this.entityPath), '..', this.dtoDirPath);
+		await mkdir(this.dtoDirAbsPath, { recursive: true });
 
-	primitiveTypes: string[] = ['number', 'string', 'boolean', 'bigint'];
+		//relative path to dto directory from entity
+		this.dtoDirRelPath = relative(this.entityPath, this.dtoDirAbsPath);
+	}
 
-	_parseFields() {
-		const fields = this.entityClass?.properties || [];
-		// let accu = '';
-		// if (this.currDepth === 0) {
-		// 	accu += `export ${this.schemaName} = `;
-		// }
-		const all: string[] = [];
-		for (const field of fields) {
-			if (this.defaultExcludedFields.includes(field.name!)) continue;
+	//for fields parsing
+	excludedFields: string[] = ['updatedAt', 'createdAt', 'updated_at', 'created_at'];
 
-			const fieldTypes = field.type!.split('|').map((t) => t.trim());
-			const fieldOptional = Boolean(field.optional);
-			const fieldPrimitive = fieldTypes.some((t) => this.primitiveTypes.includes(t));
-			if (!fieldPrimitive) continue;
-			const fieldNullable = fieldTypes.some((t) => t === 'null');
-			const fieldUndefinable = fieldTypes.some((t) => t === 'undefined') || fieldOptional;
-			let fieldAsString = '';
-			// let fieldEnum = false;
-			// let fieldNotSupported = false;
-			// let includeRelationField: boolean | null = null;
-
-			//construct the json schema
-			let typeBoxType = '';
-			const unionTypes: string[] = [];
-
-			for (const type of fieldTypes) {
-				if (type === 'number') {
-					unionTypes.push(`Type.Number()`);
-				} else if (type === 'string') {
-					unionTypes.push(`Type.String()`);
-				} else if (type === 'boolean') {
-					unionTypes.push(`Type.Boolean()`);
-				}
+	parseFields({ fields }: { fields?: Node[] } = {}) {
+		if (!fields) {
+			if (!this.entityClass?.properties) {
+				throw new Error('Initialize build first');
 			}
-
-			if (!unionTypes.length) continue;
-
-			if (fieldUndefinable) {
-				unionTypes.push('Type.Undefined()');
-			}
-
-			if (fieldNullable) {
-				unionTypes.push('Type.Null()');
-			}
-
-			if (unionTypes.length > 1) {
-				typeBoxType = `Type.Union([${unionTypes.join(', ')}])`;
-			} else if (unionTypes.length === 1) {
-				typeBoxType = unionTypes[0];
-			}
-
-			if (fieldOptional) {
-				typeBoxType = `Type.Optional(${typeBoxType})`;
-			}
-
-			fieldAsString = `${field.name}: ${typeBoxType}`;
-			all.push(fieldAsString);
+			fields = this.entityClass.properties;
 		}
 
-		const tbObject = `export const ${this.schemaName} = Type.Object({
-${all.join(',\n')}
-})`;
+		const allReady: string[] = [];
 
-		return tbObject;
-	}
-
-	async _traverse() {
-		const fields = this.entityClass?.properties || [];
 		for (const field of fields) {
-			//keep track of field name
-			//keep track of field other side of relation name
-			//for each recursive call, check if the
-			let enumCol: Node | undefined;
-			let relationCol: Node | undefined;
-			let relationExtra: Node | undefined;
-			let relationHasFk: boolean = false;
-			let fieldNotSupported = false;
+			if (this.excludedFields.includes(field.name!)) continue;
 
-			field.decorators?.forEach((d) => {
-				if (d.text?.startsWith('@Column') && d.text?.includes('enum')) {
-					enumCol = d;
-				} else if (d.text?.match(/(One|Many)To(One|Many)/)?.length) {
-					relationCol = d;
-				} else if (d.text?.includes('JoinColumn')) {
-					relationExtra = d;
-					relationHasFk = true;
-				} else if (d.text?.includes('JoinTable')) {
-					relationExtra = d;
-					//TODO: handle conjuction table
-				} else if (d.text?.match(/Tree(Parent|Children)/)?.length) {
-					fieldNotSupported = true;
+			const fieldTypes = field.type!.split('|').map((t) => t.trim());
+
+			const fieldOptional = Boolean(field.optional);
+			let fieldPrimitive: number | undefined;
+			let fieldNullable: boolean = false;
+			let fieldUndefindable: boolean = fieldOptional;
+
+			fieldTypes.forEach((t) => {
+				if (PrimitiveTypes[t]) {
+					fieldPrimitive = PrimitiveTypes[t];
+				} else if (t === 'null') {
+					fieldNullable = true;
+				} else if (t === 'undefined') {
+					fieldUndefindable = true;
 				}
 			});
+
+			let fieldAsString = '';
+			if (fieldPrimitive) {
+				//handle primitives
+				let t = '';
+				if (fieldPrimitive === PrimitiveTypes['number']) {
+					t = 'v.number()';
+				} else if (fieldPrimitive === PrimitiveTypes['string']) {
+					t = 'v.string()';
+				} else if (fieldPrimitive === PrimitiveTypes['boolean']) {
+					t = 'v.boolean()';
+				} else if (fieldPrimitive === PrimitiveTypes['number[]']) {
+					t = 'v.array(v.number())';
+				} else if (fieldPrimitive === PrimitiveTypes['string[]']) {
+					t = 'v.array(v.string())';
+				} else if (fieldPrimitive === PrimitiveTypes['boolean[]']) {
+					t = 'v.array(v.boolean())';
+				}
+
+				//handle nullish values
+				if (fieldUndefindable && fieldNullable) {
+					t = `v.nullish(${t})`;
+				} else if (fieldUndefindable && !fieldNullable) {
+					t = `v.undefindable(${t})`;
+				} else if (fieldNullable && !fieldUndefindable) {
+					t = `v.nullable(${t})`;
+				}
+
+				fieldAsString = `${field.name}: ${t}`;
+				allReady.push(fieldAsString);
+				continue;
+			}
+
+			const {
+				fieldEnum,
+				fieldNotSupported,
+				fieldRelation,
+				fieldRelationHasFk,
+				fieldRelationMeta,
+				relationClass,
+				relationFileImport,
+				relationType,
+			} = this._extractRelationInfo(field);
 
 			if (fieldNotSupported) {
 				continue;
 			}
 
-			// console.log(this.currDepth);
+			if (fieldEnum) {
+			}
 
-			if (relationCol && this.currDepth < 5) {
-				const currKey = `${this.entityName}:${
-					field.name
-				}:${relationCol.functions?.[0].arrowFn?.[1].def?.split('.').at(-1)}`;
-				if (this.visited.has(currKey)) {
-					continue;
-				}
-
-				this.visited.add(currKey);
-
-				const relationFn = relationCol.functions?.find((f) =>
-					[
-						'ManyToMany',
-						'OneToOne',
-						'OneToMany',
-						'ManyToOne',
-						//TODO: support tree structures
-					].includes(f.expression!)
-				);
-
-				const relationType = relationFn?.identifiers?.[0].expression as Relationships;
-				const relatedClass = relationFn?.arrowFn?.[0]?.identifiers?.[0].expression;
-				const fileImport = this.parsedTree.imports?.find(
-					(i) => i?.identifiers?.findIndex((id) => id?.expression === relatedClass)! > -1
-				) || {
-					module: `import { ${relatedClass!} } from '${this.ogFilePath.replaceAll(
-						'.ts',
-						''
-					)}'`,
-				};
-
-				if (fileImport) {
-					const fileName = fileImport.module?.split('/')?.at(-1)?.replace("'", '');
-					if (fileName && this.asts[fileName]) {
-						//got the filename of the ast
-						//asts contains all the asts of all entities and the keys are the entity file name
-						const newFile = new CreateSchemaCreator(
-							this.asts[fileName].sourceFile,
-							this.asts[fileName].fullPath,
-							this.asts,
-							{ currDepth: this.currDepth + 1, maxDepth: 1 },
-							this.visited,
-							this.parents.add(this.entityName.replace('.ts', '')),
-							(this.nested[field.name!] = {})
-						);
-
-						await newFile.build();
-						// console.log(this.nested);
-					}
-				}
+			if (fieldRelation && this.currDepth < this.maxDepth) {
+				//get class fields -> parseFields
 			}
 		}
 
-		// console.log(this.nested);
-		//
+		const validationObject = `export const ${this.schemaName} = v.object({${allReady.join(
+			',\n'
+		)}})`;
+
+		return validationObject;
+	}
+
+	async _recurseNested(relField: Node) {
+		const relationFn = relField.functions?.find((f) =>
+			[
+				'ManyToMany',
+				'OneToOne',
+				'OneToMany',
+				'ManyToOne',
+				//TODO: support tree structures
+			].includes(f.expression!)
+		);
+
+		const relationType = relationFn?.identifiers?.[0].expression as Relationships;
+		const relatedClass = relationFn?.arrowFn?.[0]?.identifiers?.[0].expression;
+		const fileImport = this.parsedTree.imports?.find(
+			(i) => i?.identifiers?.findIndex((id) => id?.expression === relatedClass)! > -1
+		) || {
+			module: `import { ${relatedClass!} } from '${this.entityPath.replaceAll(
+				'.ts',
+				''
+			)}'`,
+		};
+
+		if (fileImport) {
+			// process.stdout.write(field.name! + '\n');
+			const fileName = fileImport.module?.split('/')?.at(-1)?.replace("'", '');
+			if (fileName && this.asts[fileName]) {
+				//got the filename of the ast
+				//asts contains all the asts of all entities and the keys are the entity file name
+				const newFile = new CreateSchemaCreator(
+					this.asts[fileName].sourceFile,
+					this.asts[fileName].fullPath,
+					this.asts,
+					{ currDepth: this.currDepth + 1, maxDepth: this.maxDepth - this.currDepth }
+				);
+
+				// curr[field.name!] = await newFile.build();
+			}
+		}
+	}
+
+	_extractRelationInfo(field: Node) {
+		let fieldEnum: Node | undefined;
+		let fieldRelation: Node | undefined;
+		let fieldRelationMeta: Node | undefined;
+		let fieldRelationHasFk: boolean = false;
+		let fieldNotSupported = false;
+		let relationFn: Node | undefined;
+		let relationType: Relationships | undefined;
+		let relationClass: string | undefined;
+		let relationClassImport: Node | undefined;
+		let relationFileImport: string | undefined;
+
+		field.decorators?.forEach((d) => {
+			if (d.text?.startsWith('@Column') && d.text?.includes('enum')) {
+				fieldEnum = d;
+			} else if (d.text?.match(/(One|Many)To(One|Many)/)?.length) {
+				fieldRelation = d;
+			} else if (d.text?.includes('JoinColumn')) {
+				fieldRelationMeta = d;
+				fieldRelationHasFk = true;
+			} else if (d.text?.includes('JoinTable')) {
+				fieldRelationMeta = d;
+				//TODO: handle conjuction table
+			} else if (d.text?.match(/Tree(Parent|Children)/)?.length) {
+				fieldNotSupported = true;
+			}
+		});
+
+		relationFn = fieldRelation?.functions?.find((f) =>
+			[
+				'ManyToMany',
+				'OneToOne',
+				'OneToMany',
+				'ManyToOne',
+				//TODO: support tree structures
+			].includes(f.expression!)
+		);
+
+		relationType = relationFn?.identifiers?.[0]?.expression as Relationships;
+		relationClass = relationFn?.arrowFn?.[0]?.identifiers?.[0]?.expression;
+
+		if (relationClass) {
+			relationClassImport = this.parsedTree.imports?.find(
+				(i) => i?.identifiers?.findIndex((id) => id?.expression === relationClass)! > -1
+			) || {
+				module: `import { ${relationClass!} } from '${this.entityPath.replaceAll(
+					'.ts',
+					''
+				)}'`,
+			};
+
+			relationFileImport = relationClassImport.module
+				?.split('/')
+				?.at(-1)
+				?.replace("'", '');
+		}
+
+		return {
+			fieldEnum,
+			fieldRelation,
+			fieldRelationMeta,
+			fieldRelationHasFk,
+			fieldNotSupported,
+			relationType,
+			relationClass,
+			relationFileImport,
+		};
 	}
 
 	_setEntityName(name?: string) {
@@ -320,7 +352,7 @@ ${all.join(',\n')}
 			i.module = i.module?.replaceAll("'", '');
 			if (i.module?.startsWith('.')) {
 				//handle relative imports
-				const targetDestAbs = join(dirname(this.ogFilePath), i.module);
+				const targetDestAbs = join(dirname(this.entityPath), i.module);
 				//save the absolute path to the file to later get relative path to it in the new schema/dto file
 				this.absoluteImports.push({
 					absPath: targetDestAbs.replaceAll('.ts', ''),
@@ -334,21 +366,21 @@ ${all.join(',\n')}
 			}
 		});
 
-		this.imports?.add("import { Type } from '@sinclair/typebox';");
-		this.imports?.add("import { TypeCompiler } from '@sinclair/typebox/compiler';");
+		this.imports?.add("import * as v from 'valibot'");
 	}
 
-	_setEnums() {
+	_setEnumImports() {
 		//enums should be exported from the db file
 		this.parsedTree.enums?.forEach((e, i) => {
 			if (e.text?.startsWith('export')) {
-				//make an import statement
+				//if it is exported, make an import statement from the entity file
 				const enumKey = e.identifiers?.[0]?.expression;
 				if (enumKey) {
 					const importStmnt = `import { ${enumKey} } from '<<pathToOriginal>>'`;
 					this.imports.add(importStmnt);
 				}
 			} else {
+				//not exported, means just make a copy of it and use it inside of the schema file needed
 				this.enums.push(e.text!);
 			}
 		});

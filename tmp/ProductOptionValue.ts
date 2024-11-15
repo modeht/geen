@@ -1,7 +1,0 @@
-{
-    "option": {
-        "values": {
-            "variants": {}
-        }
-    }
-}

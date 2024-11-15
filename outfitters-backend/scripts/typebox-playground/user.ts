@@ -1,33 +1,21 @@
 import { Type } from '@sinclair/typebox';
-import { Post } from './posts';
+import { PostBase } from './posts';
 
-const UserBase = Type.Object(
+export const UserBase = Type.Object(
 	{
 		id: Type.String(),
 		email: Type.String({ format: 'email' }),
 		name: Type.String(),
 		createdAt: Type.String({ format: 'date-time' }),
 		updatedAt: Type.String({ format: 'date-time' }),
+		// posts: Type.Array(Type.Ref(PostBase, { $id: 'UserPosts' }), { $id: 'PostsArray' }),
 	},
 	{
-		$id: 'UserBase',
+		$id: 'User',
 	},
 );
 
-const UserPosts = Type.Object(
-	{
-		posts: Type.Optional(Type.Array(Type.Ref(Post))),
-	},
-	{
-		$id: 'PostRef',
-	},
-);
-
-export const User = Type.Intersect([UserBase, UserPosts], {
-	$id: 'User',
-});
-
-console.log(User);
+console.log(UserBase);
 
 // Utility type to prevent circular references
 type Primitive = string | number | boolean | null | undefined;

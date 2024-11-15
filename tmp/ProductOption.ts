@@ -1,5 +1,0 @@
-{
-    "values": {
-        "variants": {}
-    }
-}

@@ -1,4 +1,0 @@
-{}    "orderItems": {
-        "appliedPromotions": {}
-    }
-}
