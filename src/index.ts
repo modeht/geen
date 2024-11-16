@@ -31,8 +31,8 @@ async function main() {
 			currDepth: 0,
 		}
 	);
-	const d = addDtoCreator.parseFields();
-	console.log(d.exportStatment);
+	// const d = addDtoCreator.parseFields();
+	await addDtoCreator.buildFile();
 
 	// const acc = {};
 	// parseTreeV2(acc, ASTs[Object.keys(ASTs)[0]].sourceFile);

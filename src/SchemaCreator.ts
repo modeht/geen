@@ -62,9 +62,8 @@ export class CreateSchemaCreator {
 	dtoDirPath: string;
 	dtoDirRelPath: string;
 	dtoDirAbsPath: string;
-	visited: Set<string>;
-	parents: Set<string>;
-	nested: Record<string, any>;
+	createSchemaText: string;
+	toBeSaved: string;
 
 	constructor(
 		ast: ts.SourceFile,
@@ -82,7 +81,7 @@ export class CreateSchemaCreator {
 		this.baseSetup();
 	}
 
-	baseSetup() {
+	private baseSetup() {
 		this._setEntityName();
 		this._setSchemaName();
 		this._setFilename();
@@ -91,7 +90,7 @@ export class CreateSchemaCreator {
 		this._setEnumImports();
 	}
 
-	async prepDir() {
+	private async prepDir() {
 		this.dtoDirName = '';
 		this.dtoDirPath = `generated-schemas/${this.dtoDirName}`;
 		//this is supposed to be under same module
@@ -101,7 +100,29 @@ export class CreateSchemaCreator {
 		await mkdir(this.dtoDirAbsPath, { recursive: true });
 
 		//relative path to dto directory from entity
-		this.dtoDirRelPath = relative(this.entityPath, this.dtoDirAbsPath);
+		this.dtoDirRelPath = relative(this.entityPath, this.dtoDirAbsPath)
+			.split(sep)
+			.join('/');
+	}
+
+	async buildFile() {
+		if (!this.createSchemaText) {
+			this.parseFields();
+		}
+		await this.prepDir();
+
+		let file = this.createSchemaText;
+		//add imports
+		const importsText = Array.from(this.imports).join('\n');
+		file = `${importsText}\n\n${file}`;
+		//add type inference
+		const schemaTypeInference = `export type TCreate${this.entityName}Schema = v.InferInput<typeof ${this.schemaName}>`;
+		file += `\n\n${schemaTypeInference}\n`;
+
+		//save file
+		await writeFile(join(this.entityPath, this.dtoDirRelPath, this.toBeSaved), file);
+
+		//return the data need for wide importing later
 	}
 
 	//for fields parsing
@@ -162,7 +183,7 @@ export class CreateSchemaCreator {
 					t = 'v.array(v.boolean())';
 				}
 
-				t = this.applyNullish(t, fieldNullable, fieldUndefindable);
+				t = this._handleEmptyStates(t, fieldNullable, fieldUndefindable);
 
 				fieldAsString = `${field.name}: ${t}`;
 				allReady.push(fieldAsString);
@@ -211,7 +232,7 @@ export class CreateSchemaCreator {
 				}
 				fieldAsString = `v.union([${fieldAsString}])`;
 				//either connect with id, or add it
-				fieldAsString = this.applyNullish(
+				fieldAsString = this._handleEmptyStates(
 					fieldAsString,
 					!relationRequired ? true : fieldNullable,
 					!relationRequired ? true : fieldUndefindable
@@ -225,12 +246,11 @@ export class CreateSchemaCreator {
 		const validationObject = `v.object({${allReady.join(',\n')}})`;
 		//TODO: can be useful later
 		const exportStatment = `export const ${this.schemaName} = v.pipe(${validationObject},${metadataObject})`;
-
+		this.createSchemaText = exportStatment;
 		return { exportStatment, validationObject };
 	}
 
-	applyNullish(field: string, nullable: boolean, undefindable: boolean) {
-		//handle nullish values
+	_handleEmptyStates(field: string, nullable: boolean, undefindable: boolean) {
 		if (undefindable && nullable) {
 			field = `v.nullish(${field})`;
 		} else if (undefindable && !nullable) {
@@ -240,6 +260,7 @@ export class CreateSchemaCreator {
 		}
 		return field;
 	}
+
 	_extractRelationInfo(field: Node) {
 		let fieldEnum: Node | undefined;
 		let fieldRelation: Node | undefined;
@@ -333,8 +354,7 @@ export class CreateSchemaCreator {
 	}
 
 	_setSchemaName() {
-		const flatName = this.entityName.replace(/entity/gi, '').replace(/model/gi, '');
-		this.schemaName = `Create${flatName}Schema`;
+		this.schemaName = `Create${this.entityName}Schema`;
 		return this.schemaName;
 	}
 
@@ -351,30 +371,29 @@ export class CreateSchemaCreator {
 	}
 
 	_setSavedFilename() {
-		this.fileName = `create-${this.fileName}.schema.ts`;
-		return this.fileName;
+		this.toBeSaved = `create-${this.fileName}.schema.ts`;
 	}
 
 	_setDefaultImports() {
-		this.parsedTree.imports?.forEach((i) => {
-			i.module = i.module?.replaceAll("'", '');
-			if (i.module?.startsWith('.')) {
-				//handle relative imports
-				const targetDestAbs = join(dirname(this.entityPath), i.module);
-				//save the absolute path to the file to later get relative path to it in the new schema/dto file
-				this.absoluteImports.push({
-					absPath: targetDestAbs.replaceAll('.ts', ''),
-					importedFields: i.identifiers?.map((i) => i.expression!)!,
-				});
-			} else if (i.module === 'typeorm') {
-				//do nothing
-			} else {
-				//project can contain non-relative path so leave them as is
-				this.imports.add(i.text?.replaceAll('.ts', '')!);
-			}
-		});
-
-		this.imports?.add("import * as v from 'valibot'");
+		// this.parsedTree.imports?.forEach((i) => {
+		// 	i.module = i.module?.replaceAll("'", '');
+		// 	if (i.module?.startsWith('.')) {
+		// 		//handle relative imports
+		// 		const targetDestAbs = join(dirname(this.entityPath), i.module);
+		// 		//save the absolute path to the file to later get relative path to it in the new schema/dto file
+		// 		this.absoluteImports.push({
+		// 			absPath: targetDestAbs.replaceAll('.ts', ''),
+		// 			importedFields: i.identifiers?.map((i) => i.expression!)!,
+		// 		});
+		// 	} else if (i.module === 'typeorm') {
+		// 		//do nothing
+		// 	} else {
+		// 		//project can contain non-relative path so leave them as is
+		// 		this.imports.add(i.text?.replaceAll('.ts', '')!);
+		// 	}
+		// });
+		//TODO: no longer needed, leaving in case i need it for read schemas
+		this.imports?.add("import * as v from 'valibot';");
 	}
 
 	_setEnumImports() {
@@ -384,7 +403,7 @@ export class CreateSchemaCreator {
 				//if it is exported, make an import statement from the entity file
 				const enumKey = e.identifiers?.[0]?.expression;
 				if (enumKey) {
-					const importStmnt = `import { ${enumKey} } from '<<pathToOriginal>>'`;
+					const importStmnt = `import { ${enumKey} } from '<<pathToOriginal>>';`;
 					this.imports.add(importStmnt);
 				}
 			} else {
