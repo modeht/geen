@@ -2,6 +2,9 @@ import * as v from 'valibot';
 
 export const CreateCategorySchema = v.pipe(
 	v.object({
+		date: v.array(
+			v.pipe(v.string('Invalid type: Expected iso timestamp string'), v.isoTimestamp()),
+		),
 		name: v.string(),
 		isArchived: v.boolean(),
 		media: v.union([
@@ -121,6 +124,7 @@ export const CreateCategorySchema = v.pipe(
 		seasonalPromotions: 'SeasonalPromotionEntity',
 	}),
 );
+
 type t = v.InferInput<typeof CreateCategorySchema>;
 try {
 	const check = v.parse(
@@ -130,6 +134,7 @@ try {
 			isArchived: true,
 			media: 1,
 			// superCategoryId: null,
+			date: ['2024-11-16T02:02:25+00:00'],
 		} as t,
 		{
 			abortEarly: true,

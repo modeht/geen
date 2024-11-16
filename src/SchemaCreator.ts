@@ -36,6 +36,8 @@ export enum PrimitiveTypes {
 	'string[]',
 	'number[]',
 	'boolean[]',
+	'Date',
+	'Date[]',
 }
 
 export type TypeKeywords = 'One' | 'Many';
@@ -181,6 +183,13 @@ export class CreateSchemaCreator {
 					t = 'v.array(v.string())';
 				} else if (fieldPrimitive === PrimitiveTypes['boolean[]']) {
 					t = 'v.array(v.boolean())';
+				} else if (fieldPrimitive === PrimitiveTypes['Date']) {
+					//TODO: handle different kind of dates
+					t =
+						"v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())";
+				} else if (fieldPrimitive === PrimitiveTypes['Date[]']) {
+					t =
+						"v.array(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()))";
 				}
 
 				t = this._handleEmptyStates(t, fieldNullable, fieldUndefindable);
@@ -254,7 +263,7 @@ export class CreateSchemaCreator {
 		if (undefindable && nullable) {
 			field = `v.nullish(${field})`;
 		} else if (undefindable && !nullable) {
-			field = `v.undefindable(${field})`;
+			field = `v.undefinedable(${field})`;
 		} else if (nullable && !undefindable) {
 			field = `v.nullish(${field})`;
 		}
