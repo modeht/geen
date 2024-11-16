@@ -3,18 +3,18 @@ import { Node, TreeParser } from './TreeParser';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types';
-import { CreateDtoFieldBuilder } from './CreateDtoFieldBuilder';
 import { appModulePath, globalsDirPath as globalsDirPath } from './utils';
 import { mkdirSync } from 'fs';
 import { log, warn } from 'console';
 
-export type CreateDtoInfo = {
+export type ReadDtoInfo = {
 	absPath: string;
 	className: string;
 	entityName: string; //remove entity or model name from it
 	fileName: string; //remove entity or model name from it
 	savedFileName: string; //remove entity or model name from it
 };
+
 export type ServiceFileInfo = {
 	serviceClassName: string;
 	serviceAbsPath: string;
@@ -43,7 +43,7 @@ export enum PrimitiveTypes {
 export type TypeKeywords = 'One' | 'Many';
 export type Relationships = `${TypeKeywords}To${TypeKeywords}`;
 
-export class CreateSchemaCreator {
+export class ReadSchemaCreator {
 	parsedTree: Node;
 	schemaName: string;
 	entityName: string;
@@ -64,7 +64,7 @@ export class CreateSchemaCreator {
 	dtoDirPath: string;
 	dtoDirRelPath: string;
 	dtoDirAbsPath: string;
-	createSchemaText: string;
+	readSchemaText: string;
 	toBeSaved: string;
 
 	constructor(
@@ -108,17 +108,17 @@ export class CreateSchemaCreator {
 	}
 
 	async buildFile() {
-		if (!this.createSchemaText) {
+		if (!this.readSchemaText) {
 			this.parseFields();
 		}
 		await this.prepDir();
 
-		let file = this.createSchemaText;
+		let file = this.readSchemaText;
 		//add imports
 		const importsText = Array.from(this.imports).join('\n');
 		file = `${importsText}\n\n${file}`;
 		//add type inference
-		const schemaTypeInference = `export type TCreate${this.entityName}Schema = v.InferInput<typeof ${this.schemaName}>`;
+		const schemaTypeInference = `export type TRead${this.entityName}Schema = v.InferInput<typeof ${this.schemaName}>`;
 		file += `\n\n${schemaTypeInference}\n`;
 
 		//save file
@@ -138,7 +138,8 @@ export class CreateSchemaCreator {
 			fields = this.entityClass.properties;
 		}
 
-		const allReady: string[] = [];
+		const schema: string[] = [];
+		const schemaClass: string[] = [];
 		const metadatas: string[] = [];
 
 		for (const field of fields) {
@@ -168,34 +169,28 @@ export class CreateSchemaCreator {
 			});
 
 			let fieldAsString = '';
+			let propertyAsString = '';
+
 			if (fieldPrimitive !== undefined) {
 				//handle primitives
 				let t = '';
+				let p = '';
 				if (fieldPrimitive === PrimitiveTypes['number']) {
-					t = 'v.number()';
 				} else if (fieldPrimitive === PrimitiveTypes['string']) {
-					t = 'v.string()';
 				} else if (fieldPrimitive === PrimitiveTypes['boolean']) {
-					t = 'v.boolean()';
-				} else if (fieldPrimitive === PrimitiveTypes['number[]']) {
-					t = 'v.array(v.number())';
-				} else if (fieldPrimitive === PrimitiveTypes['string[]']) {
-					t = 'v.array(v.string())';
-				} else if (fieldPrimitive === PrimitiveTypes['boolean[]']) {
-					t = 'v.array(v.boolean())';
 				} else if (fieldPrimitive === PrimitiveTypes['Date']) {
-					//TODO: handle different kind of dates
-					t =
-						"v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())";
+				} else if (fieldPrimitive === PrimitiveTypes['number[]']) {
+				} else if (fieldPrimitive === PrimitiveTypes['string[]']) {
+				} else if (fieldPrimitive === PrimitiveTypes['boolean[]']) {
 				} else if (fieldPrimitive === PrimitiveTypes['Date[]']) {
-					t =
-						"v.array(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()))";
 				}
 
 				t = this._handleEmptyStates(t, fieldNullable, fieldUndefindable);
 
 				fieldAsString = `${field.name}: ${t}`;
-				allReady.push(fieldAsString);
+				propertyAsString = `${field.name}: ${t}`;
+				schema.push(fieldAsString);
+				schemaClass.push(propertyAsString);
 				continue;
 			}
 
@@ -226,36 +221,36 @@ export class CreateSchemaCreator {
 					continue;
 				}
 				const ast = this.asts[relationFileImport];
-				const nestedCreateSchema = new CreateSchemaCreator(
-					ast.sourceFile,
-					ast.fullPath,
-					this.asts,
-					{ currDepth: this.currDepth + 1, maxDepth: this.maxDepth - this.currDepth }
-				);
-				const nestedFields = nestedCreateSchema.parseFields();
-				let fieldAsString = '';
-				if (relationType === 'OneToMany' || relationType === 'ManyToMany') {
-					fieldAsString = `v.array(v.number()), v.array(${nestedFields.validationObject})`;
-				} else {
-					fieldAsString = `v.number(), ${nestedFields.validationObject}`;
-				}
-				fieldAsString = `v.union([${fieldAsString}])`;
-				//either connect with id, or add it
-				fieldAsString = this._handleEmptyStates(
-					fieldAsString,
-					!relationRequired ? true : fieldNullable,
-					!relationRequired ? true : fieldUndefindable
-				);
-				metadatas.push(`${field.name!}: '${relationClass}'`);
-				allReady.push(`${field.name!}: ${fieldAsString}`);
+				// const nestedReadSchema = new ReadSchemaCreator(
+				// 	ast.sourceFile,
+				// 	ast.fullPath,
+				// 	this.asts,
+				// 	{ currDepth: this.currDepth + 1, maxDepth: this.maxDepth - this.currDepth }
+				// );
+				// const nestedFields = nestedReadSchema.parseFields();
+				// let fieldAsString = '';
+				// if (relationType === 'OneToMany' || relationType === 'ManyToMany') {
+				// 	fieldAsString = `v.array(v.number()), v.array(${nestedFields.validationObject})`;
+				// } else {
+				// 	fieldAsString = `v.number(), ${nestedFields.validationObject}`;
+				// }
+				// fieldAsString = `v.union([${fieldAsString}])`;
+				// //either connect with id, or add it
+				// fieldAsString = this._handleEmptyStates(
+				// 	fieldAsString,
+				// 	!relationRequired ? true : fieldNullable,
+				// 	!relationRequired ? true : fieldUndefindable
+				// );
+				// metadatas.push(`${field.name!}: '${relationClass}'`);
+				// allReady.push(`${field.name!}: ${fieldAsString}`);
 			}
 		}
 
 		const metadataObject = `v.metadata({${metadatas.join(',\n')}})`;
-		const validationObject = `v.object({${allReady.join(',\n')}})`;
+		const validationObject = `v.object({${schema.join(',\n')}})`;
 		//TODO: can be useful later
 		const exportStatment = `export const ${this.schemaName} = v.pipe(${validationObject},${metadataObject})`;
-		this.createSchemaText = exportStatment;
+		this.readSchemaText = exportStatment;
 		return { exportStatment, validationObject };
 	}
 
@@ -363,7 +358,7 @@ export class CreateSchemaCreator {
 	}
 
 	_setSchemaName() {
-		this.schemaName = `Create${this.entityName}Schema`;
+		this.schemaName = `Read${this.entityName}Schema`;
 		return this.schemaName;
 	}
 
@@ -380,7 +375,7 @@ export class CreateSchemaCreator {
 	}
 
 	_setSavedFilename() {
-		this.toBeSaved = `create-${this.fileName}.schema.ts`;
+		this.toBeSaved = `read-${this.fileName}.schema.ts`;
 	}
 
 	_setDefaultImports() {

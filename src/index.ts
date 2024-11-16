@@ -5,7 +5,7 @@ import { log, time, timeEnd } from 'console';
 import { prereq } from './prereq';
 import { TreeParser } from './TreeParser';
 import { parseTreeV2 } from './tree-parser';
-import { CreateSchemaCreator } from './SchemaCreator';
+import { CreateSchemaCreator } from './CreateSchemaCreator';
 
 async function main() {
 	time('Loading entities');
