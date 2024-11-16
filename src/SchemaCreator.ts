@@ -6,7 +6,7 @@ import { ASTs } from './lib/types';
 import { CreateDtoFieldBuilder } from './CreateDtoFieldBuilder';
 import { appModulePath, globalsDirPath as globalsDirPath } from './utils';
 import { mkdirSync } from 'fs';
-import { log } from 'console';
+import { log, warn } from 'console';
 
 export type CreateDtoInfo = {
 	absPath: string;
@@ -105,7 +105,7 @@ export class CreateSchemaCreator {
 	}
 
 	//for fields parsing
-	excludedFields: string[] = ['updatedAt', 'createdAt', 'updated_at', 'created_at'];
+	excludedFields: string[] = ['id', 'updatedAt', 'createdAt', 'updated_at', 'created_at'];
 
 	parseFields({ fields }: { fields?: Node[] } = {}) {
 		if (!fields) {
@@ -116,6 +116,7 @@ export class CreateSchemaCreator {
 		}
 
 		const allReady: string[] = [];
+		const metadatas: string[] = [];
 
 		for (const field of fields) {
 			if (this.excludedFields.includes(field.name!)) continue;
@@ -123,12 +124,18 @@ export class CreateSchemaCreator {
 			const fieldTypes = field.type!.split('|').map((t) => t.trim());
 
 			const fieldOptional = Boolean(field.optional);
+			const columnNullable =
+				field.decorators
+					?.find((d) => d.text?.startsWith('@Column'))
+					?.props?.find((p) => p.statement?.startsWith('nullable'))
+					?.statement?.includes('true') || false;
+
 			let fieldPrimitive: number | undefined;
-			let fieldNullable: boolean = false;
+			let fieldNullable: boolean = columnNullable;
 			let fieldUndefindable: boolean = fieldOptional;
 
 			fieldTypes.forEach((t) => {
-				if (PrimitiveTypes[t]) {
+				if (PrimitiveTypes[t] !== undefined) {
 					fieldPrimitive = PrimitiveTypes[t];
 				} else if (t === 'null') {
 					fieldNullable = true;
@@ -138,7 +145,7 @@ export class CreateSchemaCreator {
 			});
 
 			let fieldAsString = '';
-			if (fieldPrimitive) {
+			if (fieldPrimitive !== undefined) {
 				//handle primitives
 				let t = '';
 				if (fieldPrimitive === PrimitiveTypes['number']) {
@@ -155,14 +162,7 @@ export class CreateSchemaCreator {
 					t = 'v.array(v.boolean())';
 				}
 
-				//handle nullish values
-				if (fieldUndefindable && fieldNullable) {
-					t = `v.nullish(${t})`;
-				} else if (fieldUndefindable && !fieldNullable) {
-					t = `v.undefindable(${t})`;
-				} else if (fieldNullable && !fieldUndefindable) {
-					t = `v.nullable(${t})`;
-				}
+				t = this.applyNullish(t, fieldNullable, fieldUndefindable);
 
 				fieldAsString = `${field.name}: ${t}`;
 				allReady.push(fieldAsString);
@@ -176,6 +176,8 @@ export class CreateSchemaCreator {
 				fieldRelationHasFk,
 				fieldRelationMeta,
 				relationClass,
+				relationClassImport,
+				relationRequired,
 				relationFileImport,
 				relationType,
 			} = this._extractRelationInfo(field);
@@ -189,56 +191,55 @@ export class CreateSchemaCreator {
 
 			if (fieldRelation && this.currDepth < this.maxDepth) {
 				//get class fields -> parseFields
-			}
-		}
-
-		const validationObject = `export const ${this.schemaName} = v.object({${allReady.join(
-			',\n'
-		)}})`;
-
-		return validationObject;
-	}
-
-	async _recurseNested(relField: Node) {
-		const relationFn = relField.functions?.find((f) =>
-			[
-				'ManyToMany',
-				'OneToOne',
-				'OneToMany',
-				'ManyToOne',
-				//TODO: support tree structures
-			].includes(f.expression!)
-		);
-
-		const relationType = relationFn?.identifiers?.[0].expression as Relationships;
-		const relatedClass = relationFn?.arrowFn?.[0]?.identifiers?.[0].expression;
-		const fileImport = this.parsedTree.imports?.find(
-			(i) => i?.identifiers?.findIndex((id) => id?.expression === relatedClass)! > -1
-		) || {
-			module: `import { ${relatedClass!} } from '${this.entityPath.replaceAll(
-				'.ts',
-				''
-			)}'`,
-		};
-
-		if (fileImport) {
-			// process.stdout.write(field.name! + '\n');
-			const fileName = fileImport.module?.split('/')?.at(-1)?.replace("'", '');
-			if (fileName && this.asts[fileName]) {
-				//got the filename of the ast
-				//asts contains all the asts of all entities and the keys are the entity file name
-				const newFile = new CreateSchemaCreator(
-					this.asts[fileName].sourceFile,
-					this.asts[fileName].fullPath,
+				if (!relationFileImport) {
+					warn(`relation field ${field.name!} ast not found`);
+					continue;
+				}
+				const ast = this.asts[relationFileImport];
+				const nestedCreateSchema = new CreateSchemaCreator(
+					ast.sourceFile,
+					ast.fullPath,
 					this.asts,
 					{ currDepth: this.currDepth + 1, maxDepth: this.maxDepth - this.currDepth }
 				);
-
-				// curr[field.name!] = await newFile.build();
+				const nestedFields = nestedCreateSchema.parseFields();
+				let fieldAsString = '';
+				if (relationType === 'OneToMany' || relationType === 'ManyToMany') {
+					fieldAsString = `v.array(v.number()), v.array(${nestedFields.validationObject})`;
+				} else {
+					fieldAsString = `v.number(), ${nestedFields.validationObject}`;
+				}
+				fieldAsString = `v.union([${fieldAsString}])`;
+				//either connect with id, or add it
+				fieldAsString = this.applyNullish(
+					fieldAsString,
+					!relationRequired ? true : fieldNullable,
+					!relationRequired ? true : fieldUndefindable
+				);
+				metadatas.push(`${field.name!}: '${relationClass}'`);
+				allReady.push(`${field.name!}: ${fieldAsString}`);
 			}
 		}
+
+		const metadataObject = `v.metadata({${metadatas.join(',\n')}})`;
+		const validationObject = `v.object({${allReady.join(',\n')}})`;
+		//TODO: can be useful later
+		const exportStatment = `export const ${this.schemaName} = v.pipe(${validationObject},${metadataObject})`;
+
+		return { exportStatment, validationObject };
 	}
 
+	applyNullish(field: string, nullable: boolean, undefindable: boolean) {
+		//handle nullish values
+		if (undefindable && nullable) {
+			field = `v.nullish(${field})`;
+		} else if (undefindable && !nullable) {
+			field = `v.undefindable(${field})`;
+		} else if (nullable && !undefindable) {
+			field = `v.nullish(${field})`;
+		}
+		return field;
+	}
 	_extractRelationInfo(field: Node) {
 		let fieldEnum: Node | undefined;
 		let fieldRelation: Node | undefined;
@@ -250,6 +251,7 @@ export class CreateSchemaCreator {
 		let relationClass: string | undefined;
 		let relationClassImport: Node | undefined;
 		let relationFileImport: string | undefined;
+		let relationRequired: boolean = false;
 
 		field.decorators?.forEach((d) => {
 			if (d.text?.startsWith('@Column') && d.text?.includes('enum')) {
@@ -277,6 +279,10 @@ export class CreateSchemaCreator {
 			].includes(f.expression!)
 		);
 
+		relationRequired =
+			relationFn?.props
+				?.find((p) => p.statement?.startsWith('nullable'))
+				?.statement?.includes('false') || false;
 		relationType = relationFn?.identifiers?.[0]?.expression as Relationships;
 		relationClass = relationFn?.arrowFn?.[0]?.identifiers?.[0]?.expression;
 
@@ -304,7 +310,9 @@ export class CreateSchemaCreator {
 			fieldNotSupported,
 			relationType,
 			relationClass,
+			relationClassImport,
 			relationFileImport,
+			relationRequired,
 		};
 	}
 
