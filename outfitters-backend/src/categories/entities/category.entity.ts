@@ -39,10 +39,10 @@ export class CategoryEntity {
 
 	@OneToOne(() => MediaEntity, (media) => media.category, {
 		eager: true,
-		nullable: false,
+		nullable: true,
 	})
 	@JoinColumn({ name: 'mediaId' })
-	media: MediaEntity;
+	media: MediaEntity | null;
 
 	@OneToMany(() => CategoryEntity, (category) => category.superCategory, {
 		nullable: true,

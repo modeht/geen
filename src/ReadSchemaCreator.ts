@@ -81,40 +81,46 @@ export class ReadSchemaCreator {
 		this.asts = asts;
 	}
 
-	async baseSetup() {
+	baseSetup() {
 		this._setEntityName();
 		this._setSchemaName();
 		this._setFilename();
 		this._setSavedFilename();
-		await this.prepDir();
+		this._prepDir();
+		this._prepFile();
 		this._setDefaultImports();
 		this._setEnumImports();
-		this.prepFile();
 	}
 
-	private async prepDir() {
+	_prepDir() {
 		this.dtoDirName = '';
 		this.dtoDirPath = `generated-schemas/${this.dtoDirName}`;
-		//this is supposed to be under same module
-		//entity should be under main module
-		//assuming entity dir is one level inside of the module dir. TODO: i am not sure if this is the best approach maybe refactor later
 		this.dtoDirAbsPath = join(dirname(this.entityPath), '..', this.dtoDirPath);
-		await mkdir(this.dtoDirAbsPath, { recursive: true });
-
-		//relative path to dto directory from entity
 		this.dtoDirRelPath = relative(this.entityPath, this.dtoDirAbsPath)
 			.split(sep)
 			.join('/');
 	}
 
-	private prepFile() {
+	_prepFile() {
+		if (!this.dtoDirRelPath) {
+			throw new Error('use _buildDir() to configure schema dir path');
+		}
+
 		this.toBeSavedAbs = join(this.entityPath, this.dtoDirRelPath, this.toBeSaved);
+	}
+
+	async _buildDir() {
+		//this is supposed to be under same module
+		//entity should be under main module
+		//assuming entity dir is one level inside of the module dir. TODO: i am not sure if this is the best approach maybe refactor later
+		await mkdir(this.dtoDirAbsPath, { recursive: true });
 	}
 
 	async buildFile() {
 		if (!this.readSchemaText) {
-			this.parseFields();
+			this._parseFields();
 		}
+		await this._buildDir();
 
 		let file = this.readSchemaText;
 
@@ -123,7 +129,7 @@ export class ReadSchemaCreator {
 		file = `${importsText}\n\n${file}`;
 
 		//add type inference
-		const schemaTypeInference = `export type TRead${this.entityName}Schema = v.InferOutput<typeof ${this.schemaName}>`;
+		const schemaTypeInference = `export type TRead${this.entityName}Schema = v.InferOutput<typeof ${this.schemaName}>\nexport type TRead${this.entityName}SchemaInput = v.InferInput<typeof ${this.schemaName}>`;
 		file += `\n\n${schemaTypeInference}\n`;
 
 		//save file
@@ -134,7 +140,7 @@ export class ReadSchemaCreator {
 	//for fields parsing
 	excludedFields: string[] = ['id', 'updatedAt', 'createdAt', 'updated_at', 'created_at'];
 
-	parseFields({ fields }: { fields?: Node[] } = {}) {
+	_parseFields({ fields }: { fields?: Node[] } = {}) {
 		if (!fields) {
 			if (!this.entityClass?.properties) {
 				throw new Error('Initialize build first');
@@ -239,29 +245,48 @@ export class ReadSchemaCreator {
 				}
 				const ast = this.asts[relationFileImport];
 				//assume class name and location
+				//
 
-				// const nestedReadSchema = new ReadSchemaCreator(
-				// 	ast.sourceFile,
-				// 	ast.fullPath,
-				// 	this.asts,
-				// 	{ currDepth: this.currDepth + 1, maxDepth: this.maxDepth - this.currDepth }
-				// );
-				// const nestedFields = nestedReadSchema.parseFields();
-				// let fieldAsString = '';
+				const nestedReadSchema = new ReadSchemaCreator(
+					ast.sourceFile,
+					ast.fullPath,
+					this.asts,
+					{ currDepth: 0, maxDepth: 0 }
+				);
+				nestedReadSchema.baseSetup();
+				const nestedSchemaName = nestedReadSchema.schemaName;
+				const nestedClassName = `${nestedReadSchema.schemaName}Filters`;
+				const nestedSchemaFilePath = nestedReadSchema.toBeSavedAbs;
+
+				if (nestedSchemaName !== this.schemaName) {
+					const relPathToNested = relative(this.dtoDirAbsPath, nestedSchemaFilePath)
+						.split(sep)
+						.join('/')
+						.replace('.ts', '');
+
+					this.imports.add(
+						`import { ${nestedSchemaName}, ${nestedClassName} } from '${
+							relPathToNested.startsWith('.') ? relPathToNested : `./${relPathToNested}`
+						}'`
+					);
+				}
+
+				let fieldAsString = '';
+				let propertyAsString = '';
+
 				// if (relationType === 'OneToMany' || relationType === 'ManyToMany') {
-				// 	fieldAsString = `v.array(v.number()), v.array(${nestedFields.validationObject})`;
+				// 	fieldAsString = `v.nullish(v.lazy(() => v.array(${nestedSchemaName})))`;
+				// 	propertyAsString = `${nestedClassName}[] | null | undefined`;
 				// } else {
-				// 	fieldAsString = `v.number(), ${nestedFields.validationObject}`;
 				// }
-				// fieldAsString = `v.union([${fieldAsString}])`;
-				// //either connect with id, or add it
-				// fieldAsString = this._handleEmptyStates(
-				// 	fieldAsString,
-				// 	!relationRequired ? true : fieldNullable,
-				// 	!relationRequired ? true : fieldUndefindable
-				// );
-				// metadatas.push(`${field.name!}: '${relationClass}'`);
-				// allReady.push(`${field.name!}: ${fieldAsString}`);
+				fieldAsString = `v.nullish(v.lazy(() => ${nestedSchemaName}))`;
+				propertyAsString = `${nestedClassName} | null | undefined`;
+
+				fieldAsString = `${field.name!}: ${fieldAsString}`;
+				propertyAsString = `${field.name!}?: ${propertyAsString}`;
+
+				schema.push(fieldAsString);
+				schemaClass.push(propertyAsString);
 			}
 		}
 
@@ -436,7 +461,13 @@ export class ReadSchemaCreator {
 				//if it is exported, make an import statement from the entity file
 				const enumKey = e.identifiers?.[0]?.expression;
 				if (enumKey) {
-					const importStmnt = `import { ${enumKey} } from '<<pathToOriginal>>';`;
+					const relPathToEntity = relative(this.dtoDirAbsPath, this.entityPath)
+						.split(sep)
+						.join('/')
+						.replace('.ts', '');
+
+					const importStmnt = `import { ${enumKey} } from '${relPathToEntity}';`;
+
 					this.imports.add(importStmnt);
 				}
 			} else {

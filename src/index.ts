@@ -24,38 +24,31 @@ async function main() {
 	time('Creating dtos');
 	// console.dir(TreeParser.parse(ASTs[Object.keys(ASTs)[0]].sourceFile), { depth: null });
 
-	const addDtoCreator = new ReadSchemaCreator(
-		ASTs['category.entity'].sourceFile,
-		ASTs['category.entity'].fullPath,
-		ASTs,
-		{
-			maxDepth: 1,
-			currDepth: 0,
-		}
-	);
-	await addDtoCreator.baseSetup();
-	await addDtoCreator.buildFile();
-	// const d = addDtoCreator.parseFields();
-	// console.log(d);
+	// const addDtoCreator = new ReadSchemaCreator(
+	// 	ASTs['category.entity'].sourceFile,
+	// 	ASTs['category.entity'].fullPath,
+	// 	ASTs,
+	// 	{
+	// 		maxDepth: 1,
+	// 		currDepth: 0,
+	// 	}
+	// );
+	// addDtoCreator.baseSetup();
 	// await addDtoCreator.buildFile();
 
 	// const acc = {};
 	// parseTreeV2(acc, ASTs[Object.keys(ASTs)[0]].sourceFile);
 	// console.dir(acc, { depth: null });
 	// console.log(Object.keys(ASTs).length);
-	// for (const ast in ASTs) {
-	// 	const addDtoCreator = new ReadSchemaCreator(
-	// 		ASTs[ast].sourceFile,
-	// 		ASTs[ast].fullPath,
-	// 		ASTs,
-	// 		{
-	// 			maxDepth: 1,
-	// 			currDepth: 0,
-	// 		}
-	// 	);
-	// 	const d = addDtoCreator.parseFields();
-	// 	console.log(d);
-	// }
+	for (const ast in ASTs) {
+		const s = new ReadSchemaCreator(ASTs[ast].sourceFile, ASTs[ast].fullPath, ASTs, {
+			maxDepth: 1,
+			currDepth: 0,
+		});
+
+		s.baseSetup();
+		await s.buildFile();
+	}
 
 	timeEnd('Creating dtos');
 }

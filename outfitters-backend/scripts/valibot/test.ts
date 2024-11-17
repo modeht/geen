@@ -134,7 +134,7 @@ try {
 			isArchived: true,
 			media: 1,
 			// superCategoryId: null,
-			date: ['2024-11-16T02:02:25+00:00'],
+			// date: ['2024-11-16T02:02:25+00:00'],
 		} as t,
 		{
 			abortEarly: true,

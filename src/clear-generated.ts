@@ -3,7 +3,7 @@ import { sync } from 'fast-glob';
 import { rm } from 'fs/promises';
 import { prereq } from './prereq';
 
-const dirs = sync('**/*/generated-dtos', {
+const dirs = sync('**/*/generated-*', {
 	onlyDirectories: true,
 	absolute: true,
 });
@@ -16,6 +16,7 @@ dirs.forEach((dir) => {
 
 const controllers = sync('**/*/generated-*', {
 	absolute: true,
+	onlyFiles: true,
 	ignore: ['generated-modules'],
 });
 
