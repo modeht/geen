@@ -62,7 +62,7 @@ type GenericComparable<T> = {
 
 export enum NeverOperators {}
 
-export const compareable = <T extends 'string' | 'number' | 'bool' | 'date'>(type: T) => {
+export const comparable = <T extends 'string' | 'number' | 'bool' | 'date'>(type: T) => {
 	return v.object({
 		value:
 			type === 'string'

@@ -176,13 +176,29 @@ export class ReadSchemaCreator {
 				let t = '';
 				let p = '';
 				if (fieldPrimitive === PrimitiveTypes['number']) {
+					p = 'GenericComparable<"number">';
+					t = 'comparable<"number">';
 				} else if (fieldPrimitive === PrimitiveTypes['string']) {
+					p = 'GenericComparable<"string">';
+					t = 'comparable<"string">';
 				} else if (fieldPrimitive === PrimitiveTypes['boolean']) {
+					p = 'GenericComparable<"bool">';
+					t = 'comparable<"bool">';
 				} else if (fieldPrimitive === PrimitiveTypes['Date']) {
+					p = 'GenericComparable<"date">';
+					t = 'comparable<"date">';
 				} else if (fieldPrimitive === PrimitiveTypes['number[]']) {
+					p = 'GenericComparable<"number">[]';
+					t = 'v.array(comparable<"number">)';
 				} else if (fieldPrimitive === PrimitiveTypes['string[]']) {
+					p = 'GenericComparable<"string">[]';
+					t = 'v.array(comparable<"string">)';
 				} else if (fieldPrimitive === PrimitiveTypes['boolean[]']) {
+					p = 'GenericComparable<"bool">[]';
+					t = 'v.array(comparable<"bool">)';
 				} else if (fieldPrimitive === PrimitiveTypes['Date[]']) {
+					p = 'GenericComparable<"date">[]';
+					t = 'v.array(comparable<"date">)';
 				}
 
 				t = this._handleEmptyStates(t, fieldNullable, fieldUndefindable);
