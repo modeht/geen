@@ -33,10 +33,10 @@ export enum PrimitiveTypes {
 	'number',
 	'string',
 	'boolean',
+	'Date',
 	'string[]',
 	'number[]',
 	'boolean[]',
-	'Date',
 	'Date[]',
 }
 
@@ -66,6 +66,7 @@ export class ReadSchemaCreator {
 	dtoDirAbsPath: string;
 	readSchemaText: string;
 	toBeSaved: string;
+	toBeSavedAbs: string;
 
 	constructor(
 		ast: ts.SourceFile,
@@ -78,18 +79,17 @@ export class ReadSchemaCreator {
 		this.maxDepth = maxDepth;
 		this.currDepth = currDepth;
 		this.asts = asts;
-
-		//some defaults
-		this.baseSetup();
 	}
 
-	private baseSetup() {
+	async baseSetup() {
 		this._setEntityName();
 		this._setSchemaName();
 		this._setFilename();
 		this._setSavedFilename();
+		await this.prepDir();
 		this._setDefaultImports();
 		this._setEnumImports();
+		this.prepFile();
 	}
 
 	private async prepDir() {
@@ -107,23 +107,27 @@ export class ReadSchemaCreator {
 			.join('/');
 	}
 
+	private prepFile() {
+		this.toBeSavedAbs = join(this.entityPath, this.dtoDirRelPath, this.toBeSaved);
+	}
+
 	async buildFile() {
 		if (!this.readSchemaText) {
 			this.parseFields();
 		}
-		await this.prepDir();
 
 		let file = this.readSchemaText;
+
 		//add imports
 		const importsText = Array.from(this.imports).join('\n');
 		file = `${importsText}\n\n${file}`;
+
 		//add type inference
-		const schemaTypeInference = `export type TRead${this.entityName}Schema = v.InferInput<typeof ${this.schemaName}>`;
+		const schemaTypeInference = `export type TRead${this.entityName}Schema = v.InferOutput<typeof ${this.schemaName}>`;
 		file += `\n\n${schemaTypeInference}\n`;
 
 		//save file
-		await writeFile(join(this.entityPath, this.dtoDirRelPath, this.toBeSaved), file);
-
+		await writeFile(this.toBeSavedAbs, file);
 		//return the data need for wide importing later
 	}
 
@@ -147,12 +151,10 @@ export class ReadSchemaCreator {
 
 			const fieldTypes = field.type!.split('|').map((t) => t.trim());
 
-			const fieldOptional = Boolean(field.optional);
-			const columnNullable =
-				field.decorators
-					?.find((d) => d.text?.startsWith('@Column'))
-					?.props?.find((p) => p.statement?.startsWith('nullable'))
-					?.statement?.includes('true') || false;
+			//filters are optionals by default
+
+			const fieldOptional = true;
+			const columnNullable = true;
 
 			let fieldPrimitive: number | undefined;
 			let fieldNullable: boolean = columnNullable;
@@ -161,10 +163,6 @@ export class ReadSchemaCreator {
 			fieldTypes.forEach((t) => {
 				if (PrimitiveTypes[t] !== undefined) {
 					fieldPrimitive = PrimitiveTypes[t];
-				} else if (t === 'null') {
-					fieldNullable = true;
-				} else if (t === 'undefined') {
-					fieldUndefindable = true;
 				}
 			});
 
@@ -172,41 +170,44 @@ export class ReadSchemaCreator {
 			let propertyAsString = '';
 
 			if (fieldPrimitive !== undefined) {
-				//handle primitives
 				let t = '';
 				let p = '';
+
 				if (fieldPrimitive === PrimitiveTypes['number']) {
 					p = 'GenericComparable<"number">';
-					t = 'comparable<"number">';
+					t = 'comparable("number")';
 				} else if (fieldPrimitive === PrimitiveTypes['string']) {
 					p = 'GenericComparable<"string">';
-					t = 'comparable<"string">';
+					t = 'comparable("string")';
 				} else if (fieldPrimitive === PrimitiveTypes['boolean']) {
 					p = 'GenericComparable<"bool">';
-					t = 'comparable<"bool">';
+					t = 'comparable("bool")';
 				} else if (fieldPrimitive === PrimitiveTypes['Date']) {
 					p = 'GenericComparable<"date">';
-					t = 'comparable<"date">';
+					t = 'comparable("date")';
 				} else if (fieldPrimitive === PrimitiveTypes['number[]']) {
 					p = 'GenericComparable<"number">[]';
-					t = 'v.array(comparable<"number">)';
+					t = 'v.array(comparable("number"))';
 				} else if (fieldPrimitive === PrimitiveTypes['string[]']) {
 					p = 'GenericComparable<"string">[]';
-					t = 'v.array(comparable<"string">)';
+					t = 'v.array(comparable("string"))';
 				} else if (fieldPrimitive === PrimitiveTypes['boolean[]']) {
 					p = 'GenericComparable<"bool">[]';
-					t = 'v.array(comparable<"bool">)';
+					t = 'v.array(comparable("bool"))';
 				} else if (fieldPrimitive === PrimitiveTypes['Date[]']) {
 					p = 'GenericComparable<"date">[]';
-					t = 'v.array(comparable<"date">)';
+					t = 'v.array(comparable("date"))';
 				}
 
 				t = this._handleEmptyStates(t, fieldNullable, fieldUndefindable);
+				p = this._handleClassEmptyStates(p, fieldNullable, fieldUndefindable);
 
 				fieldAsString = `${field.name}: ${t}`;
-				propertyAsString = `${field.name}: ${t}`;
+				propertyAsString = `${field.name}${p.startsWith('?:') ? p : `: ${p}`}`;
+
 				schema.push(fieldAsString);
 				schemaClass.push(propertyAsString);
+
 				continue;
 			}
 
@@ -237,6 +238,8 @@ export class ReadSchemaCreator {
 					continue;
 				}
 				const ast = this.asts[relationFileImport];
+				//assume class name and location
+
 				// const nestedReadSchema = new ReadSchemaCreator(
 				// 	ast.sourceFile,
 				// 	ast.fullPath,
@@ -262,12 +265,34 @@ export class ReadSchemaCreator {
 			}
 		}
 
-		const metadataObject = `v.metadata({${metadatas.join(',\n')}})`;
+		// const metadataObject = `v.metadata({${metadatas.join(',\n')}})`;
 		const validationObject = `v.object({${schema.join(',\n')}})`;
-		//TODO: can be useful later
-		const exportStatment = `export const ${this.schemaName} = v.pipe(${validationObject},${metadataObject})`;
-		this.readSchemaText = exportStatment;
-		return { exportStatment, validationObject };
+		const classPropsObject = `${schemaClass.join(';\n')}`;
+
+		const filtersClassName = `${this.schemaName}Filters`;
+
+		const classExportStatment = `export class ${filtersClassName} {${classPropsObject}}`;
+		const schemaExportStatment = `export const ${this.schemaName}: v.GenericSchema<${filtersClassName}> = ${validationObject}`;
+
+		this.readSchemaText = `${classExportStatment}\n\n${schemaExportStatment}\n\n`;
+
+		return {
+			schemaExportStatment,
+			classExportStatment,
+			validationObject,
+			classPropsObject,
+		};
+	}
+
+	_handleClassEmptyStates(field: string, nullable: boolean, undefindable: boolean) {
+		if (undefindable && nullable) {
+			field = `?: ${field} | null | undefined`;
+		} else if (undefindable && !nullable) {
+			field = `?: ${field} | undefined`;
+		} else if (nullable && !undefindable) {
+			field = `?: ${field} | null`;
+		}
+		return field;
 	}
 
 	_handleEmptyStates(field: string, nullable: boolean, undefindable: boolean) {
@@ -395,24 +420,12 @@ export class ReadSchemaCreator {
 	}
 
 	_setDefaultImports() {
-		// this.parsedTree.imports?.forEach((i) => {
-		// 	i.module = i.module?.replaceAll("'", '');
-		// 	if (i.module?.startsWith('.')) {
-		// 		//handle relative imports
-		// 		const targetDestAbs = join(dirname(this.entityPath), i.module);
-		// 		//save the absolute path to the file to later get relative path to it in the new schema/dto file
-		// 		this.absoluteImports.push({
-		// 			absPath: targetDestAbs.replaceAll('.ts', ''),
-		// 			importedFields: i.identifiers?.map((i) => i.expression!)!,
-		// 		});
-		// 	} else if (i.module === 'typeorm') {
-		// 		//do nothing
-		// 	} else {
-		// 		//project can contain non-relative path so leave them as is
-		// 		this.imports.add(i.text?.replaceAll('.ts', '')!);
-		// 	}
-		// });
-		//TODO: no longer needed, leaving in case i need it for read schemas
+		const utilFileRelPath = relative(this.dtoDirAbsPath, globalsDirPath)
+			.split(sep)
+			.join('/');
+		this.imports?.add(
+			`import { GenericComparable, comparable } from "${utilFileRelPath}/lib/comparable"`
+		);
 		this.imports?.add("import * as v from 'valibot';");
 	}
 

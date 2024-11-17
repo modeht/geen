@@ -6,7 +6,7 @@ import { ASTs } from './lib/types';
 import { globalsDirPath } from './utils';
 import { mkdirSync } from 'fs';
 
-export type AddDtoInfo = {
+export type SchemaInfo = {
 	absPath: string;
 	className: string;
 	entityName: string; //remove entity or model name from it
@@ -21,12 +21,10 @@ export type ControllerFileInfo = {
 	controllerClassName: string;
 	controllerAbsPath: string;
 };
-
 export type ModuleFileInfo = {
 	moduleClassName: string;
 	moduleAbsPath: string;
 };
-
 export type TypeKeywords = 'One' | 'Many';
 export type Relationships = `${TypeKeywords}To${TypeKeywords}`;
 

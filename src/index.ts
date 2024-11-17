@@ -6,6 +6,7 @@ import { prereq } from './prereq';
 import { TreeParser } from './TreeParser';
 import { parseTreeV2 } from './tree-parser';
 import { CreateSchemaCreator } from './CreateSchemaCreator';
+import { ReadSchemaCreator } from './ReadSchemaCreator';
 
 async function main() {
 	time('Loading entities');
@@ -23,34 +24,38 @@ async function main() {
 	time('Creating dtos');
 	// console.dir(TreeParser.parse(ASTs[Object.keys(ASTs)[0]].sourceFile), { depth: null });
 
-	// const addDtoCreator = new CreateSchemaCreator(
-	// 	ASTs['category.entity'].sourceFile,
-	// 	ASTs['category.entity'].fullPath,
-	// 	ASTs,
-	// 	{
-	// 		maxDepth: 1,
-	// 		currDepth: 0,
-	// 	}
-	// );
+	const addDtoCreator = new ReadSchemaCreator(
+		ASTs['category.entity'].sourceFile,
+		ASTs['category.entity'].fullPath,
+		ASTs,
+		{
+			maxDepth: 1,
+			currDepth: 0,
+		}
+	);
+	await addDtoCreator.baseSetup();
+	await addDtoCreator.buildFile();
 	// const d = addDtoCreator.parseFields();
+	// console.log(d);
 	// await addDtoCreator.buildFile();
 
 	// const acc = {};
 	// parseTreeV2(acc, ASTs[Object.keys(ASTs)[0]].sourceFile);
 	// console.dir(acc, { depth: null });
 	// console.log(Object.keys(ASTs).length);
-	for (const ast in ASTs) {
-		const addDtoCreator = new CreateSchemaCreator(
-			ASTs[ast].sourceFile,
-			ASTs[ast].fullPath,
-			ASTs,
-			{
-				maxDepth: 1,
-				currDepth: 0,
-			}
-		);
-		await addDtoCreator.buildFile();
-	}
+	// for (const ast in ASTs) {
+	// 	const addDtoCreator = new ReadSchemaCreator(
+	// 		ASTs[ast].sourceFile,
+	// 		ASTs[ast].fullPath,
+	// 		ASTs,
+	// 		{
+	// 			maxDepth: 1,
+	// 			currDepth: 0,
+	// 		}
+	// 	);
+	// 	const d = addDtoCreator.parseFields();
+	// 	console.log(d);
+	// }
 
 	timeEnd('Creating dtos');
 }

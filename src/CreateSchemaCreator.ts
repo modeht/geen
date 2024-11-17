@@ -135,7 +135,7 @@ export class CreateSchemaCreator {
 			fields = this.entityClass.properties;
 		}
 
-		const allReady: string[] = [];
+		const schema: string[] = [];
 		const metadatas: string[] = [];
 
 		for (const field of fields) {
@@ -192,7 +192,7 @@ export class CreateSchemaCreator {
 				t = this._handleEmptyStates(t, fieldNullable, fieldUndefindable);
 
 				fieldAsString = `${field.name}: ${t}`;
-				allReady.push(fieldAsString);
+				schema.push(fieldAsString);
 				continue;
 			}
 
@@ -244,12 +244,12 @@ export class CreateSchemaCreator {
 					!relationRequired ? true : fieldUndefindable
 				);
 				metadatas.push(`${field.name!}: '${relationClass}'`);
-				allReady.push(`${field.name!}: ${fieldAsString}`);
+				schema.push(`${field.name!}: ${fieldAsString}`);
 			}
 		}
 
 		const metadataObject = `v.metadata({${metadatas.join(',\n')}})`;
-		const validationObject = `v.object({${allReady.join(',\n')}})`;
+		const validationObject = `v.object({${schema.join(',\n')}})`;
 		//TODO: can be useful later
 		const exportStatment = `export const ${this.schemaName} = v.pipe(${validationObject},${metadataObject})`;
 		this.createSchemaText = exportStatment;

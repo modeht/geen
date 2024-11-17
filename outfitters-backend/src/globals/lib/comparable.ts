@@ -39,7 +39,7 @@ export enum NumberOperators {
 	IsNotNull,
 }
 
-type GenericComparable<T> = {
+export type GenericComparable<T> = {
 	value: T extends 'string'
 		? string
 		: T extends 'number'
