@@ -127,8 +127,8 @@ export class ReadSchemaFiltersCreator {
 		file = `${importsText}\n\n${file}`;
 
 		//add type inference
-		const schemaTypeInference = `export type TRead${this.entityName}SchemaOutput = v.InferOutput<typeof ${this.filtersSchemaName}>;
-export type TRead${this.entityName}SchemaInput = v.InferInput<typeof ${this.filtersSchemaName}>;`;
+		const schemaTypeInference = `export type TRead${this.entityName}FiltersSchemaOutput = v.InferOutput<typeof ${this.filtersSchemaName}>;
+export type TRead${this.entityName}FiltersSchemaInput = v.InferInput<typeof ${this.filtersSchemaName}>;`;
 		file += `\n\n${schemaTypeInference}\n`;
 
 		//save file

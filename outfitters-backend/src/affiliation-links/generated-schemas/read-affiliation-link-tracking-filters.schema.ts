@@ -19,5 +19,5 @@ userAgent: v.nullish(comparable("string"))})
 
 
 
-export type TReadAffiliationLinkTrackingSchemaOutput = v.InferOutput<typeof ReadAffiliationLinkTrackingFiltersSchema>;
-export type TReadAffiliationLinkTrackingSchemaInput = v.InferInput<typeof ReadAffiliationLinkTrackingFiltersSchema>;
+export type TReadAffiliationLinkTrackingFiltersSchemaOutput = v.InferOutput<typeof ReadAffiliationLinkTrackingFiltersSchema>;
+export type TReadAffiliationLinkTrackingFiltersSchemaInput = v.InferInput<typeof ReadAffiliationLinkTrackingFiltersSchema>;

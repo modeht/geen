@@ -7,5 +7,5 @@ export const ReadRefundFiltersSchema: v.GenericSchema<ReadRefundFiltersSchemaFil
 
 
 
-export type TReadRefundSchemaOutput = v.InferOutput<typeof ReadRefundFiltersSchema>;
-export type TReadRefundSchemaInput = v.InferInput<typeof ReadRefundFiltersSchema>;
+export type TReadRefundFiltersSchemaOutput = v.InferOutput<typeof ReadRefundFiltersSchema>;
+export type TReadRefundFiltersSchemaInput = v.InferInput<typeof ReadRefundFiltersSchema>;

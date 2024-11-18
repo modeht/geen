@@ -28,5 +28,5 @@ shopperId: v.nullish(comparable("number"))})
 
 
 
-export type TReadAffiliationLinkSchemaOutput = v.InferOutput<typeof ReadAffiliationLinkFiltersSchema>;
-export type TReadAffiliationLinkSchemaInput = v.InferInput<typeof ReadAffiliationLinkFiltersSchema>;
+export type TReadAffiliationLinkFiltersSchemaOutput = v.InferOutput<typeof ReadAffiliationLinkFiltersSchema>;
+export type TReadAffiliationLinkFiltersSchemaInput = v.InferInput<typeof ReadAffiliationLinkFiltersSchema>;

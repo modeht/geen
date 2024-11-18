@@ -32,5 +32,5 @@ mainProductId: v.nullish(comparable("number"))})
 
 
 
-export type TReadProductVariantSchemaOutput = v.InferOutput<typeof ReadProductVariantFiltersSchema>;
-export type TReadProductVariantSchemaInput = v.InferInput<typeof ReadProductVariantFiltersSchema>;
+export type TReadProductVariantFiltersSchemaOutput = v.InferOutput<typeof ReadProductVariantFiltersSchema>;
+export type TReadProductVariantFiltersSchemaInput = v.InferInput<typeof ReadProductVariantFiltersSchema>;

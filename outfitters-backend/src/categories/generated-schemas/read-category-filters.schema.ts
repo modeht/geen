@@ -29,5 +29,5 @@ seasonalPromotions: v.nullish(v.lazy(() => ReadSeasonalPromotionFiltersSchema))}
 
 
 
-export type TReadCategorySchemaOutput = v.InferOutput<typeof ReadCategoryFiltersSchema>;
-export type TReadCategorySchemaInput = v.InferInput<typeof ReadCategoryFiltersSchema>;
+export type TReadCategoryFiltersSchemaOutput = v.InferOutput<typeof ReadCategoryFiltersSchema>;
+export type TReadCategoryFiltersSchemaInput = v.InferInput<typeof ReadCategoryFiltersSchema>;

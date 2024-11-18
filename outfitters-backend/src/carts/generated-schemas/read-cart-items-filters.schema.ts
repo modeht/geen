@@ -35,5 +35,5 @@ appliedpromotionsIds: v.nullish(v.array(comparable("number")))})
 
 
 
-export type TReadCartItemsSchemaOutput = v.InferOutput<typeof ReadCartItemsFiltersSchema>;
-export type TReadCartItemsSchemaInput = v.InferInput<typeof ReadCartItemsFiltersSchema>;
+export type TReadCartItemsFiltersSchemaOutput = v.InferOutput<typeof ReadCartItemsFiltersSchema>;
+export type TReadCartItemsFiltersSchemaInput = v.InferInput<typeof ReadCartItemsFiltersSchema>;

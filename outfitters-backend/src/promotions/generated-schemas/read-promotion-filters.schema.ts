@@ -36,5 +36,5 @@ brandId: v.nullish(comparable("number"))})
 
 
 
-export type TReadPromotionSchemaOutput = v.InferOutput<typeof ReadPromotionFiltersSchema>;
-export type TReadPromotionSchemaInput = v.InferInput<typeof ReadPromotionFiltersSchema>;
+export type TReadPromotionFiltersSchemaOutput = v.InferOutput<typeof ReadPromotionFiltersSchema>;
+export type TReadPromotionFiltersSchemaInput = v.InferInput<typeof ReadPromotionFiltersSchema>;

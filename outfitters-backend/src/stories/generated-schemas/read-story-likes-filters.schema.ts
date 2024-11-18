@@ -15,5 +15,5 @@ storyId: v.nullish(comparable("number"))})
 
 
 
-export type TReadStoryLikesSchemaOutput = v.InferOutput<typeof ReadStoryLikesFiltersSchema>;
-export type TReadStoryLikesSchemaInput = v.InferInput<typeof ReadStoryLikesFiltersSchema>;
+export type TReadStoryLikesFiltersSchemaOutput = v.InferOutput<typeof ReadStoryLikesFiltersSchema>;
+export type TReadStoryLikesFiltersSchemaInput = v.InferInput<typeof ReadStoryLikesFiltersSchema>;

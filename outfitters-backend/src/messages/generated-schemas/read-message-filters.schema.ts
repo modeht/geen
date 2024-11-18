@@ -53,5 +53,5 @@ productId: v.nullish(comparable("number"))})
 
 
 
-export type TReadMessageSchemaOutput = v.InferOutput<typeof ReadMessageFiltersSchema>;
-export type TReadMessageSchemaInput = v.InferInput<typeof ReadMessageFiltersSchema>;
+export type TReadMessageFiltersSchemaOutput = v.InferOutput<typeof ReadMessageFiltersSchema>;
+export type TReadMessageFiltersSchemaInput = v.InferInput<typeof ReadMessageFiltersSchema>;

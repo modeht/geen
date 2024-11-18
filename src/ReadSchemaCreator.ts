@@ -132,8 +132,8 @@ export class ReadSchemaCreator {
 ${relativePaths.join(';\n')};\n`;
 
 		const schema = `export const Read${this.entityName}Schema = v.object({
-filters: ${files[0]['schemaName']},
-relations: ${files[1]['schemaName']},
+filters: v.nullish(${files[0]['schemaName']}),
+relations: v.nullish(${files[1]['schemaName']}),
 });\n`;
 		file += schema;
 

@@ -17,5 +17,5 @@ subCategories: v.nullish(v.lazy(() => ReadCategoryFiltersSchema))})
 
 
 
-export type TReadSeasonalPromotionSchemaOutput = v.InferOutput<typeof ReadSeasonalPromotionFiltersSchema>;
-export type TReadSeasonalPromotionSchemaInput = v.InferInput<typeof ReadSeasonalPromotionFiltersSchema>;
+export type TReadSeasonalPromotionFiltersSchemaOutput = v.InferOutput<typeof ReadSeasonalPromotionFiltersSchema>;
+export type TReadSeasonalPromotionFiltersSchemaInput = v.InferInput<typeof ReadSeasonalPromotionFiltersSchema>;

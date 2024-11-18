@@ -21,5 +21,5 @@ iconId: v.nullish(comparable("number"))})
 
 
 
-export type TReadCountrySchemaOutput = v.InferOutput<typeof ReadCountryFiltersSchema>;
-export type TReadCountrySchemaInput = v.InferInput<typeof ReadCountryFiltersSchema>;
+export type TReadCountryFiltersSchemaOutput = v.InferOutput<typeof ReadCountryFiltersSchema>;
+export type TReadCountryFiltersSchemaInput = v.InferInput<typeof ReadCountryFiltersSchema>;

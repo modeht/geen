@@ -15,5 +15,5 @@ postId: v.nullish(comparable("number"))})
 
 
 
-export type TReadPostLikesSchemaOutput = v.InferOutput<typeof ReadPostLikesFiltersSchema>;
-export type TReadPostLikesSchemaInput = v.InferInput<typeof ReadPostLikesFiltersSchema>;
+export type TReadPostLikesFiltersSchemaOutput = v.InferOutput<typeof ReadPostLikesFiltersSchema>;
+export type TReadPostLikesFiltersSchemaInput = v.InferInput<typeof ReadPostLikesFiltersSchema>;

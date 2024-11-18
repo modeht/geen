@@ -25,5 +25,5 @@ affiliationLinkId: v.nullish(comparable("number"))})
 
 
 
-export type TReadTaggedProductSchemaOutput = v.InferOutput<typeof ReadTaggedProductFiltersSchema>;
-export type TReadTaggedProductSchemaInput = v.InferInput<typeof ReadTaggedProductFiltersSchema>;
+export type TReadTaggedProductFiltersSchemaOutput = v.InferOutput<typeof ReadTaggedProductFiltersSchema>;
+export type TReadTaggedProductFiltersSchemaInput = v.InferInput<typeof ReadTaggedProductFiltersSchema>;

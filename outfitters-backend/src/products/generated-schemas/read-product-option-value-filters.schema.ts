@@ -17,5 +17,5 @@ variants: v.nullish(v.lazy(() => ReadProductVariantFiltersSchema))})
 
 
 
-export type TReadProductOptionValueSchemaOutput = v.InferOutput<typeof ReadProductOptionValueFiltersSchema>;
-export type TReadProductOptionValueSchemaInput = v.InferInput<typeof ReadProductOptionValueFiltersSchema>;
+export type TReadProductOptionValueFiltersSchemaOutput = v.InferOutput<typeof ReadProductOptionValueFiltersSchema>;
+export type TReadProductOptionValueFiltersSchemaInput = v.InferInput<typeof ReadProductOptionValueFiltersSchema>;

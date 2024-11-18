@@ -7,5 +7,5 @@ export const ReadTranslationFiltersSchema: v.GenericSchema<ReadTranslationFilter
 
 
 
-export type TReadTranslationSchemaOutput = v.InferOutput<typeof ReadTranslationFiltersSchema>;
-export type TReadTranslationSchemaInput = v.InferInput<typeof ReadTranslationFiltersSchema>;
+export type TReadTranslationFiltersSchemaOutput = v.InferOutput<typeof ReadTranslationFiltersSchema>;
+export type TReadTranslationFiltersSchemaInput = v.InferInput<typeof ReadTranslationFiltersSchema>;

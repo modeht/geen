@@ -68,5 +68,5 @@ engagementCount: v.nullish(comparable("number"))})
 
 
 
-export type TReadShopperProfileSchemaOutput = v.InferOutput<typeof ReadShopperProfileFiltersSchema>;
-export type TReadShopperProfileSchemaInput = v.InferInput<typeof ReadShopperProfileFiltersSchema>;
+export type TReadShopperProfileFiltersSchemaOutput = v.InferOutput<typeof ReadShopperProfileFiltersSchema>;
+export type TReadShopperProfileFiltersSchemaInput = v.InferInput<typeof ReadShopperProfileFiltersSchema>;

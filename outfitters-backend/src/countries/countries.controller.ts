@@ -14,7 +14,7 @@ import { FastifyRequest } from 'fastify';
 import { parse, safeParse } from 'valibot';
 import {
 	ReadCountrySchema,
-	ReadCountrySchemaFilters,
+	TReadCountrySchemaInput,
 } from './generated-schemas/read-country.schema';
 
 export const MoQuery = createParamDecorator((schema: any, ctx: ExecutionContext) => {
@@ -40,7 +40,7 @@ export class CountriesController {
 	@Get()
 	findSupported(
 		@Query() paginated: Paginated,
-		@MoQuery(ReadCountrySchema) a: ReadCountrySchemaFilters,
+		@MoQuery(ReadCountrySchema) a: TReadCountrySchemaInput,
 	) {
 		console.log(a);
 		return this.countriesService.findAll({

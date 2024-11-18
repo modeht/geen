@@ -46,5 +46,5 @@ isLiked: v.nullish(comparable("bool"))})
 
 
 
-export type TReadPostSchemaOutput = v.InferOutput<typeof ReadPostFiltersSchema>;
-export type TReadPostSchemaInput = v.InferInput<typeof ReadPostFiltersSchema>;
+export type TReadPostFiltersSchemaOutput = v.InferOutput<typeof ReadPostFiltersSchema>;
+export type TReadPostFiltersSchemaInput = v.InferInput<typeof ReadPostFiltersSchema>;

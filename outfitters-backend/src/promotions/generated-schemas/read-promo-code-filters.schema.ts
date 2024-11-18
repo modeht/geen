@@ -46,5 +46,5 @@ totalMoneyDeducted: v.nullish(comparable("number"))})
 
 
 
-export type TReadPromoCodeSchemaOutput = v.InferOutput<typeof ReadPromoCodeFiltersSchema>;
-export type TReadPromoCodeSchemaInput = v.InferInput<typeof ReadPromoCodeFiltersSchema>;
+export type TReadPromoCodeFiltersSchemaOutput = v.InferOutput<typeof ReadPromoCodeFiltersSchema>;
+export type TReadPromoCodeFiltersSchemaInput = v.InferInput<typeof ReadPromoCodeFiltersSchema>;

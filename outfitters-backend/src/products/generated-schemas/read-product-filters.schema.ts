@@ -87,5 +87,5 @@ isSaved: v.nullish(comparable("bool"))})
 
 
 
-export type TReadProductSchemaOutput = v.InferOutput<typeof ReadProductFiltersSchema>;
-export type TReadProductSchemaInput = v.InferInput<typeof ReadProductFiltersSchema>;
+export type TReadProductFiltersSchemaOutput = v.InferOutput<typeof ReadProductFiltersSchema>;
+export type TReadProductFiltersSchemaInput = v.InferInput<typeof ReadProductFiltersSchema>;

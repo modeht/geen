@@ -29,5 +29,5 @@ repliesDepth: v.nullish(comparable("number"))})
 
 
 
-export type TReadCommentSchemaOutput = v.InferOutput<typeof ReadCommentFiltersSchema>;
-export type TReadCommentSchemaInput = v.InferInput<typeof ReadCommentFiltersSchema>;
+export type TReadCommentFiltersSchemaOutput = v.InferOutput<typeof ReadCommentFiltersSchema>;
+export type TReadCommentFiltersSchemaInput = v.InferInput<typeof ReadCommentFiltersSchema>;

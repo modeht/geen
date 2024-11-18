@@ -18,5 +18,5 @@ mediaId: v.nullish(comparable("number"))})
 
 
 
-export type TReadPreferenceSchemaOutput = v.InferOutput<typeof ReadPreferenceFiltersSchema>;
-export type TReadPreferenceSchemaInput = v.InferInput<typeof ReadPreferenceFiltersSchema>;
+export type TReadPreferenceFiltersSchemaOutput = v.InferOutput<typeof ReadPreferenceFiltersSchema>;
+export type TReadPreferenceFiltersSchemaInput = v.InferInput<typeof ReadPreferenceFiltersSchema>;

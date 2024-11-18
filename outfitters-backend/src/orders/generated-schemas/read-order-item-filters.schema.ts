@@ -38,5 +38,5 @@ promoCodeId: v.nullish(comparable("number"))})
 
 
 
-export type TReadOrderItemSchemaOutput = v.InferOutput<typeof ReadOrderItemFiltersSchema>;
-export type TReadOrderItemSchemaInput = v.InferInput<typeof ReadOrderItemFiltersSchema>;
+export type TReadOrderItemFiltersSchemaOutput = v.InferOutput<typeof ReadOrderItemFiltersSchema>;
+export type TReadOrderItemFiltersSchemaInput = v.InferInput<typeof ReadOrderItemFiltersSchema>;

@@ -70,5 +70,5 @@ postsCount: v.nullish(comparable("number"))})
 
 
 
-export type TReadBrandProfileSchemaOutput = v.InferOutput<typeof ReadBrandProfileFiltersSchema>;
-export type TReadBrandProfileSchemaInput = v.InferInput<typeof ReadBrandProfileFiltersSchema>;
+export type TReadBrandProfileFiltersSchemaOutput = v.InferOutput<typeof ReadBrandProfileFiltersSchema>;
+export type TReadBrandProfileFiltersSchemaInput = v.InferInput<typeof ReadBrandProfileFiltersSchema>;

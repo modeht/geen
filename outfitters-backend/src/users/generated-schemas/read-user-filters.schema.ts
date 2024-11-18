@@ -81,5 +81,5 @@ followersCount: v.nullish(comparable("number"))})
 
 
 
-export type TReadUserSchemaOutput = v.InferOutput<typeof ReadUserFiltersSchema>;
-export type TReadUserSchemaInput = v.InferInput<typeof ReadUserFiltersSchema>;
+export type TReadUserFiltersSchemaOutput = v.InferOutput<typeof ReadUserFiltersSchema>;
+export type TReadUserFiltersSchemaInput = v.InferInput<typeof ReadUserFiltersSchema>;

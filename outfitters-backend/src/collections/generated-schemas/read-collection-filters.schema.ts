@@ -22,5 +22,5 @@ brandId: v.nullish(comparable("number"))})
 
 
 
-export type TReadCollectionSchemaOutput = v.InferOutput<typeof ReadCollectionFiltersSchema>;
-export type TReadCollectionSchemaInput = v.InferInput<typeof ReadCollectionFiltersSchema>;
+export type TReadCollectionFiltersSchemaOutput = v.InferOutput<typeof ReadCollectionFiltersSchema>;
+export type TReadCollectionFiltersSchemaInput = v.InferInput<typeof ReadCollectionFiltersSchema>;

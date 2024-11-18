@@ -37,5 +37,5 @@ shopperId: v.nullish(comparable("number"))})
 
 
 
-export type TReadShippingAddressSchemaOutput = v.InferOutput<typeof ReadShippingAddressFiltersSchema>;
-export type TReadShippingAddressSchemaInput = v.InferInput<typeof ReadShippingAddressFiltersSchema>;
+export type TReadShippingAddressFiltersSchemaOutput = v.InferOutput<typeof ReadShippingAddressFiltersSchema>;
+export type TReadShippingAddressFiltersSchemaInput = v.InferInput<typeof ReadShippingAddressFiltersSchema>;

@@ -15,5 +15,5 @@ values: v.nullish(v.lazy(() => ReadProductOptionValueFiltersSchema))})
 
 
 
-export type TReadProductOptionSchemaOutput = v.InferOutput<typeof ReadProductOptionFiltersSchema>;
-export type TReadProductOptionSchemaInput = v.InferInput<typeof ReadProductOptionFiltersSchema>;
+export type TReadProductOptionFiltersSchemaOutput = v.InferOutput<typeof ReadProductOptionFiltersSchema>;
+export type TReadProductOptionFiltersSchemaInput = v.InferInput<typeof ReadProductOptionFiltersSchema>;

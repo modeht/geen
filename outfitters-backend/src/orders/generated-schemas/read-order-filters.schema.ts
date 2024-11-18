@@ -31,5 +31,5 @@ shopperId: v.nullish(comparable("number"))})
 
 
 
-export type TReadOrderSchemaOutput = v.InferOutput<typeof ReadOrderFiltersSchema>;
-export type TReadOrderSchemaInput = v.InferInput<typeof ReadOrderFiltersSchema>;
+export type TReadOrderFiltersSchemaOutput = v.InferOutput<typeof ReadOrderFiltersSchema>;
+export type TReadOrderFiltersSchemaInput = v.InferInput<typeof ReadOrderFiltersSchema>;

@@ -25,5 +25,5 @@ isCollaboration: v.nullish(comparable("bool"))})
 
 
 
-export type TReadConversationSchemaOutput = v.InferOutput<typeof ReadConversationFiltersSchema>;
-export type TReadConversationSchemaInput = v.InferInput<typeof ReadConversationFiltersSchema>;
+export type TReadConversationFiltersSchemaOutput = v.InferOutput<typeof ReadConversationFiltersSchema>;
+export type TReadConversationFiltersSchemaInput = v.InferInput<typeof ReadConversationFiltersSchema>;

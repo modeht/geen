@@ -22,5 +22,5 @@ shopperId: v.nullish(comparable("number"))})
 
 
 
-export type TReadCollaborationSchemaOutput = v.InferOutput<typeof ReadCollaborationFiltersSchema>;
-export type TReadCollaborationSchemaInput = v.InferInput<typeof ReadCollaborationFiltersSchema>;
+export type TReadCollaborationFiltersSchemaOutput = v.InferOutput<typeof ReadCollaborationFiltersSchema>;
+export type TReadCollaborationFiltersSchemaInput = v.InferInput<typeof ReadCollaborationFiltersSchema>;

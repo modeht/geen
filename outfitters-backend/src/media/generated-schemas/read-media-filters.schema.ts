@@ -55,5 +55,5 @@ height: v.nullish(comparable("number"))})
 
 
 
-export type TReadMediaSchemaOutput = v.InferOutput<typeof ReadMediaFiltersSchema>;
-export type TReadMediaSchemaInput = v.InferInput<typeof ReadMediaFiltersSchema>;
+export type TReadMediaFiltersSchemaOutput = v.InferOutput<typeof ReadMediaFiltersSchema>;
+export type TReadMediaFiltersSchemaInput = v.InferInput<typeof ReadMediaFiltersSchema>;

@@ -36,5 +36,5 @@ isViewed: v.nullish(comparable("bool"))})
 
 
 
-export type TReadStorySchemaOutput = v.InferOutput<typeof ReadStoryFiltersSchema>;
-export type TReadStorySchemaInput = v.InferInput<typeof ReadStoryFiltersSchema>;
+export type TReadStoryFiltersSchemaOutput = v.InferOutput<typeof ReadStoryFiltersSchema>;
+export type TReadStoryFiltersSchemaInput = v.InferInput<typeof ReadStoryFiltersSchema>;

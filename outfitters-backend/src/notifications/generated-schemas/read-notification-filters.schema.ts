@@ -35,5 +35,5 @@ productId: v.nullish(comparable("number"))})
 
 
 
-export type TReadNotificationSchemaOutput = v.InferOutput<typeof ReadNotificationFiltersSchema>;
-export type TReadNotificationSchemaInput = v.InferInput<typeof ReadNotificationFiltersSchema>;
+export type TReadNotificationFiltersSchemaOutput = v.InferOutput<typeof ReadNotificationFiltersSchema>;
+export type TReadNotificationFiltersSchemaInput = v.InferInput<typeof ReadNotificationFiltersSchema>;

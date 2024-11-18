@@ -22,5 +22,5 @@ userId: v.nullish(comparable("number"))})
 
 
 
-export type TReadSavedCollectionItemSchemaOutput = v.InferOutput<typeof ReadSavedCollectionItemFiltersSchema>;
-export type TReadSavedCollectionItemSchemaInput = v.InferInput<typeof ReadSavedCollectionItemFiltersSchema>;
+export type TReadSavedCollectionItemFiltersSchemaOutput = v.InferOutput<typeof ReadSavedCollectionItemFiltersSchema>;
+export type TReadSavedCollectionItemFiltersSchemaInput = v.InferInput<typeof ReadSavedCollectionItemFiltersSchema>;

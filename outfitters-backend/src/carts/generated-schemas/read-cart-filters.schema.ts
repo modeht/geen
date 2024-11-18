@@ -22,5 +22,5 @@ shopperId: v.nullish(comparable("number"))})
 
 
 
-export type TReadCartSchemaOutput = v.InferOutput<typeof ReadCartFiltersSchema>;
-export type TReadCartSchemaInput = v.InferInput<typeof ReadCartFiltersSchema>;
+export type TReadCartFiltersSchemaOutput = v.InferOutput<typeof ReadCartFiltersSchema>;
+export type TReadCartFiltersSchemaInput = v.InferInput<typeof ReadCartFiltersSchema>;
