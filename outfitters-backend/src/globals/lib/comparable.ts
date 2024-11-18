@@ -1,42 +1,42 @@
 import * as v from 'valibot';
 
 export enum StringOperators {
-	Eq,
-	NotEq,
-	Contains,
-	StartsWith,
-	EndsWith,
-	IsNull,
-	IsNotNull,
+	Eq = 'Eq',
+	NotEq = 'NotEq',
+	Contains = 'Contains',
+	StartsWith = 'StartsWith',
+	EndsWith = 'EndsWith',
+	IsNull = 'IsNull',
+	IsNotNull = 'IsNotNull',
 }
 
 export enum BoolOperators {
-	Is,
-	IsNot,
-	IsNull,
-	IsNotNull,
+	Is = 'Is',
+	IsNot = 'IsNot',
+	IsNull = 'IsNull',
+	IsNotNull = 'IsNotNull',
 }
 
 export enum DateOperators {
-	Eq,
-	NotEq,
-	GreaterThan,
-	LessThan,
-	GreaterThanOrEq,
-	LessThanOrEq,
-	IsNull,
-	IsNotNull,
+	Eq = 'Eq',
+	NotEq = 'NotEq',
+	GreaterThan = 'GreaterThan',
+	LessThan = 'LessThan',
+	GreaterThanOrEq = 'GreaterThanOrEq',
+	LessThanOrEq = 'LessThanOrEq',
+	IsNull = 'IsNull',
+	IsNotNull = 'IsNotNull',
 }
 
 export enum NumberOperators {
-	Eq,
-	NotEq,
-	GreaterThan,
-	LessThan,
-	GreaterThanOrEq,
-	LessThanOrEq,
-	IsNull,
-	IsNotNull,
+	Eq = 'Eq',
+	NotEq = 'NotEq',
+	GreaterThan = 'GreaterThan',
+	LessThan = 'LessThan',
+	GreaterThanOrEq = 'GreaterThanOrEq',
+	LessThanOrEq = 'LessThanOrEq',
+	IsNull = 'IsNull',
+	IsNotNull = 'IsNotNull',
 }
 
 export type GenericComparable<T> = {
@@ -68,9 +68,21 @@ export const comparable = <T extends 'string' | 'number' | 'bool' | 'date'>(type
 			type === 'string'
 				? v.nullable(v.string())
 				: type === 'number'
-					? v.nullable(v.number())
+					? v.nullable(
+							v.pipe(
+								v.union([v.string(), v.number()]),
+								v.transform((input) => +input),
+								v.number(),
+							),
+						)
 					: type === 'bool'
-						? v.nullable(v.boolean())
+						? v.nullable(
+								v.pipe(
+									v.union([v.string(), v.boolean()]),
+									v.transform((input) => (input === 'true' ? true : false)),
+									v.boolean(),
+								),
+							)
 						: type === 'date'
 							? v.nullable(
 									v.pipe(
