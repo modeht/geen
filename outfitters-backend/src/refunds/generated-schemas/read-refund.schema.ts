@@ -1,11 +1,9 @@
-import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-
-export class ReadRefundSchemaFilters {}
-
-export const ReadRefundSchema: v.GenericSchema<ReadRefundSchemaFilters> = v.object({})
-
-
-
-export type TReadRefundSchema = v.InferOutput<typeof ReadRefundSchema>
-export type TReadRefundSchemaInput = v.InferInput<typeof ReadRefundSchema>
+import { ReadRefundFiltersSchema } from './read-refund-filters.schema';
+import { ReadRefundRelationsSchema } from './read-refund-relations.schema';
+export const ReadRefundSchema = v.object({
+filters: ReadRefundFiltersSchema,
+relations: ReadRefundRelationsSchema,
+});
+export type TReadRefundSchemaInput = v.InferInput<typeof ReadRefundSchema>;
+export type TReadRefundSchemaOutput = v.InferOutput<typeof ReadRefundSchema>;

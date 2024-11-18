@@ -1,11 +1,9 @@
-import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-
-export class ReadTranslationSchemaFilters {}
-
-export const ReadTranslationSchema: v.GenericSchema<ReadTranslationSchemaFilters> = v.object({})
-
-
-
-export type TReadTranslationSchema = v.InferOutput<typeof ReadTranslationSchema>
-export type TReadTranslationSchemaInput = v.InferInput<typeof ReadTranslationSchema>
+import { ReadTranslationFiltersSchema } from './read-translation-filters.schema';
+import { ReadTranslationRelationsSchema } from './read-translation-relations.schema';
+export const ReadTranslationSchema = v.object({
+filters: ReadTranslationFiltersSchema,
+relations: ReadTranslationRelationsSchema,
+});
+export type TReadTranslationSchemaInput = v.InferInput<typeof ReadTranslationSchema>;
+export type TReadTranslationSchemaOutput = v.InferOutput<typeof ReadTranslationSchema>;

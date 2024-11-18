@@ -45,6 +45,5 @@ review: v.nullish(v.union([v.boolean(), v.lazy(() => ReadProductReviewRelationsS
 
 
 
-export type TReadMediaRelationsSchema = v.InferOutput<typeof ReadMediaRelationsSchema>;
-
+export type TReadMediaRelationsSchemaOutput = v.InferOutput<typeof ReadMediaRelationsSchema>;
 export type TReadMediaRelationsSchemaInput = v.InferInput<typeof ReadMediaRelationsSchema>;

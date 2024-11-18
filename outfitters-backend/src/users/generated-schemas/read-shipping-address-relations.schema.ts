@@ -11,6 +11,5 @@ shopperProfile: v.nullish(v.union([v.boolean(), v.lazy(() => ReadShopperProfileR
 
 
 
-export type TReadShippingAddressRelationsSchema = v.InferOutput<typeof ReadShippingAddressRelationsSchema>;
-
+export type TReadShippingAddressRelationsSchemaOutput = v.InferOutput<typeof ReadShippingAddressRelationsSchema>;
 export type TReadShippingAddressRelationsSchemaInput = v.InferInput<typeof ReadShippingAddressRelationsSchema>;

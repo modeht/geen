@@ -7,6 +7,5 @@ export const ReadRefundRelationsSchema: v.GenericSchema<ReadRefundRelationsSchem
 
 
 
-export type TReadRefundRelationsSchema = v.InferOutput<typeof ReadRefundRelationsSchema>;
-
+export type TReadRefundRelationsSchemaOutput = v.InferOutput<typeof ReadRefundRelationsSchema>;
 export type TReadRefundRelationsSchemaInput = v.InferInput<typeof ReadRefundRelationsSchema>;

@@ -36,6 +36,5 @@ promoCodes: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPromoCodeRelationsS
 
 
 
-export type TReadShopperProfileRelationsSchema = v.InferOutput<typeof ReadShopperProfileRelationsSchema>;
-
+export type TReadShopperProfileRelationsSchemaOutput = v.InferOutput<typeof ReadShopperProfileRelationsSchema>;
 export type TReadShopperProfileRelationsSchemaInput = v.InferInput<typeof ReadShopperProfileRelationsSchema>;

@@ -14,6 +14,5 @@ post: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPostRelationsSchema)]))})
 
 
 
-export type TReadSavedCollectionItemRelationsSchema = v.InferOutput<typeof ReadSavedCollectionItemRelationsSchema>;
-
+export type TReadSavedCollectionItemRelationsSchemaOutput = v.InferOutput<typeof ReadSavedCollectionItemRelationsSchema>;
 export type TReadSavedCollectionItemRelationsSchemaInput = v.InferInput<typeof ReadSavedCollectionItemRelationsSchema>;

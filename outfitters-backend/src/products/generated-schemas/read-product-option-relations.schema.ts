@@ -11,6 +11,5 @@ values: v.nullish(v.union([v.boolean(), v.lazy(() => ReadProductOptionValueRelat
 
 
 
-export type TReadProductOptionRelationsSchema = v.InferOutput<typeof ReadProductOptionRelationsSchema>;
-
+export type TReadProductOptionRelationsSchemaOutput = v.InferOutput<typeof ReadProductOptionRelationsSchema>;
 export type TReadProductOptionRelationsSchemaInput = v.InferInput<typeof ReadProductOptionRelationsSchema>;

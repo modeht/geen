@@ -11,6 +11,5 @@ user: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)]))})
 
 
 
-export type TReadSavedCollectionRelationsSchema = v.InferOutput<typeof ReadSavedCollectionRelationsSchema>;
-
+export type TReadSavedCollectionRelationsSchemaOutput = v.InferOutput<typeof ReadSavedCollectionRelationsSchema>;
 export type TReadSavedCollectionRelationsSchemaInput = v.InferInput<typeof ReadSavedCollectionRelationsSchema>;

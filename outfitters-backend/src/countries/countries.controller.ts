@@ -32,10 +32,6 @@ export const MoQuery = createParamDecorator((schema: any, ctx: ExecutionContext)
 	return output;
 });
 
-class Test {
-	hello: string;
-}
-
 @ApiTags('countries')
 @Controller('countries')
 export class CountriesController {

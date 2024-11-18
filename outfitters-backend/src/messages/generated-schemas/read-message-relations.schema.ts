@@ -31,6 +31,5 @@ comment: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCommentRelationsSchema
 
 
 
-export type TReadMessageRelationsSchema = v.InferOutput<typeof ReadMessageRelationsSchema>;
-
+export type TReadMessageRelationsSchemaOutput = v.InferOutput<typeof ReadMessageRelationsSchema>;
 export type TReadMessageRelationsSchemaInput = v.InferInput<typeof ReadMessageRelationsSchema>;

@@ -8,6 +8,7 @@ import { parseTreeV2 } from './tree-parser';
 import { CreateSchemaCreator } from './CreateSchemaCreator';
 import { ReadSchemaFiltersCreator } from './ReadSchemaFiltersCreator';
 import { ReadSchemaRelationsCreator } from './ReadSchemaRelationsCreator';
+import { ReadSchemaCreator } from './ReadSchemaCreator';
 
 async function main() {
 	time('Loading entities');
@@ -42,18 +43,9 @@ async function main() {
 	// console.dir(acc, { depth: null });
 	// console.log(Object.keys(ASTs).length);
 	for (const ast in ASTs) {
-		const s = new ReadSchemaRelationsCreator(
-			ASTs[ast].sourceFile,
-			ASTs[ast].fullPath,
-			ASTs,
-			{
-				maxDepth: 1,
-				currDepth: 0,
-			}
-		);
-
-		s.baseSetup();
-		await s.buildFile();
+		const f = new ReadSchemaCreator(ASTs[ast].sourceFile, ASTs[ast].fullPath, ASTs);
+		f.baseSetup();
+		await f.build();
 	}
 
 	timeEnd('Creating dtos');

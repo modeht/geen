@@ -22,6 +22,5 @@ shares: v.nullish(v.union([v.boolean(), v.lazy(() => ReadMessageRelationsSchema)
 
 
 
-export type TReadStoryRelationsSchema = v.InferOutput<typeof ReadStoryRelationsSchema>;
-
+export type TReadStoryRelationsSchemaOutput = v.InferOutput<typeof ReadStoryRelationsSchema>;
 export type TReadStoryRelationsSchemaInput = v.InferInput<typeof ReadStoryRelationsSchema>;

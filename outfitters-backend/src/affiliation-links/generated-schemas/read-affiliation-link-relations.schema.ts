@@ -20,6 +20,5 @@ product: v.nullish(v.union([v.boolean(), v.lazy(() => ReadProductRelationsSchema
 
 
 
-export type TReadAffiliationLinkRelationsSchema = v.InferOutput<typeof ReadAffiliationLinkRelationsSchema>;
-
+export type TReadAffiliationLinkRelationsSchemaOutput = v.InferOutput<typeof ReadAffiliationLinkRelationsSchema>;
 export type TReadAffiliationLinkRelationsSchemaInput = v.InferInput<typeof ReadAffiliationLinkRelationsSchema>;

@@ -11,6 +11,5 @@ post: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPostRelationsSchema)]))})
 
 
 
-export type TReadPostLikesRelationsSchema = v.InferOutput<typeof ReadPostLikesRelationsSchema>;
-
+export type TReadPostLikesRelationsSchemaOutput = v.InferOutput<typeof ReadPostLikesRelationsSchema>;
 export type TReadPostLikesRelationsSchemaInput = v.InferInput<typeof ReadPostLikesRelationsSchema>;

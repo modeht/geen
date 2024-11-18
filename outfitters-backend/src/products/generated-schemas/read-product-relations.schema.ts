@@ -55,6 +55,5 @@ savedInCollections: v.nullish(v.union([v.boolean(), v.lazy(() => ReadSavedCollec
 
 
 
-export type TReadProductRelationsSchema = v.InferOutput<typeof ReadProductRelationsSchema>;
-
+export type TReadProductRelationsSchemaOutput = v.InferOutput<typeof ReadProductRelationsSchema>;
 export type TReadProductRelationsSchemaInput = v.InferInput<typeof ReadProductRelationsSchema>;

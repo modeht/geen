@@ -15,6 +15,5 @@ order: v.nullish(v.union([v.boolean(), v.lazy(() => ReadOrderRelationsSchema)]))
 
 
 
-export type TReadBrandOrderRelationsSchema = v.InferOutput<typeof ReadBrandOrderRelationsSchema>;
-
+export type TReadBrandOrderRelationsSchemaOutput = v.InferOutput<typeof ReadBrandOrderRelationsSchema>;
 export type TReadBrandOrderRelationsSchemaInput = v.InferInput<typeof ReadBrandOrderRelationsSchema>;

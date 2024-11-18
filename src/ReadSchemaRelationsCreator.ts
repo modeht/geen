@@ -96,9 +96,7 @@ export class ReadSchemaRelationsCreator {
 		this.dtoDirName = '';
 		this.dtoDirPath = `generated-schemas/${this.dtoDirName}`;
 		this.dtoDirAbsPath = join(dirname(this.entityPath), '..', this.dtoDirPath);
-		this.dtoDirRelPath = relative(this.entityPath, this.dtoDirAbsPath)
-			.split(sep)
-			.join('/');
+		this.dtoDirRelPath = relative(this.entityPath, this.dtoDirAbsPath).split(sep).join('/');
 	}
 
 	_prepFile() {
@@ -129,13 +127,14 @@ export class ReadSchemaRelationsCreator {
 		file = `${importsText}\n\n${file}`;
 
 		//add type inference
-		const schemaTypeInference = `export type TRead${this.entityName}RelationsSchema = v.InferOutput<typeof ${this.relationsSchemaName}>;
-\nexport type TRead${this.entityName}RelationsSchemaInput = v.InferInput<typeof ${this.relationsSchemaName}>;`;
+		const schemaTypeInference = `export type TRead${this.entityName}RelationsSchemaOutput = v.InferOutput<typeof ${this.relationsSchemaName}>;
+export type TRead${this.entityName}RelationsSchemaInput = v.InferInput<typeof ${this.relationsSchemaName}>;`;
 		file += `\n\n${schemaTypeInference}\n`;
 
 		//save file
 		await writeFile(this.toBeSavedAbs, file);
 		//return the data need for wide importing later
+		return { absPath: this.toBeSavedAbs, schemaName: this.relationsSchemaName };
 	}
 
 	//for fields parsing
@@ -204,18 +203,13 @@ export class ReadSchemaRelationsCreator {
 					continue;
 				}
 				const ast = this.asts[relationFileImport];
-				const nestedReadSchema = new ReadSchemaRelationsCreator(
-					ast.sourceFile,
-					ast.fullPath,
-					this.asts,
-					{ currDepth: 0, maxDepth: 0 }
-				);
+				const nestedReadSchema = new ReadSchemaRelationsCreator(ast.sourceFile, ast.fullPath, this.asts, {
+					currDepth: 0,
+					maxDepth: 0,
+				});
 				nestedReadSchema.baseSetup();
 
-				const { key, property } = this._createRelationsField(
-					field.name!,
-					nestedReadSchema
-				);
+				const { key, property } = this._createRelationsField(field.name!, nestedReadSchema);
 
 				relationsSchema.push(key);
 				relationsSchemaClass.push(property);
@@ -240,10 +234,7 @@ export class ReadSchemaRelationsCreator {
 		};
 	}
 
-	private _createRelationsField(
-		fieldName: string,
-		nestedReadSchema: ReadSchemaRelationsCreator
-	) {
+	private _createRelationsField(fieldName: string, nestedReadSchema: ReadSchemaRelationsCreator) {
 		const nestedRelationsSchemaName = nestedReadSchema.relationsSchemaName;
 		const nestedRelationsClassName = `${nestedReadSchema.relationsSchemaName}Relations`;
 
@@ -336,9 +327,7 @@ export class ReadSchemaRelationsCreator {
 		);
 
 		relationRequired =
-			relationFn?.props
-				?.find((p) => p.statement?.startsWith('nullable'))
-				?.statement?.includes('false') || false;
+			relationFn?.props?.find((p) => p.statement?.startsWith('nullable'))?.statement?.includes('false') || false;
 		relationType = relationFn?.identifiers?.[0]?.expression as Relationships;
 		relationClass = relationFn?.arrowFn?.[0]?.identifiers?.[0]?.expression;
 
@@ -346,16 +335,10 @@ export class ReadSchemaRelationsCreator {
 			relationClassImport = this.parsedTree.imports?.find(
 				(i) => i?.identifiers?.findIndex((id) => id?.expression === relationClass)! > -1
 			) || {
-				module: `import { ${relationClass!} } from '${this.entityPath.replaceAll(
-					'.ts',
-					''
-				)}'`,
+				module: `import { ${relationClass!} } from '${this.entityPath.replaceAll('.ts', '')}'`,
 			};
 
-			relationFileImport = relationClassImport.module
-				?.split('/')
-				?.at(-1)
-				?.replace("'", '');
+			relationFileImport = relationClassImport.module?.split('/')?.at(-1)?.replace("'", '');
 		}
 
 		return {
@@ -373,9 +356,7 @@ export class ReadSchemaRelationsCreator {
 	}
 
 	_setEntityName(name?: string) {
-		const entityClass = this.parsedTree.classes?.find((c) =>
-			c.decorators?.find((d) => d.text?.startsWith('@Entity'))
-		);
+		const entityClass = this.parsedTree.classes?.find((c) => c.decorators?.find((d) => d.text?.startsWith('@Entity')));
 
 		if (!entityClass) throw new Error('no entity class found');
 		this.entityClass = entityClass;
@@ -410,12 +391,8 @@ export class ReadSchemaRelationsCreator {
 	}
 
 	_setDefaultImports() {
-		const utilFileRelPath = relative(this.dtoDirAbsPath, globalsDirPath)
-			.split(sep)
-			.join('/');
-		this.imports?.add(
-			`import { GenericComparable, comparable } from "${utilFileRelPath}/lib/comparable"`
-		);
+		const utilFileRelPath = relative(this.dtoDirAbsPath, globalsDirPath).split(sep).join('/');
+		this.imports?.add(`import { GenericComparable, comparable } from "${utilFileRelPath}/lib/comparable"`);
 		this.imports?.add("import * as v from 'valibot';");
 	}
 
@@ -426,10 +403,7 @@ export class ReadSchemaRelationsCreator {
 				//if it is exported, make an import statement from the entity file
 				const enumKey = e.identifiers?.[0]?.expression;
 				if (enumKey) {
-					const relPathToEntity = relative(this.dtoDirAbsPath, this.entityPath)
-						.split(sep)
-						.join('/')
-						.replace('.ts', '');
+					const relPathToEntity = relative(this.dtoDirAbsPath, this.entityPath).split(sep).join('/').replace('.ts', '');
 
 					const importStmnt = `import { ${enumKey} } from '${relPathToEntity}';`;
 

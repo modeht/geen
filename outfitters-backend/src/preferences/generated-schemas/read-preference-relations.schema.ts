@@ -14,6 +14,5 @@ shopperProfile: v.nullish(v.union([v.boolean(), v.lazy(() => ReadShopperProfileR
 
 
 
-export type TReadPreferenceRelationsSchema = v.InferOutput<typeof ReadPreferenceRelationsSchema>;
-
+export type TReadPreferenceRelationsSchemaOutput = v.InferOutput<typeof ReadPreferenceRelationsSchema>;
 export type TReadPreferenceRelationsSchemaInput = v.InferInput<typeof ReadPreferenceRelationsSchema>;

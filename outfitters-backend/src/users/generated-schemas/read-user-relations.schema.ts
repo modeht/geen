@@ -61,6 +61,5 @@ blockedUsers: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSche
 
 
 
-export type TReadUserRelationsSchema = v.InferOutput<typeof ReadUserRelationsSchema>;
-
+export type TReadUserRelationsSchemaOutput = v.InferOutput<typeof ReadUserRelationsSchema>;
 export type TReadUserRelationsSchemaInput = v.InferInput<typeof ReadUserRelationsSchema>;

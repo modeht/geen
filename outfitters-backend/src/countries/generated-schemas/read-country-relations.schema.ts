@@ -11,6 +11,5 @@ brands: v.nullish(v.union([v.boolean(), v.lazy(() => ReadBrandProfileRelationsSc
 
 
 
-export type TReadCountryRelationsSchema = v.InferOutput<typeof ReadCountryRelationsSchema>;
-
+export type TReadCountryRelationsSchemaOutput = v.InferOutput<typeof ReadCountryRelationsSchema>;
 export type TReadCountryRelationsSchemaInput = v.InferInput<typeof ReadCountryRelationsSchema>;

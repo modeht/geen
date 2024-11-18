@@ -7,6 +7,5 @@ export const ReadTranslationRelationsSchema: v.GenericSchema<ReadTranslationRela
 
 
 
-export type TReadTranslationRelationsSchema = v.InferOutput<typeof ReadTranslationRelationsSchema>;
-
+export type TReadTranslationRelationsSchemaOutput = v.InferOutput<typeof ReadTranslationRelationsSchema>;
 export type TReadTranslationRelationsSchemaInput = v.InferInput<typeof ReadTranslationRelationsSchema>;

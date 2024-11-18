@@ -17,6 +17,5 @@ messages: v.nullish(v.union([v.boolean(), v.lazy(() => ReadMessageRelationsSchem
 
 
 
-export type TReadCommentRelationsSchema = v.InferOutput<typeof ReadCommentRelationsSchema>;
-
+export type TReadCommentRelationsSchemaOutput = v.InferOutput<typeof ReadCommentRelationsSchema>;
 export type TReadCommentRelationsSchemaInput = v.InferInput<typeof ReadCommentRelationsSchema>;

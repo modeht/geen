@@ -18,6 +18,5 @@ notifications: v.nullish(v.union([v.boolean(), v.lazy(() => ReadNotificationRela
 
 
 
-export type TReadCollaborationRelationsSchema = v.InferOutput<typeof ReadCollaborationRelationsSchema>;
-
+export type TReadCollaborationRelationsSchemaOutput = v.InferOutput<typeof ReadCollaborationRelationsSchema>;
 export type TReadCollaborationRelationsSchemaInput = v.InferInput<typeof ReadCollaborationRelationsSchema>;

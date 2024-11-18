@@ -17,6 +17,5 @@ affiliationLink: v.nullish(v.union([v.boolean(), v.lazy(() => ReadAffiliationLin
 
 
 
-export type TReadCartItemsRelationsSchema = v.InferOutput<typeof ReadCartItemsRelationsSchema>;
-
+export type TReadCartItemsRelationsSchemaOutput = v.InferOutput<typeof ReadCartItemsRelationsSchema>;
 export type TReadCartItemsRelationsSchemaInput = v.InferInput<typeof ReadCartItemsRelationsSchema>;

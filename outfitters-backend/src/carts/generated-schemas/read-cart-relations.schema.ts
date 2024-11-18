@@ -41,6 +41,7 @@ export const ReadCartRelationsSchema: v.GenericSchema<ReadCartRelationsSchemaRel
 		),
 	});
 
-export type TReadCartRelationsSchema = v.InferOutput<typeof ReadCartRelationsSchema>;
-
+export type TReadCartRelationsSchemaOutput = v.InferOutput<
+	typeof ReadCartRelationsSchema
+>;
 export type TReadCartRelationsSchemaInput = v.InferInput<typeof ReadCartRelationsSchema>;

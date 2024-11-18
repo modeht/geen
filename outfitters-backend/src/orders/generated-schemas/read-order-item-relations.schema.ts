@@ -20,6 +20,5 @@ appliedPromotions: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPromotionRel
 
 
 
-export type TReadOrderItemRelationsSchema = v.InferOutput<typeof ReadOrderItemRelationsSchema>;
-
+export type TReadOrderItemRelationsSchemaOutput = v.InferOutput<typeof ReadOrderItemRelationsSchema>;
 export type TReadOrderItemRelationsSchemaInput = v.InferInput<typeof ReadOrderItemRelationsSchema>;

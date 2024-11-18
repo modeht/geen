@@ -13,6 +13,5 @@ messages: v.nullish(v.union([v.boolean(), v.lazy(() => ReadMessageRelationsSchem
 
 
 
-export type TReadConversationRelationsSchema = v.InferOutput<typeof ReadConversationRelationsSchema>;
-
+export type TReadConversationRelationsSchemaOutput = v.InferOutput<typeof ReadConversationRelationsSchema>;
 export type TReadConversationRelationsSchemaInput = v.InferInput<typeof ReadConversationRelationsSchema>;

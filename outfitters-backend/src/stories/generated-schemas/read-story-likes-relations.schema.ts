@@ -11,6 +11,5 @@ story: v.nullish(v.union([v.boolean(), v.lazy(() => ReadStoryRelationsSchema)]))
 
 
 
-export type TReadStoryLikesRelationsSchema = v.InferOutput<typeof ReadStoryLikesRelationsSchema>;
-
+export type TReadStoryLikesRelationsSchemaOutput = v.InferOutput<typeof ReadStoryLikesRelationsSchema>;
 export type TReadStoryLikesRelationsSchemaInput = v.InferInput<typeof ReadStoryLikesRelationsSchema>;

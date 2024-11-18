@@ -9,6 +9,5 @@ export const ReadRecentSearchesRelationsSchema: v.GenericSchema<ReadRecentSearch
 
 
 
-export type TReadRecentSearchesRelationsSchema = v.InferOutput<typeof ReadRecentSearchesRelationsSchema>;
-
+export type TReadRecentSearchesRelationsSchemaOutput = v.InferOutput<typeof ReadRecentSearchesRelationsSchema>;
 export type TReadRecentSearchesRelationsSchemaInput = v.InferInput<typeof ReadRecentSearchesRelationsSchema>;

@@ -11,6 +11,5 @@ user: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)]))})
 
 
 
-export type TReadAffiliationLinkTrackingRelationsSchema = v.InferOutput<typeof ReadAffiliationLinkTrackingRelationsSchema>;
-
+export type TReadAffiliationLinkTrackingRelationsSchemaOutput = v.InferOutput<typeof ReadAffiliationLinkTrackingRelationsSchema>;
 export type TReadAffiliationLinkTrackingRelationsSchemaInput = v.InferInput<typeof ReadAffiliationLinkTrackingRelationsSchema>;
