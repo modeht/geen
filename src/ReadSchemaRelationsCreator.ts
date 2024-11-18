@@ -43,9 +43,9 @@ export enum PrimitiveTypes {
 export type TypeKeywords = 'One' | 'Many';
 export type Relationships = `${TypeKeywords}To${TypeKeywords}`;
 
-export class ReadSchemaCreator {
+export class ReadSchemaRelationsCreator {
 	parsedTree: Node;
-	schemaName: string;
+	relationsSchemaName: string;
 	entityName: string;
 	fullEntityName: string;
 	entityClass: Node;
@@ -83,7 +83,7 @@ export class ReadSchemaCreator {
 
 	baseSetup() {
 		this._setEntityName();
-		this._setSchemaName();
+		this._setRelationsSchemaName();
 		this._setFilename();
 		this._setSavedFilename();
 		this._prepDir();
@@ -129,7 +129,8 @@ export class ReadSchemaCreator {
 		file = `${importsText}\n\n${file}`;
 
 		//add type inference
-		const schemaTypeInference = `export type TRead${this.entityName}Schema = v.InferOutput<typeof ${this.schemaName}>\nexport type TRead${this.entityName}SchemaInput = v.InferInput<typeof ${this.schemaName}>`;
+		const schemaTypeInference = `export type TRead${this.entityName}RelationsSchema = v.InferOutput<typeof ${this.relationsSchemaName}>;
+\nexport type TRead${this.entityName}RelationsSchemaInput = v.InferInput<typeof ${this.relationsSchemaName}>;`;
 		file += `\n\n${schemaTypeInference}\n`;
 
 		//save file
@@ -148,8 +149,8 @@ export class ReadSchemaCreator {
 			fields = this.entityClass.properties;
 		}
 
-		const schema: string[] = [];
-		const schemaClass: string[] = [];
+		const relationsSchema: string[] = [];
+		const relationsSchemaClass: string[] = [];
 		const metadatas: string[] = [];
 
 		for (const field of fields) {
@@ -172,48 +173,7 @@ export class ReadSchemaCreator {
 				}
 			});
 
-			let fieldAsString = '';
-			let propertyAsString = '';
-
 			if (fieldPrimitive !== undefined) {
-				let t = '';
-				let p = '';
-
-				if (fieldPrimitive === PrimitiveTypes['number']) {
-					p = 'GenericComparable<"number">';
-					t = 'comparable("number")';
-				} else if (fieldPrimitive === PrimitiveTypes['string']) {
-					p = 'GenericComparable<"string">';
-					t = 'comparable("string")';
-				} else if (fieldPrimitive === PrimitiveTypes['boolean']) {
-					p = 'GenericComparable<"bool">';
-					t = 'comparable("bool")';
-				} else if (fieldPrimitive === PrimitiveTypes['Date']) {
-					p = 'GenericComparable<"date">';
-					t = 'comparable("date")';
-				} else if (fieldPrimitive === PrimitiveTypes['number[]']) {
-					p = 'GenericComparable<"number">[]';
-					t = 'v.array(comparable("number"))';
-				} else if (fieldPrimitive === PrimitiveTypes['string[]']) {
-					p = 'GenericComparable<"string">[]';
-					t = 'v.array(comparable("string"))';
-				} else if (fieldPrimitive === PrimitiveTypes['boolean[]']) {
-					p = 'GenericComparable<"bool">[]';
-					t = 'v.array(comparable("bool"))';
-				} else if (fieldPrimitive === PrimitiveTypes['Date[]']) {
-					p = 'GenericComparable<"date">[]';
-					t = 'v.array(comparable("date"))';
-				}
-
-				t = this._handleEmptyStates(t, fieldNullable, fieldUndefindable);
-				p = this._handleClassEmptyStates(p, fieldNullable, fieldUndefindable);
-
-				fieldAsString = `${field.name}: ${t}`;
-				propertyAsString = `${field.name}${p.startsWith('?:') ? p : `: ${p}`}`;
-
-				schema.push(fieldAsString);
-				schemaClass.push(propertyAsString);
-
 				continue;
 			}
 
@@ -244,60 +204,31 @@ export class ReadSchemaCreator {
 					continue;
 				}
 				const ast = this.asts[relationFileImport];
-				//assume class name and location
-				//
-
-				const nestedReadSchema = new ReadSchemaCreator(
+				const nestedReadSchema = new ReadSchemaRelationsCreator(
 					ast.sourceFile,
 					ast.fullPath,
 					this.asts,
 					{ currDepth: 0, maxDepth: 0 }
 				);
 				nestedReadSchema.baseSetup();
-				const nestedSchemaName = nestedReadSchema.schemaName;
-				const nestedClassName = `${nestedReadSchema.schemaName}Filters`;
-				const nestedSchemaFilePath = nestedReadSchema.toBeSavedAbs;
 
-				if (nestedSchemaName !== this.schemaName) {
-					const relPathToNested = relative(this.dtoDirAbsPath, nestedSchemaFilePath)
-						.split(sep)
-						.join('/')
-						.replace('.ts', '');
+				const { key, property } = this._createRelationsField(
+					field.name!,
+					nestedReadSchema
+				);
 
-					this.imports.add(
-						`import { ${nestedSchemaName}, ${nestedClassName} } from '${
-							relPathToNested.startsWith('.') ? relPathToNested : `./${relPathToNested}`
-						}'`
-					);
-				}
-
-				let fieldAsString = '';
-				let propertyAsString = '';
-
-				// if (relationType === 'OneToMany' || relationType === 'ManyToMany') {
-				// 	fieldAsString = `v.nullish(v.lazy(() => v.array(${nestedSchemaName})))`;
-				// 	propertyAsString = `${nestedClassName}[] | null | undefined`;
-				// } else {
-				// }
-				fieldAsString = `v.nullish(v.lazy(() => ${nestedSchemaName}))`;
-				propertyAsString = `${nestedClassName} | null | undefined`;
-
-				fieldAsString = `${field.name!}: ${fieldAsString}`;
-				propertyAsString = `${field.name!}?: ${propertyAsString}`;
-
-				schema.push(fieldAsString);
-				schemaClass.push(propertyAsString);
+				relationsSchema.push(key);
+				relationsSchemaClass.push(property);
 			}
 		}
 
-		// const metadataObject = `v.metadata({${metadatas.join(',\n')}})`;
-		const validationObject = `v.object({${schema.join(',\n')}})`;
-		const classPropsObject = `${schemaClass.join(';\n')}`;
+		const validationObject = `v.object({${relationsSchema.join(',\n')}})`;
+		const classPropsObject = `${relationsSchemaClass.join(';\n')}`;
 
-		const filtersClassName = `${this.schemaName}Filters`;
+		const relationsClassName = `${this.relationsSchemaName}Relations`;
 
-		const classExportStatment = `export class ${filtersClassName} {${classPropsObject}}`;
-		const schemaExportStatment = `export const ${this.schemaName}: v.GenericSchema<${filtersClassName}> = ${validationObject}`;
+		const classExportStatment = `export class ${relationsClassName} {${classPropsObject}}`;
+		const schemaExportStatment = `export const ${this.relationsSchemaName}: v.GenericSchema<${relationsClassName}> = ${validationObject}`;
 
 		this.readSchemaText = `${classExportStatment}\n\n${schemaExportStatment}\n\n`;
 
@@ -307,6 +238,40 @@ export class ReadSchemaCreator {
 			validationObject,
 			classPropsObject,
 		};
+	}
+
+	private _createRelationsField(
+		fieldName: string,
+		nestedReadSchema: ReadSchemaRelationsCreator
+	) {
+		const nestedRelationsSchemaName = nestedReadSchema.relationsSchemaName;
+		const nestedRelationsClassName = `${nestedReadSchema.relationsSchemaName}Relations`;
+
+		const nestedSchemaFilePath = nestedReadSchema.toBeSavedAbs;
+
+		if (nestedRelationsSchemaName !== this.relationsSchemaName) {
+			const relPathToNested = relative(this.dtoDirAbsPath, nestedSchemaFilePath)
+				.split(sep)
+				.join('/')
+				.replace('.ts', '');
+
+			this.imports.add(
+				`import { ${nestedRelationsSchemaName}, ${nestedRelationsClassName} } from '${
+					relPathToNested.startsWith('.') ? relPathToNested : `./${relPathToNested}`
+				}'`
+			);
+		}
+
+		let key = '';
+		let property = '';
+
+		key = `v.nullish(v.union([v.boolean(), v.lazy(() => ${nestedRelationsSchemaName})]))`;
+		property = `${nestedRelationsClassName} | boolean | null | undefined`;
+
+		key = `${fieldName}: ${key}`;
+		property = `${fieldName}?: ${property}`;
+
+		return { key, property };
 	}
 
 	_handleClassEmptyStates(field: string, nullable: boolean, undefindable: boolean) {
@@ -423,9 +388,9 @@ export class ReadSchemaCreator {
 		}
 	}
 
-	_setSchemaName() {
-		this.schemaName = `Read${this.entityName}Schema`;
-		return this.schemaName;
+	_setRelationsSchemaName() {
+		this.relationsSchemaName = `Read${this.entityName}RelationsSchema`;
+		return this.relationsSchemaName;
 	}
 
 	_setFilename() {
@@ -441,7 +406,7 @@ export class ReadSchemaCreator {
 	}
 
 	_setSavedFilename() {
-		this.toBeSaved = `read-${this.fileName}.schema.ts`;
+		this.toBeSaved = `read-${this.fileName}-relations.schema.ts`;
 	}
 
 	_setDefaultImports() {

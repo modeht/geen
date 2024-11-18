@@ -1,44 +1,25 @@
-// // create the classes
-// // all fields are
+// create the classes
+// all fields are
 
-// class ProfileFilters {
-// 	name?: GenericComparable<'string'> | null | undefined;
-// 	age?: GenericComparable<'number'> | null | undefined;
-// 	user?: UserFilters | null | undefined;
-// }
+import * as v from 'valibot';
+import { comparable, GenericComparable } from '../../src/globals/lib/comparable';
 
-// class UserFilters {
-// 	name?: GenericComparable<'string'> | null | undefined;
-// 	age?: GenericComparable<'number'> | null | undefined;
-// 	profile?: ProfileFilters | null | undefined;
-// }
+class ProfileRelations {
+	user?: UserRelations | boolean | null | undefined;
+}
 
-// const ProfileFiltersSchema: v.GenericSchema<ProfileFilters> = v.object({
-// 	name: v.nullish(compareable('string')),
-// 	age: v.nullish(compareable('number')),
-// 	user: v.nullish(v.lazy(() => UserFiltersSchema)),
-// });
+class UserRelations {
+	profile?: ProfileRelations | boolean | null | undefined;
+}
 
-// const UserFiltersSchema = v.object({
-// 	name: v.nullish(compareable('string')),
-// 	age: v.nullish(compareable('number')),
-// 	profile: v.nullish(v.lazy(() => ProfileFiltersSchema)),
-// });
+const ProfileRelationsSchema: v.GenericSchema<ProfileRelations> = v.object({
+	user: v.nullish(v.lazy(() => UserRelationsSchema)),
+});
 
-// type TUserSchema = v.InferInput<typeof UserFiltersSchema>;
+const UserRelationsSchema = v.object({
+	profile: v.nullish(v.union([v.boolean(), v.lazy(() => ProfileRelationsSchema)])),
+});
 
-// const u: TUserSchema = {
-// 	age: {
-// 		operator: NumberOperators.Eq,
-// 		value: 1,
-// 	},
-// 	profile: {
-// 		age: {
-// 			operator: NumberOperators.Eq,
-// 			// @ts-expect-error testing
-// 			value: '1',
-// 		},
-// 	},
-// };
+type TUserSchema = v.InferInput<typeof UserRelationsSchema>;
 
-// v.parse(UserFiltersSchema, u);
+const d: TUserSchema = {};

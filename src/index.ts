@@ -6,7 +6,8 @@ import { prereq } from './prereq';
 import { TreeParser } from './TreeParser';
 import { parseTreeV2 } from './tree-parser';
 import { CreateSchemaCreator } from './CreateSchemaCreator';
-import { ReadSchemaCreator } from './ReadSchemaCreator';
+import { ReadSchemaFiltersCreator } from './ReadSchemaFiltersCreator';
+import { ReadSchemaRelationsCreator } from './ReadSchemaRelationsCreator';
 
 async function main() {
 	time('Loading entities');
@@ -41,10 +42,15 @@ async function main() {
 	// console.dir(acc, { depth: null });
 	// console.log(Object.keys(ASTs).length);
 	for (const ast in ASTs) {
-		const s = new ReadSchemaCreator(ASTs[ast].sourceFile, ASTs[ast].fullPath, ASTs, {
-			maxDepth: 1,
-			currDepth: 0,
-		});
+		const s = new ReadSchemaRelationsCreator(
+			ASTs[ast].sourceFile,
+			ASTs[ast].fullPath,
+			ASTs,
+			{
+				maxDepth: 1,
+				currDepth: 0,
+			}
+		);
 
 		s.baseSetup();
 		await s.buildFile();
@@ -54,17 +60,3 @@ async function main() {
 }
 
 main();
-
-//post has many comments
-//posts ? posts => ids => paginated query for comments -> comments back to posts
-//complexity count (100 c)
-//product -> sales -> (100) ->
-//
-//opinionated: 2 levels
-//
-//timeout -> 2s ->
-//user -> paginate posts ->
-//documentation
-//
-//user-> posts -> comments -> 2m comment -> paginate comments
-//
