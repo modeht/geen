@@ -1,9 +1,11 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
 
-export class ReadTranslationRelationsSchemaRelations {}
 
-export const ReadTranslationRelationsSchema: v.GenericSchema<ReadTranslationRelationsSchemaRelations> = v.object({})
+import { LanguageEnum } from '../../../lib/enums'
+export class ReadTranslationRelations {language?: LanguageEnum | null | undefined}
+
+export const ReadTranslationRelationsSchema: v.GenericSchema<ReadTranslationRelations> = v.object({language: v.nullish(v.enum(LanguageEnum))})
 
 
 

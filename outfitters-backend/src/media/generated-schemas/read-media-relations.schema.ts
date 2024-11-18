@@ -1,34 +1,36 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadPreferenceRelationsSchema, ReadPreferenceRelationsSchemaRelations } from '../../preferences/generated-schemas/read-preference-relations.schema'
-import { ReadCollectionRelationsSchema, ReadCollectionRelationsSchemaRelations } from '../../collections/generated-schemas/read-collection-relations.schema'
-import { ReadShopperProfileRelationsSchema, ReadShopperProfileRelationsSchemaRelations } from '../../users/generated-schemas/read-shopper-profile-relations.schema'
-import { ReadStoryRelationsSchema, ReadStoryRelationsSchemaRelations } from '../../stories/generated-schemas/read-story-relations.schema'
-import { ReadBrandProfileRelationsSchema, ReadBrandProfileRelationsSchemaRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
-import { ReadCategoryRelationsSchema, ReadCategoryRelationsSchemaRelations } from '../../categories/generated-schemas/read-category-relations.schema'
-import { ReadCountryRelationsSchema, ReadCountryRelationsSchemaRelations } from '../../countries/generated-schemas/read-country-relations.schema'
-import { ReadPostRelationsSchema, ReadPostRelationsSchemaRelations } from '../../posts/generated-schemas/read-post-relations.schema'
-import { ReadProductRelationsSchema, ReadProductRelationsSchemaRelations } from '../../products/generated-schemas/read-product-relations.schema'
-import { ReadProductVariantRelationsSchema, ReadProductVariantRelationsSchemaRelations } from '../../products/generated-schemas/read-product-variant-relations.schema'
-import { ReadMessageRelationsSchema, ReadMessageRelationsSchemaRelations } from '../../messages/generated-schemas/read-message-relations.schema'
-import { ReadProductReviewRelationsSchema, ReadProductReviewRelationsSchemaRelations } from '../../products/generated-schemas/read-product-review-relations.schema'
+import { ReadPreferenceRelationsSchema, ReadPreferenceRelations } from '../../preferences/generated-schemas/read-preference-relations.schema'
+import { ReadCollectionRelationsSchema, ReadCollectionRelations } from '../../collections/generated-schemas/read-collection-relations.schema'
+import { ReadShopperProfileRelationsSchema, ReadShopperProfileRelations } from '../../users/generated-schemas/read-shopper-profile-relations.schema'
+import { ReadStoryRelationsSchema, ReadStoryRelations } from '../../stories/generated-schemas/read-story-relations.schema'
+import { ReadBrandProfileRelationsSchema, ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
+import { ReadCategoryRelationsSchema, ReadCategoryRelations } from '../../categories/generated-schemas/read-category-relations.schema'
+import { ReadCountryRelationsSchema, ReadCountryRelations } from '../../countries/generated-schemas/read-country-relations.schema'
+import { ReadPostRelationsSchema, ReadPostRelations } from '../../posts/generated-schemas/read-post-relations.schema'
+import { ReadProductRelationsSchema, ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
+import { ReadProductVariantRelationsSchema, ReadProductVariantRelations } from '../../products/generated-schemas/read-product-variant-relations.schema'
+import { ReadMessageRelationsSchema, ReadMessageRelations } from '../../messages/generated-schemas/read-message-relations.schema'
+import { ReadProductReviewRelationsSchema, ReadProductReviewRelations } from '../../products/generated-schemas/read-product-review-relations.schema'
 
-export class ReadMediaRelationsSchemaRelations {preference?: ReadPreferenceRelationsSchemaRelations | boolean | null | undefined;
-collectionCover?: ReadCollectionRelationsSchemaRelations | boolean | null | undefined;
-user?: ReadShopperProfileRelationsSchemaRelations | boolean | null | undefined;
-story?: ReadStoryRelationsSchemaRelations | boolean | null | undefined;
-brandStoreCover?: ReadBrandProfileRelationsSchemaRelations | boolean | null | undefined;
-brandStoreLogo?: ReadBrandProfileRelationsSchemaRelations | boolean | null | undefined;
-category?: ReadCategoryRelationsSchemaRelations | boolean | null | undefined;
-country?: ReadCountryRelationsSchemaRelations | boolean | null | undefined;
-postThumbnail?: ReadPostRelationsSchemaRelations | boolean | null | undefined;
-product?: ReadProductRelationsSchemaRelations | boolean | null | undefined;
-productVariant?: ReadProductVariantRelationsSchemaRelations | boolean | null | undefined;
-message?: ReadMessageRelationsSchemaRelations | boolean | null | undefined;
-post?: ReadPostRelationsSchemaRelations | boolean | null | undefined;
-review?: ReadProductReviewRelationsSchemaRelations | boolean | null | undefined}
 
-export const ReadMediaRelationsSchema: v.GenericSchema<ReadMediaRelationsSchemaRelations> = v.object({preference: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPreferenceRelationsSchema)])),
+
+export class ReadMediaRelations {preference?: ReadPreferenceRelations | boolean | null | undefined;
+collectionCover?: ReadCollectionRelations | boolean | null | undefined;
+user?: ReadShopperProfileRelations | boolean | null | undefined;
+story?: ReadStoryRelations | boolean | null | undefined;
+brandStoreCover?: ReadBrandProfileRelations | boolean | null | undefined;
+brandStoreLogo?: ReadBrandProfileRelations | boolean | null | undefined;
+category?: ReadCategoryRelations | boolean | null | undefined;
+country?: ReadCountryRelations | boolean | null | undefined;
+postThumbnail?: ReadPostRelations | boolean | null | undefined;
+product?: ReadProductRelations | boolean | null | undefined;
+productVariant?: ReadProductVariantRelations | boolean | null | undefined;
+message?: ReadMessageRelations | boolean | null | undefined;
+post?: ReadPostRelations | boolean | null | undefined;
+review?: ReadProductReviewRelations | boolean | null | undefined}
+
+export const ReadMediaRelationsSchema: v.GenericSchema<ReadMediaRelations> = v.object({preference: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPreferenceRelationsSchema)])),
 collectionCover: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCollectionRelationsSchema)])),
 user: v.nullish(v.union([v.boolean(), v.lazy(() => ReadShopperProfileRelationsSchema)])),
 story: v.nullish(v.union([v.boolean(), v.lazy(() => ReadStoryRelationsSchema)])),

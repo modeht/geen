@@ -5,7 +5,7 @@ import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types';
 import { appModulePath, globalsDirPath as globalsDirPath } from './utils';
 import { mkdirSync } from 'fs';
-import { log, warn } from 'console';
+import { dir, log, warn } from 'console';
 
 export type ReadDtoInfo = {
 	absPath: string;
@@ -122,9 +122,17 @@ export class ReadSchemaFiltersCreator {
 
 		let file = this.readSchemaText;
 
+		const enums = this.absoluteImports.map((i) => {
+			const actPath = relative(this.dtoDirAbsPath, i.absPath).split(sep).join('/').replace('.ts', '');
+			return `import { ${i.importedFields.join(', ')} } from '${actPath}'`;
+		});
+
 		//add imports
 		const importsText = Array.from(this.imports).join('\n');
-		file = `${importsText}\n\n${file}`;
+		file = `${importsText}\n
+${Array.from(new Set(this.enums)).join('\n')}
+${Array.from(new Set(enums)).join('\n')}
+${file}`;
 
 		//add type inference
 		const schemaTypeInference = `export type TRead${this.entityName}FiltersSchemaOutput = v.InferOutput<typeof ${this.filtersSchemaName}>;
@@ -173,10 +181,10 @@ export type TRead${this.entityName}FiltersSchemaInput = v.InferInput<typeof ${th
 				}
 			});
 
-			let fieldAsString = '';
-			let propertyAsString = '';
-
 			if (fieldPrimitive !== undefined) {
+				let fieldAsString = '';
+				let propertyAsString = '';
+
 				let t = '';
 				let p = '';
 
@@ -236,6 +244,21 @@ export type TRead${this.entityName}FiltersSchemaInput = v.InferInput<typeof ${th
 			}
 
 			if (fieldEnum) {
+				const enumDef = fieldEnum.functions?.[0].props?.find((p) => p.statement?.trim()?.startsWith('enum'));
+				const enumType = enumDef?.identifiers?.[1].expression;
+
+				const enumImport = this._findImportAbsPath(enumType!);
+				if (enumImport) {
+					this.absoluteImports.push(enumImport);
+				}
+
+				let t = `v.enum(${enumType!})`;
+				t = this._handleEmptyStates(t, fieldNullable, fieldUndefindable);
+				t = `${field.name}: ${t}`;
+				let p = this._handleClassEmptyStates(enumType!, fieldNullable, fieldUndefindable);
+				p = `${field.name}${p.startsWith('?:') ? p : `: ${p}`}`;
+				filtersSchema.push(t);
+				filtersSchemaClass.push(p);
 			}
 
 			if (fieldRelation && this.currDepth < this.maxDepth) {
@@ -274,6 +297,18 @@ export type TRead${this.entityName}FiltersSchemaInput = v.InferInput<typeof ${th
 			validationObject,
 			classPropsObject,
 		};
+	}
+
+	_findImportAbsPath(enumType: string) {
+		const importFrom = this.parsedTree.imports?.find((i) => i.text?.includes(enumType!));
+		if (importFrom) {
+			const impPathRel = importFrom.module?.replaceAll("'", '').replaceAll('"', '');
+			const impPathAbs = join(dirname(this.entityPath), impPathRel!);
+			return {
+				importedFields: [enumType!],
+				absPath: impPathAbs,
+			};
+		}
 	}
 
 	private _createFiltersField(fieldName: string, nestedReadSchema: ReadSchemaFiltersCreator) {
@@ -445,9 +480,7 @@ export type TRead${this.entityName}FiltersSchemaInput = v.InferInput<typeof ${th
 				const enumKey = e.identifiers?.[0]?.expression;
 				if (enumKey) {
 					const relPathToEntity = relative(this.dtoDirAbsPath, this.entityPath).split(sep).join('/').replace('.ts', '');
-
 					const importStmnt = `import { ${enumKey} } from '${relPathToEntity}';`;
-
 					this.imports.add(importStmnt);
 				}
 			} else {

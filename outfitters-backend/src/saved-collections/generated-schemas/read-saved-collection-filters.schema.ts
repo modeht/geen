@@ -3,6 +3,8 @@ import * as v from 'valibot';
 import { ReadSavedCollectionItemFiltersSchema, ReadSavedCollectionItemFiltersSchemaFilters } from './read-saved-collection-item-filters.schema'
 import { ReadUserFiltersSchema, ReadUserFiltersSchemaFilters } from '../../users/generated-schemas/read-user-filters.schema'
 
+
+
 export class ReadSavedCollectionFiltersSchemaFilters {name?: GenericComparable<"string"> | null | undefined;
 items?: ReadSavedCollectionItemFiltersSchemaFilters | null | undefined;
 user?: ReadUserFiltersSchemaFilters | null | undefined;

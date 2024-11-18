@@ -4,6 +4,8 @@ import { ReadSavedCollectionFiltersSchema, ReadSavedCollectionFiltersSchemaFilte
 import { ReadProductFiltersSchema, ReadProductFiltersSchemaFilters } from '../../products/generated-schemas/read-product-filters.schema'
 import { ReadPostFiltersSchema, ReadPostFiltersSchemaFilters } from '../../posts/generated-schemas/read-post-filters.schema'
 
+
+
 export class ReadSavedCollectionItemFiltersSchemaFilters {savedCollection?: ReadSavedCollectionFiltersSchemaFilters | null | undefined;
 product?: ReadProductFiltersSchemaFilters | null | undefined;
 post?: ReadPostFiltersSchemaFilters | null | undefined;

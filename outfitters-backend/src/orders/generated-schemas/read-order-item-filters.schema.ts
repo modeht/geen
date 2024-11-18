@@ -6,6 +6,8 @@ import { ReadProductFiltersSchema, ReadProductFiltersSchemaFilters } from '../..
 import { ReadPromoCodeFiltersSchema, ReadPromoCodeFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promo-code-filters.schema'
 import { ReadPromotionFiltersSchema, ReadPromotionFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promotion-filters.schema'
 
+
+
 export class ReadOrderItemFiltersSchemaFilters {quantity?: GenericComparable<"number"> | null | undefined;
 unitSalePrice?: GenericComparable<"number"> | null | undefined;
 unitPurchasePrice?: GenericComparable<"number"> | null | undefined;

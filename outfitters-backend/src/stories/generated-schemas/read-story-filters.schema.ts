@@ -6,6 +6,8 @@ import { ReadUserFiltersSchema, ReadUserFiltersSchemaFilters } from '../../users
 import { ReadStoryLikesFiltersSchema, ReadStoryLikesFiltersSchemaFilters } from './read-story-likes-filters.schema'
 import { ReadMessageFiltersSchema, ReadMessageFiltersSchemaFilters } from '../../messages/generated-schemas/read-message-filters.schema'
 
+
+
 export class ReadStoryFiltersSchemaFilters {background?: GenericComparable<"string"> | null | undefined;
 text?: GenericComparable<"string"> | null | undefined;
 media?: ReadMediaFiltersSchemaFilters | null | undefined;

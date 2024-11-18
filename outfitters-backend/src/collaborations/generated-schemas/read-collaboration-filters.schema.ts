@@ -6,9 +6,12 @@ import { ReadBrandProfileFiltersSchema, ReadBrandProfileFiltersSchemaFilters } f
 import { ReadShopperProfileFiltersSchema, ReadShopperProfileFiltersSchemaFilters } from '../../users/generated-schemas/read-shopper-profile-filters.schema'
 import { ReadNotificationFiltersSchema, ReadNotificationFiltersSchemaFilters } from '../../notifications/generated-schemas/read-notification-filters.schema'
 
+
+
 export class ReadCollaborationFiltersSchemaFilters {message?: ReadMessageFiltersSchemaFilters | null | undefined;
 brandProfile?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
 shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null | undefined;
+status?: CollaborationStatusEnum | null | undefined;
 notifications?: ReadNotificationFiltersSchemaFilters | null | undefined;
 brandId?: GenericComparable<"number"> | null | undefined;
 shopperId?: GenericComparable<"number"> | null | undefined}
@@ -16,6 +19,7 @@ shopperId?: GenericComparable<"number"> | null | undefined}
 export const ReadCollaborationFiltersSchema: v.GenericSchema<ReadCollaborationFiltersSchemaFilters> = v.object({message: v.nullish(v.lazy(() => ReadMessageFiltersSchema)),
 brandProfile: v.nullish(v.lazy(() => ReadBrandProfileFiltersSchema)),
 shopperProfile: v.nullish(v.lazy(() => ReadShopperProfileFiltersSchema)),
+status: v.nullish(v.enum(CollaborationStatusEnum)),
 notifications: v.nullish(v.lazy(() => ReadNotificationFiltersSchema)),
 brandId: v.nullish(comparable("number")),
 shopperId: v.nullish(comparable("number"))})

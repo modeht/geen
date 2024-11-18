@@ -17,6 +17,8 @@ import { ReadPromotionFiltersSchema, ReadPromotionFiltersSchemaFilters } from '.
 import { ReadPromoCodeFiltersSchema, ReadPromoCodeFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promo-code-filters.schema'
 import { ReadSavedCollectionItemFiltersSchema, ReadSavedCollectionItemFiltersSchemaFilters } from '../../saved-collections/generated-schemas/read-saved-collection-item-filters.schema'
 
+
+
 export class ReadProductFiltersSchemaFilters {isArchived?: GenericComparable<"bool"> | null | undefined;
 title?: GenericComparable<"string"> | null | undefined;
 description?: GenericComparable<"string"> | null | undefined;

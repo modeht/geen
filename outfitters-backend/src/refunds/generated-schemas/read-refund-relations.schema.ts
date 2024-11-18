@@ -1,9 +1,11 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
 
-export class ReadRefundRelationsSchemaRelations {}
 
-export const ReadRefundRelationsSchema: v.GenericSchema<ReadRefundRelationsSchemaRelations> = v.object({})
+
+export class ReadRefundRelations {}
+
+export const ReadRefundRelationsSchema: v.GenericSchema<ReadRefundRelations> = v.object({})
 
 
 

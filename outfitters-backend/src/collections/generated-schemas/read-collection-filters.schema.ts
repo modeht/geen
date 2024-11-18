@@ -4,6 +4,8 @@ import { ReadMediaFiltersSchema, ReadMediaFiltersSchemaFilters } from '../../med
 import { ReadBrandProfileFiltersSchema, ReadBrandProfileFiltersSchemaFilters } from '../../users/generated-schemas/read-brand-profile-filters.schema'
 import { ReadProductFiltersSchema, ReadProductFiltersSchemaFilters } from '../../products/generated-schemas/read-product-filters.schema'
 
+
+
 export class ReadCollectionFiltersSchemaFilters {name?: GenericComparable<"string"> | null | undefined;
 isFeatured?: GenericComparable<"bool"> | null | undefined;
 isPublic?: GenericComparable<"bool"> | null | undefined;

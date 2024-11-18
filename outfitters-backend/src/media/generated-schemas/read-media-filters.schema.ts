@@ -13,6 +13,8 @@ import { ReadProductVariantFiltersSchema, ReadProductVariantFiltersSchemaFilters
 import { ReadMessageFiltersSchema, ReadMessageFiltersSchemaFilters } from '../../messages/generated-schemas/read-message-filters.schema'
 import { ReadProductReviewFiltersSchema, ReadProductReviewFiltersSchemaFilters } from '../../products/generated-schemas/read-product-review-filters.schema'
 
+
+
 export class ReadMediaFiltersSchemaFilters {preference?: ReadPreferenceFiltersSchemaFilters | null | undefined;
 collectionCover?: ReadCollectionFiltersSchemaFilters | null | undefined;
 user?: ReadShopperProfileFiltersSchemaFilters | null | undefined;

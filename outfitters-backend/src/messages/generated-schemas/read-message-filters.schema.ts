@@ -9,6 +9,8 @@ import { ReadConversationFiltersSchema, ReadConversationFiltersSchemaFilters } f
 import { ReadUserFiltersSchema, ReadUserFiltersSchemaFilters } from '../../users/generated-schemas/read-user-filters.schema'
 import { ReadCommentFiltersSchema, ReadCommentFiltersSchemaFilters } from '../../comments/generated-schemas/read-comment-filters.schema'
 
+
+
 export class ReadMessageFiltersSchemaFilters {readAt?: GenericComparable<"date"> | null | undefined;
 content?: GenericComparable<"string"> | null | undefined;
 media?: ReadMediaFiltersSchemaFilters | null | undefined;

@@ -5,6 +5,8 @@ import { ReadPostFiltersSchema, ReadPostFiltersSchemaFilters } from '../../posts
 import { ReadStoryFiltersSchema, ReadStoryFiltersSchemaFilters } from '../../stories/generated-schemas/read-story-filters.schema'
 import { ReadAffiliationLinkFiltersSchema, ReadAffiliationLinkFiltersSchemaFilters } from '../../affiliation-links/generated-schemas/read-affiliation-link-filters.schema'
 
+
+
 export class ReadTaggedProductFiltersSchemaFilters {product?: ReadProductFiltersSchemaFilters | null | undefined;
 post?: ReadPostFiltersSchemaFilters | null | undefined;
 story?: ReadStoryFiltersSchemaFilters | null | undefined;

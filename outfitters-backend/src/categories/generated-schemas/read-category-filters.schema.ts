@@ -5,6 +5,8 @@ import { ReadProductFiltersSchema, ReadProductFiltersSchemaFilters } from '../..
 import { ReadBrandProfileFiltersSchema, ReadBrandProfileFiltersSchemaFilters } from '../../users/generated-schemas/read-brand-profile-filters.schema'
 import { ReadSeasonalPromotionFiltersSchema, ReadSeasonalPromotionFiltersSchemaFilters } from '../../promotions/generated-schemas/read-seasonal-promotion-filters.schema'
 
+
+
 export class ReadCategoryFiltersSchemaFilters {name?: GenericComparable<"string"> | null | undefined;
 isArchived?: GenericComparable<"bool"> | null | undefined;
 media?: ReadMediaFiltersSchemaFilters | null | undefined;

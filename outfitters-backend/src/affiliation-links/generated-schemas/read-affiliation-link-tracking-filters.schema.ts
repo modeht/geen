@@ -3,6 +3,8 @@ import * as v from 'valibot';
 import { ReadAffiliationLinkFiltersSchema, ReadAffiliationLinkFiltersSchemaFilters } from './read-affiliation-link-filters.schema'
 import { ReadUserFiltersSchema, ReadUserFiltersSchemaFilters } from '../../users/generated-schemas/read-user-filters.schema'
 
+
+
 export class ReadAffiliationLinkTrackingFiltersSchemaFilters {affiliationLink?: ReadAffiliationLinkFiltersSchemaFilters | null | undefined;
 user?: ReadUserFiltersSchemaFilters | null | undefined;
 referrer?: GenericComparable<"string"> | null | undefined;

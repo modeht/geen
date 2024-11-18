@@ -110,7 +110,6 @@ export class ReadSchemaCreator {
 
 		const files = await Promise.all([filters.buildFile(), relations.buildFile()]);
 
-		//
 		const relativePaths = files
 			.map((f) => {
 				return {

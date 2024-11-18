@@ -12,7 +12,7 @@ import { ReadSchemaCreator } from './ReadSchemaCreator';
 
 async function main() {
 	time('Loading entities');
-	const allEntities = await async('**/*/*.entity.ts', { absolute: true });
+	const allEntities = await async('**/*/*.entity.ts', { absolute: true, ignore: ['**/*/node_modules'] });
 	timeEnd('Loading entities');
 
 	time('Parsing');
@@ -43,9 +43,12 @@ async function main() {
 	// console.dir(acc, { depth: null });
 	// console.log(Object.keys(ASTs).length);
 	for (const ast in ASTs) {
+		const c = new CreateSchemaCreator(ASTs[ast].sourceFile, ASTs[ast].fullPath, ASTs);
 		const f = new ReadSchemaCreator(ASTs[ast].sourceFile, ASTs[ast].fullPath, ASTs);
 		f.baseSetup();
+
 		await f.build();
+		await c.buildFile();
 	}
 
 	timeEnd('Creating dtos');

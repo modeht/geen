@@ -122,9 +122,17 @@ export class ReadSchemaRelationsCreator {
 
 		let file = this.readSchemaText;
 
+		const enums = this.absoluteImports.map((i) => {
+			const actPath = relative(this.dtoDirAbsPath, i.absPath).split(sep).join('/').replace('.ts', '');
+			return `import { ${i.importedFields.join(', ')} } from '${actPath}'`;
+		});
+
 		//add imports
 		const importsText = Array.from(this.imports).join('\n');
-		file = `${importsText}\n\n${file}`;
+		file = `${importsText}\n
+${Array.from(new Set(this.enums)).join('\n')}
+${Array.from(new Set(enums)).join('\n')}
+${file}`;
 
 		//add type inference
 		const schemaTypeInference = `export type TRead${this.entityName}RelationsSchemaOutput = v.InferOutput<typeof ${this.relationsSchemaName}>;
@@ -194,6 +202,21 @@ export type TRead${this.entityName}RelationsSchemaInput = v.InferInput<typeof ${
 			}
 
 			if (fieldEnum) {
+				const enumDef = fieldEnum.functions?.[0].props?.find((p) => p.statement?.trim()?.startsWith('enum'));
+				const enumType = enumDef?.identifiers?.[1].expression;
+
+				const enumImport = this._findImportAbsPath(enumType!);
+				if (enumImport) {
+					this.absoluteImports.push(enumImport);
+				}
+
+				let t = `v.enum(${enumType!})`;
+				t = this._handleEmptyStates(t, fieldNullable, fieldUndefindable);
+				t = `${field.name}: ${t}`;
+				let p = this._handleClassEmptyStates(enumType!, fieldNullable, fieldUndefindable);
+				p = `${field.name}${p.startsWith('?:') ? p : `: ${p}`}`;
+				relationsSchema.push(t);
+				relationsSchemaClass.push(p);
 			}
 
 			if (fieldRelation && this.currDepth < this.maxDepth) {
@@ -219,7 +242,7 @@ export type TRead${this.entityName}RelationsSchemaInput = v.InferInput<typeof ${
 		const validationObject = `v.object({${relationsSchema.join(',\n')}})`;
 		const classPropsObject = `${relationsSchemaClass.join(';\n')}`;
 
-		const relationsClassName = `${this.relationsSchemaName}Relations`;
+		const relationsClassName = `Read${this.entityName}Relations`;
 
 		const classExportStatment = `export class ${relationsClassName} {${classPropsObject}}`;
 		const schemaExportStatment = `export const ${this.relationsSchemaName}: v.GenericSchema<${relationsClassName}> = ${validationObject}`;
@@ -234,9 +257,21 @@ export type TRead${this.entityName}RelationsSchemaInput = v.InferInput<typeof ${
 		};
 	}
 
+	_findImportAbsPath(enumType: string) {
+		const importFrom = this.parsedTree.imports?.find((i) => i.text?.includes(enumType!));
+		if (importFrom) {
+			const impPathRel = importFrom.module?.replaceAll("'", '').replaceAll('"', '');
+			const impPathAbs = join(dirname(this.entityPath), impPathRel!);
+			return {
+				importedFields: [enumType!],
+				absPath: impPathAbs,
+			};
+		}
+	}
+
 	private _createRelationsField(fieldName: string, nestedReadSchema: ReadSchemaRelationsCreator) {
 		const nestedRelationsSchemaName = nestedReadSchema.relationsSchemaName;
-		const nestedRelationsClassName = `${nestedReadSchema.relationsSchemaName}Relations`;
+		const nestedRelationsClassName = `Read${nestedReadSchema.entityName}Relations`;
 
 		const nestedSchemaFilePath = nestedReadSchema.toBeSavedAbs;
 

@@ -1,18 +1,25 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadCartRelationsSchema, ReadCartRelationsSchemaRelations } from '../../carts/generated-schemas/read-cart-relations.schema'
-import { ReadOrderItemRelationsSchema, ReadOrderItemRelationsSchemaRelations } from '../../orders/generated-schemas/read-order-item-relations.schema'
-import { ReadBrandProfileRelationsSchema, ReadBrandProfileRelationsSchemaRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
-import { ReadShopperProfileRelationsSchema, ReadShopperProfileRelationsSchemaRelations } from '../../users/generated-schemas/read-shopper-profile-relations.schema'
-import { ReadProductRelationsSchema, ReadProductRelationsSchemaRelations } from '../../products/generated-schemas/read-product-relations.schema'
+import { ReadCartRelationsSchema, ReadCartRelations } from '../../carts/generated-schemas/read-cart-relations.schema'
+import { ReadOrderItemRelationsSchema, ReadOrderItemRelations } from '../../orders/generated-schemas/read-order-item-relations.schema'
+import { ReadBrandProfileRelationsSchema, ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
+import { ReadShopperProfileRelationsSchema, ReadShopperProfileRelations } from '../../users/generated-schemas/read-shopper-profile-relations.schema'
+import { ReadProductRelationsSchema, ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
 
-export class ReadPromoCodeRelationsSchemaRelations {carts?: ReadCartRelationsSchemaRelations | boolean | null | undefined;
-orderItems?: ReadOrderItemRelationsSchemaRelations | boolean | null | undefined;
-brand?: ReadBrandProfileRelationsSchemaRelations | boolean | null | undefined;
-shopperProfile?: ReadShopperProfileRelationsSchemaRelations | boolean | null | undefined;
-products?: ReadProductRelationsSchemaRelations | boolean | null | undefined}
 
-export const ReadPromoCodeRelationsSchema: v.GenericSchema<ReadPromoCodeRelationsSchemaRelations> = v.object({carts: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCartRelationsSchema)])),
+import { PromotionTypeEnum } from '../entities/enums'
+import { PromotionStatusEnum } from '../entities/enums'
+export class ReadPromoCodeRelations {type?: PromotionTypeEnum | null | undefined;
+status?: PromotionStatusEnum | null | undefined;
+carts?: ReadCartRelations | boolean | null | undefined;
+orderItems?: ReadOrderItemRelations | boolean | null | undefined;
+brand?: ReadBrandProfileRelations | boolean | null | undefined;
+shopperProfile?: ReadShopperProfileRelations | boolean | null | undefined;
+products?: ReadProductRelations | boolean | null | undefined}
+
+export const ReadPromoCodeRelationsSchema: v.GenericSchema<ReadPromoCodeRelations> = v.object({type: v.nullish(v.enum(PromotionTypeEnum)),
+status: v.nullish(v.enum(PromotionStatusEnum)),
+carts: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCartRelationsSchema)])),
 orderItems: v.nullish(v.union([v.boolean(), v.lazy(() => ReadOrderItemRelationsSchema)])),
 brand: v.nullish(v.union([v.boolean(), v.lazy(() => ReadBrandProfileRelationsSchema)])),
 shopperProfile: v.nullish(v.union([v.boolean(), v.lazy(() => ReadShopperProfileRelationsSchema)])),

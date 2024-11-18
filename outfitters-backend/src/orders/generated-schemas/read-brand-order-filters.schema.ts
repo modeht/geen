@@ -5,7 +5,10 @@ import { ReadOrderItemFiltersSchema, ReadOrderItemFiltersSchemaFilters } from '.
 import { ReadBrandProfileFiltersSchema, ReadBrandProfileFiltersSchemaFilters } from '../../users/generated-schemas/read-brand-profile-filters.schema'
 import { ReadOrderFiltersSchema, ReadOrderFiltersSchemaFilters } from './read-order-filters.schema'
 
-export class ReadBrandOrderFiltersSchemaFilters {totalSalePrice?: GenericComparable<"number"> | null | undefined;
+
+
+export class ReadBrandOrderFiltersSchemaFilters {status?: OrderStatusEnum | null | undefined;
+totalSalePrice?: GenericComparable<"number"> | null | undefined;
 totalPurchasePrice?: GenericComparable<"number"> | null | undefined;
 shippingFees?: GenericComparable<"number"> | null | undefined;
 rating?: GenericComparable<"number"> | null | undefined;
@@ -21,7 +24,8 @@ order?: ReadOrderFiltersSchemaFilters | null | undefined;
 orderId?: GenericComparable<"number"> | null | undefined;
 brandId?: GenericComparable<"number"> | null | undefined}
 
-export const ReadBrandOrderFiltersSchema: v.GenericSchema<ReadBrandOrderFiltersSchemaFilters> = v.object({totalSalePrice: v.nullish(comparable("number")),
+export const ReadBrandOrderFiltersSchema: v.GenericSchema<ReadBrandOrderFiltersSchemaFilters> = v.object({status: v.nullish(v.enum(OrderStatusEnum)),
+totalSalePrice: v.nullish(comparable("number")),
 totalPurchasePrice: v.nullish(comparable("number")),
 shippingFees: v.nullish(comparable("number")),
 rating: v.nullish(comparable("number")),

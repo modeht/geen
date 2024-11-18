@@ -6,6 +6,9 @@ import { ReadBrandProfileFiltersSchema, ReadBrandProfileFiltersSchemaFilters } f
 import { ReadShopperProfileFiltersSchema, ReadShopperProfileFiltersSchemaFilters } from '../../users/generated-schemas/read-shopper-profile-filters.schema'
 import { ReadProductFiltersSchema, ReadProductFiltersSchemaFilters } from '../../products/generated-schemas/read-product-filters.schema'
 
+
+import { PromotionTypeEnum } from '../entities/enums'
+import { PromotionStatusEnum } from '../entities/enums'
 export class ReadPromoCodeFiltersSchemaFilters {deletedAt?: GenericComparable<"date"> | null | undefined;
 code?: GenericComparable<"string"> | null | undefined;
 title?: GenericComparable<"string"> | null | undefined;
@@ -15,6 +18,8 @@ totalLimit?: GenericComparable<"number"> | null | undefined;
 start?: GenericComparable<"date"> | null | undefined;
 end?: GenericComparable<"date"> | null | undefined;
 discountPercentage?: GenericComparable<"number"> | null | undefined;
+type?: PromotionTypeEnum | null | undefined;
+status?: PromotionStatusEnum | null | undefined;
 carts?: ReadCartFiltersSchemaFilters | null | undefined;
 orderItems?: ReadOrderItemFiltersSchemaFilters | null | undefined;
 brand?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
@@ -34,6 +39,8 @@ totalLimit: v.nullish(comparable("number")),
 start: v.nullish(comparable("date")),
 end: v.nullish(comparable("date")),
 discountPercentage: v.nullish(comparable("number")),
+type: v.nullish(v.enum(PromotionTypeEnum)),
+status: v.nullish(v.enum(PromotionStatusEnum)),
 carts: v.nullish(v.lazy(() => ReadCartFiltersSchema)),
 orderItems: v.nullish(v.lazy(() => ReadOrderItemFiltersSchema)),
 brand: v.nullish(v.lazy(() => ReadBrandProfileFiltersSchema)),

@@ -15,13 +15,17 @@ import { ReadRecentSearchesFiltersSchema, ReadRecentSearchesFiltersSchemaFilters
 import { ReadPostLikesFiltersSchema, ReadPostLikesFiltersSchemaFilters } from '../../posts/generated-schemas/read-post-likes-filters.schema'
 import { ReadStoryLikesFiltersSchema, ReadStoryLikesFiltersSchemaFilters } from '../../stories/generated-schemas/read-story-likes-filters.schema'
 
-export class ReadUserFiltersSchemaFilters {email?: GenericComparable<"string"> | null | undefined;
+
+import { LanguageEnum } from '../../../lib/enums'
+export class ReadUserFiltersSchemaFilters {status?: AccountStatus | null | undefined;
+email?: GenericComparable<"string"> | null | undefined;
 phone?: GenericComparable<"string"> | null | undefined;
 password?: GenericComparable<"string"> | null | undefined;
 firebaseId?: GenericComparable<"string"> | null | undefined;
 emailVerified?: GenericComparable<"bool"> | null | undefined;
 isGoogleSignin?: GenericComparable<"bool"> | null | undefined;
 isAppleSignin?: GenericComparable<"bool"> | null | undefined;
+defaultLang?: LanguageEnum | null | undefined;
 shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null | undefined;
 brandProfile?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
 comments?: ReadCommentFiltersSchemaFilters | null | undefined;
@@ -47,13 +51,15 @@ isFollowing?: GenericComparable<"bool"> | null | undefined;
 isBlockedBy?: GenericComparable<"bool"> | null | undefined;
 followersCount?: GenericComparable<"number"> | null | undefined}
 
-export const ReadUserFiltersSchema: v.GenericSchema<ReadUserFiltersSchemaFilters> = v.object({email: v.nullish(comparable("string")),
+export const ReadUserFiltersSchema: v.GenericSchema<ReadUserFiltersSchemaFilters> = v.object({status: v.nullish(v.enum(AccountStatus)),
+email: v.nullish(comparable("string")),
 phone: v.nullish(comparable("string")),
 password: v.nullish(comparable("string")),
 firebaseId: v.nullish(comparable("string")),
 emailVerified: v.nullish(comparable("bool")),
 isGoogleSignin: v.nullish(comparable("bool")),
 isAppleSignin: v.nullish(comparable("bool")),
+defaultLang: v.nullish(v.enum(LanguageEnum)),
 shopperProfile: v.nullish(v.lazy(() => ReadShopperProfileFiltersSchema)),
 brandProfile: v.nullish(v.lazy(() => ReadBrandProfileFiltersSchema)),
 comments: v.nullish(v.lazy(() => ReadCommentFiltersSchema)),

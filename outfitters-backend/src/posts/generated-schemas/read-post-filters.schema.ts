@@ -8,6 +8,8 @@ import { ReadCommentFiltersSchema, ReadCommentFiltersSchemaFilters } from '../..
 import { ReadMessageFiltersSchema, ReadMessageFiltersSchemaFilters } from '../../messages/generated-schemas/read-message-filters.schema'
 import { ReadSavedCollectionItemFiltersSchema, ReadSavedCollectionItemFiltersSchemaFilters } from '../../saved-collections/generated-schemas/read-saved-collection-item-filters.schema'
 
+
+
 export class ReadPostFiltersSchemaFilters {caption?: GenericComparable<"string"> | null | undefined;
 media?: ReadMediaFiltersSchemaFilters | null | undefined;
 thumbnail?: ReadMediaFiltersSchemaFilters | null | undefined;

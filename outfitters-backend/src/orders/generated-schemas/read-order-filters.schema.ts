@@ -7,7 +7,11 @@ import { ReadBrandOrderFiltersSchema, ReadBrandOrderFiltersSchemaFilters } from 
 import { ReadShippingAddressFiltersSchema, ReadShippingAddressFiltersSchemaFilters } from '../../users/generated-schemas/read-shipping-address-filters.schema'
 import { ReadShopperProfileFiltersSchema, ReadShopperProfileFiltersSchemaFilters } from '../../users/generated-schemas/read-shopper-profile-filters.schema'
 
-export class ReadOrderFiltersSchemaFilters {totalSalePrice?: GenericComparable<"number"> | null | undefined;
+
+
+export class ReadOrderFiltersSchemaFilters {paymentMethod?: OrderPaymentMethod | null | undefined;
+paymentStatus?: OrderPaymentStatusEnum | null | undefined;
+totalSalePrice?: GenericComparable<"number"> | null | undefined;
 totalPurchasePrice?: GenericComparable<"number"> | null | undefined;
 totalShippingFees?: GenericComparable<"number"> | null | undefined;
 cart?: ReadCartFiltersSchemaFilters | null | undefined;
@@ -18,7 +22,9 @@ cartId?: GenericComparable<"number"> | null | undefined;
 shippingAddressId?: GenericComparable<"number"> | null | undefined;
 shopperId?: GenericComparable<"number"> | null | undefined}
 
-export const ReadOrderFiltersSchema: v.GenericSchema<ReadOrderFiltersSchemaFilters> = v.object({totalSalePrice: v.nullish(comparable("number")),
+export const ReadOrderFiltersSchema: v.GenericSchema<ReadOrderFiltersSchemaFilters> = v.object({paymentMethod: v.nullish(v.enum(OrderPaymentMethod)),
+paymentStatus: v.nullish(v.enum(OrderPaymentStatusEnum)),
+totalSalePrice: v.nullish(comparable("number")),
 totalPurchasePrice: v.nullish(comparable("number")),
 totalShippingFees: v.nullish(comparable("number")),
 cart: v.nullish(v.lazy(() => ReadCartFiltersSchema)),

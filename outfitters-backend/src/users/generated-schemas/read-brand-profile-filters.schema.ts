@@ -12,6 +12,8 @@ import { ReadCollaborationFiltersSchema, ReadCollaborationFiltersSchemaFilters }
 import { ReadCategoryFiltersSchema, ReadCategoryFiltersSchemaFilters } from '../../categories/generated-schemas/read-category-filters.schema'
 import { ReadCountryFiltersSchema, ReadCountryFiltersSchemaFilters } from '../../countries/generated-schemas/read-country-filters.schema'
 
+
+
 export class ReadBrandProfileFiltersSchemaFilters {storeName?: GenericComparable<"string"> | null | undefined;
 brandName?: GenericComparable<"string"> | null | undefined;
 storeBio?: GenericComparable<"string"> | null | undefined;

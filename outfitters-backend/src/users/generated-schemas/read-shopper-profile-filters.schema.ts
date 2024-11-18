@@ -12,10 +12,13 @@ import { ReadCollaborationFiltersSchema, ReadCollaborationFiltersSchemaFilters }
 import { ReadAffiliationLinkFiltersSchema, ReadAffiliationLinkFiltersSchemaFilters } from '../../affiliation-links/generated-schemas/read-affiliation-link-filters.schema'
 import { ReadPromoCodeFiltersSchema, ReadPromoCodeFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promo-code-filters.schema'
 
+
+
 export class ReadShopperProfileFiltersSchemaFilters {username?: GenericComparable<"string"> | null | undefined;
 fullName?: GenericComparable<"string"> | null | undefined;
 dateOfBirth?: GenericComparable<"date"> | null | undefined;
 bio?: GenericComparable<"string"> | null | undefined;
+gender?: GenderEnum | null | undefined;
 onboardingStep?: GenericComparable<"number"> | null | undefined;
 facebookProfileLink?: GenericComparable<"string"> | null | undefined;
 instagramProfileLink?: GenericComparable<"string"> | null | undefined;
@@ -43,6 +46,7 @@ export const ReadShopperProfileFiltersSchema: v.GenericSchema<ReadShopperProfile
 fullName: v.nullish(comparable("string")),
 dateOfBirth: v.nullish(comparable("date")),
 bio: v.nullish(comparable("string")),
+gender: v.nullish(v.enum(GenderEnum)),
 onboardingStep: v.nullish(comparable("number")),
 facebookProfileLink: v.nullish(comparable("string")),
 instagramProfileLink: v.nullish(comparable("string")),

@@ -6,6 +6,8 @@ import { ReadAffiliationLinkTrackingFiltersSchema, ReadAffiliationLinkTrackingFi
 import { ReadShopperProfileFiltersSchema, ReadShopperProfileFiltersSchemaFilters } from '../../users/generated-schemas/read-shopper-profile-filters.schema'
 import { ReadProductFiltersSchema, ReadProductFiltersSchemaFilters } from '../../products/generated-schemas/read-product-filters.schema'
 
+
+
 export class ReadAffiliationLinkFiltersSchemaFilters {isDisabled?: GenericComparable<"bool"> | null | undefined;
 url?: GenericComparable<"string"> | null | undefined;
 taggedProducts?: ReadTaggedProductFiltersSchemaFilters | null | undefined;

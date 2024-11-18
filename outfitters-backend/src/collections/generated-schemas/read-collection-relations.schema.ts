@@ -1,14 +1,16 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadMediaRelationsSchema, ReadMediaRelationsSchemaRelations } from '../../media/generated-schemas/read-media-relations.schema'
-import { ReadBrandProfileRelationsSchema, ReadBrandProfileRelationsSchemaRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
-import { ReadProductRelationsSchema, ReadProductRelationsSchemaRelations } from '../../products/generated-schemas/read-product-relations.schema'
+import { ReadMediaRelationsSchema, ReadMediaRelations } from '../../media/generated-schemas/read-media-relations.schema'
+import { ReadBrandProfileRelationsSchema, ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
+import { ReadProductRelationsSchema, ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
 
-export class ReadCollectionRelationsSchemaRelations {cover?: ReadMediaRelationsSchemaRelations | boolean | null | undefined;
-brand?: ReadBrandProfileRelationsSchemaRelations | boolean | null | undefined;
-products?: ReadProductRelationsSchemaRelations | boolean | null | undefined}
 
-export const ReadCollectionRelationsSchema: v.GenericSchema<ReadCollectionRelationsSchemaRelations> = v.object({cover: v.nullish(v.union([v.boolean(), v.lazy(() => ReadMediaRelationsSchema)])),
+
+export class ReadCollectionRelations {cover?: ReadMediaRelations | boolean | null | undefined;
+brand?: ReadBrandProfileRelations | boolean | null | undefined;
+products?: ReadProductRelations | boolean | null | undefined}
+
+export const ReadCollectionRelationsSchema: v.GenericSchema<ReadCollectionRelations> = v.object({cover: v.nullish(v.union([v.boolean(), v.lazy(() => ReadMediaRelationsSchema)])),
 brand: v.nullish(v.union([v.boolean(), v.lazy(() => ReadBrandProfileRelationsSchema)])),
 products: v.nullish(v.union([v.boolean(), v.lazy(() => ReadProductRelationsSchema)]))})
 

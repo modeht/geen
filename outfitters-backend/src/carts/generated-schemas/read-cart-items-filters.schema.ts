@@ -5,6 +5,8 @@ import { ReadProductFiltersSchema, ReadProductFiltersSchemaFilters } from '../..
 import { ReadProductVariantFiltersSchema, ReadProductVariantFiltersSchemaFilters } from '../../products/generated-schemas/read-product-variant-filters.schema'
 import { ReadAffiliationLinkFiltersSchema, ReadAffiliationLinkFiltersSchemaFilters } from '../../affiliation-links/generated-schemas/read-affiliation-link-filters.schema'
 
+
+
 export class ReadCartItemsFiltersSchemaFilters {quantity?: GenericComparable<"number"> | null | undefined;
 cart?: ReadCartFiltersSchemaFilters | null | undefined;
 product?: ReadProductFiltersSchemaFilters | null | undefined;

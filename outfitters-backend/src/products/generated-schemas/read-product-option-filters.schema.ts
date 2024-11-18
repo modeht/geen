@@ -3,6 +3,8 @@ import * as v from 'valibot';
 import { ReadProductFiltersSchema, ReadProductFiltersSchemaFilters } from './read-product-filters.schema'
 import { ReadProductOptionValueFiltersSchema, ReadProductOptionValueFiltersSchemaFilters } from './read-product-option-value-filters.schema'
 
+
+
 export class ReadProductOptionFiltersSchemaFilters {name?: GenericComparable<"string"> | null | undefined;
 productId?: GenericComparable<"number"> | null | undefined;
 product?: ReadProductFiltersSchemaFilters | null | undefined;

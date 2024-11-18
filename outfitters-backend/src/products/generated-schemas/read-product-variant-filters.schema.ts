@@ -6,6 +6,8 @@ import { ReadCartItemsFiltersSchema, ReadCartItemsFiltersSchemaFilters } from '.
 import { ReadProductFiltersSchema, ReadProductFiltersSchemaFilters } from './read-product-filters.schema'
 import { ReadProductOptionValueFiltersSchema, ReadProductOptionValueFiltersSchemaFilters } from './read-product-option-value-filters.schema'
 
+
+
 export class ReadProductVariantFiltersSchemaFilters {isArchived?: GenericComparable<"bool"> | null | undefined;
 stock?: GenericComparable<"number"> | null | undefined;
 price?: GenericComparable<"number"> | null | undefined;
