@@ -1,14 +1,15 @@
+import { modelSymbol } from "../../globals/constants/schema-symbols"
 import * as v from 'valibot';
 
 
 import { AccountStatus } from '../../users/entities/user.entity'
 import { LanguageEnum } from '../../../lib/enums'
 export const CreateSavedCollectionSchema = v.pipe(v.object({name: v.nullish(v.string()),
-items: v.nullish(v.union([v.array(v.number()), v.array(v.object({savedCollectionId: v.number(),
+items: v.nullish(v.union([v.array(v.object({id:v.number()})), v.array(v.object({savedCollectionId: v.number(),
 productId: v.number(),
 postId: v.number(),
 userId: v.number()}))])),
-user: v.nullish(v.union([v.number(), v.object({status: v.enum(AccountStatus),
+user: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(AccountStatus),
 email: v.nullish(v.string()),
 phone: v.nullish(v.string()),
 password: v.nullish(v.string()),
@@ -20,7 +21,8 @@ defaultLang: v.enum(LanguageEnum),
 isFollowing: v.nullish(v.boolean()),
 isBlockedBy: v.nullish(v.boolean()),
 followersCount: v.nullish(v.number())})])),
-userId: v.number()}),v.metadata({items: 'SavedCollectionItemEntity',
+userId: v.number()}),v.metadata({[modelSymbol]: 'SavedCollectionEntity',
+items: 'SavedCollectionItemEntity',
 user: 'UserEntity'}))
 
 export type TCreateSavedCollectionSchemaInput = v.InferInput<typeof CreateSavedCollectionSchema>;

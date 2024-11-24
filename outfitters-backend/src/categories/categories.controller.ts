@@ -18,7 +18,7 @@ import { IsNull } from 'typeorm';
 import { QueryableRelations } from '../globals/lib/type-helpers';
 import { CategoriesService } from './categories.service';
 import { categoryQueryableRelations, FindCategoryDto } from './dto/find-category.dto';
-import { BaseIssue, BaseSchema, safeParse, SchemaWithPipe } from 'valibot';
+import { BaseIssue, BaseSchema, safeParse, SchemaWithPipe, parse } from 'valibot';
 import { FastifyRequest } from 'fastify';
 import {
 	CreateCategorySchema,

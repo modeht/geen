@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ILike } from 'typeorm';
 import { AuthContext } from '../../auth/auth.context';
@@ -7,10 +7,15 @@ import { Paginated } from '../../globals/dto/paginated.dto';
 import { FindUserDto } from '../dto/find-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UsersService } from '../services/users.service';
+import { MoBody } from '../../categories/categories.controller';
+import {
+	CreateUserSchema,
+	TCreateUserSchemaInput,
+} from '../generated-schemas/create-user.schema';
 
 @ApiTags('Users')
 @Controller('users')
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 export class UsersController {
 	constructor(
 		private readonly usersService: UsersService,
@@ -44,5 +49,11 @@ export class UsersController {
 			take: paginated.limit,
 			skip: paginated.limit * paginated.page,
 		});
+	}
+
+	@Post('test')
+	test(@MoBody(CreateUserSchema) body: TCreateUserSchemaInput) {
+		// return body;
+		return this.usersService.testCreate(body);
 	}
 }

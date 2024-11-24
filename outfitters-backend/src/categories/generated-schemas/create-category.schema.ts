@@ -1,6 +1,6 @@
+import { modelSymbol } from '../../globals/constants/schema-symbols';
 import * as v from 'valibot';
 import { PromotionStatusEnum } from '../../promotions/entities/enums';
-import { modelSymbol } from '../../globals/constants/schema-symbols';
 
 export const CreateCategorySchema = v.pipe(
 	v.object({
@@ -8,9 +8,7 @@ export const CreateCategorySchema = v.pipe(
 		isArchived: v.boolean(),
 		media: v.nullish(
 			v.union([
-				v.object({
-					id: v.number(),
-				}),
+				v.object({ id: v.number() }),
 				v.object({
 					mimetype: v.nullish(v.string()),
 					url: v.nullish(v.string()),
@@ -22,7 +20,7 @@ export const CreateCategorySchema = v.pipe(
 		),
 		subCategories: v.nullish(
 			v.union([
-				v.array(v.number()),
+				v.array(v.object({ id: v.number() })),
 				v.array(
 					v.object({
 						name: v.string(),
@@ -34,7 +32,7 @@ export const CreateCategorySchema = v.pipe(
 		),
 		superCategory: v.nullish(
 			v.union([
-				v.number(),
+				v.object({ id: v.number() }),
 				v.object({
 					name: v.string(),
 					isArchived: v.boolean(),
@@ -45,7 +43,7 @@ export const CreateCategorySchema = v.pipe(
 		superCategoryId: v.nullish(v.number()),
 		products: v.nullish(
 			v.union([
-				v.array(v.number()),
+				v.array(v.object({ id: v.number() })),
 				v.array(
 					v.object({
 						isArchived: v.boolean(),
@@ -75,7 +73,7 @@ export const CreateCategorySchema = v.pipe(
 		),
 		categorybrandProfiles: v.nullish(
 			v.union([
-				v.array(v.number()),
+				v.array(v.object({ id: v.number() })),
 				v.array(
 					v.object({
 						storeName: v.nullish(v.string()),
@@ -98,7 +96,7 @@ export const CreateCategorySchema = v.pipe(
 		),
 		subCategoriesBrandProfiles: v.nullish(
 			v.union([
-				v.array(v.number()),
+				v.array(v.object({ id: v.number() })),
 				v.array(
 					v.object({
 						storeName: v.nullish(v.string()),
@@ -121,7 +119,7 @@ export const CreateCategorySchema = v.pipe(
 		),
 		seasonalPromotions: v.nullish(
 			v.union([
-				v.array(v.number()),
+				v.array(v.object({ id: v.number() })),
 				v.array(
 					v.object({
 						title: v.string(),

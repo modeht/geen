@@ -1,10 +1,11 @@
+import { modelSymbol } from "../../globals/constants/schema-symbols"
 import * as v from 'valibot';
 
 
 import { AccountStatus } from '../../users/entities/user.entity'
 import { LanguageEnum } from '../../../lib/enums'
 export const CreateConversationSchema = v.pipe(v.object({isSupport: v.boolean(),
-from: v.nullish(v.union([v.number(), v.object({status: v.enum(AccountStatus),
+from: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(AccountStatus),
 email: v.nullish(v.string()),
 phone: v.nullish(v.string()),
 password: v.nullish(v.string()),
@@ -16,7 +17,7 @@ defaultLang: v.enum(LanguageEnum),
 isFollowing: v.nullish(v.boolean()),
 isBlockedBy: v.nullish(v.boolean()),
 followersCount: v.nullish(v.number())})])),
-to: v.nullish(v.union([v.number(), v.object({status: v.enum(AccountStatus),
+to: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(AccountStatus),
 email: v.nullish(v.string()),
 phone: v.nullish(v.string()),
 password: v.nullish(v.string()),
@@ -28,7 +29,7 @@ defaultLang: v.enum(LanguageEnum),
 isFollowing: v.nullish(v.boolean()),
 isBlockedBy: v.nullish(v.boolean()),
 followersCount: v.nullish(v.number())})])),
-messages: v.nullish(v.union([v.array(v.number()), v.array(v.object({readAt: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
+messages: v.nullish(v.union([v.array(v.object({id:v.number()})), v.array(v.object({readAt: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
 content: v.nullish(v.string()),
 reaction: v.nullish(v.string()),
 fromId: v.number(),
@@ -43,7 +44,8 @@ archivedByFrom: v.boolean(),
 archivedByTo: v.boolean(),
 fromId: v.number(),
 toId: v.number(),
-isCollaboration: v.boolean()}),v.metadata({from: 'UserEntity',
+isCollaboration: v.boolean()}),v.metadata({[modelSymbol]: 'ConversationEntity',
+from: 'UserEntity',
 to: 'UserEntity',
 messages: 'MessageEntity'}))
 

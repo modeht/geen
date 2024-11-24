@@ -44,11 +44,11 @@ async function main() {
 	// console.log(Object.keys(ASTs).length);
 	for (const ast in ASTs) {
 		const c = new CreateSchemaCreator(ASTs[ast].sourceFile, ASTs[ast].fullPath, ASTs);
-		const f = new ReadSchemaCreator(ASTs[ast].sourceFile, ASTs[ast].fullPath, ASTs);
-		f.baseSetup();
+		// const f = new ReadSchemaCreator(ASTs[ast].sourceFile, ASTs[ast].fullPath, ASTs);
+		// f.baseSetup();
 
-		await f.build();
 		await c.buildFile();
+		// await f.build();
 	}
 
 	timeEnd('Creating dtos');

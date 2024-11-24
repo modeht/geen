@@ -1,3 +1,4 @@
+import { modelSymbol } from "../../globals/constants/schema-symbols"
 import * as v from 'valibot';
 
 
@@ -5,12 +6,12 @@ import * as v from 'valibot';
 export const CreateCollectionSchema = v.pipe(v.object({name: v.nullish(v.string()),
 isFeatured: v.boolean(),
 isPublic: v.boolean(),
-cover: v.nullish(v.union([v.number(), v.object({mimetype: v.nullish(v.string()),
+cover: v.nullish(v.union([v.object({ id: v.number() }), v.object({mimetype: v.nullish(v.string()),
 url: v.nullish(v.string()),
 size: v.nullish(v.number()),
 width: v.nullish(v.number()),
 height: v.nullish(v.number())})])),
-brand: v.nullish(v.union([v.number(), v.object({storeName: v.nullish(v.string()),
+brand: v.nullish(v.union([v.object({ id: v.number() }), v.object({storeName: v.nullish(v.string()),
 brandName: v.nullish(v.string()),
 storeBio: v.nullish(v.string()),
 website: v.nullish(v.string()),
@@ -24,7 +25,7 @@ hasStory: v.nullish(v.boolean()),
 followersCount: v.nullish(v.number()),
 followingCount: v.nullish(v.number()),
 postsCount: v.nullish(v.number())})])),
-products: v.nullish(v.union([v.array(v.number()), v.array(v.object({isArchived: v.boolean(),
+products: v.nullish(v.union([v.array(v.object({id:v.number()})), v.array(v.object({isArchived: v.boolean(),
 title: v.nullish(v.string()),
 description: v.nullish(v.string()),
 basePrice: v.nullish(v.number()),
@@ -40,7 +41,8 @@ categoryId: v.nullish(v.number()),
 subCategoryId: v.nullish(v.number()),
 averageRating: v.number(),
 isSaved: v.boolean()}))])),
-brandId: v.nullish(v.number())}),v.metadata({cover: 'MediaEntity',
+brandId: v.nullish(v.number())}),v.metadata({[modelSymbol]: 'CollectionEntity',
+cover: 'MediaEntity',
 brand: 'BrandProfileEntity',
 products: 'ProductEntity'}))
 

@@ -1,10 +1,11 @@
+import { modelSymbol } from "../../globals/constants/schema-symbols"
 import * as v from 'valibot';
 
 
 
-export const CreateSavedCollectionItemSchema = v.pipe(v.object({savedCollection: v.nullish(v.union([v.number(), v.object({name: v.nullish(v.string()),
+export const CreateSavedCollectionItemSchema = v.pipe(v.object({savedCollection: v.nullish(v.union([v.object({ id: v.number() }), v.object({name: v.nullish(v.string()),
 userId: v.number()})])),
-product: v.nullish(v.union([v.number(), v.object({isArchived: v.boolean(),
+product: v.nullish(v.union([v.object({ id: v.number() }), v.object({isArchived: v.boolean(),
 title: v.nullish(v.string()),
 description: v.nullish(v.string()),
 basePrice: v.nullish(v.number()),
@@ -20,7 +21,7 @@ categoryId: v.nullish(v.number()),
 subCategoryId: v.nullish(v.number()),
 averageRating: v.number(),
 isSaved: v.boolean()})])),
-post: v.nullish(v.union([v.number(), v.object({caption: v.nullish(v.string()),
+post: v.nullish(v.union([v.object({ id: v.number() }), v.object({caption: v.nullish(v.string()),
 postedById: v.number(),
 thumbnailId: v.nullish(v.number()),
 likesCount: v.number(),
@@ -31,7 +32,8 @@ isLiked: v.undefinedable(v.boolean())})])),
 savedCollectionId: v.number(),
 productId: v.number(),
 postId: v.number(),
-userId: v.number()}),v.metadata({savedCollection: 'SavedCollectionEntity',
+userId: v.number()}),v.metadata({[modelSymbol]: 'SavedCollectionItemEntity',
+savedCollection: 'SavedCollectionEntity',
 product: 'ProductEntity',
 post: 'PostEntity'}))
 

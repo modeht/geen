@@ -1,13 +1,14 @@
+import { modelSymbol } from "../../globals/constants/schema-symbols"
 import * as v from 'valibot';
 
 
 import { AccountStatus } from '../../users/entities/user.entity'
 import { LanguageEnum } from '../../../lib/enums'
-export const CreateAffiliationLinkTrackingSchema = v.pipe(v.object({affiliationLink: v.nullish(v.union([v.number(), v.object({isDisabled: v.boolean(),
+export const CreateAffiliationLinkTrackingSchema = v.pipe(v.object({affiliationLink: v.nullish(v.union([v.object({ id: v.number() }), v.object({isDisabled: v.boolean(),
 url: v.string(),
 productId: v.number(),
 shopperId: v.number()})])),
-user: v.nullish(v.union([v.number(), v.object({status: v.enum(AccountStatus),
+user: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(AccountStatus),
 email: v.nullish(v.string()),
 phone: v.nullish(v.string()),
 password: v.nullish(v.string()),
@@ -22,7 +23,8 @@ followersCount: v.nullish(v.number())})])),
 referrer: v.nullish(v.string()),
 country: v.string(),
 ipAddress: v.nullish(v.string()),
-userAgent: v.nullish(v.string())}),v.metadata({affiliationLink: 'AffiliationLinkEntity',
+userAgent: v.nullish(v.string())}),v.metadata({[modelSymbol]: 'AffiliationLinkTrackingEntity',
+affiliationLink: 'AffiliationLinkEntity',
 user: 'UserEntity'}))
 
 export type TCreateAffiliationLinkTrackingSchemaInput = v.InferInput<typeof CreateAffiliationLinkTrackingSchema>;

@@ -1,3 +1,4 @@
+import { modelSymbol } from "../../globals/constants/schema-symbols"
 import * as v from 'valibot';
 
 
@@ -8,7 +9,7 @@ export const CreateSeasonalPromotionSchema = v.pipe(v.object({title: v.string(),
 start: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
 end: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
 status: v.enum(PromotionStatusEnum),
-promotions: v.nullish(v.union([v.array(v.number()), v.array(v.object({title: v.string(),
+promotions: v.nullish(v.union([v.array(v.object({id:v.number()})), v.array(v.object({title: v.string(),
 type: v.enum(PromotionTypeEnum),
 discountPercentage: v.number(),
 minPurchaseAmount: v.nullish(v.number()),
@@ -19,9 +20,10 @@ status: v.enum(PromotionStatusEnum),
 isDeleted: v.boolean(),
 seasonalPromotionId: v.nullish(v.number()),
 brandId: v.number()}))])),
-subCategories: v.nullish(v.union([v.array(v.number()), v.array(v.object({name: v.string(),
+subCategories: v.nullish(v.union([v.array(v.object({id:v.number()})), v.array(v.object({name: v.string(),
 isArchived: v.boolean(),
-superCategoryId: v.nullish(v.number())}))]))}),v.metadata({promotions: 'PromotionEntity',
+superCategoryId: v.nullish(v.number())}))]))}),v.metadata({[modelSymbol]: 'SeasonalPromotionEntity',
+promotions: 'PromotionEntity',
 subCategories: 'CategoryEntity'}))
 
 export type TCreateSeasonalPromotionSchemaInput = v.InferInput<typeof CreateSeasonalPromotionSchema>;

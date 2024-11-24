@@ -153,7 +153,7 @@ export type TCreate${this.entityName}SchemaOutput = v.InferOutput<typeof ${this.
 		}
 
 		const schema: string[] = [];
-		const metadatas: string[] = [`[modelSymbol]: ${this.fullEntityName}`];
+		const metadatas: string[] = [`[modelSymbol]: '${this.fullEntityName}'`];
 
 		for (const field of fields) {
 			if (this.excludedFields.includes(field.name!)) continue;
@@ -260,8 +260,11 @@ export type TCreate${this.entityName}SchemaOutput = v.InferOutput<typeof ${this.
 				this.imports = new Set([...this.imports, ...nestedCreateSchema.imports]);
 
 				let fieldAsString = '';
-				if (relationType === 'OneToMany' || relationType === 'ManyToMany') {
-					fieldAsString = `v.array(v.object({ id: v.number()) }), v.array(${nestedFields.validationObject})`;
+				if (relationType === 'OneToMany') {
+					fieldAsString = `v.array(v.object({id:v.number()})), v.array(${nestedFields.validationObject})`;
+				} else if (relationType === 'ManyToMany') {
+					//TODO: see if you can extract the joined table columns
+					fieldAsString = `v.array(${nestedFields.validationObject})`;
 				} else {
 					fieldAsString = `v.object({ id: v.number() }), ${nestedFields.validationObject}`;
 				}

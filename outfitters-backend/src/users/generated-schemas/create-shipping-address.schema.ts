@@ -1,3 +1,4 @@
+import { modelSymbol } from "../../globals/constants/schema-symbols"
 import * as v from 'valibot';
 
 
@@ -16,7 +17,7 @@ floor: v.string(),
 building: v.string(),
 latitude: v.string(),
 longitude: v.string(),
-orders: v.nullish(v.union([v.array(v.number()), v.array(v.object({paymentMethod: v.enum(OrderPaymentMethod),
+orders: v.nullish(v.union([v.array(v.object({id:v.number()})), v.array(v.object({paymentMethod: v.enum(OrderPaymentMethod),
 paymentStatus: v.nullish(v.enum(OrderPaymentStatusEnum)),
 totalSalePrice: v.nullish(v.number()),
 totalPurchasePrice: v.nullish(v.number()),
@@ -24,7 +25,7 @@ totalShippingFees: v.nullish(v.number()),
 cartId: v.number(),
 shippingAddressId: v.number(),
 shopperId: v.number()}))])),
-shopperProfile: v.nullish(v.union([v.number(), v.object({username: v.nullish(v.string()),
+shopperProfile: v.nullish(v.union([v.object({ id: v.number() }), v.object({username: v.nullish(v.string()),
 fullName: v.nullish(v.string()),
 dateOfBirth: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
 bio: v.string(),
@@ -41,7 +42,8 @@ followingCount: v.nullish(v.number()),
 postsCount: v.nullish(v.number()),
 brandsCount: v.nullish(v.number()),
 engagementCount: v.nullish(v.number())})])),
-shopperId: v.number()}),v.metadata({orders: 'OrderEntity',
+shopperId: v.number()}),v.metadata({[modelSymbol]: 'ShippingAddressEntity',
+orders: 'OrderEntity',
 shopperProfile: 'ShopperProfileEntity'}))
 
 export type TCreateShippingAddressSchemaInput = v.InferInput<typeof CreateShippingAddressSchema>;

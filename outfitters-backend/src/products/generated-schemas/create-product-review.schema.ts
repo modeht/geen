@@ -1,8 +1,9 @@
+import { modelSymbol } from "../../globals/constants/schema-symbols"
 import * as v from 'valibot';
 
 
 import { GenderEnum } from '../../users/entities/shopper-profile.entity'
-export const CreateProductReviewSchema = v.pipe(v.object({shopperProfile: v.nullish(v.union([v.number(), v.object({username: v.nullish(v.string()),
+export const CreateProductReviewSchema = v.pipe(v.object({shopperProfile: v.nullish(v.union([v.object({ id: v.number() }), v.object({username: v.nullish(v.string()),
 fullName: v.nullish(v.string()),
 dateOfBirth: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
 bio: v.string(),
@@ -21,12 +22,12 @@ brandsCount: v.nullish(v.number()),
 engagementCount: v.nullish(v.number())})])),
 stars: v.nullish(v.number()),
 comment: v.nullish(v.string()),
-media: v.nullish(v.union([v.array(v.number()), v.array(v.object({mimetype: v.nullish(v.string()),
+media: v.nullish(v.union([v.array(v.object({id:v.number()})), v.array(v.object({mimetype: v.nullish(v.string()),
 url: v.nullish(v.string()),
 size: v.nullish(v.number()),
 width: v.nullish(v.number()),
 height: v.nullish(v.number())}))])),
-product: v.nullish(v.union([v.number(), v.object({isArchived: v.boolean(),
+product: v.nullish(v.union([v.object({ id: v.number() }), v.object({isArchived: v.boolean(),
 title: v.nullish(v.string()),
 description: v.nullish(v.string()),
 basePrice: v.nullish(v.number()),
@@ -43,7 +44,8 @@ subCategoryId: v.nullish(v.number()),
 averageRating: v.number(),
 isSaved: v.boolean()})])),
 productId: v.number(),
-shopperId: v.number()}),v.metadata({shopperProfile: 'ShopperProfileEntity',
+shopperId: v.number()}),v.metadata({[modelSymbol]: 'ProductReviewEntity',
+shopperProfile: 'ShopperProfileEntity',
 media: 'MediaEntity',
 product: 'ProductEntity'}))
 

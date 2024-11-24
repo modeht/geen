@@ -44,4 +44,20 @@ export class AbstractService {
 			throw new InternalServerErrorException(error.message);
 		}
 	}
+
+	async read(query: any) {
+		try {
+		} catch (error: any) {
+			//handle known pg errros
+			const pgError = PostgresErrorCode[error.code];
+			if (pgError) {
+				throw new UnprocessableEntityException(pgError, {
+					description: 'Database exception',
+					cause: error,
+				});
+			}
+
+			throw new InternalServerErrorException(error.message);
+		}
+	}
 }
