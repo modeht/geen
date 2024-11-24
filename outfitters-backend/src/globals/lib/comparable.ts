@@ -39,8 +39,17 @@ export enum NumberOperators {
 	IsNotNull = 'IsNotNull',
 }
 
+export const AllOperators = {
+	...StringOperators,
+	...BoolOperators,
+	...DateOperators,
+	...NumberOperators,
+} as const;
+
+export type AllOperators = (typeof AllOperators)[keyof typeof AllOperators];
+
 export type GenericComparable<T> = {
-	value: T extends 'string'
+	$val: T extends 'string'
 		? string
 		: T extends 'number'
 			? number
@@ -49,7 +58,7 @@ export type GenericComparable<T> = {
 				: T extends 'date'
 					? Date
 					: never;
-	operator: T extends 'string'
+	$op: T extends 'string'
 		? StringOperators
 		: T extends 'number'
 			? NumberOperators
@@ -64,7 +73,7 @@ export enum NeverOperators {}
 
 export const comparable = <T extends 'string' | 'number' | 'bool' | 'date'>(type: T) => {
 	return v.object({
-		value:
+		$val:
 			type === 'string'
 				? v.nullable(v.string())
 				: type === 'number'
@@ -91,7 +100,7 @@ export const comparable = <T extends 'string' | 'number' | 'bool' | 'date'>(type
 									),
 								)
 							: v.never(),
-		operator: v.enum(
+		$op: v.enum(
 			type === 'string'
 				? StringOperators
 				: type === 'number'
