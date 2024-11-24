@@ -23,3 +23,13 @@ const UserRelationsSchema = v.object({
 type TUserSchema = v.InferInput<typeof UserRelationsSchema>;
 
 const d: TUserSchema = {};
+
+const modelSymbol = Symbol('MODEL');
+const modelSymbol2 = Symbol('MODEL');
+
+const a = {
+	[modelSymbol]: '1',
+	[modelSymbol2]: '2',
+};
+
+console.log(a[modelSymbol]);

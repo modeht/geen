@@ -4,6 +4,7 @@ import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types';
 import { log, warn } from 'console';
+import { globalsDirPath } from './utils';
 
 export type CreateDtoInfo = {
 	absPath: string;
@@ -152,7 +153,7 @@ export type TCreate${this.entityName}SchemaOutput = v.InferOutput<typeof ${this.
 		}
 
 		const schema: string[] = [];
-		const metadatas: string[] = [];
+		const metadatas: string[] = [`[modelSymbol]: ${this.fullEntityName}`];
 
 		for (const field of fields) {
 			if (this.excludedFields.includes(field.name!)) continue;
@@ -260,9 +261,9 @@ export type TCreate${this.entityName}SchemaOutput = v.InferOutput<typeof ${this.
 
 				let fieldAsString = '';
 				if (relationType === 'OneToMany' || relationType === 'ManyToMany') {
-					fieldAsString = `v.array(v.number()), v.array(${nestedFields.validationObject})`;
+					fieldAsString = `v.array(v.object({ id: v.number()) }), v.array(${nestedFields.validationObject})`;
 				} else {
-					fieldAsString = `v.number(), ${nestedFields.validationObject}`;
+					fieldAsString = `v.object({ id: v.number() }), ${nestedFields.validationObject}`;
 				}
 				fieldAsString = `v.union([${fieldAsString}])`;
 				//either connect with id, or add it
@@ -411,6 +412,8 @@ export type TCreate${this.entityName}SchemaOutput = v.InferOutput<typeof ${this.
 	}
 
 	_setDefaultImports() {
+		const utilFileRelPath = relative(this.dtoDirAbsPath, globalsDirPath).split(sep).join('/');
+		this.imports?.add(`import { modelSymbol } from "${utilFileRelPath}/constants/schema-symbols"`);
 		this.imports?.add("import * as v from 'valibot';");
 	}
 

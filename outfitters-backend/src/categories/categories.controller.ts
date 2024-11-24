@@ -1,4 +1,15 @@
-import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import {
+	BadRequestException,
+	Body,
+	Controller,
+	createParamDecorator,
+	ExecutionContext,
+	Get,
+	InternalServerErrorException,
+	Param,
+	Post,
+	Query,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { Relations } from 'src/globals/decorators/relations.decorator';
@@ -7,7 +18,32 @@ import { IsNull } from 'typeorm';
 import { QueryableRelations } from '../globals/lib/type-helpers';
 import { CategoriesService } from './categories.service';
 import { categoryQueryableRelations, FindCategoryDto } from './dto/find-category.dto';
+import { BaseIssue, BaseSchema, safeParse, SchemaWithPipe } from 'valibot';
+import { FastifyRequest } from 'fastify';
+import {
+	CreateCategorySchema,
+	TCreateCategorySchemaInput,
+} from './generated-schemas/create-category.schema';
+import { metadataSymbol } from '../globals/constants/schema-symbols';
 // import { AddCategoryEntityDto } from './generated-dtos/add-category-entity.dto';
+
+export const MoBody = createParamDecorator((schema: any, ctx: ExecutionContext) => {
+	if (!schema) {
+		throw new InternalServerErrorException('Schema not provided');
+	}
+	const body = ctx.switchToHttp().getRequest<FastifyRequest>().body;
+
+	const { success, issues, output } = safeParse(schema, body, {
+		abortEarly: true,
+		abortPipeEarly: true,
+	});
+	if (!success) throw new BadRequestException(issues);
+	let metadata: Record<string, string> | null = null;
+	if (schema.pipe) {
+		metadata = schema.pipe.find((p) => p.kind === 'metadata')?.metadata;
+	}
+	return { ...output, [metadataSymbol]: metadata };
+});
 
 @ApiTags('Categories')
 @Controller('categories')
@@ -45,8 +81,9 @@ export class CategoriesController {
 		});
 	}
 
-	// @Post('test')
-	// test(@Body() body: AddCategoryEntityDto) {
-	// 	return this.categoriesService.testCreate(body);
-	// }
+	@Post('test')
+	test(@MoBody(CreateCategorySchema) body: TCreateCategorySchemaInput) {
+		// return body;
+		return this.categoriesService.testCreate(body);
+	}
 }

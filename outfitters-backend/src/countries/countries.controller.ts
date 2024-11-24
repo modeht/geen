@@ -11,26 +11,28 @@ import { CountriesService } from './countires.service';
 import { parse as queryParser } from 'qs';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
-import { parse, safeParse } from 'valibot';
+import { BaseIssue, BaseSchema, parse, safeParse } from 'valibot';
 import {
 	ReadCountrySchema,
 	TReadCountrySchemaInput,
 } from './generated-schemas/read-country.schema';
 
-export const MoQuery = createParamDecorator((schema: any, ctx: ExecutionContext) => {
-	if (!schema) {
-		throw new InternalServerErrorException('Schema not provided');
-	}
-	const rawQuery = ctx
-		.switchToHttp()
-		.getRequest<FastifyRequest>()
-		.originalUrl.split('?')[1];
+export const MoQuery = createParamDecorator(
+	<T>(schema: BaseSchema<T, T, BaseIssue<T>>, ctx: ExecutionContext) => {
+		if (!schema) {
+			throw new InternalServerErrorException('Schema not provided');
+		}
+		const rawQuery = ctx
+			.switchToHttp()
+			.getRequest<FastifyRequest>()
+			.originalUrl.split('?')[1];
 
-	const payload = queryParser(rawQuery);
-	const { success, issues, output } = safeParse(schema, payload);
-	if (!success) throw new BadRequestException(issues);
-	return output;
-});
+		const payload = queryParser(rawQuery);
+		const { success, issues, output } = safeParse(schema, payload);
+		if (!success) throw new BadRequestException(issues);
+		return output;
+	},
+);
 
 @ApiTags('countries')
 @Controller('countries')
