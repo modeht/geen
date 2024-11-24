@@ -33,6 +33,7 @@ import {
 	MoreThanOrEqual,
 	Not,
 } from 'typeorm';
+import { createWhere } from '../globals/lib/create-where';
 
 export const MoQuery = createParamDecorator((schema: any, ctx: ExecutionContext) => {
 	if (!schema) {
@@ -64,6 +65,14 @@ export class CountriesController {
 			where: { isSupported: true },
 			take: paginated.limit,
 			skip: paginated.page * paginated.limit,
+		});
+	}
+
+	@Get('test')
+	testRead(@MoQuery(ReadCountrySchema) query: TReadCountrySchemaInput) {
+		const where = createWhere(query);
+		return this.countriesService.findAll({
+			where,
 		});
 	}
 }
