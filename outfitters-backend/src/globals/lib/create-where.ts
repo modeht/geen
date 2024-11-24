@@ -14,11 +14,11 @@ export function createWhere(query: any) {
 	const filters = query['filters'];
 	const where: Record<string, any> = {};
 	if (filters) {
-		const iterate = (where: any, filters: any) => {
+		const constructDeep = (where: any, filters: any) => {
 			for (const key in filters) {
 				if (!filters[key]['$val']) {
 					where[key] = {};
-					iterate(where[key], filters[key]);
+					constructDeep(where[key], filters[key]);
 				} else {
 					const value = filters[key]['$val'];
 					const operator = filters[key]['$op'];
@@ -28,7 +28,7 @@ export function createWhere(query: any) {
 				}
 			}
 		};
-		iterate(where, filters);
+		constructDeep(where, filters);
 	}
 	return where;
 }
