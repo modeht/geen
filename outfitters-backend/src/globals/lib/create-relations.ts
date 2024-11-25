@@ -1,16 +1,3 @@
-import {
-	Equal,
-	ILike,
-	IsNull,
-	LessThan,
-	LessThanOrEqual,
-	MoreThan,
-	MoreThanOrEqual,
-	Not,
-} from 'typeorm';
-import { AllOperators } from './comparable';
-import { boolean } from 'valibot';
-
 export type CreateRelationsOptions = {
 	depth?: number;
 };
@@ -23,7 +10,7 @@ export function createRelations(
 ) {
 	if (!query['relations']) return undefined;
 	if (opts.depth < 0) return undefined;
-	console.log(query['relations']);
+
 	if (opts.depth === 0) {
 		return query['relations'];
 	} else if (opts.depth > 0) {

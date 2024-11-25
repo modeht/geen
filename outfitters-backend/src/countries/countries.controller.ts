@@ -57,7 +57,7 @@ export class CountriesController {
 	testRead(@MoQuery(ReadCountrySchema) query: TReadCountrySchemaInput) {
 		const where = createWhere(query);
 		const relations = createRelations(query, { depth: 1 });
-		console.log({ relations });
+		console.log(query['pagination']);
 		return this.countriesService.findAll({
 			where,
 			relations,
