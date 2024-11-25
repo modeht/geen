@@ -8,17 +8,32 @@ import { ReadPromotionRelationsSchema, ReadPromotionRelations } from '../../prom
 
 
 
-export class ReadOrderItemRelations {brandOrder?: ReadBrandOrderRelations | boolean | null | undefined;
-variant?: ReadProductVariantRelations | boolean | null | undefined;
-product?: ReadProductRelations | boolean | null | undefined;
-appliedPromoCode?: ReadPromoCodeRelations | boolean | null | undefined;
-appliedPromotions?: ReadPromotionRelations | boolean | null | undefined}
+export class ReadOrderItemRelations {brandOrder?: ReadBrandOrderRelations | string | boolean | undefined;
+variant?: ReadProductVariantRelations | string | boolean | undefined;
+product?: ReadProductRelations | string | boolean | undefined;
+appliedPromoCode?: ReadPromoCodeRelations | string | boolean | undefined;
+appliedPromotions?: ReadPromotionRelations | string | boolean | undefined}
 
-export const ReadOrderItemRelationsSchema: v.GenericSchema<ReadOrderItemRelations> = v.object({brandOrder: v.nullish(v.union([v.boolean(), v.lazy(() => ReadBrandOrderRelationsSchema)])),
-variant: v.nullish(v.union([v.boolean(), v.lazy(() => ReadProductVariantRelationsSchema)])),
-product: v.nullish(v.union([v.boolean(), v.lazy(() => ReadProductRelationsSchema)])),
-appliedPromoCode: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPromoCodeRelationsSchema)])),
-appliedPromotions: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPromotionRelationsSchema)]))})
+export const ReadOrderItemRelationsSchema: v.GenericSchema<ReadOrderItemRelations> = v.object({brandOrder: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadBrandOrderRelationsSchema)])),
+variant: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadProductVariantRelationsSchema)])),
+product: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)])),
+appliedPromoCode: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadPromoCodeRelationsSchema)])),
+appliedPromotions: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadPromotionRelationsSchema)]))})
 
 
 

@@ -23,7 +23,7 @@ export function createRelations(
 ) {
 	if (!query['relations']) return undefined;
 	if (opts.depth < 0) return undefined;
-
+	console.log(query['relations']);
 	if (opts.depth === 0) {
 		return query['relations'];
 	} else if (opts.depth > 0) {
@@ -47,8 +47,12 @@ export function createRelations(
 						Object.keys(relations[key]).length > 0
 					) {
 						it++;
-						allowed[key] = {};
-						find(relations[key], allowed[key]);
+						if (it < opts.depth) {
+							allowed[key] = {};
+							find(relations[key], allowed[key]);
+						} else {
+							allowed[key] = true;
+						}
 					}
 				}
 			}

@@ -5,11 +5,17 @@ import { ReadPostRelationsSchema, ReadPostRelations } from './read-post-relation
 
 
 
-export class ReadPostLikesRelations {user?: ReadUserRelations | boolean | null | undefined;
-post?: ReadPostRelations | boolean | null | undefined}
+export class ReadPostLikesRelations {user?: ReadUserRelations | string | boolean | undefined;
+post?: ReadPostRelations | string | boolean | undefined}
 
-export const ReadPostLikesRelationsSchema: v.GenericSchema<ReadPostLikesRelations> = v.object({user: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)])),
-post: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPostRelationsSchema)]))})
+export const ReadPostLikesRelationsSchema: v.GenericSchema<ReadPostLikesRelations> = v.object({user: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
+post: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadPostRelationsSchema)]))})
 
 
 

@@ -11,25 +11,52 @@ import { ReadCommentRelationsSchema, ReadCommentRelations } from '../../comments
 
 
 
-export class ReadMessageRelations {media?: ReadMediaRelations | boolean | null | undefined;
-collaboration?: ReadCollaborationRelations | boolean | null | undefined;
-post?: ReadPostRelations | boolean | null | undefined;
-story?: ReadStoryRelations | boolean | null | undefined;
-product?: ReadProductRelations | boolean | null | undefined;
-conversation?: ReadConversationRelations | boolean | null | undefined;
-from?: ReadUserRelations | boolean | null | undefined;
-to?: ReadUserRelations | boolean | null | undefined;
-comment?: ReadCommentRelations | boolean | null | undefined}
+export class ReadMessageRelations {media?: ReadMediaRelations | string | boolean | undefined;
+collaboration?: ReadCollaborationRelations | string | boolean | undefined;
+post?: ReadPostRelations | string | boolean | undefined;
+story?: ReadStoryRelations | string | boolean | undefined;
+product?: ReadProductRelations | string | boolean | undefined;
+conversation?: ReadConversationRelations | string | boolean | undefined;
+from?: ReadUserRelations | string | boolean | undefined;
+to?: ReadUserRelations | string | boolean | undefined;
+comment?: ReadCommentRelations | string | boolean | undefined}
 
-export const ReadMessageRelationsSchema: v.GenericSchema<ReadMessageRelations> = v.object({media: v.nullish(v.union([v.boolean(), v.lazy(() => ReadMediaRelationsSchema)])),
-collaboration: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCollaborationRelationsSchema)])),
-post: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPostRelationsSchema)])),
-story: v.nullish(v.union([v.boolean(), v.lazy(() => ReadStoryRelationsSchema)])),
-product: v.nullish(v.union([v.boolean(), v.lazy(() => ReadProductRelationsSchema)])),
-conversation: v.nullish(v.union([v.boolean(), v.lazy(() => ReadConversationRelationsSchema)])),
-from: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)])),
-to: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)])),
-comment: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCommentRelationsSchema)]))})
+export const ReadMessageRelationsSchema: v.GenericSchema<ReadMessageRelations> = v.object({media: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
+collaboration: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadCollaborationRelationsSchema)])),
+post: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadPostRelationsSchema)])),
+story: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadStoryRelationsSchema)])),
+product: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)])),
+conversation: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadConversationRelationsSchema)])),
+from: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
+to: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
+comment: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadCommentRelationsSchema)]))})
 
 
 

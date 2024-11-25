@@ -6,10 +6,13 @@ import { ReadUserRelationsSchema, ReadUserRelations } from '../../users/generate
 
 
 export class ReadRecentSearchesRelations {mode?: searchMode | null | undefined;
-user?: ReadUserRelations | boolean | null | undefined}
+user?: ReadUserRelations | string | boolean | undefined}
 
 export const ReadRecentSearchesRelationsSchema: v.GenericSchema<ReadRecentSearchesRelations> = v.object({mode: v.nullish(v.enum(searchMode)),
-user: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)]))})
+user: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)]))})
 
 
 

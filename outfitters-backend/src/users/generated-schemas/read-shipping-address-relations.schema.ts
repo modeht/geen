@@ -5,11 +5,17 @@ import { ReadShopperProfileRelationsSchema, ReadShopperProfileRelations } from '
 
 
 
-export class ReadShippingAddressRelations {orders?: ReadOrderRelations | boolean | null | undefined;
-shopperProfile?: ReadShopperProfileRelations | boolean | null | undefined}
+export class ReadShippingAddressRelations {orders?: ReadOrderRelations | string | boolean | undefined;
+shopperProfile?: ReadShopperProfileRelations | string | boolean | undefined}
 
-export const ReadShippingAddressRelationsSchema: v.GenericSchema<ReadShippingAddressRelations> = v.object({orders: v.nullish(v.union([v.boolean(), v.lazy(() => ReadOrderRelationsSchema)])),
-shopperProfile: v.nullish(v.union([v.boolean(), v.lazy(() => ReadShopperProfileRelationsSchema)]))})
+export const ReadShippingAddressRelationsSchema: v.GenericSchema<ReadShippingAddressRelations> = v.object({orders: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadOrderRelationsSchema)])),
+shopperProfile: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadShopperProfileRelationsSchema)]))})
 
 
 

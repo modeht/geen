@@ -13,20 +13,35 @@ import { PromotionStatusEnum } from '../entities/enums'
 export class ReadPromotionRelations {type?: PromotionTypeEnum | null | undefined;
 target?: PromotionTargetEnum | null | undefined;
 status?: PromotionStatusEnum | null | undefined;
-notifications?: ReadNotificationRelations | boolean | null | undefined;
-brand?: ReadBrandProfileRelations | boolean | null | undefined;
-seasonalPromotion?: ReadSeasonalPromotionRelations | boolean | null | undefined;
-products?: ReadProductRelations | boolean | null | undefined;
-orderItems?: ReadOrderItemRelations | boolean | null | undefined}
+notifications?: ReadNotificationRelations | string | boolean | undefined;
+brand?: ReadBrandProfileRelations | string | boolean | undefined;
+seasonalPromotion?: ReadSeasonalPromotionRelations | string | boolean | undefined;
+products?: ReadProductRelations | string | boolean | undefined;
+orderItems?: ReadOrderItemRelations | string | boolean | undefined}
 
 export const ReadPromotionRelationsSchema: v.GenericSchema<ReadPromotionRelations> = v.object({type: v.nullish(v.enum(PromotionTypeEnum)),
 target: v.nullish(v.enum(PromotionTargetEnum)),
 status: v.nullish(v.enum(PromotionStatusEnum)),
-notifications: v.nullish(v.union([v.boolean(), v.lazy(() => ReadNotificationRelationsSchema)])),
-brand: v.nullish(v.union([v.boolean(), v.lazy(() => ReadBrandProfileRelationsSchema)])),
-seasonalPromotion: v.nullish(v.union([v.boolean(), v.lazy(() => ReadSeasonalPromotionRelationsSchema)])),
-products: v.nullish(v.union([v.boolean(), v.lazy(() => ReadProductRelationsSchema)])),
-orderItems: v.nullish(v.union([v.boolean(), v.lazy(() => ReadOrderItemRelationsSchema)]))})
+notifications: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadNotificationRelationsSchema)])),
+brand: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadBrandProfileRelationsSchema)])),
+seasonalPromotion: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadSeasonalPromotionRelationsSchema)])),
+products: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)])),
+orderItems: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadOrderItemRelationsSchema)]))})
 
 
 

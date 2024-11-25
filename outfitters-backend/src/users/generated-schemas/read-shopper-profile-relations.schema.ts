@@ -15,28 +15,58 @@ import { ReadPromoCodeRelationsSchema, ReadPromoCodeRelations } from '../../prom
 
 
 export class ReadShopperProfileRelations {gender?: GenderEnum | null | undefined;
-user?: ReadUserRelations | boolean | null | undefined;
-reviews?: ReadProductReviewRelations | boolean | null | undefined;
-addresses?: ReadShippingAddressRelations | boolean | null | undefined;
-profilePicture?: ReadMediaRelations | boolean | null | undefined;
-carts?: ReadCartRelations | boolean | null | undefined;
-orders?: ReadOrderRelations | boolean | null | undefined;
-preferences?: ReadPreferenceRelations | boolean | null | undefined;
-collaborations?: ReadCollaborationRelations | boolean | null | undefined;
-affiliationLinks?: ReadAffiliationLinkRelations | boolean | null | undefined;
-promoCodes?: ReadPromoCodeRelations | boolean | null | undefined}
+user?: ReadUserRelations | string | boolean | undefined;
+reviews?: ReadProductReviewRelations | string | boolean | undefined;
+addresses?: ReadShippingAddressRelations | string | boolean | undefined;
+profilePicture?: ReadMediaRelations | string | boolean | undefined;
+carts?: ReadCartRelations | string | boolean | undefined;
+orders?: ReadOrderRelations | string | boolean | undefined;
+preferences?: ReadPreferenceRelations | string | boolean | undefined;
+collaborations?: ReadCollaborationRelations | string | boolean | undefined;
+affiliationLinks?: ReadAffiliationLinkRelations | string | boolean | undefined;
+promoCodes?: ReadPromoCodeRelations | string | boolean | undefined}
 
 export const ReadShopperProfileRelationsSchema: v.GenericSchema<ReadShopperProfileRelations> = v.object({gender: v.nullish(v.enum(GenderEnum)),
-user: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)])),
-reviews: v.nullish(v.union([v.boolean(), v.lazy(() => ReadProductReviewRelationsSchema)])),
-addresses: v.nullish(v.union([v.boolean(), v.lazy(() => ReadShippingAddressRelationsSchema)])),
-profilePicture: v.nullish(v.union([v.boolean(), v.lazy(() => ReadMediaRelationsSchema)])),
-carts: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCartRelationsSchema)])),
-orders: v.nullish(v.union([v.boolean(), v.lazy(() => ReadOrderRelationsSchema)])),
-preferences: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPreferenceRelationsSchema)])),
-collaborations: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCollaborationRelationsSchema)])),
-affiliationLinks: v.nullish(v.union([v.boolean(), v.lazy(() => ReadAffiliationLinkRelationsSchema)])),
-promoCodes: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPromoCodeRelationsSchema)]))})
+user: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
+reviews: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadProductReviewRelationsSchema)])),
+addresses: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadShippingAddressRelationsSchema)])),
+profilePicture: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
+carts: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadCartRelationsSchema)])),
+orders: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadOrderRelationsSchema)])),
+preferences: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadPreferenceRelationsSchema)])),
+collaborations: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadCollaborationRelationsSchema)])),
+affiliationLinks: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadAffiliationLinkRelationsSchema)])),
+promoCodes: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadPromoCodeRelationsSchema)]))})
 
 
 

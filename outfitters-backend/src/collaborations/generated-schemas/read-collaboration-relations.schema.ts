@@ -8,17 +8,29 @@ import { ReadNotificationRelationsSchema, ReadNotificationRelations } from '../.
 
 
 
-export class ReadCollaborationRelations {message?: ReadMessageRelations | boolean | null | undefined;
-brandProfile?: ReadBrandProfileRelations | boolean | null | undefined;
-shopperProfile?: ReadShopperProfileRelations | boolean | null | undefined;
+export class ReadCollaborationRelations {message?: ReadMessageRelations | string | boolean | undefined;
+brandProfile?: ReadBrandProfileRelations | string | boolean | undefined;
+shopperProfile?: ReadShopperProfileRelations | string | boolean | undefined;
 status?: CollaborationStatusEnum | null | undefined;
-notifications?: ReadNotificationRelations | boolean | null | undefined}
+notifications?: ReadNotificationRelations | string | boolean | undefined}
 
-export const ReadCollaborationRelationsSchema: v.GenericSchema<ReadCollaborationRelations> = v.object({message: v.nullish(v.union([v.boolean(), v.lazy(() => ReadMessageRelationsSchema)])),
-brandProfile: v.nullish(v.union([v.boolean(), v.lazy(() => ReadBrandProfileRelationsSchema)])),
-shopperProfile: v.nullish(v.union([v.boolean(), v.lazy(() => ReadShopperProfileRelationsSchema)])),
+export const ReadCollaborationRelationsSchema: v.GenericSchema<ReadCollaborationRelations> = v.object({message: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadMessageRelationsSchema)])),
+brandProfile: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadBrandProfileRelationsSchema)])),
+shopperProfile: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadShopperProfileRelationsSchema)])),
 status: v.nullish(v.enum(CollaborationStatusEnum)),
-notifications: v.nullish(v.union([v.boolean(), v.lazy(() => ReadNotificationRelationsSchema)]))})
+notifications: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadNotificationRelationsSchema)]))})
 
 
 

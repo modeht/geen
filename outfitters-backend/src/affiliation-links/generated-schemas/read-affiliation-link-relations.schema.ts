@@ -8,17 +8,32 @@ import { ReadProductRelationsSchema, ReadProductRelations } from '../../products
 
 
 
-export class ReadAffiliationLinkRelations {taggedProducts?: ReadTaggedProductRelations | boolean | null | undefined;
-cartItems?: ReadCartItemsRelations | boolean | null | undefined;
-affiliationLinkTracking?: ReadAffiliationLinkTrackingRelations | boolean | null | undefined;
-shopperProfile?: ReadShopperProfileRelations | boolean | null | undefined;
-product?: ReadProductRelations | boolean | null | undefined}
+export class ReadAffiliationLinkRelations {taggedProducts?: ReadTaggedProductRelations | string | boolean | undefined;
+cartItems?: ReadCartItemsRelations | string | boolean | undefined;
+affiliationLinkTracking?: ReadAffiliationLinkTrackingRelations | string | boolean | undefined;
+shopperProfile?: ReadShopperProfileRelations | string | boolean | undefined;
+product?: ReadProductRelations | string | boolean | undefined}
 
-export const ReadAffiliationLinkRelationsSchema: v.GenericSchema<ReadAffiliationLinkRelations> = v.object({taggedProducts: v.nullish(v.union([v.boolean(), v.lazy(() => ReadTaggedProductRelationsSchema)])),
-cartItems: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCartItemsRelationsSchema)])),
-affiliationLinkTracking: v.nullish(v.union([v.boolean(), v.lazy(() => ReadAffiliationLinkTrackingRelationsSchema)])),
-shopperProfile: v.nullish(v.union([v.boolean(), v.lazy(() => ReadShopperProfileRelationsSchema)])),
-product: v.nullish(v.union([v.boolean(), v.lazy(() => ReadProductRelationsSchema)]))})
+export const ReadAffiliationLinkRelationsSchema: v.GenericSchema<ReadAffiliationLinkRelations> = v.object({taggedProducts: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadTaggedProductRelationsSchema)])),
+cartItems: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadCartItemsRelationsSchema)])),
+affiliationLinkTracking: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadAffiliationLinkTrackingRelationsSchema)])),
+shopperProfile: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadShopperProfileRelationsSchema)])),
+product: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)]))})
 
 
 

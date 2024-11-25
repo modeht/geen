@@ -10,18 +10,33 @@ import { ReadProductRelationsSchema, ReadProductRelations } from '../../products
 
 
 export class ReadNotificationRelations {type?: NotificationType | null | undefined;
-user?: ReadUserRelations | boolean | null | undefined;
-collaboration?: ReadCollaborationRelations | boolean | null | undefined;
-comment?: ReadCommentRelations | boolean | null | undefined;
-promotion?: ReadPromotionRelations | boolean | null | undefined;
-product?: ReadProductRelations | boolean | null | undefined}
+user?: ReadUserRelations | string | boolean | undefined;
+collaboration?: ReadCollaborationRelations | string | boolean | undefined;
+comment?: ReadCommentRelations | string | boolean | undefined;
+promotion?: ReadPromotionRelations | string | boolean | undefined;
+product?: ReadProductRelations | string | boolean | undefined}
 
 export const ReadNotificationRelationsSchema: v.GenericSchema<ReadNotificationRelations> = v.object({type: v.nullish(v.enum(NotificationType)),
-user: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)])),
-collaboration: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCollaborationRelationsSchema)])),
-comment: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCommentRelationsSchema)])),
-promotion: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPromotionRelationsSchema)])),
-product: v.nullish(v.union([v.boolean(), v.lazy(() => ReadProductRelationsSchema)]))})
+user: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
+collaboration: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadCollaborationRelationsSchema)])),
+comment: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadCommentRelationsSchema)])),
+promotion: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadPromotionRelationsSchema)])),
+product: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)]))})
 
 
 

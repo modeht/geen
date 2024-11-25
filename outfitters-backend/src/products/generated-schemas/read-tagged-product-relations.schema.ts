@@ -7,15 +7,27 @@ import { ReadAffiliationLinkRelationsSchema, ReadAffiliationLinkRelations } from
 
 
 
-export class ReadTaggedProductRelations {product?: ReadProductRelations | boolean | null | undefined;
-post?: ReadPostRelations | boolean | null | undefined;
-story?: ReadStoryRelations | boolean | null | undefined;
-affiliationLink?: ReadAffiliationLinkRelations | boolean | null | undefined}
+export class ReadTaggedProductRelations {product?: ReadProductRelations | string | boolean | undefined;
+post?: ReadPostRelations | string | boolean | undefined;
+story?: ReadStoryRelations | string | boolean | undefined;
+affiliationLink?: ReadAffiliationLinkRelations | string | boolean | undefined}
 
-export const ReadTaggedProductRelationsSchema: v.GenericSchema<ReadTaggedProductRelations> = v.object({product: v.nullish(v.union([v.boolean(), v.lazy(() => ReadProductRelationsSchema)])),
-post: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPostRelationsSchema)])),
-story: v.nullish(v.union([v.boolean(), v.lazy(() => ReadStoryRelationsSchema)])),
-affiliationLink: v.nullish(v.union([v.boolean(), v.lazy(() => ReadAffiliationLinkRelationsSchema)]))})
+export const ReadTaggedProductRelationsSchema: v.GenericSchema<ReadTaggedProductRelations> = v.object({product: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)])),
+post: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadPostRelationsSchema)])),
+story: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadStoryRelationsSchema)])),
+affiliationLink: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadAffiliationLinkRelationsSchema)]))})
 
 
 

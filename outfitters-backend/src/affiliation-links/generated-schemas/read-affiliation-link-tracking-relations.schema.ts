@@ -5,11 +5,17 @@ import { ReadUserRelationsSchema, ReadUserRelations } from '../../users/generate
 
 
 
-export class ReadAffiliationLinkTrackingRelations {affiliationLink?: ReadAffiliationLinkRelations | boolean | null | undefined;
-user?: ReadUserRelations | boolean | null | undefined}
+export class ReadAffiliationLinkTrackingRelations {affiliationLink?: ReadAffiliationLinkRelations | string | boolean | undefined;
+user?: ReadUserRelations | string | boolean | undefined}
 
-export const ReadAffiliationLinkTrackingRelationsSchema: v.GenericSchema<ReadAffiliationLinkTrackingRelations> = v.object({affiliationLink: v.nullish(v.union([v.boolean(), v.lazy(() => ReadAffiliationLinkRelationsSchema)])),
-user: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)]))})
+export const ReadAffiliationLinkTrackingRelationsSchema: v.GenericSchema<ReadAffiliationLinkTrackingRelations> = v.object({affiliationLink: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadAffiliationLinkRelationsSchema)])),
+user: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)]))})
 
 
 

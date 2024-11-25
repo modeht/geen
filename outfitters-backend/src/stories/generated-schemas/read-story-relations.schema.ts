@@ -8,19 +8,37 @@ import { ReadMessageRelationsSchema, ReadMessageRelations } from '../../messages
 
 
 
-export class ReadStoryRelations {media?: ReadMediaRelations | boolean | null | undefined;
-taggedProducts?: ReadTaggedProductRelations | boolean | null | undefined;
-postedBy?: ReadUserRelations | boolean | null | undefined;
-taggedUsers?: ReadUserRelations | boolean | null | undefined;
-likedByUsers?: ReadStoryLikesRelations | boolean | null | undefined;
-shares?: ReadMessageRelations | boolean | null | undefined}
+export class ReadStoryRelations {media?: ReadMediaRelations | string | boolean | undefined;
+taggedProducts?: ReadTaggedProductRelations | string | boolean | undefined;
+postedBy?: ReadUserRelations | string | boolean | undefined;
+taggedUsers?: ReadUserRelations | string | boolean | undefined;
+likedByUsers?: ReadStoryLikesRelations | string | boolean | undefined;
+shares?: ReadMessageRelations | string | boolean | undefined}
 
-export const ReadStoryRelationsSchema: v.GenericSchema<ReadStoryRelations> = v.object({media: v.nullish(v.union([v.boolean(), v.lazy(() => ReadMediaRelationsSchema)])),
-taggedProducts: v.nullish(v.union([v.boolean(), v.lazy(() => ReadTaggedProductRelationsSchema)])),
-postedBy: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)])),
-taggedUsers: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)])),
-likedByUsers: v.nullish(v.union([v.boolean(), v.lazy(() => ReadStoryLikesRelationsSchema)])),
-shares: v.nullish(v.union([v.boolean(), v.lazy(() => ReadMessageRelationsSchema)]))})
+export const ReadStoryRelationsSchema: v.GenericSchema<ReadStoryRelations> = v.object({media: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
+taggedProducts: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadTaggedProductRelationsSchema)])),
+postedBy: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
+taggedUsers: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
+likedByUsers: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadStoryLikesRelationsSchema)])),
+shares: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadMessageRelationsSchema)]))})
 
 
 

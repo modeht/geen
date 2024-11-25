@@ -1,3 +1,4 @@
+import { GenericComparable, comparable } from '../../globals/lib/comparable';
 import * as v from 'valibot';
 import {
 	ReadMediaRelationsSchema,
@@ -9,13 +10,13 @@ import {
 } from '../../users/generated-schemas/read-brand-profile-relations.schema';
 
 export class ReadCountryRelations {
-	icon?: ReadMediaRelations | string | boolean | null | undefined;
-	brands?: ReadBrandProfileRelations | boolean | null | undefined;
+	icon?: ReadMediaRelations | string | boolean | undefined;
+	brands?: ReadBrandProfileRelations | string | boolean | undefined;
 }
 
 export const ReadCountryRelationsSchema: v.GenericSchema<ReadCountryRelations> = v.object(
 	{
-		icon: v.nullish(
+		icon: v.undefinedable(
 			v.union([
 				v.pipe(
 					v.union([v.string(), v.boolean()]),
@@ -25,8 +26,15 @@ export const ReadCountryRelationsSchema: v.GenericSchema<ReadCountryRelations> =
 				v.lazy(() => ReadMediaRelationsSchema),
 			]),
 		),
-		brands: v.nullish(
-			v.union([v.boolean(), v.lazy(() => ReadBrandProfileRelationsSchema)]),
+		brands: v.undefinedable(
+			v.union([
+				v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),
+				),
+				v.lazy(() => ReadBrandProfileRelationsSchema),
+			]),
 		),
 	},
 );

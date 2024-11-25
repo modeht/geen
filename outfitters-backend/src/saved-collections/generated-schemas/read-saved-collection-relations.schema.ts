@@ -5,11 +5,17 @@ import { ReadUserRelationsSchema, ReadUserRelations } from '../../users/generate
 
 
 
-export class ReadSavedCollectionRelations {items?: ReadSavedCollectionItemRelations | boolean | null | undefined;
-user?: ReadUserRelations | boolean | null | undefined}
+export class ReadSavedCollectionRelations {items?: ReadSavedCollectionItemRelations | string | boolean | undefined;
+user?: ReadUserRelations | string | boolean | undefined}
 
-export const ReadSavedCollectionRelationsSchema: v.GenericSchema<ReadSavedCollectionRelations> = v.object({items: v.nullish(v.union([v.boolean(), v.lazy(() => ReadSavedCollectionItemRelationsSchema)])),
-user: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)]))})
+export const ReadSavedCollectionRelationsSchema: v.GenericSchema<ReadSavedCollectionRelations> = v.object({items: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadSavedCollectionItemRelationsSchema)])),
+user: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)]))})
 
 
 

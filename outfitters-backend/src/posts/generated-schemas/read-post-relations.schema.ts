@@ -10,25 +10,52 @@ import { ReadSavedCollectionItemRelationsSchema, ReadSavedCollectionItemRelation
 
 
 
-export class ReadPostRelations {media?: ReadMediaRelations | boolean | null | undefined;
-thumbnail?: ReadMediaRelations | boolean | null | undefined;
-taggedProducts?: ReadTaggedProductRelations | boolean | null | undefined;
-postedBy?: ReadUserRelations | boolean | null | undefined;
-taggedUsers?: ReadUserRelations | boolean | null | undefined;
-likedByUsers?: ReadPostLikesRelations | boolean | null | undefined;
-comments?: ReadCommentRelations | boolean | null | undefined;
-shares?: ReadMessageRelations | boolean | null | undefined;
-savedInCollections?: ReadSavedCollectionItemRelations | boolean | null | undefined}
+export class ReadPostRelations {media?: ReadMediaRelations | string | boolean | undefined;
+thumbnail?: ReadMediaRelations | string | boolean | undefined;
+taggedProducts?: ReadTaggedProductRelations | string | boolean | undefined;
+postedBy?: ReadUserRelations | string | boolean | undefined;
+taggedUsers?: ReadUserRelations | string | boolean | undefined;
+likedByUsers?: ReadPostLikesRelations | string | boolean | undefined;
+comments?: ReadCommentRelations | string | boolean | undefined;
+shares?: ReadMessageRelations | string | boolean | undefined;
+savedInCollections?: ReadSavedCollectionItemRelations | string | boolean | undefined}
 
-export const ReadPostRelationsSchema: v.GenericSchema<ReadPostRelations> = v.object({media: v.nullish(v.union([v.boolean(), v.lazy(() => ReadMediaRelationsSchema)])),
-thumbnail: v.nullish(v.union([v.boolean(), v.lazy(() => ReadMediaRelationsSchema)])),
-taggedProducts: v.nullish(v.union([v.boolean(), v.lazy(() => ReadTaggedProductRelationsSchema)])),
-postedBy: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)])),
-taggedUsers: v.nullish(v.union([v.boolean(), v.lazy(() => ReadUserRelationsSchema)])),
-likedByUsers: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPostLikesRelationsSchema)])),
-comments: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCommentRelationsSchema)])),
-shares: v.nullish(v.union([v.boolean(), v.lazy(() => ReadMessageRelationsSchema)])),
-savedInCollections: v.nullish(v.union([v.boolean(), v.lazy(() => ReadSavedCollectionItemRelationsSchema)]))})
+export const ReadPostRelationsSchema: v.GenericSchema<ReadPostRelations> = v.object({media: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
+thumbnail: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
+taggedProducts: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadTaggedProductRelationsSchema)])),
+postedBy: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
+taggedUsers: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
+likedByUsers: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadPostLikesRelationsSchema)])),
+comments: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadCommentRelationsSchema)])),
+shares: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadMessageRelationsSchema)])),
+savedInCollections: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadSavedCollectionItemRelationsSchema)]))})
 
 
 

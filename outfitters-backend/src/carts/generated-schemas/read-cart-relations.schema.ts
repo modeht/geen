@@ -9,16 +9,28 @@ import { ReadPromoCodeRelationsSchema, ReadPromoCodeRelations } from '../../prom
 
 
 export class ReadCartRelations {status?: CartStatus | null | undefined;
-order?: ReadOrderRelations | boolean | null | undefined;
-items?: ReadCartItemsRelations | boolean | null | undefined;
-shopperProfile?: ReadShopperProfileRelations | boolean | null | undefined;
-promoCode?: ReadPromoCodeRelations | boolean | null | undefined}
+order?: ReadOrderRelations | string | boolean | undefined;
+items?: ReadCartItemsRelations | string | boolean | undefined;
+shopperProfile?: ReadShopperProfileRelations | string | boolean | undefined;
+promoCode?: ReadPromoCodeRelations | string | boolean | undefined}
 
 export const ReadCartRelationsSchema: v.GenericSchema<ReadCartRelations> = v.object({status: v.nullish(v.enum(CartStatus)),
-order: v.nullish(v.union([v.boolean(), v.lazy(() => ReadOrderRelationsSchema)])),
-items: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCartItemsRelationsSchema)])),
-shopperProfile: v.nullish(v.union([v.boolean(), v.lazy(() => ReadShopperProfileRelationsSchema)])),
-promoCode: v.nullish(v.union([v.boolean(), v.lazy(() => ReadPromoCodeRelationsSchema)]))})
+order: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadOrderRelationsSchema)])),
+items: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadCartItemsRelationsSchema)])),
+shopperProfile: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadShopperProfileRelationsSchema)])),
+promoCode: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadPromoCodeRelationsSchema)]))})
 
 
 

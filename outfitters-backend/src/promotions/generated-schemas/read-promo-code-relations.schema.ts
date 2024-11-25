@@ -11,19 +11,34 @@ import { PromotionTypeEnum } from '../entities/enums'
 import { PromotionStatusEnum } from '../entities/enums'
 export class ReadPromoCodeRelations {type?: PromotionTypeEnum | null | undefined;
 status?: PromotionStatusEnum | null | undefined;
-carts?: ReadCartRelations | boolean | null | undefined;
-orderItems?: ReadOrderItemRelations | boolean | null | undefined;
-brand?: ReadBrandProfileRelations | boolean | null | undefined;
-shopperProfile?: ReadShopperProfileRelations | boolean | null | undefined;
-products?: ReadProductRelations | boolean | null | undefined}
+carts?: ReadCartRelations | string | boolean | undefined;
+orderItems?: ReadOrderItemRelations | string | boolean | undefined;
+brand?: ReadBrandProfileRelations | string | boolean | undefined;
+shopperProfile?: ReadShopperProfileRelations | string | boolean | undefined;
+products?: ReadProductRelations | string | boolean | undefined}
 
 export const ReadPromoCodeRelationsSchema: v.GenericSchema<ReadPromoCodeRelations> = v.object({type: v.nullish(v.enum(PromotionTypeEnum)),
 status: v.nullish(v.enum(PromotionStatusEnum)),
-carts: v.nullish(v.union([v.boolean(), v.lazy(() => ReadCartRelationsSchema)])),
-orderItems: v.nullish(v.union([v.boolean(), v.lazy(() => ReadOrderItemRelationsSchema)])),
-brand: v.nullish(v.union([v.boolean(), v.lazy(() => ReadBrandProfileRelationsSchema)])),
-shopperProfile: v.nullish(v.union([v.boolean(), v.lazy(() => ReadShopperProfileRelationsSchema)])),
-products: v.nullish(v.union([v.boolean(), v.lazy(() => ReadProductRelationsSchema)]))})
+carts: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadCartRelationsSchema)])),
+orderItems: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadOrderItemRelationsSchema)])),
+brand: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadBrandProfileRelationsSchema)])),
+shopperProfile: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadShopperProfileRelationsSchema)])),
+products: v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)]))})
 
 
 
