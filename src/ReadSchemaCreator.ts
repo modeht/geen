@@ -8,6 +8,7 @@ import { mkdirSync } from 'fs';
 import { log, warn } from 'console';
 import { ReadSchemaFiltersCreator } from './ReadSchemaFiltersCreator';
 import { ReadSchemaRelationsCreator } from './ReadSchemaRelationsCreator';
+import { ReadSchemaOrdersCreator } from './ReadSchemaOrdersCreator';
 
 export type ReadDtoInfo = {
 	absPath: string;
@@ -104,11 +105,13 @@ export class ReadSchemaCreator {
 
 		const filters = new ReadSchemaFiltersCreator(this.ast, this.entityPath, this.asts);
 		const relations = new ReadSchemaRelationsCreator(this.ast, this.entityPath, this.asts);
+		const orders = new ReadSchemaOrdersCreator(this.ast, this.entityPath, this.asts);
 
 		filters.baseSetup();
 		relations.baseSetup();
+		orders.baseSetup();
 
-		const files = await Promise.all([filters.buildFile(), relations.buildFile()]);
+		const files = await Promise.all([filters.buildFile(), relations.buildFile(), orders.buildFile()]);
 
 		const relativePaths = files
 			.map((f) => {
@@ -131,8 +134,9 @@ export class ReadSchemaCreator {
 ${relativePaths.join(';\n')};\n`;
 
 		const schema = `export const Read${this.entityName}Schema = v.object({
-filters: v.nullish(${files[0]['schemaName']}),
-relations: v.nullish(${files[1]['schemaName']}),
+filters: v.undefinedable(${files[0]['schemaName']}),
+relations: v.undefinedable(${files[1]['schemaName']}),
+orders: v.undefinedable(${files[2]['schemaName']}),
 });\n`;
 		file += schema;
 

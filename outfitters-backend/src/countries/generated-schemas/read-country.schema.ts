@@ -6,6 +6,7 @@ export const ReadCountrySchema = v.object({
 	filters: v.nullish(ReadCountryFiltersSchema),
 	relations: v.nullish(ReadCountryRelationsSchema),
 	pagination: ReadPaginationSchema,
+	orders: v.union([v.literal('asc'), v.literal('desc')]),
 });
 export type TReadCountrySchemaInput = v.InferInput<typeof ReadCountrySchema>;
 export type TReadCountrySchemaOutput = v.InferOutput<typeof ReadCountrySchema>;

@@ -15,6 +15,7 @@ import { safeParse } from 'valibot';
 import {
 	ReadCountrySchema,
 	TReadCountrySchemaInput,
+	TReadCountrySchemaOutput,
 } from './generated-schemas/read-country.schema';
 
 import { createWhere } from '../globals/lib/create-where';
@@ -42,10 +43,7 @@ export class CountriesController {
 	constructor(private readonly countriesService: CountriesService) {}
 
 	@Get()
-	findSupported(
-		@Query() paginated: Paginated,
-		@MoQuery(ReadCountrySchema) a: TReadCountrySchemaInput,
-	) {
+	findSupported(@Query() paginated: Paginated) {
 		return this.countriesService.findAll({
 			where: { isSupported: true },
 			take: paginated.limit,
@@ -54,13 +52,20 @@ export class CountriesController {
 	}
 
 	@Get('test')
-	testRead(@MoQuery(ReadCountrySchema) query: TReadCountrySchemaInput) {
+	testRead(@MoQuery(ReadCountrySchema) query: TReadCountrySchemaOutput) {
 		const where = createWhere(query);
 		const relations = createRelations(query, { depth: 1 });
-		console.log(query['pagination']);
+		const { skip, take } = query['pagination'];
 		return this.countriesService.findAll({
 			where,
 			relations,
+			order: {
+				icon: {
+					id: 'DESC',
+				},
+			},
+			skip,
+			take,
 		});
 	}
 }
