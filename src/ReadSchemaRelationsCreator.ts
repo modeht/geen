@@ -291,8 +291,11 @@ export type TRead${this.entityName}RelationsSchemaInput = v.InferInput<typeof ${
 		let key = '';
 		let property = '';
 
-		key = `v.nullish(v.union([v.boolean(), v.lazy(() => ${nestedRelationsSchemaName})]))`;
-		property = `${nestedRelationsClassName} | boolean | null | undefined`;
+		key = `v.undefinedable(v.union([v.pipe(
+					v.union([v.string(), v.boolean()]),
+					v.transform((input) => (input === 'true' ? true : false)),
+					v.boolean(),), v.lazy(() => ${nestedRelationsSchemaName})]))`;
+		property = `${nestedRelationsClassName} | string | boolean | undefined`;
 
 		key = `${fieldName}: ${key}`;
 		property = `${fieldName}?: ${property}`;

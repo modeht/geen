@@ -11,29 +11,14 @@ import { CountriesService } from './countires.service';
 import { parse as queryParser } from 'qs';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
-import { BaseIssue, BaseSchema, parse, safeParse } from 'valibot';
+import { safeParse } from 'valibot';
 import {
 	ReadCountrySchema,
 	TReadCountrySchemaInput,
 } from './generated-schemas/read-country.schema';
-import {
-	AllOperators,
-	BoolOperators,
-	DateOperators,
-	NumberOperators,
-	StringOperators,
-} from '../globals/lib/comparable';
-import {
-	Equal,
-	ILike,
-	IsNull,
-	LessThan,
-	LessThanOrEqual,
-	MoreThan,
-	MoreThanOrEqual,
-	Not,
-} from 'typeorm';
+
 import { createWhere } from '../globals/lib/create-where';
+import { createRelations } from '../globals/lib/create-relations';
 
 export const MoQuery = createParamDecorator((schema: any, ctx: ExecutionContext) => {
 	if (!schema) {
@@ -71,8 +56,11 @@ export class CountriesController {
 	@Get('test')
 	testRead(@MoQuery(ReadCountrySchema) query: TReadCountrySchemaInput) {
 		const where = createWhere(query);
+		const relations = createRelations(query);
+		console.log({ relations });
 		return this.countriesService.findAll({
 			where,
+			relations,
 		});
 	}
 }
