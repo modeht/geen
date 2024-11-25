@@ -55,15 +55,14 @@ export class CountriesController {
 	testRead(@MoQuery(ReadCountrySchema) query: TReadCountrySchemaOutput) {
 		const where = createWhere(query);
 		const relations = createRelations(query, { depth: 1 });
-		const { skip, take } = query['pagination'];
 		const order = query['orders'];
+		const pagination = query['pagination'];
 
 		return this.countriesService.findAll({
 			where,
 			relations,
 			order: order as any,
-			skip,
-			take,
+			...pagination,
 		});
 	}
 }

@@ -1,49 +1,63 @@
-import { plainToInstance } from 'class-transformer';
 import { DataSource } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import {
+	Injectable,
+	InternalServerErrorException,
+	UnprocessableEntityException,
+} from '@nestjs/common';
+import { metadataSymbol, modelSymbol } from '../constants/schema-symbols';
+import { PostgresErrorCode } from '../constants/pg-error-codes';
 
-//TODO: insert this path dynamically
-import { RelationDecoratorParams } from '../decorators/relation.decorator';
-
-export type ClassRef<T> = { new (...args: any[]): T };
+export type CreateOptions = {
+	//
+};
 
 @Injectable()
 export class AbstractService {
 	constructor(private datasource: DataSource) {}
 
-	async create<T extends { id: number }, K>(
-		Entity: ClassRef<T>,
-		payloadRef: ClassRef<K>,
-		body: K,
-	) {
-		const bodyInstance = plainToInstance(payloadRef, body);
+	async create(body: Record<string | symbol, any>, {}: CreateOptions = {}) {
+		try {
+			const metadata = body[metadataSymbol];
+			const entityName = metadata[modelSymbol];
+			const row = {} as any;
 
-		const row = new Entity() as any;
-
-		for (const key in bodyInstance) {
-			let val = bodyInstance[key] as any;
-			if (!val) continue;
-
-			const relation = Reflect.getMetadata(
-				'relation',
-				bodyInstance,
-				key,
-			) as RelationDecoratorParams;
-
-			if (relation) {
-				if (relation.type === 'hasOne' || relation.type === 'belongsToOne') {
-					val = await this.datasource.manager.save(relation.entity, val);
-				} else if (relation.type === 'hasMany') {
-					val = await this.datasource.manager.save(relation.entity, val);
-				} else if (relation.type === 'belongsToMany') {
-					val = await this.datasource.manager.save(relation.entity, val);
-				} 
+			for (const key in body) {
+				let val = body[key];
+				const relatedEntityName = metadata[key];
+				if (relatedEntityName) {
+					val = await this.datasource.manager.save(relatedEntityName, val);
+				}
+				row[key] = val;
 			}
-			row[key] = val;
+			const created: any = await this.datasource.manager.save(entityName, row);
+			return this.datasource.manager.findOne(entityName, { where: { id: created.id } });
+		} catch (error: any) {
+			//handle known pg errros
+			const pgError = PostgresErrorCode[error.code];
+			if (pgError) {
+				throw new UnprocessableEntityException(pgError, {
+					description: 'Database exception',
+					cause: error,
+				});
+			}
+
+			throw new InternalServerErrorException(error.message);
 		}
+	}
 
-		const created = await this.datasource.manager.save(Entity, row);
+	async read(query: any) {
+		try {
+		} catch (error: any) {
+			//handle known pg errros
+			const pgError = PostgresErrorCode[error.code];
+			if (pgError) {
+				throw new UnprocessableEntityException(pgError, {
+					description: 'Database exception',
+					cause: error,
+				});
+			}
 
-		return this.datasource.manager.findOne(Entity, { where: { id: created.id } });
+			throw new InternalServerErrorException(error.message);
+		}
 	}
 }
