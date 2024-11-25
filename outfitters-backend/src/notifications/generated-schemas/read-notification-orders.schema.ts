@@ -11,18 +11,32 @@ import { ReadProductOrdersSchema, ReadProductOrders } from '../../products/gener
 
 
 export class ReadNotificationOrders {type?: NotificationType | null | undefined;
+customContent?: OrderDirectionEnum | undefined;
+isRead?: OrderDirectionEnum | undefined;
 user?: ReadUserOrders | OrderDirectionEnum | undefined;
 collaboration?: ReadCollaborationOrders | OrderDirectionEnum | undefined;
 comment?: ReadCommentOrders | OrderDirectionEnum | undefined;
 promotion?: ReadPromotionOrders | OrderDirectionEnum | undefined;
-product?: ReadProductOrders | OrderDirectionEnum | undefined}
+product?: ReadProductOrders | OrderDirectionEnum | undefined;
+userId?: OrderDirectionEnum | undefined;
+collaborationId?: OrderDirectionEnum | undefined;
+commentId?: OrderDirectionEnum | undefined;
+promotionId?: OrderDirectionEnum | undefined;
+productId?: OrderDirectionEnum | undefined}
 
 export const ReadNotificationOrdersSchema: v.GenericSchema<ReadNotificationOrders> = v.object({type: v.nullish(v.enum(NotificationType)),
+customContent: v.undefinedable(OrderDirectionSchema),
+isRead: v.undefinedable(OrderDirectionSchema),
 user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
 collaboration: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCollaborationOrdersSchema)])),
 comment: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCommentOrdersSchema)])),
 promotion: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromotionOrdersSchema)])),
-product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)]))})
+product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+userId: v.undefinedable(OrderDirectionSchema),
+collaborationId: v.undefinedable(OrderDirectionSchema),
+commentId: v.undefinedable(OrderDirectionSchema),
+promotionId: v.undefinedable(OrderDirectionSchema),
+productId: v.undefinedable(OrderDirectionSchema)})
 
 
 

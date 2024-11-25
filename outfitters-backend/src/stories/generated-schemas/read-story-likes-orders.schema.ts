@@ -7,10 +7,14 @@ import { ReadStoryOrdersSchema, ReadStoryOrders } from './read-story-orders.sche
 
 
 export class ReadStoryLikesOrders {user?: ReadUserOrders | OrderDirectionEnum | undefined;
-story?: ReadStoryOrders | OrderDirectionEnum | undefined}
+story?: ReadStoryOrders | OrderDirectionEnum | undefined;
+userId?: OrderDirectionEnum | undefined;
+storyId?: OrderDirectionEnum | undefined}
 
 export const ReadStoryLikesOrdersSchema: v.GenericSchema<ReadStoryLikesOrders> = v.object({user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-story: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryOrdersSchema)]))})
+story: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryOrdersSchema)])),
+userId: v.undefinedable(OrderDirectionSchema),
+storyId: v.undefinedable(OrderDirectionSchema)})
 
 
 

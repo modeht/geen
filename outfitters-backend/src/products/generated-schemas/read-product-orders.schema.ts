@@ -20,7 +20,18 @@ import { ReadSavedCollectionItemOrdersSchema, ReadSavedCollectionItemOrders } fr
 
 
 
-export class ReadProductOrders {media?: ReadMediaOrders | OrderDirectionEnum | undefined;
+export class ReadProductOrders {isArchived?: OrderDirectionEnum | undefined;
+title?: OrderDirectionEnum | undefined;
+description?: OrderDirectionEnum | undefined;
+basePrice?: OrderDirectionEnum | undefined;
+sku?: OrderDirectionEnum | undefined;
+currency?: OrderDirectionEnum | undefined;
+stock?: OrderDirectionEnum | undefined;
+lastStockUpdate?: OrderDirectionEnum | undefined;
+isOutOfStock?: OrderDirectionEnum | undefined;
+isFeatured?: OrderDirectionEnum | undefined;
+deliveryEstimationInDays?: OrderDirectionEnum | undefined;
+media?: ReadMediaOrders | OrderDirectionEnum | undefined;
 variants?: ReadProductVariantOrders | OrderDirectionEnum | undefined;
 options?: ReadProductOptionOrders | OrderDirectionEnum | undefined;
 ratings?: ReadProductReviewOrders | OrderDirectionEnum | undefined;
@@ -36,9 +47,25 @@ collections?: ReadCollectionOrders | OrderDirectionEnum | undefined;
 carts?: ReadCartItemsOrders | OrderDirectionEnum | undefined;
 promotions?: ReadPromotionOrders | OrderDirectionEnum | undefined;
 promoCodes?: ReadPromoCodeOrders | OrderDirectionEnum | undefined;
-savedInCollections?: ReadSavedCollectionItemOrders | OrderDirectionEnum | undefined}
+savedInCollections?: ReadSavedCollectionItemOrders | OrderDirectionEnum | undefined;
+brandId?: OrderDirectionEnum | undefined;
+categoryId?: OrderDirectionEnum | undefined;
+subCategoryId?: OrderDirectionEnum | undefined;
+averageRating?: OrderDirectionEnum | undefined;
+isSaved?: OrderDirectionEnum | undefined}
 
-export const ReadProductOrdersSchema: v.GenericSchema<ReadProductOrders> = v.object({media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
+export const ReadProductOrdersSchema: v.GenericSchema<ReadProductOrders> = v.object({isArchived: v.undefinedable(OrderDirectionSchema),
+title: v.undefinedable(OrderDirectionSchema),
+description: v.undefinedable(OrderDirectionSchema),
+basePrice: v.undefinedable(OrderDirectionSchema),
+sku: v.undefinedable(OrderDirectionSchema),
+currency: v.undefinedable(OrderDirectionSchema),
+stock: v.undefinedable(OrderDirectionSchema),
+lastStockUpdate: v.undefinedable(OrderDirectionSchema),
+isOutOfStock: v.undefinedable(OrderDirectionSchema),
+isFeatured: v.undefinedable(OrderDirectionSchema),
+deliveryEstimationInDays: v.undefinedable(OrderDirectionSchema),
+media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
 variants: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductVariantOrdersSchema)])),
 options: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOptionOrdersSchema)])),
 ratings: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductReviewOrdersSchema)])),
@@ -54,7 +81,12 @@ collections: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCol
 carts: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCartItemsOrdersSchema)])),
 promotions: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromotionOrdersSchema)])),
 promoCodes: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromoCodeOrdersSchema)])),
-savedInCollections: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadSavedCollectionItemOrdersSchema)]))})
+savedInCollections: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadSavedCollectionItemOrdersSchema)])),
+brandId: v.undefinedable(OrderDirectionSchema),
+categoryId: v.undefinedable(OrderDirectionSchema),
+subCategoryId: v.undefinedable(OrderDirectionSchema),
+averageRating: v.undefinedable(OrderDirectionSchema),
+isSaved: v.undefinedable(OrderDirectionSchema)})
 
 
 

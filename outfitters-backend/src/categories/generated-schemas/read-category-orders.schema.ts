@@ -8,17 +8,23 @@ import { ReadSeasonalPromotionOrdersSchema, ReadSeasonalPromotionOrders } from '
 
 
 
-export class ReadCategoryOrders {media?: ReadMediaOrders | OrderDirectionEnum | undefined;
+export class ReadCategoryOrders {name?: OrderDirectionEnum | undefined;
+isArchived?: OrderDirectionEnum | undefined;
+media?: ReadMediaOrders | OrderDirectionEnum | undefined;
 subCategories?: ReadCategoryOrders | OrderDirectionEnum | undefined;
 superCategory?: ReadCategoryOrders | OrderDirectionEnum | undefined;
+superCategoryId?: OrderDirectionEnum | undefined;
 products?: ReadProductOrders | OrderDirectionEnum | undefined;
 categorybrandProfiles?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
 subCategoriesBrandProfiles?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
 seasonalPromotions?: ReadSeasonalPromotionOrders | OrderDirectionEnum | undefined}
 
-export const ReadCategoryOrdersSchema: v.GenericSchema<ReadCategoryOrders> = v.object({media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
+export const ReadCategoryOrdersSchema: v.GenericSchema<ReadCategoryOrders> = v.object({name: v.undefinedable(OrderDirectionSchema),
+isArchived: v.undefinedable(OrderDirectionSchema),
+media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
 subCategories: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCategoryOrdersSchema)])),
 superCategory: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCategoryOrdersSchema)])),
+superCategoryId: v.undefinedable(OrderDirectionSchema),
 products: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
 categorybrandProfiles: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
 subCategoriesBrandProfiles: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),

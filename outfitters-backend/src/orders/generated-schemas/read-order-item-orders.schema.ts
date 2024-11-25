@@ -9,17 +9,35 @@ import { ReadPromotionOrdersSchema, ReadPromotionOrders } from '../../promotions
 
 
 
-export class ReadOrderItemOrders {brandOrder?: ReadBrandOrderOrders | OrderDirectionEnum | undefined;
+export class ReadOrderItemOrders {quantity?: OrderDirectionEnum | undefined;
+unitSalePrice?: OrderDirectionEnum | undefined;
+unitPurchasePrice?: OrderDirectionEnum | undefined;
+totalSalePrice?: OrderDirectionEnum | undefined;
+totalPurchasePrice?: OrderDirectionEnum | undefined;
+brandOrder?: ReadBrandOrderOrders | OrderDirectionEnum | undefined;
 variant?: ReadProductVariantOrders | OrderDirectionEnum | undefined;
 product?: ReadProductOrders | OrderDirectionEnum | undefined;
 appliedPromoCode?: ReadPromoCodeOrders | OrderDirectionEnum | undefined;
-appliedPromotions?: ReadPromotionOrders | OrderDirectionEnum | undefined}
+appliedPromotions?: ReadPromotionOrders | OrderDirectionEnum | undefined;
+brandOrderId?: OrderDirectionEnum | undefined;
+productId?: OrderDirectionEnum | undefined;
+variantId?: OrderDirectionEnum | undefined;
+promoCodeId?: OrderDirectionEnum | undefined}
 
-export const ReadOrderItemOrdersSchema: v.GenericSchema<ReadOrderItemOrders> = v.object({brandOrder: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandOrderOrdersSchema)])),
+export const ReadOrderItemOrdersSchema: v.GenericSchema<ReadOrderItemOrders> = v.object({quantity: v.undefinedable(OrderDirectionSchema),
+unitSalePrice: v.undefinedable(OrderDirectionSchema),
+unitPurchasePrice: v.undefinedable(OrderDirectionSchema),
+totalSalePrice: v.undefinedable(OrderDirectionSchema),
+totalPurchasePrice: v.undefinedable(OrderDirectionSchema),
+brandOrder: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandOrderOrdersSchema)])),
 variant: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductVariantOrdersSchema)])),
 product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
 appliedPromoCode: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromoCodeOrdersSchema)])),
-appliedPromotions: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromotionOrdersSchema)]))})
+appliedPromotions: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromotionOrdersSchema)])),
+brandOrderId: v.undefinedable(OrderDirectionSchema),
+productId: v.undefinedable(OrderDirectionSchema),
+variantId: v.undefinedable(OrderDirectionSchema),
+promoCodeId: v.undefinedable(OrderDirectionSchema)})
 
 
 

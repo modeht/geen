@@ -7,10 +7,18 @@ import { ReadUserOrdersSchema, ReadUserOrders } from '../../users/generated-sche
 
 
 export class ReadAffiliationLinkTrackingOrders {affiliationLink?: ReadAffiliationLinkOrders | OrderDirectionEnum | undefined;
-user?: ReadUserOrders | OrderDirectionEnum | undefined}
+user?: ReadUserOrders | OrderDirectionEnum | undefined;
+referrer?: OrderDirectionEnum | undefined;
+country?: OrderDirectionEnum | undefined;
+ipAddress?: OrderDirectionEnum | undefined;
+userAgent?: OrderDirectionEnum | undefined}
 
 export const ReadAffiliationLinkTrackingOrdersSchema: v.GenericSchema<ReadAffiliationLinkTrackingOrders> = v.object({affiliationLink: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkOrdersSchema)])),
-user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)]))})
+user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+referrer: v.undefinedable(OrderDirectionSchema),
+country: v.undefinedable(OrderDirectionSchema),
+ipAddress: v.undefinedable(OrderDirectionSchema),
+userAgent: v.undefinedable(OrderDirectionSchema)})
 
 
 

@@ -9,17 +9,25 @@ import { ReadProductOrdersSchema, ReadProductOrders } from '../../products/gener
 
 
 
-export class ReadAffiliationLinkOrders {taggedProducts?: ReadTaggedProductOrders | OrderDirectionEnum | undefined;
+export class ReadAffiliationLinkOrders {isDisabled?: OrderDirectionEnum | undefined;
+url?: OrderDirectionEnum | undefined;
+taggedProducts?: ReadTaggedProductOrders | OrderDirectionEnum | undefined;
 cartItems?: ReadCartItemsOrders | OrderDirectionEnum | undefined;
 affiliationLinkTracking?: ReadAffiliationLinkTrackingOrders | OrderDirectionEnum | undefined;
 shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
-product?: ReadProductOrders | OrderDirectionEnum | undefined}
+product?: ReadProductOrders | OrderDirectionEnum | undefined;
+productId?: OrderDirectionEnum | undefined;
+shopperId?: OrderDirectionEnum | undefined}
 
-export const ReadAffiliationLinkOrdersSchema: v.GenericSchema<ReadAffiliationLinkOrders> = v.object({taggedProducts: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadTaggedProductOrdersSchema)])),
+export const ReadAffiliationLinkOrdersSchema: v.GenericSchema<ReadAffiliationLinkOrders> = v.object({isDisabled: v.undefinedable(OrderDirectionSchema),
+url: v.undefinedable(OrderDirectionSchema),
+taggedProducts: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadTaggedProductOrdersSchema)])),
 cartItems: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCartItemsOrdersSchema)])),
 affiliationLinkTracking: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkTrackingOrdersSchema)])),
 shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
-product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)]))})
+product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+productId: v.undefinedable(OrderDirectionSchema),
+shopperId: v.undefinedable(OrderDirectionSchema)})
 
 
 

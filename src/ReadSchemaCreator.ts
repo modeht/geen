@@ -76,6 +76,7 @@ export class ReadSchemaCreator {
 		this._setSavedFilename();
 		this._prepDir();
 		this._prepFile();
+		this._setDefaultImports();
 	}
 
 	_prepDir() {
@@ -130,13 +131,17 @@ export class ReadSchemaCreator {
 				return `import { ${f.importName} } from '${f.relativePath}'`;
 			});
 
+		const importsText = Array.from(this.imports).join('\n');
+
 		let file = `import * as v from 'valibot';
+${importsText}\n
 ${relativePaths.join(';\n')};\n`;
 
 		const schema = `export const Read${this.entityName}Schema = v.object({
 filters: v.undefinedable(${files[0]['schemaName']}),
 relations: v.undefinedable(${files[1]['schemaName']}),
 orders: v.undefinedable(${files[2]['schemaName']}),
+pagination: ReadPaginationSchema,
 });\n`;
 		file += schema;
 
@@ -173,6 +178,11 @@ export type TRead${this.entityName}SchemaOutput = v.InferOutput<typeof Read${thi
 			.toLowerCase();
 
 		return this.fileName;
+	}
+
+	_setDefaultImports() {
+		const utilFileRelPath = relative(this.dtoDirAbsPath, globalsDirPath).split(sep).join('/');
+		this.imports?.add(`import { ReadPaginationSchema } from "${utilFileRelPath}/schemas/pagination.schema"`);
 	}
 
 	_setSavedFilename() {

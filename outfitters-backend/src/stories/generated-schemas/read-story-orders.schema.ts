@@ -9,19 +9,33 @@ import { ReadMessageOrdersSchema, ReadMessageOrders } from '../../messages/gener
 
 
 
-export class ReadStoryOrders {media?: ReadMediaOrders | OrderDirectionEnum | undefined;
+export class ReadStoryOrders {background?: OrderDirectionEnum | undefined;
+text?: OrderDirectionEnum | undefined;
+media?: ReadMediaOrders | OrderDirectionEnum | undefined;
 taggedProducts?: ReadTaggedProductOrders | OrderDirectionEnum | undefined;
 postedBy?: ReadUserOrders | OrderDirectionEnum | undefined;
 taggedUsers?: ReadUserOrders | OrderDirectionEnum | undefined;
 likedByUsers?: ReadStoryLikesOrders | OrderDirectionEnum | undefined;
-shares?: ReadMessageOrders | OrderDirectionEnum | undefined}
+shares?: ReadMessageOrders | OrderDirectionEnum | undefined;
+postedById?: OrderDirectionEnum | undefined;
+taggedProductsCount?: OrderDirectionEnum | undefined;
+taggedUsersCount?: OrderDirectionEnum | undefined;
+isLiked?: OrderDirectionEnum | undefined;
+isViewed?: OrderDirectionEnum | undefined}
 
-export const ReadStoryOrdersSchema: v.GenericSchema<ReadStoryOrders> = v.object({media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
+export const ReadStoryOrdersSchema: v.GenericSchema<ReadStoryOrders> = v.object({background: v.undefinedable(OrderDirectionSchema),
+text: v.undefinedable(OrderDirectionSchema),
+media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
 taggedProducts: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadTaggedProductOrdersSchema)])),
 postedBy: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
 taggedUsers: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
 likedByUsers: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryLikesOrdersSchema)])),
-shares: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)]))})
+shares: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
+postedById: v.undefinedable(OrderDirectionSchema),
+taggedProductsCount: v.undefinedable(OrderDirectionSchema),
+taggedUsersCount: v.undefinedable(OrderDirectionSchema),
+isLiked: v.undefinedable(OrderDirectionSchema),
+isViewed: v.undefinedable(OrderDirectionSchema)})
 
 
 

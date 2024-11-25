@@ -29,7 +29,12 @@ product?: ReadProductOrders | OrderDirectionEnum | undefined;
 productVariant?: ReadProductVariantOrders | OrderDirectionEnum | undefined;
 message?: ReadMessageOrders | OrderDirectionEnum | undefined;
 post?: ReadPostOrders | OrderDirectionEnum | undefined;
-review?: ReadProductReviewOrders | OrderDirectionEnum | undefined}
+review?: ReadProductReviewOrders | OrderDirectionEnum | undefined;
+mimetype?: OrderDirectionEnum | undefined;
+url?: OrderDirectionEnum | undefined;
+size?: OrderDirectionEnum | undefined;
+width?: OrderDirectionEnum | undefined;
+height?: OrderDirectionEnum | undefined}
 
 export const ReadMediaOrdersSchema: v.GenericSchema<ReadMediaOrders> = v.object({preference: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPreferenceOrdersSchema)])),
 collectionCover: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCollectionOrdersSchema)])),
@@ -44,7 +49,12 @@ product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProduct
 productVariant: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductVariantOrdersSchema)])),
 message: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
 post: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
-review: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductReviewOrdersSchema)]))})
+review: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductReviewOrdersSchema)])),
+mimetype: v.undefinedable(OrderDirectionSchema),
+url: v.undefinedable(OrderDirectionSchema),
+size: v.undefinedable(OrderDirectionSchema),
+width: v.undefinedable(OrderDirectionSchema),
+height: v.undefinedable(OrderDirectionSchema)})
 
 
 

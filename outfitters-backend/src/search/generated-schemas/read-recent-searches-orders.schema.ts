@@ -6,11 +6,15 @@ import { ReadUserOrdersSchema, ReadUserOrders } from '../../users/generated-sche
 
 
 
-export class ReadRecentSearchesOrders {mode?: searchMode | null | undefined;
-user?: ReadUserOrders | OrderDirectionEnum | undefined}
+export class ReadRecentSearchesOrders {keyword?: OrderDirectionEnum | undefined;
+mode?: searchMode | null | undefined;
+user?: ReadUserOrders | OrderDirectionEnum | undefined;
+userId?: OrderDirectionEnum | undefined}
 
-export const ReadRecentSearchesOrdersSchema: v.GenericSchema<ReadRecentSearchesOrders> = v.object({mode: v.nullish(v.enum(searchMode)),
-user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)]))})
+export const ReadRecentSearchesOrdersSchema: v.GenericSchema<ReadRecentSearchesOrders> = v.object({keyword: v.undefinedable(OrderDirectionSchema),
+mode: v.nullish(v.enum(searchMode)),
+user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+userId: v.undefinedable(OrderDirectionSchema)})
 
 
 

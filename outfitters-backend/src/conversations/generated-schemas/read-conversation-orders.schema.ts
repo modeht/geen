@@ -6,13 +6,25 @@ import { ReadMessageOrdersSchema, ReadMessageOrders } from '../../messages/gener
 
 
 
-export class ReadConversationOrders {from?: ReadUserOrders | OrderDirectionEnum | undefined;
+export class ReadConversationOrders {isSupport?: OrderDirectionEnum | undefined;
+from?: ReadUserOrders | OrderDirectionEnum | undefined;
 to?: ReadUserOrders | OrderDirectionEnum | undefined;
-messages?: ReadMessageOrders | OrderDirectionEnum | undefined}
+messages?: ReadMessageOrders | OrderDirectionEnum | undefined;
+archivedByFrom?: OrderDirectionEnum | undefined;
+archivedByTo?: OrderDirectionEnum | undefined;
+fromId?: OrderDirectionEnum | undefined;
+toId?: OrderDirectionEnum | undefined;
+isCollaboration?: OrderDirectionEnum | undefined}
 
-export const ReadConversationOrdersSchema: v.GenericSchema<ReadConversationOrders> = v.object({from: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+export const ReadConversationOrdersSchema: v.GenericSchema<ReadConversationOrders> = v.object({isSupport: v.undefinedable(OrderDirectionSchema),
+from: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
 to: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-messages: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)]))})
+messages: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
+archivedByFrom: v.undefinedable(OrderDirectionSchema),
+archivedByTo: v.undefinedable(OrderDirectionSchema),
+fromId: v.undefinedable(OrderDirectionSchema),
+toId: v.undefinedable(OrderDirectionSchema),
+isCollaboration: v.undefinedable(OrderDirectionSchema)})
 
 
 

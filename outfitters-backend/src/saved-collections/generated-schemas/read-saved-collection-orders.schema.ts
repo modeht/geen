@@ -6,11 +6,15 @@ import { ReadUserOrdersSchema, ReadUserOrders } from '../../users/generated-sche
 
 
 
-export class ReadSavedCollectionOrders {items?: ReadSavedCollectionItemOrders | OrderDirectionEnum | undefined;
-user?: ReadUserOrders | OrderDirectionEnum | undefined}
+export class ReadSavedCollectionOrders {name?: OrderDirectionEnum | undefined;
+items?: ReadSavedCollectionItemOrders | OrderDirectionEnum | undefined;
+user?: ReadUserOrders | OrderDirectionEnum | undefined;
+userId?: OrderDirectionEnum | undefined}
 
-export const ReadSavedCollectionOrdersSchema: v.GenericSchema<ReadSavedCollectionOrders> = v.object({items: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadSavedCollectionItemOrdersSchema)])),
-user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)]))})
+export const ReadSavedCollectionOrdersSchema: v.GenericSchema<ReadSavedCollectionOrders> = v.object({name: v.undefinedable(OrderDirectionSchema),
+items: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadSavedCollectionItemOrdersSchema)])),
+user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+userId: v.undefinedable(OrderDirectionSchema)})
 
 
 

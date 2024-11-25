@@ -11,12 +11,20 @@ import { ReadAffiliationLinkOrdersSchema, ReadAffiliationLinkOrders } from '../.
 export class ReadTaggedProductOrders {product?: ReadProductOrders | OrderDirectionEnum | undefined;
 post?: ReadPostOrders | OrderDirectionEnum | undefined;
 story?: ReadStoryOrders | OrderDirectionEnum | undefined;
-affiliationLink?: ReadAffiliationLinkOrders | OrderDirectionEnum | undefined}
+affiliationLink?: ReadAffiliationLinkOrders | OrderDirectionEnum | undefined;
+productId?: OrderDirectionEnum | undefined;
+postId?: OrderDirectionEnum | undefined;
+storyId?: OrderDirectionEnum | undefined;
+affiliationLinkId?: OrderDirectionEnum | undefined}
 
 export const ReadTaggedProductOrdersSchema: v.GenericSchema<ReadTaggedProductOrders> = v.object({product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
 post: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
 story: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryOrdersSchema)])),
-affiliationLink: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkOrdersSchema)]))})
+affiliationLink: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkOrdersSchema)])),
+productId: v.undefinedable(OrderDirectionSchema),
+postId: v.undefinedable(OrderDirectionSchema),
+storyId: v.undefinedable(OrderDirectionSchema),
+affiliationLinkId: v.undefinedable(OrderDirectionSchema)})
 
 
 

@@ -7,10 +7,14 @@ import { ReadPostOrdersSchema, ReadPostOrders } from './read-post-orders.schema'
 
 
 export class ReadPostLikesOrders {user?: ReadUserOrders | OrderDirectionEnum | undefined;
-post?: ReadPostOrders | OrderDirectionEnum | undefined}
+post?: ReadPostOrders | OrderDirectionEnum | undefined;
+userId?: OrderDirectionEnum | undefined;
+postId?: OrderDirectionEnum | undefined}
 
 export const ReadPostLikesOrdersSchema: v.GenericSchema<ReadPostLikesOrders> = v.object({user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-post: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)]))})
+post: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
+userId: v.undefinedable(OrderDirectionSchema),
+postId: v.undefinedable(OrderDirectionSchema)})
 
 
 

@@ -8,12 +8,16 @@ import { ReadShopperProfileOrdersSchema, ReadShopperProfileOrders } from '../../
 
 
 export class ReadPreferenceOrders {media?: ReadMediaOrders | OrderDirectionEnum | undefined;
+name?: OrderDirectionEnum | undefined;
 brandProfile?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
-shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined}
+shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
+mediaId?: OrderDirectionEnum | undefined}
 
 export const ReadPreferenceOrdersSchema: v.GenericSchema<ReadPreferenceOrders> = v.object({media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
+name: v.undefinedable(OrderDirectionSchema),
 brandProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
-shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)]))})
+shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
+mediaId: v.undefinedable(OrderDirectionSchema)})
 
 
 

@@ -6,11 +6,17 @@ import { ReadCategoryOrdersSchema, ReadCategoryOrders } from '../../categories/g
 
 
 import { PromotionStatusEnum } from '../entities/enums'
-export class ReadSeasonalPromotionOrders {status?: PromotionStatusEnum | null | undefined;
+export class ReadSeasonalPromotionOrders {title?: OrderDirectionEnum | undefined;
+start?: OrderDirectionEnum | undefined;
+end?: OrderDirectionEnum | undefined;
+status?: PromotionStatusEnum | null | undefined;
 promotions?: ReadPromotionOrders | OrderDirectionEnum | undefined;
 subCategories?: ReadCategoryOrders | OrderDirectionEnum | undefined}
 
-export const ReadSeasonalPromotionOrdersSchema: v.GenericSchema<ReadSeasonalPromotionOrders> = v.object({status: v.nullish(v.enum(PromotionStatusEnum)),
+export const ReadSeasonalPromotionOrdersSchema: v.GenericSchema<ReadSeasonalPromotionOrders> = v.object({title: v.undefinedable(OrderDirectionSchema),
+start: v.undefinedable(OrderDirectionSchema),
+end: v.undefinedable(OrderDirectionSchema),
+status: v.nullish(v.enum(PromotionStatusEnum)),
 promotions: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromotionOrdersSchema)])),
 subCategories: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCategoryOrdersSchema)]))})
 

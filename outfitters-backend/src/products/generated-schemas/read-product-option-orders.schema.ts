@@ -6,10 +6,14 @@ import { ReadProductOptionValueOrdersSchema, ReadProductOptionValueOrders } from
 
 
 
-export class ReadProductOptionOrders {product?: ReadProductOrders | OrderDirectionEnum | undefined;
+export class ReadProductOptionOrders {name?: OrderDirectionEnum | undefined;
+productId?: OrderDirectionEnum | undefined;
+product?: ReadProductOrders | OrderDirectionEnum | undefined;
 values?: ReadProductOptionValueOrders | OrderDirectionEnum | undefined}
 
-export const ReadProductOptionOrdersSchema: v.GenericSchema<ReadProductOptionOrders> = v.object({product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+export const ReadProductOptionOrdersSchema: v.GenericSchema<ReadProductOptionOrders> = v.object({name: v.undefinedable(OrderDirectionSchema),
+productId: v.undefinedable(OrderDirectionSchema),
+product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
 values: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOptionValueOrdersSchema)]))})
 
 

@@ -14,9 +14,9 @@ export function createWhere(query: any) {
 	const filters = query['filters'];
 	const where: Record<string, any> = {};
 	if (filters) {
-		const constructDeep = (where: any, filters: any) => {
+		const constructDeep = (where: Record<string, any>, filters: Record<string, any>) => {
 			for (const key in filters) {
-				if (!filters[key]['$val']) {
+				if (filters[key]['$val'] === undefined || filters[key]['$val'] === null) {
 					where[key] = {};
 					constructDeep(where[key], filters[key]);
 				} else {

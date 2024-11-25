@@ -8,15 +8,33 @@ import { ReadAffiliationLinkOrdersSchema, ReadAffiliationLinkOrders } from '../.
 
 
 
-export class ReadCartItemsOrders {cart?: ReadCartOrders | OrderDirectionEnum | undefined;
+export class ReadCartItemsOrders {quantity?: OrderDirectionEnum | undefined;
+cart?: ReadCartOrders | OrderDirectionEnum | undefined;
 product?: ReadProductOrders | OrderDirectionEnum | undefined;
 variant?: ReadProductVariantOrders | OrderDirectionEnum | undefined;
-affiliationLink?: ReadAffiliationLinkOrders | OrderDirectionEnum | undefined}
+affiliationLink?: ReadAffiliationLinkOrders | OrderDirectionEnum | undefined;
+cartId?: OrderDirectionEnum | undefined;
+productId?: OrderDirectionEnum | undefined;
+variantId?: OrderDirectionEnum | undefined;
+affiliationLinkId?: OrderDirectionEnum | undefined;
+totalPrice?: OrderDirectionEnum | undefined;
+totalDiscountedPrice?: OrderDirectionEnum | undefined;
+promoCodeApplied?: OrderDirectionEnum | undefined;
+appliedpromotionsIds?: OrderDirectionEnum | undefined}
 
-export const ReadCartItemsOrdersSchema: v.GenericSchema<ReadCartItemsOrders> = v.object({cart: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCartOrdersSchema)])),
+export const ReadCartItemsOrdersSchema: v.GenericSchema<ReadCartItemsOrders> = v.object({quantity: v.undefinedable(OrderDirectionSchema),
+cart: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCartOrdersSchema)])),
 product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
 variant: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductVariantOrdersSchema)])),
-affiliationLink: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkOrdersSchema)]))})
+affiliationLink: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkOrdersSchema)])),
+cartId: v.undefinedable(OrderDirectionSchema),
+productId: v.undefinedable(OrderDirectionSchema),
+variantId: v.undefinedable(OrderDirectionSchema),
+affiliationLinkId: v.undefinedable(OrderDirectionSchema),
+totalPrice: v.undefinedable(OrderDirectionSchema),
+totalDiscountedPrice: v.undefinedable(OrderDirectionSchema),
+promoCodeApplied: v.undefinedable(OrderDirectionSchema),
+appliedpromotionsIds: v.undefinedable(OrderDirectionSchema)})
 
 
 

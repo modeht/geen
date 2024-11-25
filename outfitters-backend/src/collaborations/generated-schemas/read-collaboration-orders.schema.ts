@@ -13,13 +13,17 @@ export class ReadCollaborationOrders {message?: ReadMessageOrders | OrderDirecti
 brandProfile?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
 shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
 status?: CollaborationStatusEnum | null | undefined;
-notifications?: ReadNotificationOrders | OrderDirectionEnum | undefined}
+notifications?: ReadNotificationOrders | OrderDirectionEnum | undefined;
+brandId?: OrderDirectionEnum | undefined;
+shopperId?: OrderDirectionEnum | undefined}
 
 export const ReadCollaborationOrdersSchema: v.GenericSchema<ReadCollaborationOrders> = v.object({message: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
 brandProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
 shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
 status: v.nullish(v.enum(CollaborationStatusEnum)),
-notifications: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadNotificationOrdersSchema)]))})
+notifications: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadNotificationOrdersSchema)])),
+brandId: v.undefinedable(OrderDirectionSchema),
+shopperId: v.undefinedable(OrderDirectionSchema)})
 
 
 

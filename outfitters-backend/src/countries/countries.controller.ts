@@ -56,14 +56,12 @@ export class CountriesController {
 		const where = createWhere(query);
 		const relations = createRelations(query, { depth: 1 });
 		const { skip, take } = query['pagination'];
+		const order = query['orders'];
+
 		return this.countriesService.findAll({
 			where,
 			relations,
-			order: {
-				icon: {
-					id: 'DESC',
-				},
-			},
+			order: order as any,
 			skip,
 			take,
 		});

@@ -13,13 +13,17 @@ export class ReadCartOrders {status?: CartStatus | null | undefined;
 order?: ReadOrderOrders | OrderDirectionEnum | undefined;
 items?: ReadCartItemsOrders | OrderDirectionEnum | undefined;
 shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
-promoCode?: ReadPromoCodeOrders | OrderDirectionEnum | undefined}
+promoCode?: ReadPromoCodeOrders | OrderDirectionEnum | undefined;
+promoCodeId?: OrderDirectionEnum | undefined;
+shopperId?: OrderDirectionEnum | undefined}
 
 export const ReadCartOrdersSchema: v.GenericSchema<ReadCartOrders> = v.object({status: v.nullish(v.enum(CartStatus)),
 order: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderOrdersSchema)])),
 items: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCartItemsOrdersSchema)])),
 shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
-promoCode: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromoCodeOrdersSchema)]))})
+promoCode: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromoCodeOrdersSchema)])),
+promoCodeId: v.undefinedable(OrderDirectionSchema),
+shopperId: v.undefinedable(OrderDirectionSchema)})
 
 
 

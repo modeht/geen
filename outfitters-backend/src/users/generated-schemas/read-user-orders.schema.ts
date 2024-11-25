@@ -19,6 +19,13 @@ import { ReadStoryLikesOrdersSchema, ReadStoryLikesOrders } from '../../stories/
 
 import { LanguageEnum } from '../../../lib/enums'
 export class ReadUserOrders {status?: AccountStatus | null | undefined;
+email?: OrderDirectionEnum | undefined;
+phone?: OrderDirectionEnum | undefined;
+password?: OrderDirectionEnum | undefined;
+firebaseId?: OrderDirectionEnum | undefined;
+emailVerified?: OrderDirectionEnum | undefined;
+isGoogleSignin?: OrderDirectionEnum | undefined;
+isAppleSignin?: OrderDirectionEnum | undefined;
 defaultLang?: LanguageEnum | null | undefined;
 shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
 brandProfile?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
@@ -40,9 +47,19 @@ taggedInStories?: ReadStoryOrders | OrderDirectionEnum | undefined;
 following?: ReadUserOrders | OrderDirectionEnum | undefined;
 follows?: ReadUserOrders | OrderDirectionEnum | undefined;
 blockedBy?: ReadUserOrders | OrderDirectionEnum | undefined;
-blockedUsers?: ReadUserOrders | OrderDirectionEnum | undefined}
+blockedUsers?: ReadUserOrders | OrderDirectionEnum | undefined;
+isFollowing?: OrderDirectionEnum | undefined;
+isBlockedBy?: OrderDirectionEnum | undefined;
+followersCount?: OrderDirectionEnum | undefined}
 
 export const ReadUserOrdersSchema: v.GenericSchema<ReadUserOrders> = v.object({status: v.nullish(v.enum(AccountStatus)),
+email: v.undefinedable(OrderDirectionSchema),
+phone: v.undefinedable(OrderDirectionSchema),
+password: v.undefinedable(OrderDirectionSchema),
+firebaseId: v.undefinedable(OrderDirectionSchema),
+emailVerified: v.undefinedable(OrderDirectionSchema),
+isGoogleSignin: v.undefinedable(OrderDirectionSchema),
+isAppleSignin: v.undefinedable(OrderDirectionSchema),
 defaultLang: v.nullish(v.enum(LanguageEnum)),
 shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
 brandProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
@@ -64,7 +81,10 @@ taggedInStories: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => Rea
 following: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
 follows: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
 blockedBy: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-blockedUsers: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)]))})
+blockedUsers: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+isFollowing: v.undefinedable(OrderDirectionSchema),
+isBlockedBy: v.undefinedable(OrderDirectionSchema),
+followersCount: v.undefinedable(OrderDirectionSchema)})
 
 
 

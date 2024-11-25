@@ -181,6 +181,20 @@ export type TRead${this.entityName}OrdersSchemaInput = v.InferInput<typeof ${thi
 			});
 
 			if (fieldPrimitive !== undefined) {
+				let fieldAsString = '';
+				let propertyAsString = '';
+
+				let t = 'v.undefinedable(OrderDirectionSchema)';
+				let p = 'OrderDirectionEnum | undefined';
+
+				// t = this._handleEmptyStates(t, fieldNullable, fieldUndefindable);
+				// p = this._handleClassEmptyStates(p, fieldNullable, fieldUndefindable);
+
+				fieldAsString = `${field.name}: ${t}`;
+				propertyAsString = `${field.name}?: ${p}`;
+
+				ordersSchema.push(fieldAsString);
+				ordersSchemaClass.push(propertyAsString);
 				continue;
 			}
 
