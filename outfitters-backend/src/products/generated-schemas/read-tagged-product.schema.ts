@@ -1,9 +1,11 @@
 import * as v from 'valibot';
 import { ReadTaggedProductFiltersSchema } from './read-tagged-product-filters.schema';
 import { ReadTaggedProductRelationsSchema } from './read-tagged-product-relations.schema';
+import { ReadTaggedProductOrdersSchema } from './read-tagged-product-orders.schema';
 export const ReadTaggedProductSchema = v.object({
-filters: v.nullish(ReadTaggedProductFiltersSchema),
-relations: v.nullish(ReadTaggedProductRelationsSchema),
+filters: v.undefinedable(ReadTaggedProductFiltersSchema),
+relations: v.undefinedable(ReadTaggedProductRelationsSchema),
+orders: v.undefinedable(ReadTaggedProductOrdersSchema),
 });
 export type TReadTaggedProductSchemaInput = v.InferInput<typeof ReadTaggedProductSchema>;
 export type TReadTaggedProductSchemaOutput = v.InferOutput<typeof ReadTaggedProductSchema>;
