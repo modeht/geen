@@ -25,25 +25,8 @@ import {
 	TCreateCategorySchemaInput,
 } from './generated-schemas/create-category.schema';
 import { metadataSymbol } from '../globals/constants/schema-symbols';
+import { MoBody } from '../globals/decorators/mo-body.decorator';
 // import { AddCategoryEntityDto } from './generated-dtos/add-category-entity.dto';
-
-export const MoBody = createParamDecorator((schema: any, ctx: ExecutionContext) => {
-	if (!schema) {
-		throw new InternalServerErrorException('Schema not provided');
-	}
-	const body = ctx.switchToHttp().getRequest<FastifyRequest>().body;
-
-	const { success, issues, output } = safeParse(schema, body, {
-		abortEarly: true,
-		abortPipeEarly: true,
-	});
-	if (!success) throw new BadRequestException(issues);
-	let metadata: Record<string, string> | null = null;
-	if (schema.pipe) {
-		metadata = schema.pipe.find((p) => p.kind === 'metadata')?.metadata;
-	}
-	return { ...output, [metadataSymbol]: metadata };
-});
 
 @ApiTags('Categories')
 @Controller('categories')

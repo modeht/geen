@@ -20,22 +20,8 @@ import {
 
 import { createWhere } from '../globals/lib/create-where';
 import { createRelations } from '../globals/lib/create-relations';
-
-export const MoQuery = createParamDecorator((schema: any, ctx: ExecutionContext) => {
-	if (!schema) {
-		throw new InternalServerErrorException('Schema not provided');
-	}
-	const rawQuery = ctx
-		.switchToHttp()
-		.getRequest<FastifyRequest>()
-		.originalUrl.split('?')[1];
-
-	const payload = queryParser(rawQuery);
-	const { success, issues, output } = safeParse(schema, payload);
-
-	if (!success) throw new BadRequestException(issues);
-	return output;
-});
+import { MoQuery } from '../globals/decorators/mo-query.decorator';
+import { toJsonSchema } from '@valibot/to-json-schema';
 
 @ApiTags('countries')
 @Controller('countries')
@@ -57,6 +43,12 @@ export class CountriesController {
 		const relations = createRelations(query, { depth: 1 });
 		const order = query['orders'];
 		const pagination = query['pagination'];
+		console.dir(
+			toJsonSchema(ReadCountrySchema, {
+				errorMode: 'ignore',
+			}).properties,
+			{ depth: 5 },
+		);
 
 		return this.countriesService.findAll({
 			where,

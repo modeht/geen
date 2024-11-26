@@ -7,11 +7,12 @@ import { Paginated } from '../../globals/dto/paginated.dto';
 import { FindUserDto } from '../dto/find-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UsersService } from '../services/users.service';
-import { MoBody } from '../../categories/categories.controller';
+
 import {
 	CreateUserSchema,
 	TCreateUserSchemaInput,
 } from '../generated-schemas/create-user.schema';
+import { MoBody } from '../../globals/decorators/mo-body.decorator';
 
 @ApiTags('Users')
 @Controller('users')
