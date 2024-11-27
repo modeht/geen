@@ -8,7 +8,7 @@ export const ReadOrderSchema = v.object({
 filters: v.undefinedable(ReadOrderFiltersSchema),
 relations: v.undefinedable(ReadOrderRelationsSchema),
 orders: v.undefinedable(ReadOrderOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadOrderSchemaInput = v.InferInput<typeof ReadOrderSchema>;
 export type TReadOrderSchemaOutput = v.InferOutput<typeof ReadOrderSchema>;

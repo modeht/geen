@@ -8,7 +8,7 @@ export const ReadConversationSchema = v.object({
 filters: v.undefinedable(ReadConversationFiltersSchema),
 relations: v.undefinedable(ReadConversationRelationsSchema),
 orders: v.undefinedable(ReadConversationOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadConversationSchemaInput = v.InferInput<typeof ReadConversationSchema>;
 export type TReadConversationSchemaOutput = v.InferOutput<typeof ReadConversationSchema>;

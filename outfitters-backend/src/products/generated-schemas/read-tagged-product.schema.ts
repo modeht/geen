@@ -8,7 +8,7 @@ export const ReadTaggedProductSchema = v.object({
 filters: v.undefinedable(ReadTaggedProductFiltersSchema),
 relations: v.undefinedable(ReadTaggedProductRelationsSchema),
 orders: v.undefinedable(ReadTaggedProductOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadTaggedProductSchemaInput = v.InferInput<typeof ReadTaggedProductSchema>;
 export type TReadTaggedProductSchemaOutput = v.InferOutput<typeof ReadTaggedProductSchema>;

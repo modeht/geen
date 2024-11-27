@@ -8,7 +8,7 @@ export const ReadBrandProfileSchema = v.object({
 filters: v.undefinedable(ReadBrandProfileFiltersSchema),
 relations: v.undefinedable(ReadBrandProfileRelationsSchema),
 orders: v.undefinedable(ReadBrandProfileOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadBrandProfileSchemaInput = v.InferInput<typeof ReadBrandProfileSchema>;
 export type TReadBrandProfileSchemaOutput = v.InferOutput<typeof ReadBrandProfileSchema>;

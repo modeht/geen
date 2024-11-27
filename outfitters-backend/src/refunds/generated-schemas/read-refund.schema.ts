@@ -8,7 +8,7 @@ export const ReadRefundSchema = v.object({
 filters: v.undefinedable(ReadRefundFiltersSchema),
 relations: v.undefinedable(ReadRefundRelationsSchema),
 orders: v.undefinedable(ReadRefundOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadRefundSchemaInput = v.InferInput<typeof ReadRefundSchema>;
 export type TReadRefundSchemaOutput = v.InferOutput<typeof ReadRefundSchema>;

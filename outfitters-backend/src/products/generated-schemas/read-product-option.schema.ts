@@ -8,7 +8,7 @@ export const ReadProductOptionSchema = v.object({
 filters: v.undefinedable(ReadProductOptionFiltersSchema),
 relations: v.undefinedable(ReadProductOptionRelationsSchema),
 orders: v.undefinedable(ReadProductOptionOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadProductOptionSchemaInput = v.InferInput<typeof ReadProductOptionSchema>;
 export type TReadProductOptionSchemaOutput = v.InferOutput<typeof ReadProductOptionSchema>;

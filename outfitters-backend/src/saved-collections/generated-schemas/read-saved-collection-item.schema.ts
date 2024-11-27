@@ -8,7 +8,7 @@ export const ReadSavedCollectionItemSchema = v.object({
 filters: v.undefinedable(ReadSavedCollectionItemFiltersSchema),
 relations: v.undefinedable(ReadSavedCollectionItemRelationsSchema),
 orders: v.undefinedable(ReadSavedCollectionItemOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadSavedCollectionItemSchemaInput = v.InferInput<typeof ReadSavedCollectionItemSchema>;
 export type TReadSavedCollectionItemSchemaOutput = v.InferOutput<typeof ReadSavedCollectionItemSchema>;

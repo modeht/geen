@@ -8,7 +8,7 @@ export const ReadNotificationSchema = v.object({
 filters: v.undefinedable(ReadNotificationFiltersSchema),
 relations: v.undefinedable(ReadNotificationRelationsSchema),
 orders: v.undefinedable(ReadNotificationOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadNotificationSchemaInput = v.InferInput<typeof ReadNotificationSchema>;
 export type TReadNotificationSchemaOutput = v.InferOutput<typeof ReadNotificationSchema>;

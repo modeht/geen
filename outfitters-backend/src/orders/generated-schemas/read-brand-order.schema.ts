@@ -8,7 +8,7 @@ export const ReadBrandOrderSchema = v.object({
 filters: v.undefinedable(ReadBrandOrderFiltersSchema),
 relations: v.undefinedable(ReadBrandOrderRelationsSchema),
 orders: v.undefinedable(ReadBrandOrderOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadBrandOrderSchemaInput = v.InferInput<typeof ReadBrandOrderSchema>;
 export type TReadBrandOrderSchemaOutput = v.InferOutput<typeof ReadBrandOrderSchema>;

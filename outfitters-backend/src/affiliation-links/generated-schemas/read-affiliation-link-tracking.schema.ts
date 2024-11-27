@@ -8,7 +8,7 @@ export const ReadAffiliationLinkTrackingSchema = v.object({
 filters: v.undefinedable(ReadAffiliationLinkTrackingFiltersSchema),
 relations: v.undefinedable(ReadAffiliationLinkTrackingRelationsSchema),
 orders: v.undefinedable(ReadAffiliationLinkTrackingOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadAffiliationLinkTrackingSchemaInput = v.InferInput<typeof ReadAffiliationLinkTrackingSchema>;
 export type TReadAffiliationLinkTrackingSchemaOutput = v.InferOutput<typeof ReadAffiliationLinkTrackingSchema>;

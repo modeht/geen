@@ -8,7 +8,7 @@ export const ReadShippingAddressSchema = v.object({
 filters: v.undefinedable(ReadShippingAddressFiltersSchema),
 relations: v.undefinedable(ReadShippingAddressRelationsSchema),
 orders: v.undefinedable(ReadShippingAddressOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadShippingAddressSchemaInput = v.InferInput<typeof ReadShippingAddressSchema>;
 export type TReadShippingAddressSchemaOutput = v.InferOutput<typeof ReadShippingAddressSchema>;

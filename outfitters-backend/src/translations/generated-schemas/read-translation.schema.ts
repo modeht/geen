@@ -8,7 +8,7 @@ export const ReadTranslationSchema = v.object({
 filters: v.undefinedable(ReadTranslationFiltersSchema),
 relations: v.undefinedable(ReadTranslationRelationsSchema),
 orders: v.undefinedable(ReadTranslationOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadTranslationSchemaInput = v.InferInput<typeof ReadTranslationSchema>;
 export type TReadTranslationSchemaOutput = v.InferOutput<typeof ReadTranslationSchema>;

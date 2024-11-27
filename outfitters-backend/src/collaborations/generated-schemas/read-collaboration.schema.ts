@@ -8,7 +8,7 @@ export const ReadCollaborationSchema = v.object({
 filters: v.undefinedable(ReadCollaborationFiltersSchema),
 relations: v.undefinedable(ReadCollaborationRelationsSchema),
 orders: v.undefinedable(ReadCollaborationOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadCollaborationSchemaInput = v.InferInput<typeof ReadCollaborationSchema>;
 export type TReadCollaborationSchemaOutput = v.InferOutput<typeof ReadCollaborationSchema>;

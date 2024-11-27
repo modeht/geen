@@ -8,7 +8,7 @@ export const ReadRecentSearchesSchema = v.object({
 filters: v.undefinedable(ReadRecentSearchesFiltersSchema),
 relations: v.undefinedable(ReadRecentSearchesRelationsSchema),
 orders: v.undefinedable(ReadRecentSearchesOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadRecentSearchesSchemaInput = v.InferInput<typeof ReadRecentSearchesSchema>;
 export type TReadRecentSearchesSchemaOutput = v.InferOutput<typeof ReadRecentSearchesSchema>;

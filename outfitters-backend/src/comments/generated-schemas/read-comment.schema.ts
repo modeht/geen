@@ -8,7 +8,7 @@ export const ReadCommentSchema = v.object({
 filters: v.undefinedable(ReadCommentFiltersSchema),
 relations: v.undefinedable(ReadCommentRelationsSchema),
 orders: v.undefinedable(ReadCommentOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadCommentSchemaInput = v.InferInput<typeof ReadCommentSchema>;
 export type TReadCommentSchemaOutput = v.InferOutput<typeof ReadCommentSchema>;

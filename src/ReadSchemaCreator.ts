@@ -141,7 +141,7 @@ ${relativePaths.join(';\n')};\n`;
 filters: v.undefinedable(${files[0]['schemaName']}),
 relations: v.undefinedable(${files[1]['schemaName']}),
 orders: v.undefinedable(${files[2]['schemaName']}),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });\n`;
 		file += schema;
 

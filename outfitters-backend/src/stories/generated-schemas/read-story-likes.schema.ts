@@ -8,7 +8,7 @@ export const ReadStoryLikesSchema = v.object({
 filters: v.undefinedable(ReadStoryLikesFiltersSchema),
 relations: v.undefinedable(ReadStoryLikesRelationsSchema),
 orders: v.undefinedable(ReadStoryLikesOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadStoryLikesSchemaInput = v.InferInput<typeof ReadStoryLikesSchema>;
 export type TReadStoryLikesSchemaOutput = v.InferOutput<typeof ReadStoryLikesSchema>;

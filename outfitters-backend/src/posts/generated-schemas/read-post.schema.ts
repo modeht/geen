@@ -8,7 +8,7 @@ export const ReadPostSchema = v.object({
 filters: v.undefinedable(ReadPostFiltersSchema),
 relations: v.undefinedable(ReadPostRelationsSchema),
 orders: v.undefinedable(ReadPostOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadPostSchemaInput = v.InferInput<typeof ReadPostSchema>;
 export type TReadPostSchemaOutput = v.InferOutput<typeof ReadPostSchema>;

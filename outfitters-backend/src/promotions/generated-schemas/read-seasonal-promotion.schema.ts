@@ -8,7 +8,7 @@ export const ReadSeasonalPromotionSchema = v.object({
 filters: v.undefinedable(ReadSeasonalPromotionFiltersSchema),
 relations: v.undefinedable(ReadSeasonalPromotionRelationsSchema),
 orders: v.undefinedable(ReadSeasonalPromotionOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadSeasonalPromotionSchemaInput = v.InferInput<typeof ReadSeasonalPromotionSchema>;
 export type TReadSeasonalPromotionSchemaOutput = v.InferOutput<typeof ReadSeasonalPromotionSchema>;

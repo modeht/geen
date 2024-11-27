@@ -8,7 +8,7 @@ export const ReadShopperProfileSchema = v.object({
 filters: v.undefinedable(ReadShopperProfileFiltersSchema),
 relations: v.undefinedable(ReadShopperProfileRelationsSchema),
 orders: v.undefinedable(ReadShopperProfileOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadShopperProfileSchemaInput = v.InferInput<typeof ReadShopperProfileSchema>;
 export type TReadShopperProfileSchemaOutput = v.InferOutput<typeof ReadShopperProfileSchema>;

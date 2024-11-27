@@ -8,7 +8,7 @@ export const ReadPromoCodeSchema = v.object({
 filters: v.undefinedable(ReadPromoCodeFiltersSchema),
 relations: v.undefinedable(ReadPromoCodeRelationsSchema),
 orders: v.undefinedable(ReadPromoCodeOrdersSchema),
-pagination: ReadPaginationSchema,
+pagination: v.undefinedable(ReadPaginationSchema),
 });
 export type TReadPromoCodeSchemaInput = v.InferInput<typeof ReadPromoCodeSchema>;
 export type TReadPromoCodeSchemaOutput = v.InferOutput<typeof ReadPromoCodeSchema>;
