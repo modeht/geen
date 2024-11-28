@@ -137,13 +137,14 @@ export class ReadSchemaCreator {
 ${importsText}\n
 ${relativePaths.join(';\n')};\n`;
 
-		const schema = `export const Read${this.entityName}Schema = v.object({
+		const schema = `const Read${this.entityName}Schema = v.optional(v.object({
 filters: v.undefinedable(${files[0]['schemaName']}),
 relations: v.undefinedable(${files[1]['schemaName']}),
 orders: v.undefinedable(${files[2]['schemaName']}),
 pagination: v.undefinedable(ReadPaginationSchema),
-});\n`;
+}));\n`;
 		file += schema;
+		file += `export default Read${this.entityName}Schema;\n`;
 
 		const typeInference = `export type TRead${this.entityName}SchemaInput = v.InferInput<typeof Read${this.entityName}Schema>;
 export type TRead${this.entityName}SchemaOutput = v.InferOutput<typeof Read${this.entityName}Schema>;
@@ -186,6 +187,6 @@ export type TRead${this.entityName}SchemaOutput = v.InferOutput<typeof Read${thi
 	}
 
 	_setSavedFilename() {
-		this.toBeSaved = `read-${this.fileName}.schema.ts`;
+		this.toBeSaved = `read-${this.fileName}-query.schema.ts`;
 	}
 }

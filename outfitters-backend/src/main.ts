@@ -1,7 +1,7 @@
 import { fastifyMultipart } from '@fastify/multipart';
 import { BadRequestException, ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, RouterModule } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationError } from 'class-validator';
@@ -12,12 +12,31 @@ import { join } from 'path';
 import { AppModule } from './app.module';
 import { GeneralExceptionFilter } from './globals/filters/exception.filter';
 import { ResponseInterceptor } from './globals/interceptors/response.interceptor';
+import 'reflect-metadata';
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(
 		AppModule,
 		new FastifyAdapter(),
 	);
+
+	// (app['container']['modules'] as Map<any, any>).forEach((m) => {
+	// 	const keys = Reflect.getMetadataKeys(m._metatype);
+	// 	for (const key of keys) {
+	// 		console.log(key);
+	// 		if (key === 'controllers') {
+	// 			const controllers = Reflect.getMetadata(key, m._metatype);
+	// 			for (const controller of controllers) {
+	// 				const cKeys = Reflect.getMetadataKeys(controller);
+	// 				// console.log(cKeys);
+	// 				for (const ck of cKeys) {
+	// 					console.log(Reflect.getMetadata(ck, controller));
+	// 				}
+	// 				break;
+	// 			}
+	// 		}
+	// 	}
+	// });
 
 	app.use(
 		helmet({
@@ -96,6 +115,10 @@ async function bootstrap() {
 
 	const document = SwaggerModule.createDocument(app, config);
 	SwaggerModule.setup('docs', app, document);
+	// console.log(document);
+	// console.dir(document.paths['/api/v1/countries/test'], { depth: null });
+	// console.log(app.getHttpAdapter());
+	// app.getHttpServer();
 
 	const configService = app.get(ConfigService);
 	const PORT = configService.get('DOCKER_PORT') || configService.get('PORT');

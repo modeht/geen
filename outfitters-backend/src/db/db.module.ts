@@ -16,7 +16,7 @@ import { join } from 'path';
 					password: configService.getOrThrow('POSTGRES_PASSWORD'),
 					database: configService.getOrThrow('POSTGRES_DB'),
 					entities: [join(process.cwd(), 'dist/**/*.entity.js')],
-					synchronize: process.env.NODE_ENV === 'development' ? true : false,
+					// synchronize: process.env.NODE_ENV === 'development' ? true : false,
 					logger: 'advanced-console',
 					timezone: 'Z',
 					charset: 'utf8mb4',
