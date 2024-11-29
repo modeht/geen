@@ -1,11 +1,11 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/order.schema"
 import * as v from 'valibot';
-import { ReadCartOrdersSchema, ReadCartOrders } from '../../carts/generated-schemas/read-cart-orders.schema'
-import { ReadOrderItemOrdersSchema, ReadOrderItemOrders } from '../../orders/generated-schemas/read-order-item-orders.schema'
-import { ReadBrandProfileOrdersSchema, ReadBrandProfileOrders } from '../../users/generated-schemas/read-brand-profile-orders.schema'
-import { ReadShopperProfileOrdersSchema, ReadShopperProfileOrders } from '../../users/generated-schemas/read-shopper-profile-orders.schema'
-import { ReadProductOrdersSchema, ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
+import ReadCartOrdersSchema, { ReadCartOrders } from '../../carts/generated-schemas/read-cart-orders.schema'
+import ReadOrderItemOrdersSchema, { ReadOrderItemOrders } from '../../orders/generated-schemas/read-order-item-orders.schema'
+import ReadBrandProfileOrdersSchema, { ReadBrandProfileOrders } from '../../users/generated-schemas/read-brand-profile-orders.schema'
+import ReadShopperProfileOrdersSchema, { ReadShopperProfileOrders } from '../../users/generated-schemas/read-shopper-profile-orders.schema'
+import ReadProductOrdersSchema, { ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
 
 
 import { PromotionTypeEnum } from '../entities/enums'
@@ -31,7 +31,7 @@ shopperId?: OrderDirectionEnum | undefined;
 ussageCount?: OrderDirectionEnum | undefined;
 totalMoneyDeducted?: OrderDirectionEnum | undefined}
 
-export const ReadPromoCodeOrdersSchema: v.GenericSchema<ReadPromoCodeOrders> = v.object({deletedAt: v.undefinedable(OrderDirectionSchema),
+const ReadPromoCodeOrdersSchema: v.GenericSchema<ReadPromoCodeOrders> = v.object({deletedAt: v.undefinedable(OrderDirectionSchema),
 code: v.undefinedable(OrderDirectionSchema),
 title: v.undefinedable(OrderDirectionSchema),
 minPurchaseAmount: v.undefinedable(OrderDirectionSchema),
@@ -50,7 +50,10 @@ products: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProduc
 brandId: v.undefinedable(OrderDirectionSchema),
 shopperId: v.undefinedable(OrderDirectionSchema),
 ussageCount: v.undefinedable(OrderDirectionSchema),
-totalMoneyDeducted: v.undefinedable(OrderDirectionSchema)})
+totalMoneyDeducted: v.undefinedable(OrderDirectionSchema)});
+
+export default ReadPromoCodeOrdersSchema;
+
 
 
 

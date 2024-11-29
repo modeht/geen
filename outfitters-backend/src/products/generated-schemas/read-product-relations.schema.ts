@@ -1,21 +1,21 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadMediaRelationsSchema, ReadMediaRelations } from '../../media/generated-schemas/read-media-relations.schema'
-import { ReadProductVariantRelationsSchema, ReadProductVariantRelations } from './read-product-variant-relations.schema'
-import { ReadProductOptionRelationsSchema, ReadProductOptionRelations } from './read-product-option-relations.schema'
-import { ReadProductReviewRelationsSchema, ReadProductReviewRelations } from './read-product-review-relations.schema'
-import { ReadTaggedProductRelationsSchema, ReadTaggedProductRelations } from './read-tagged-product-relations.schema'
-import { ReadAffiliationLinkRelationsSchema, ReadAffiliationLinkRelations } from '../../affiliation-links/generated-schemas/read-affiliation-link-relations.schema'
-import { ReadNotificationRelationsSchema, ReadNotificationRelations } from '../../notifications/generated-schemas/read-notification-relations.schema'
-import { ReadOrderItemRelationsSchema, ReadOrderItemRelations } from '../../orders/generated-schemas/read-order-item-relations.schema'
-import { ReadMessageRelationsSchema, ReadMessageRelations } from '../../messages/generated-schemas/read-message-relations.schema'
-import { ReadBrandProfileRelationsSchema, ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
-import { ReadCategoryRelationsSchema, ReadCategoryRelations } from '../../categories/generated-schemas/read-category-relations.schema'
-import { ReadCollectionRelationsSchema, ReadCollectionRelations } from '../../collections/generated-schemas/read-collection-relations.schema'
-import { ReadCartItemsRelationsSchema, ReadCartItemsRelations } from '../../carts/generated-schemas/read-cart-items-relations.schema'
-import { ReadPromotionRelationsSchema, ReadPromotionRelations } from '../../promotions/generated-schemas/read-promotion-relations.schema'
-import { ReadPromoCodeRelationsSchema, ReadPromoCodeRelations } from '../../promotions/generated-schemas/read-promo-code-relations.schema'
-import { ReadSavedCollectionItemRelationsSchema, ReadSavedCollectionItemRelations } from '../../saved-collections/generated-schemas/read-saved-collection-item-relations.schema'
+import ReadMediaRelationsSchema, { ReadMediaRelations } from '../../media/generated-schemas/read-media-relations.schema'
+import ReadProductVariantRelationsSchema, { ReadProductVariantRelations } from './read-product-variant-relations.schema'
+import ReadProductOptionRelationsSchema, { ReadProductOptionRelations } from './read-product-option-relations.schema'
+import ReadProductReviewRelationsSchema, { ReadProductReviewRelations } from './read-product-review-relations.schema'
+import ReadTaggedProductRelationsSchema, { ReadTaggedProductRelations } from './read-tagged-product-relations.schema'
+import ReadAffiliationLinkRelationsSchema, { ReadAffiliationLinkRelations } from '../../affiliation-links/generated-schemas/read-affiliation-link-relations.schema'
+import ReadNotificationRelationsSchema, { ReadNotificationRelations } from '../../notifications/generated-schemas/read-notification-relations.schema'
+import ReadOrderItemRelationsSchema, { ReadOrderItemRelations } from '../../orders/generated-schemas/read-order-item-relations.schema'
+import ReadMessageRelationsSchema, { ReadMessageRelations } from '../../messages/generated-schemas/read-message-relations.schema'
+import ReadBrandProfileRelationsSchema, { ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
+import ReadCategoryRelationsSchema, { ReadCategoryRelations } from '../../categories/generated-schemas/read-category-relations.schema'
+import ReadCollectionRelationsSchema, { ReadCollectionRelations } from '../../collections/generated-schemas/read-collection-relations.schema'
+import ReadCartItemsRelationsSchema, { ReadCartItemsRelations } from '../../carts/generated-schemas/read-cart-items-relations.schema'
+import ReadPromotionRelationsSchema, { ReadPromotionRelations } from '../../promotions/generated-schemas/read-promotion-relations.schema'
+import ReadPromoCodeRelationsSchema, { ReadPromoCodeRelations } from '../../promotions/generated-schemas/read-promo-code-relations.schema'
+import ReadSavedCollectionItemRelationsSchema, { ReadSavedCollectionItemRelations } from '../../saved-collections/generated-schemas/read-saved-collection-item-relations.schema'
 
 
 
@@ -37,7 +37,7 @@ promotions?: ReadPromotionRelations | string | boolean | undefined;
 promoCodes?: ReadPromoCodeRelations | string | boolean | undefined;
 savedInCollections?: ReadSavedCollectionItemRelations | string | boolean | undefined}
 
-export const ReadProductRelationsSchema: v.GenericSchema<ReadProductRelations> = v.object({media: v.undefinedable(v.union([v.pipe(
+const ReadProductRelationsSchema: v.GenericSchema<ReadProductRelations> = v.object({media: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
@@ -104,7 +104,10 @@ promoCodes: v.undefinedable(v.union([v.pipe(
 savedInCollections: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
-					v.boolean(),), v.lazy(() => ReadSavedCollectionItemRelationsSchema)]))})
+					v.boolean(),), v.lazy(() => ReadSavedCollectionItemRelationsSchema)]))});
+
+export default ReadProductRelationsSchema;
+
 
 
 

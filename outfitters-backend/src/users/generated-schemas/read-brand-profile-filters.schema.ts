@@ -1,16 +1,16 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadUserFiltersSchema, ReadUserFiltersSchemaFilters } from './read-user-filters.schema'
-import { ReadMediaFiltersSchema, ReadMediaFiltersSchemaFilters } from '../../media/generated-schemas/read-media-filters.schema'
-import { ReadCollectionFiltersSchema, ReadCollectionFiltersSchemaFilters } from '../../collections/generated-schemas/read-collection-filters.schema'
-import { ReadProductFiltersSchema, ReadProductFiltersSchemaFilters } from '../../products/generated-schemas/read-product-filters.schema'
-import { ReadPromotionFiltersSchema, ReadPromotionFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promotion-filters.schema'
-import { ReadPromoCodeFiltersSchema, ReadPromoCodeFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promo-code-filters.schema'
-import { ReadBrandOrderFiltersSchema, ReadBrandOrderFiltersSchemaFilters } from '../../orders/generated-schemas/read-brand-order-filters.schema'
-import { ReadPreferenceFiltersSchema, ReadPreferenceFiltersSchemaFilters } from '../../preferences/generated-schemas/read-preference-filters.schema'
-import { ReadCollaborationFiltersSchema, ReadCollaborationFiltersSchemaFilters } from '../../collaborations/generated-schemas/read-collaboration-filters.schema'
-import { ReadCategoryFiltersSchema, ReadCategoryFiltersSchemaFilters } from '../../categories/generated-schemas/read-category-filters.schema'
-import { ReadCountryFiltersSchema, ReadCountryFiltersSchemaFilters } from '../../countries/generated-schemas/read-country-filters.schema'
+import ReadUserFiltersSchema, { ReadUserFiltersSchemaFilters } from './read-user-filters.schema'
+import ReadMediaFiltersSchema, { ReadMediaFiltersSchemaFilters } from '../../media/generated-schemas/read-media-filters.schema'
+import ReadCollectionFiltersSchema, { ReadCollectionFiltersSchemaFilters } from '../../collections/generated-schemas/read-collection-filters.schema'
+import ReadProductFiltersSchema, { ReadProductFiltersSchemaFilters } from '../../products/generated-schemas/read-product-filters.schema'
+import ReadPromotionFiltersSchema, { ReadPromotionFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promotion-filters.schema'
+import ReadPromoCodeFiltersSchema, { ReadPromoCodeFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promo-code-filters.schema'
+import ReadBrandOrderFiltersSchema, { ReadBrandOrderFiltersSchemaFilters } from '../../orders/generated-schemas/read-brand-order-filters.schema'
+import ReadPreferenceFiltersSchema, { ReadPreferenceFiltersSchemaFilters } from '../../preferences/generated-schemas/read-preference-filters.schema'
+import ReadCollaborationFiltersSchema, { ReadCollaborationFiltersSchemaFilters } from '../../collaborations/generated-schemas/read-collaboration-filters.schema'
+import ReadCategoryFiltersSchema, { ReadCategoryFiltersSchemaFilters } from '../../categories/generated-schemas/read-category-filters.schema'
+import ReadCountryFiltersSchema, { ReadCountryFiltersSchemaFilters } from '../../countries/generated-schemas/read-country-filters.schema'
 
 
 
@@ -42,7 +42,7 @@ followersCount?: GenericComparable<"number"> | null | undefined;
 followingCount?: GenericComparable<"number"> | null | undefined;
 postsCount?: GenericComparable<"number"> | null | undefined}
 
-export const ReadBrandProfileFiltersSchema: v.GenericSchema<ReadBrandProfileFiltersSchemaFilters> = v.object({storeName: v.nullish(comparable("string")),
+const ReadBrandProfileFiltersSchema: v.GenericSchema<ReadBrandProfileFiltersSchemaFilters> = v.object({storeName: v.nullish(comparable("string")),
 brandName: v.nullish(comparable("string")),
 storeBio: v.nullish(comparable("string")),
 website: v.nullish(comparable("string")),
@@ -68,7 +68,10 @@ isFollowing: v.nullish(comparable("bool")),
 hasStory: v.nullish(comparable("bool")),
 followersCount: v.nullish(comparable("number")),
 followingCount: v.nullish(comparable("number")),
-postsCount: v.nullish(comparable("number"))})
+postsCount: v.nullish(comparable("number"))});
+
+export default ReadBrandProfileFiltersSchema;
+
 
 
 

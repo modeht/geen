@@ -3,10 +3,10 @@ import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/
 import * as v from 'valibot';
 import { OrderPaymentMethod } from '../entities/order.entity';
 import { OrderPaymentStatusEnum } from '../entities/order.entity';
-import { ReadCartOrdersSchema, ReadCartOrders } from '../../carts/generated-schemas/read-cart-orders.schema'
-import { ReadBrandOrderOrdersSchema, ReadBrandOrderOrders } from './read-brand-order-orders.schema'
-import { ReadShippingAddressOrdersSchema, ReadShippingAddressOrders } from '../../users/generated-schemas/read-shipping-address-orders.schema'
-import { ReadShopperProfileOrdersSchema, ReadShopperProfileOrders } from '../../users/generated-schemas/read-shopper-profile-orders.schema'
+import ReadCartOrdersSchema, { ReadCartOrders } from '../../carts/generated-schemas/read-cart-orders.schema'
+import ReadBrandOrderOrdersSchema, { ReadBrandOrderOrders } from './read-brand-order-orders.schema'
+import ReadShippingAddressOrdersSchema, { ReadShippingAddressOrders } from '../../users/generated-schemas/read-shipping-address-orders.schema'
+import ReadShopperProfileOrdersSchema, { ReadShopperProfileOrders } from '../../users/generated-schemas/read-shopper-profile-orders.schema'
 
 
 
@@ -23,7 +23,7 @@ cartId?: OrderDirectionEnum | undefined;
 shippingAddressId?: OrderDirectionEnum | undefined;
 shopperId?: OrderDirectionEnum | undefined}
 
-export const ReadOrderOrdersSchema: v.GenericSchema<ReadOrderOrders> = v.object({paymentMethod: v.nullish(v.enum(OrderPaymentMethod)),
+const ReadOrderOrdersSchema: v.GenericSchema<ReadOrderOrders> = v.object({paymentMethod: v.nullish(v.enum(OrderPaymentMethod)),
 paymentStatus: v.nullish(v.enum(OrderPaymentStatusEnum)),
 totalSalePrice: v.undefinedable(OrderDirectionSchema),
 totalPurchasePrice: v.undefinedable(OrderDirectionSchema),
@@ -34,7 +34,10 @@ shippingAddress: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => Rea
 shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
 cartId: v.undefinedable(OrderDirectionSchema),
 shippingAddressId: v.undefinedable(OrderDirectionSchema),
-shopperId: v.undefinedable(OrderDirectionSchema)})
+shopperId: v.undefinedable(OrderDirectionSchema)});
+
+export default ReadOrderOrdersSchema;
+
 
 
 

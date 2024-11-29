@@ -1,16 +1,16 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
 import { GenderEnum } from '../entities/shopper-profile.entity';
-import { ReadUserFiltersSchema, ReadUserFiltersSchemaFilters } from './read-user-filters.schema'
-import { ReadProductReviewFiltersSchema, ReadProductReviewFiltersSchemaFilters } from '../../products/generated-schemas/read-product-review-filters.schema'
-import { ReadShippingAddressFiltersSchema, ReadShippingAddressFiltersSchemaFilters } from './read-shipping-address-filters.schema'
-import { ReadMediaFiltersSchema, ReadMediaFiltersSchemaFilters } from '../../media/generated-schemas/read-media-filters.schema'
-import { ReadCartFiltersSchema, ReadCartFiltersSchemaFilters } from '../../carts/generated-schemas/read-cart-filters.schema'
-import { ReadOrderFiltersSchema, ReadOrderFiltersSchemaFilters } from '../../orders/generated-schemas/read-order-filters.schema'
-import { ReadPreferenceFiltersSchema, ReadPreferenceFiltersSchemaFilters } from '../../preferences/generated-schemas/read-preference-filters.schema'
-import { ReadCollaborationFiltersSchema, ReadCollaborationFiltersSchemaFilters } from '../../collaborations/generated-schemas/read-collaboration-filters.schema'
-import { ReadAffiliationLinkFiltersSchema, ReadAffiliationLinkFiltersSchemaFilters } from '../../affiliation-links/generated-schemas/read-affiliation-link-filters.schema'
-import { ReadPromoCodeFiltersSchema, ReadPromoCodeFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promo-code-filters.schema'
+import ReadUserFiltersSchema, { ReadUserFiltersSchemaFilters } from './read-user-filters.schema'
+import ReadProductReviewFiltersSchema, { ReadProductReviewFiltersSchemaFilters } from '../../products/generated-schemas/read-product-review-filters.schema'
+import ReadShippingAddressFiltersSchema, { ReadShippingAddressFiltersSchemaFilters } from './read-shipping-address-filters.schema'
+import ReadMediaFiltersSchema, { ReadMediaFiltersSchemaFilters } from '../../media/generated-schemas/read-media-filters.schema'
+import ReadCartFiltersSchema, { ReadCartFiltersSchemaFilters } from '../../carts/generated-schemas/read-cart-filters.schema'
+import ReadOrderFiltersSchema, { ReadOrderFiltersSchemaFilters } from '../../orders/generated-schemas/read-order-filters.schema'
+import ReadPreferenceFiltersSchema, { ReadPreferenceFiltersSchemaFilters } from '../../preferences/generated-schemas/read-preference-filters.schema'
+import ReadCollaborationFiltersSchema, { ReadCollaborationFiltersSchemaFilters } from '../../collaborations/generated-schemas/read-collaboration-filters.schema'
+import ReadAffiliationLinkFiltersSchema, { ReadAffiliationLinkFiltersSchemaFilters } from '../../affiliation-links/generated-schemas/read-affiliation-link-filters.schema'
+import ReadPromoCodeFiltersSchema, { ReadPromoCodeFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promo-code-filters.schema'
 
 
 
@@ -42,7 +42,7 @@ postsCount?: GenericComparable<"number"> | null | undefined;
 brandsCount?: GenericComparable<"number"> | null | undefined;
 engagementCount?: GenericComparable<"number"> | null | undefined}
 
-export const ReadShopperProfileFiltersSchema: v.GenericSchema<ReadShopperProfileFiltersSchemaFilters> = v.object({username: v.nullish(comparable("string")),
+const ReadShopperProfileFiltersSchema: v.GenericSchema<ReadShopperProfileFiltersSchemaFilters> = v.object({username: v.nullish(comparable("string")),
 fullName: v.nullish(comparable("string")),
 dateOfBirth: v.nullish(comparable("date")),
 bio: v.nullish(comparable("string")),
@@ -68,7 +68,10 @@ followersCount: v.nullish(comparable("number")),
 followingCount: v.nullish(comparable("number")),
 postsCount: v.nullish(comparable("number")),
 brandsCount: v.nullish(comparable("number")),
-engagementCount: v.nullish(comparable("number"))})
+engagementCount: v.nullish(comparable("number"))});
+
+export default ReadShopperProfileFiltersSchema;
+
 
 
 

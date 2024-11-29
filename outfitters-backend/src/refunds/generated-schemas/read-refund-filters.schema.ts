@@ -5,7 +5,10 @@ import * as v from 'valibot';
 
 export class ReadRefundFiltersSchemaFilters {}
 
-export const ReadRefundFiltersSchema: v.GenericSchema<ReadRefundFiltersSchemaFilters> = v.object({})
+const ReadRefundFiltersSchema: v.GenericSchema<ReadRefundFiltersSchemaFilters> = v.object({});
+
+export default ReadRefundFiltersSchema;
+
 
 
 

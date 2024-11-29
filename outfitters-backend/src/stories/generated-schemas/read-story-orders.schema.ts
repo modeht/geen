@@ -1,11 +1,11 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/order.schema"
 import * as v from 'valibot';
-import { ReadMediaOrdersSchema, ReadMediaOrders } from '../../media/generated-schemas/read-media-orders.schema'
-import { ReadTaggedProductOrdersSchema, ReadTaggedProductOrders } from '../../products/generated-schemas/read-tagged-product-orders.schema'
-import { ReadUserOrdersSchema, ReadUserOrders } from '../../users/generated-schemas/read-user-orders.schema'
-import { ReadStoryLikesOrdersSchema, ReadStoryLikesOrders } from './read-story-likes-orders.schema'
-import { ReadMessageOrdersSchema, ReadMessageOrders } from '../../messages/generated-schemas/read-message-orders.schema'
+import ReadMediaOrdersSchema, { ReadMediaOrders } from '../../media/generated-schemas/read-media-orders.schema'
+import ReadTaggedProductOrdersSchema, { ReadTaggedProductOrders } from '../../products/generated-schemas/read-tagged-product-orders.schema'
+import ReadUserOrdersSchema, { ReadUserOrders } from '../../users/generated-schemas/read-user-orders.schema'
+import ReadStoryLikesOrdersSchema, { ReadStoryLikesOrders } from './read-story-likes-orders.schema'
+import ReadMessageOrdersSchema, { ReadMessageOrders } from '../../messages/generated-schemas/read-message-orders.schema'
 
 
 
@@ -23,7 +23,7 @@ taggedUsersCount?: OrderDirectionEnum | undefined;
 isLiked?: OrderDirectionEnum | undefined;
 isViewed?: OrderDirectionEnum | undefined}
 
-export const ReadStoryOrdersSchema: v.GenericSchema<ReadStoryOrders> = v.object({background: v.undefinedable(OrderDirectionSchema),
+const ReadStoryOrdersSchema: v.GenericSchema<ReadStoryOrders> = v.object({background: v.undefinedable(OrderDirectionSchema),
 text: v.undefinedable(OrderDirectionSchema),
 media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
 taggedProducts: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadTaggedProductOrdersSchema)])),
@@ -35,7 +35,10 @@ postedById: v.undefinedable(OrderDirectionSchema),
 taggedProductsCount: v.undefinedable(OrderDirectionSchema),
 taggedUsersCount: v.undefinedable(OrderDirectionSchema),
 isLiked: v.undefinedable(OrderDirectionSchema),
-isViewed: v.undefinedable(OrderDirectionSchema)})
+isViewed: v.undefinedable(OrderDirectionSchema)});
+
+export default ReadStoryOrdersSchema;
+
 
 
 

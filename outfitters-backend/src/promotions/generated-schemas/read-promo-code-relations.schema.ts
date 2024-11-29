@@ -1,10 +1,10 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadCartRelationsSchema, ReadCartRelations } from '../../carts/generated-schemas/read-cart-relations.schema'
-import { ReadOrderItemRelationsSchema, ReadOrderItemRelations } from '../../orders/generated-schemas/read-order-item-relations.schema'
-import { ReadBrandProfileRelationsSchema, ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
-import { ReadShopperProfileRelationsSchema, ReadShopperProfileRelations } from '../../users/generated-schemas/read-shopper-profile-relations.schema'
-import { ReadProductRelationsSchema, ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
+import ReadCartRelationsSchema, { ReadCartRelations } from '../../carts/generated-schemas/read-cart-relations.schema'
+import ReadOrderItemRelationsSchema, { ReadOrderItemRelations } from '../../orders/generated-schemas/read-order-item-relations.schema'
+import ReadBrandProfileRelationsSchema, { ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
+import ReadShopperProfileRelationsSchema, { ReadShopperProfileRelations } from '../../users/generated-schemas/read-shopper-profile-relations.schema'
+import ReadProductRelationsSchema, { ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
 
 
 import { PromotionTypeEnum } from '../entities/enums'
@@ -17,7 +17,7 @@ brand?: ReadBrandProfileRelations | string | boolean | undefined;
 shopperProfile?: ReadShopperProfileRelations | string | boolean | undefined;
 products?: ReadProductRelations | string | boolean | undefined}
 
-export const ReadPromoCodeRelationsSchema: v.GenericSchema<ReadPromoCodeRelations> = v.object({type: v.nullish(v.enum(PromotionTypeEnum)),
+const ReadPromoCodeRelationsSchema: v.GenericSchema<ReadPromoCodeRelations> = v.object({type: v.nullish(v.enum(PromotionTypeEnum)),
 status: v.nullish(v.enum(PromotionStatusEnum)),
 carts: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
@@ -38,7 +38,10 @@ shopperProfile: v.undefinedable(v.union([v.pipe(
 products: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
-					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)]))})
+					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)]))});
+
+export default ReadPromoCodeRelationsSchema;
+
 
 
 

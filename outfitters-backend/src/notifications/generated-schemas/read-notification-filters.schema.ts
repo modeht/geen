@@ -1,11 +1,11 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
 import { NotificationType } from '../entities/notification.entity';
-import { ReadUserFiltersSchema, ReadUserFiltersSchemaFilters } from '../../users/generated-schemas/read-user-filters.schema'
-import { ReadCollaborationFiltersSchema, ReadCollaborationFiltersSchemaFilters } from '../../collaborations/generated-schemas/read-collaboration-filters.schema'
-import { ReadCommentFiltersSchema, ReadCommentFiltersSchemaFilters } from '../../comments/generated-schemas/read-comment-filters.schema'
-import { ReadPromotionFiltersSchema, ReadPromotionFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promotion-filters.schema'
-import { ReadProductFiltersSchema, ReadProductFiltersSchemaFilters } from '../../products/generated-schemas/read-product-filters.schema'
+import ReadUserFiltersSchema, { ReadUserFiltersSchemaFilters } from '../../users/generated-schemas/read-user-filters.schema'
+import ReadCollaborationFiltersSchema, { ReadCollaborationFiltersSchemaFilters } from '../../collaborations/generated-schemas/read-collaboration-filters.schema'
+import ReadCommentFiltersSchema, { ReadCommentFiltersSchemaFilters } from '../../comments/generated-schemas/read-comment-filters.schema'
+import ReadPromotionFiltersSchema, { ReadPromotionFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promotion-filters.schema'
+import ReadProductFiltersSchema, { ReadProductFiltersSchemaFilters } from '../../products/generated-schemas/read-product-filters.schema'
 
 
 
@@ -23,7 +23,7 @@ commentId?: GenericComparable<"number"> | null | undefined;
 promotionId?: GenericComparable<"number"> | null | undefined;
 productId?: GenericComparable<"number"> | null | undefined}
 
-export const ReadNotificationFiltersSchema: v.GenericSchema<ReadNotificationFiltersSchemaFilters> = v.object({type: v.nullish(v.enum(NotificationType)),
+const ReadNotificationFiltersSchema: v.GenericSchema<ReadNotificationFiltersSchemaFilters> = v.object({type: v.nullish(v.enum(NotificationType)),
 customContent: v.nullish(comparable("string")),
 isRead: v.nullish(comparable("bool")),
 user: v.nullish(v.lazy(() => ReadUserFiltersSchema)),
@@ -35,7 +35,10 @@ userId: v.nullish(comparable("number")),
 collaborationId: v.nullish(comparable("number")),
 commentId: v.nullish(comparable("number")),
 promotionId: v.nullish(comparable("number")),
-productId: v.nullish(comparable("number"))})
+productId: v.nullish(comparable("number"))});
+
+export default ReadNotificationFiltersSchema;
+
 
 
 

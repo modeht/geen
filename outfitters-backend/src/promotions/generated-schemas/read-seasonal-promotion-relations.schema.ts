@@ -1,7 +1,7 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadPromotionRelationsSchema, ReadPromotionRelations } from './read-promotion-relations.schema'
-import { ReadCategoryRelationsSchema, ReadCategoryRelations } from '../../categories/generated-schemas/read-category-relations.schema'
+import ReadPromotionRelationsSchema, { ReadPromotionRelations } from './read-promotion-relations.schema'
+import ReadCategoryRelationsSchema, { ReadCategoryRelations } from '../../categories/generated-schemas/read-category-relations.schema'
 
 
 import { PromotionStatusEnum } from '../entities/enums'
@@ -9,7 +9,7 @@ export class ReadSeasonalPromotionRelations {status?: PromotionStatusEnum | null
 promotions?: ReadPromotionRelations | string | boolean | undefined;
 subCategories?: ReadCategoryRelations | string | boolean | undefined}
 
-export const ReadSeasonalPromotionRelationsSchema: v.GenericSchema<ReadSeasonalPromotionRelations> = v.object({status: v.nullish(v.enum(PromotionStatusEnum)),
+const ReadSeasonalPromotionRelationsSchema: v.GenericSchema<ReadSeasonalPromotionRelations> = v.object({status: v.nullish(v.enum(PromotionStatusEnum)),
 promotions: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
@@ -17,7 +17,10 @@ promotions: v.undefinedable(v.union([v.pipe(
 subCategories: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
-					v.boolean(),), v.lazy(() => ReadCategoryRelationsSchema)]))})
+					v.boolean(),), v.lazy(() => ReadCategoryRelationsSchema)]))});
+
+export default ReadSeasonalPromotionRelationsSchema;
+
 
 
 

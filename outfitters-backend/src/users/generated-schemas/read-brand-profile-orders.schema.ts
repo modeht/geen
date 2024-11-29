@@ -1,17 +1,17 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/order.schema"
 import * as v from 'valibot';
-import { ReadUserOrdersSchema, ReadUserOrders } from './read-user-orders.schema'
-import { ReadMediaOrdersSchema, ReadMediaOrders } from '../../media/generated-schemas/read-media-orders.schema'
-import { ReadCollectionOrdersSchema, ReadCollectionOrders } from '../../collections/generated-schemas/read-collection-orders.schema'
-import { ReadProductOrdersSchema, ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
-import { ReadPromotionOrdersSchema, ReadPromotionOrders } from '../../promotions/generated-schemas/read-promotion-orders.schema'
-import { ReadPromoCodeOrdersSchema, ReadPromoCodeOrders } from '../../promotions/generated-schemas/read-promo-code-orders.schema'
-import { ReadBrandOrderOrdersSchema, ReadBrandOrderOrders } from '../../orders/generated-schemas/read-brand-order-orders.schema'
-import { ReadPreferenceOrdersSchema, ReadPreferenceOrders } from '../../preferences/generated-schemas/read-preference-orders.schema'
-import { ReadCollaborationOrdersSchema, ReadCollaborationOrders } from '../../collaborations/generated-schemas/read-collaboration-orders.schema'
-import { ReadCategoryOrdersSchema, ReadCategoryOrders } from '../../categories/generated-schemas/read-category-orders.schema'
-import { ReadCountryOrdersSchema, ReadCountryOrders } from '../../countries/generated-schemas/read-country-orders.schema'
+import ReadUserOrdersSchema, { ReadUserOrders } from './read-user-orders.schema'
+import ReadMediaOrdersSchema, { ReadMediaOrders } from '../../media/generated-schemas/read-media-orders.schema'
+import ReadCollectionOrdersSchema, { ReadCollectionOrders } from '../../collections/generated-schemas/read-collection-orders.schema'
+import ReadProductOrdersSchema, { ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
+import ReadPromotionOrdersSchema, { ReadPromotionOrders } from '../../promotions/generated-schemas/read-promotion-orders.schema'
+import ReadPromoCodeOrdersSchema, { ReadPromoCodeOrders } from '../../promotions/generated-schemas/read-promo-code-orders.schema'
+import ReadBrandOrderOrdersSchema, { ReadBrandOrderOrders } from '../../orders/generated-schemas/read-brand-order-orders.schema'
+import ReadPreferenceOrdersSchema, { ReadPreferenceOrders } from '../../preferences/generated-schemas/read-preference-orders.schema'
+import ReadCollaborationOrdersSchema, { ReadCollaborationOrders } from '../../collaborations/generated-schemas/read-collaboration-orders.schema'
+import ReadCategoryOrdersSchema, { ReadCategoryOrders } from '../../categories/generated-schemas/read-category-orders.schema'
+import ReadCountryOrdersSchema, { ReadCountryOrders } from '../../countries/generated-schemas/read-country-orders.schema'
 
 
 
@@ -43,7 +43,7 @@ followersCount?: OrderDirectionEnum | undefined;
 followingCount?: OrderDirectionEnum | undefined;
 postsCount?: OrderDirectionEnum | undefined}
 
-export const ReadBrandProfileOrdersSchema: v.GenericSchema<ReadBrandProfileOrders> = v.object({storeName: v.undefinedable(OrderDirectionSchema),
+const ReadBrandProfileOrdersSchema: v.GenericSchema<ReadBrandProfileOrders> = v.object({storeName: v.undefinedable(OrderDirectionSchema),
 brandName: v.undefinedable(OrderDirectionSchema),
 storeBio: v.undefinedable(OrderDirectionSchema),
 website: v.undefinedable(OrderDirectionSchema),
@@ -69,7 +69,10 @@ isFollowing: v.undefinedable(OrderDirectionSchema),
 hasStory: v.undefinedable(OrderDirectionSchema),
 followersCount: v.undefinedable(OrderDirectionSchema),
 followingCount: v.undefinedable(OrderDirectionSchema),
-postsCount: v.undefinedable(OrderDirectionSchema)})
+postsCount: v.undefinedable(OrderDirectionSchema)});
+
+export default ReadBrandProfileOrdersSchema;
+
 
 
 

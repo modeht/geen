@@ -1,11 +1,11 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/order.schema"
 import * as v from 'valibot';
-import { ReadNotificationOrdersSchema, ReadNotificationOrders } from '../../notifications/generated-schemas/read-notification-orders.schema'
-import { ReadBrandProfileOrdersSchema, ReadBrandProfileOrders } from '../../users/generated-schemas/read-brand-profile-orders.schema'
-import { ReadSeasonalPromotionOrdersSchema, ReadSeasonalPromotionOrders } from './read-seasonal-promotion-orders.schema'
-import { ReadProductOrdersSchema, ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
-import { ReadOrderItemOrdersSchema, ReadOrderItemOrders } from '../../orders/generated-schemas/read-order-item-orders.schema'
+import ReadNotificationOrdersSchema, { ReadNotificationOrders } from '../../notifications/generated-schemas/read-notification-orders.schema'
+import ReadBrandProfileOrdersSchema, { ReadBrandProfileOrders } from '../../users/generated-schemas/read-brand-profile-orders.schema'
+import ReadSeasonalPromotionOrdersSchema, { ReadSeasonalPromotionOrders } from './read-seasonal-promotion-orders.schema'
+import ReadProductOrdersSchema, { ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
+import ReadOrderItemOrdersSchema, { ReadOrderItemOrders } from '../../orders/generated-schemas/read-order-item-orders.schema'
 
 
 import { PromotionTypeEnum } from '../entities/enums'
@@ -28,7 +28,7 @@ isDeleted?: OrderDirectionEnum | undefined;
 seasonalPromotionId?: OrderDirectionEnum | undefined;
 brandId?: OrderDirectionEnum | undefined}
 
-export const ReadPromotionOrdersSchema: v.GenericSchema<ReadPromotionOrders> = v.object({title: v.undefinedable(OrderDirectionSchema),
+const ReadPromotionOrdersSchema: v.GenericSchema<ReadPromotionOrders> = v.object({title: v.undefinedable(OrderDirectionSchema),
 type: v.nullish(v.enum(PromotionTypeEnum)),
 discountPercentage: v.undefinedable(OrderDirectionSchema),
 minPurchaseAmount: v.undefinedable(OrderDirectionSchema),
@@ -43,7 +43,10 @@ products: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProduc
 orderItems: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderItemOrdersSchema)])),
 isDeleted: v.undefinedable(OrderDirectionSchema),
 seasonalPromotionId: v.undefinedable(OrderDirectionSchema),
-brandId: v.undefinedable(OrderDirectionSchema)})
+brandId: v.undefinedable(OrderDirectionSchema)});
+
+export default ReadPromotionOrdersSchema;
+
 
 
 

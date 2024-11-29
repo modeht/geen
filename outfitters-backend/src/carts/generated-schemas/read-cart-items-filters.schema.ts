@@ -1,9 +1,9 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadCartFiltersSchema, ReadCartFiltersSchemaFilters } from './read-cart-filters.schema'
-import { ReadProductFiltersSchema, ReadProductFiltersSchemaFilters } from '../../products/generated-schemas/read-product-filters.schema'
-import { ReadProductVariantFiltersSchema, ReadProductVariantFiltersSchemaFilters } from '../../products/generated-schemas/read-product-variant-filters.schema'
-import { ReadAffiliationLinkFiltersSchema, ReadAffiliationLinkFiltersSchemaFilters } from '../../affiliation-links/generated-schemas/read-affiliation-link-filters.schema'
+import ReadCartFiltersSchema, { ReadCartFiltersSchemaFilters } from './read-cart-filters.schema'
+import ReadProductFiltersSchema, { ReadProductFiltersSchemaFilters } from '../../products/generated-schemas/read-product-filters.schema'
+import ReadProductVariantFiltersSchema, { ReadProductVariantFiltersSchemaFilters } from '../../products/generated-schemas/read-product-variant-filters.schema'
+import ReadAffiliationLinkFiltersSchema, { ReadAffiliationLinkFiltersSchemaFilters } from '../../affiliation-links/generated-schemas/read-affiliation-link-filters.schema'
 
 
 
@@ -21,7 +21,7 @@ totalDiscountedPrice?: GenericComparable<"number"> | null | undefined;
 promoCodeApplied?: GenericComparable<"bool"> | null | undefined;
 appliedpromotionsIds?: GenericComparable<"number">[] | null | undefined}
 
-export const ReadCartItemsFiltersSchema: v.GenericSchema<ReadCartItemsFiltersSchemaFilters> = v.object({quantity: v.nullish(comparable("number")),
+const ReadCartItemsFiltersSchema: v.GenericSchema<ReadCartItemsFiltersSchemaFilters> = v.object({quantity: v.nullish(comparable("number")),
 cart: v.nullish(v.lazy(() => ReadCartFiltersSchema)),
 product: v.nullish(v.lazy(() => ReadProductFiltersSchema)),
 variant: v.nullish(v.lazy(() => ReadProductVariantFiltersSchema)),
@@ -33,7 +33,10 @@ affiliationLinkId: v.nullish(comparable("number")),
 totalPrice: v.nullish(comparable("number")),
 totalDiscountedPrice: v.nullish(comparable("number")),
 promoCodeApplied: v.nullish(comparable("bool")),
-appliedpromotionsIds: v.nullish(v.array(comparable("number")))})
+appliedpromotionsIds: v.nullish(v.array(comparable("number")))});
+
+export default ReadCartItemsFiltersSchema;
+
 
 
 

@@ -1,9 +1,9 @@
 import * as v from 'valibot';
 import { ReadPaginationSchema } from "../../globals/schemas/pagination.schema"
 
-import { ReadCollaborationFiltersSchema } from './read-collaboration-filters.schema';
-import { ReadCollaborationRelationsSchema } from './read-collaboration-relations.schema';
-import { ReadCollaborationOrdersSchema } from './read-collaboration-orders.schema';
+import ReadCollaborationFiltersSchema from './read-collaboration-filters.schema';
+import ReadCollaborationRelationsSchema from './read-collaboration-relations.schema';
+import ReadCollaborationOrdersSchema from './read-collaboration-orders.schema';
 const ReadCollaborationSchema = v.optional(v.object({
 filters: v.undefinedable(ReadCollaborationFiltersSchema),
 relations: v.undefinedable(ReadCollaborationRelationsSchema),

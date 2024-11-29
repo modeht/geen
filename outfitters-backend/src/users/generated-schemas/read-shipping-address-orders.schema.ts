@@ -1,8 +1,8 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/order.schema"
 import * as v from 'valibot';
-import { ReadOrderOrdersSchema, ReadOrderOrders } from '../../orders/generated-schemas/read-order-orders.schema'
-import { ReadShopperProfileOrdersSchema, ReadShopperProfileOrders } from './read-shopper-profile-orders.schema'
+import ReadOrderOrdersSchema, { ReadOrderOrders } from '../../orders/generated-schemas/read-order-orders.schema'
+import ReadShopperProfileOrdersSchema, { ReadShopperProfileOrders } from './read-shopper-profile-orders.schema'
 
 
 
@@ -22,7 +22,7 @@ orders?: ReadOrderOrders | OrderDirectionEnum | undefined;
 shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
 shopperId?: OrderDirectionEnum | undefined}
 
-export const ReadShippingAddressOrdersSchema: v.GenericSchema<ReadShippingAddressOrders> = v.object({deletedAt: v.undefinedable(OrderDirectionSchema),
+const ReadShippingAddressOrdersSchema: v.GenericSchema<ReadShippingAddressOrders> = v.object({deletedAt: v.undefinedable(OrderDirectionSchema),
 isDefault: v.undefinedable(OrderDirectionSchema),
 name: v.undefinedable(OrderDirectionSchema),
 country: v.undefinedable(OrderDirectionSchema),
@@ -36,7 +36,10 @@ latitude: v.undefinedable(OrderDirectionSchema),
 longitude: v.undefinedable(OrderDirectionSchema),
 orders: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderOrdersSchema)])),
 shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
-shopperId: v.undefinedable(OrderDirectionSchema)})
+shopperId: v.undefinedable(OrderDirectionSchema)});
+
+export default ReadShippingAddressOrdersSchema;
+
 
 
 

@@ -1,18 +1,21 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
 import { searchMode } from '../entities/recent-searches.entity';
-import { ReadUserRelationsSchema, ReadUserRelations } from '../../users/generated-schemas/read-user-relations.schema'
+import ReadUserRelationsSchema, { ReadUserRelations } from '../../users/generated-schemas/read-user-relations.schema'
 
 
 
 export class ReadRecentSearchesRelations {mode?: searchMode | null | undefined;
 user?: ReadUserRelations | string | boolean | undefined}
 
-export const ReadRecentSearchesRelationsSchema: v.GenericSchema<ReadRecentSearchesRelations> = v.object({mode: v.nullish(v.enum(searchMode)),
+const ReadRecentSearchesRelationsSchema: v.GenericSchema<ReadRecentSearchesRelations> = v.object({mode: v.nullish(v.enum(searchMode)),
 user: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
-					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)]))})
+					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)]))});
+
+export default ReadRecentSearchesRelationsSchema;
+
 
 
 

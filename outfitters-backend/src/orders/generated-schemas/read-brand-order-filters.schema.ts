@@ -1,9 +1,9 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
 import { OrderStatusEnum } from '../entities/brand-orders.entity';
-import { ReadOrderItemFiltersSchema, ReadOrderItemFiltersSchemaFilters } from './read-order-item-filters.schema'
-import { ReadBrandProfileFiltersSchema, ReadBrandProfileFiltersSchemaFilters } from '../../users/generated-schemas/read-brand-profile-filters.schema'
-import { ReadOrderFiltersSchema, ReadOrderFiltersSchemaFilters } from './read-order-filters.schema'
+import ReadOrderItemFiltersSchema, { ReadOrderItemFiltersSchemaFilters } from './read-order-item-filters.schema'
+import ReadBrandProfileFiltersSchema, { ReadBrandProfileFiltersSchemaFilters } from '../../users/generated-schemas/read-brand-profile-filters.schema'
+import ReadOrderFiltersSchema, { ReadOrderFiltersSchemaFilters } from './read-order-filters.schema'
 
 
 
@@ -24,7 +24,7 @@ order?: ReadOrderFiltersSchemaFilters | null | undefined;
 orderId?: GenericComparable<"number"> | null | undefined;
 brandId?: GenericComparable<"number"> | null | undefined}
 
-export const ReadBrandOrderFiltersSchema: v.GenericSchema<ReadBrandOrderFiltersSchemaFilters> = v.object({status: v.nullish(v.enum(OrderStatusEnum)),
+const ReadBrandOrderFiltersSchema: v.GenericSchema<ReadBrandOrderFiltersSchemaFilters> = v.object({status: v.nullish(v.enum(OrderStatusEnum)),
 totalSalePrice: v.nullish(comparable("number")),
 totalPurchasePrice: v.nullish(comparable("number")),
 shippingFees: v.nullish(comparable("number")),
@@ -39,7 +39,10 @@ items: v.nullish(v.lazy(() => ReadOrderItemFiltersSchema)),
 brand: v.nullish(v.lazy(() => ReadBrandProfileFiltersSchema)),
 order: v.nullish(v.lazy(() => ReadOrderFiltersSchema)),
 orderId: v.nullish(comparable("number")),
-brandId: v.nullish(comparable("number"))})
+brandId: v.nullish(comparable("number"))});
+
+export default ReadBrandOrderFiltersSchema;
+
 
 
 

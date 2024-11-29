@@ -1,17 +1,17 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadPreferenceRelationsSchema, ReadPreferenceRelations } from '../../preferences/generated-schemas/read-preference-relations.schema'
-import { ReadCollectionRelationsSchema, ReadCollectionRelations } from '../../collections/generated-schemas/read-collection-relations.schema'
-import { ReadShopperProfileRelationsSchema, ReadShopperProfileRelations } from '../../users/generated-schemas/read-shopper-profile-relations.schema'
-import { ReadStoryRelationsSchema, ReadStoryRelations } from '../../stories/generated-schemas/read-story-relations.schema'
-import { ReadBrandProfileRelationsSchema, ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
-import { ReadCategoryRelationsSchema, ReadCategoryRelations } from '../../categories/generated-schemas/read-category-relations.schema'
-import { ReadCountryRelationsSchema, ReadCountryRelations } from '../../countries/generated-schemas/read-country-relations.schema'
-import { ReadPostRelationsSchema, ReadPostRelations } from '../../posts/generated-schemas/read-post-relations.schema'
-import { ReadProductRelationsSchema, ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
-import { ReadProductVariantRelationsSchema, ReadProductVariantRelations } from '../../products/generated-schemas/read-product-variant-relations.schema'
-import { ReadMessageRelationsSchema, ReadMessageRelations } from '../../messages/generated-schemas/read-message-relations.schema'
-import { ReadProductReviewRelationsSchema, ReadProductReviewRelations } from '../../products/generated-schemas/read-product-review-relations.schema'
+import ReadPreferenceRelationsSchema, { ReadPreferenceRelations } from '../../preferences/generated-schemas/read-preference-relations.schema'
+import ReadCollectionRelationsSchema, { ReadCollectionRelations } from '../../collections/generated-schemas/read-collection-relations.schema'
+import ReadShopperProfileRelationsSchema, { ReadShopperProfileRelations } from '../../users/generated-schemas/read-shopper-profile-relations.schema'
+import ReadStoryRelationsSchema, { ReadStoryRelations } from '../../stories/generated-schemas/read-story-relations.schema'
+import ReadBrandProfileRelationsSchema, { ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
+import ReadCategoryRelationsSchema, { ReadCategoryRelations } from '../../categories/generated-schemas/read-category-relations.schema'
+import ReadCountryRelationsSchema, { ReadCountryRelations } from '../../countries/generated-schemas/read-country-relations.schema'
+import ReadPostRelationsSchema, { ReadPostRelations } from '../../posts/generated-schemas/read-post-relations.schema'
+import ReadProductRelationsSchema, { ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
+import ReadProductVariantRelationsSchema, { ReadProductVariantRelations } from '../../products/generated-schemas/read-product-variant-relations.schema'
+import ReadMessageRelationsSchema, { ReadMessageRelations } from '../../messages/generated-schemas/read-message-relations.schema'
+import ReadProductReviewRelationsSchema, { ReadProductReviewRelations } from '../../products/generated-schemas/read-product-review-relations.schema'
 
 
 
@@ -30,7 +30,7 @@ message?: ReadMessageRelations | string | boolean | undefined;
 post?: ReadPostRelations | string | boolean | undefined;
 review?: ReadProductReviewRelations | string | boolean | undefined}
 
-export const ReadMediaRelationsSchema: v.GenericSchema<ReadMediaRelations> = v.object({preference: v.undefinedable(v.union([v.pipe(
+const ReadMediaRelationsSchema: v.GenericSchema<ReadMediaRelations> = v.object({preference: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPreferenceRelationsSchema)])),
@@ -85,7 +85,10 @@ post: v.undefinedable(v.union([v.pipe(
 review: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
-					v.boolean(),), v.lazy(() => ReadProductReviewRelationsSchema)]))})
+					v.boolean(),), v.lazy(() => ReadProductReviewRelationsSchema)]))});
+
+export default ReadMediaRelationsSchema;
+
 
 
 

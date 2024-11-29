@@ -5,7 +5,10 @@ import * as v from 'valibot';
 import { LanguageEnum } from '../../../lib/enums'
 export class ReadTranslationFiltersSchemaFilters {language?: LanguageEnum | null | undefined}
 
-export const ReadTranslationFiltersSchema: v.GenericSchema<ReadTranslationFiltersSchemaFilters> = v.object({language: v.nullish(v.enum(LanguageEnum))})
+const ReadTranslationFiltersSchema: v.GenericSchema<ReadTranslationFiltersSchemaFilters> = v.object({language: v.nullish(v.enum(LanguageEnum))});
+
+export default ReadTranslationFiltersSchema;
+
 
 
 

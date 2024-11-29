@@ -116,12 +116,19 @@ async function bootstrap() {
 		.build();
 
 	const document = SwaggerModule.createDocument(app, config);
+	console.log(document);
+	document.components.schemas = {
+		...document.components.schemas,
+		// ...getDefs(),
+	};
 	SwaggerModule.setup('docs', app, document);
+
 	// console.log(document);
 	// console.dir(document.paths['/api/v1/countries/test'], { depth: null });
 	// console.log(app.getHttpAdapter());
 	// app.getHttpServer();
 	// await createSchemas();
+
 	const configService = app.get(ConfigService);
 	const PORT = configService.get('DOCKER_PORT') || configService.get('PORT');
 

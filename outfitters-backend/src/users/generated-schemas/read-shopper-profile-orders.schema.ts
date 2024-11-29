@@ -2,16 +2,16 @@ import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/order.schema"
 import * as v from 'valibot';
 import { GenderEnum } from '../entities/shopper-profile.entity';
-import { ReadUserOrdersSchema, ReadUserOrders } from './read-user-orders.schema'
-import { ReadProductReviewOrdersSchema, ReadProductReviewOrders } from '../../products/generated-schemas/read-product-review-orders.schema'
-import { ReadShippingAddressOrdersSchema, ReadShippingAddressOrders } from './read-shipping-address-orders.schema'
-import { ReadMediaOrdersSchema, ReadMediaOrders } from '../../media/generated-schemas/read-media-orders.schema'
-import { ReadCartOrdersSchema, ReadCartOrders } from '../../carts/generated-schemas/read-cart-orders.schema'
-import { ReadOrderOrdersSchema, ReadOrderOrders } from '../../orders/generated-schemas/read-order-orders.schema'
-import { ReadPreferenceOrdersSchema, ReadPreferenceOrders } from '../../preferences/generated-schemas/read-preference-orders.schema'
-import { ReadCollaborationOrdersSchema, ReadCollaborationOrders } from '../../collaborations/generated-schemas/read-collaboration-orders.schema'
-import { ReadAffiliationLinkOrdersSchema, ReadAffiliationLinkOrders } from '../../affiliation-links/generated-schemas/read-affiliation-link-orders.schema'
-import { ReadPromoCodeOrdersSchema, ReadPromoCodeOrders } from '../../promotions/generated-schemas/read-promo-code-orders.schema'
+import ReadUserOrdersSchema, { ReadUserOrders } from './read-user-orders.schema'
+import ReadProductReviewOrdersSchema, { ReadProductReviewOrders } from '../../products/generated-schemas/read-product-review-orders.schema'
+import ReadShippingAddressOrdersSchema, { ReadShippingAddressOrders } from './read-shipping-address-orders.schema'
+import ReadMediaOrdersSchema, { ReadMediaOrders } from '../../media/generated-schemas/read-media-orders.schema'
+import ReadCartOrdersSchema, { ReadCartOrders } from '../../carts/generated-schemas/read-cart-orders.schema'
+import ReadOrderOrdersSchema, { ReadOrderOrders } from '../../orders/generated-schemas/read-order-orders.schema'
+import ReadPreferenceOrdersSchema, { ReadPreferenceOrders } from '../../preferences/generated-schemas/read-preference-orders.schema'
+import ReadCollaborationOrdersSchema, { ReadCollaborationOrders } from '../../collaborations/generated-schemas/read-collaboration-orders.schema'
+import ReadAffiliationLinkOrdersSchema, { ReadAffiliationLinkOrders } from '../../affiliation-links/generated-schemas/read-affiliation-link-orders.schema'
+import ReadPromoCodeOrdersSchema, { ReadPromoCodeOrders } from '../../promotions/generated-schemas/read-promo-code-orders.schema'
 
 
 
@@ -43,7 +43,7 @@ postsCount?: OrderDirectionEnum | undefined;
 brandsCount?: OrderDirectionEnum | undefined;
 engagementCount?: OrderDirectionEnum | undefined}
 
-export const ReadShopperProfileOrdersSchema: v.GenericSchema<ReadShopperProfileOrders> = v.object({username: v.undefinedable(OrderDirectionSchema),
+const ReadShopperProfileOrdersSchema: v.GenericSchema<ReadShopperProfileOrders> = v.object({username: v.undefinedable(OrderDirectionSchema),
 fullName: v.undefinedable(OrderDirectionSchema),
 dateOfBirth: v.undefinedable(OrderDirectionSchema),
 bio: v.undefinedable(OrderDirectionSchema),
@@ -69,7 +69,10 @@ followersCount: v.undefinedable(OrderDirectionSchema),
 followingCount: v.undefinedable(OrderDirectionSchema),
 postsCount: v.undefinedable(OrderDirectionSchema),
 brandsCount: v.undefinedable(OrderDirectionSchema),
-engagementCount: v.undefinedable(OrderDirectionSchema)})
+engagementCount: v.undefinedable(OrderDirectionSchema)});
+
+export default ReadShopperProfileOrdersSchema;
+
 
 
 

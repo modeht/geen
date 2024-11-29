@@ -1,22 +1,22 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/order.schema"
 import * as v from 'valibot';
-import { ReadMediaOrdersSchema, ReadMediaOrders } from '../../media/generated-schemas/read-media-orders.schema'
-import { ReadProductVariantOrdersSchema, ReadProductVariantOrders } from './read-product-variant-orders.schema'
-import { ReadProductOptionOrdersSchema, ReadProductOptionOrders } from './read-product-option-orders.schema'
-import { ReadProductReviewOrdersSchema, ReadProductReviewOrders } from './read-product-review-orders.schema'
-import { ReadTaggedProductOrdersSchema, ReadTaggedProductOrders } from './read-tagged-product-orders.schema'
-import { ReadAffiliationLinkOrdersSchema, ReadAffiliationLinkOrders } from '../../affiliation-links/generated-schemas/read-affiliation-link-orders.schema'
-import { ReadNotificationOrdersSchema, ReadNotificationOrders } from '../../notifications/generated-schemas/read-notification-orders.schema'
-import { ReadOrderItemOrdersSchema, ReadOrderItemOrders } from '../../orders/generated-schemas/read-order-item-orders.schema'
-import { ReadMessageOrdersSchema, ReadMessageOrders } from '../../messages/generated-schemas/read-message-orders.schema'
-import { ReadBrandProfileOrdersSchema, ReadBrandProfileOrders } from '../../users/generated-schemas/read-brand-profile-orders.schema'
-import { ReadCategoryOrdersSchema, ReadCategoryOrders } from '../../categories/generated-schemas/read-category-orders.schema'
-import { ReadCollectionOrdersSchema, ReadCollectionOrders } from '../../collections/generated-schemas/read-collection-orders.schema'
-import { ReadCartItemsOrdersSchema, ReadCartItemsOrders } from '../../carts/generated-schemas/read-cart-items-orders.schema'
-import { ReadPromotionOrdersSchema, ReadPromotionOrders } from '../../promotions/generated-schemas/read-promotion-orders.schema'
-import { ReadPromoCodeOrdersSchema, ReadPromoCodeOrders } from '../../promotions/generated-schemas/read-promo-code-orders.schema'
-import { ReadSavedCollectionItemOrdersSchema, ReadSavedCollectionItemOrders } from '../../saved-collections/generated-schemas/read-saved-collection-item-orders.schema'
+import ReadMediaOrdersSchema, { ReadMediaOrders } from '../../media/generated-schemas/read-media-orders.schema'
+import ReadProductVariantOrdersSchema, { ReadProductVariantOrders } from './read-product-variant-orders.schema'
+import ReadProductOptionOrdersSchema, { ReadProductOptionOrders } from './read-product-option-orders.schema'
+import ReadProductReviewOrdersSchema, { ReadProductReviewOrders } from './read-product-review-orders.schema'
+import ReadTaggedProductOrdersSchema, { ReadTaggedProductOrders } from './read-tagged-product-orders.schema'
+import ReadAffiliationLinkOrdersSchema, { ReadAffiliationLinkOrders } from '../../affiliation-links/generated-schemas/read-affiliation-link-orders.schema'
+import ReadNotificationOrdersSchema, { ReadNotificationOrders } from '../../notifications/generated-schemas/read-notification-orders.schema'
+import ReadOrderItemOrdersSchema, { ReadOrderItemOrders } from '../../orders/generated-schemas/read-order-item-orders.schema'
+import ReadMessageOrdersSchema, { ReadMessageOrders } from '../../messages/generated-schemas/read-message-orders.schema'
+import ReadBrandProfileOrdersSchema, { ReadBrandProfileOrders } from '../../users/generated-schemas/read-brand-profile-orders.schema'
+import ReadCategoryOrdersSchema, { ReadCategoryOrders } from '../../categories/generated-schemas/read-category-orders.schema'
+import ReadCollectionOrdersSchema, { ReadCollectionOrders } from '../../collections/generated-schemas/read-collection-orders.schema'
+import ReadCartItemsOrdersSchema, { ReadCartItemsOrders } from '../../carts/generated-schemas/read-cart-items-orders.schema'
+import ReadPromotionOrdersSchema, { ReadPromotionOrders } from '../../promotions/generated-schemas/read-promotion-orders.schema'
+import ReadPromoCodeOrdersSchema, { ReadPromoCodeOrders } from '../../promotions/generated-schemas/read-promo-code-orders.schema'
+import ReadSavedCollectionItemOrdersSchema, { ReadSavedCollectionItemOrders } from '../../saved-collections/generated-schemas/read-saved-collection-item-orders.schema'
 
 
 
@@ -54,7 +54,7 @@ subCategoryId?: OrderDirectionEnum | undefined;
 averageRating?: OrderDirectionEnum | undefined;
 isSaved?: OrderDirectionEnum | undefined}
 
-export const ReadProductOrdersSchema: v.GenericSchema<ReadProductOrders> = v.object({isArchived: v.undefinedable(OrderDirectionSchema),
+const ReadProductOrdersSchema: v.GenericSchema<ReadProductOrders> = v.object({isArchived: v.undefinedable(OrderDirectionSchema),
 title: v.undefinedable(OrderDirectionSchema),
 description: v.undefinedable(OrderDirectionSchema),
 basePrice: v.undefinedable(OrderDirectionSchema),
@@ -86,7 +86,10 @@ brandId: v.undefinedable(OrderDirectionSchema),
 categoryId: v.undefinedable(OrderDirectionSchema),
 subCategoryId: v.undefinedable(OrderDirectionSchema),
 averageRating: v.undefinedable(OrderDirectionSchema),
-isSaved: v.undefinedable(OrderDirectionSchema)})
+isSaved: v.undefinedable(OrderDirectionSchema)});
+
+export default ReadProductOrdersSchema;
+
 
 
 

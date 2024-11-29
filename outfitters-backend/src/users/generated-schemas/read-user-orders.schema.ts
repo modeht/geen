@@ -2,19 +2,19 @@ import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/order.schema"
 import * as v from 'valibot';
 import { AccountStatus } from '../entities/user.entity';
-import { ReadShopperProfileOrdersSchema, ReadShopperProfileOrders } from './read-shopper-profile-orders.schema'
-import { ReadBrandProfileOrdersSchema, ReadBrandProfileOrders } from './read-brand-profile-orders.schema'
-import { ReadCommentOrdersSchema, ReadCommentOrders } from '../../comments/generated-schemas/read-comment-orders.schema'
-import { ReadAffiliationLinkTrackingOrdersSchema, ReadAffiliationLinkTrackingOrders } from '../../affiliation-links/generated-schemas/read-affiliation-link-tracking-orders.schema'
-import { ReadNotificationOrdersSchema, ReadNotificationOrders } from '../../notifications/generated-schemas/read-notification-orders.schema'
-import { ReadConversationOrdersSchema, ReadConversationOrders } from '../../conversations/generated-schemas/read-conversation-orders.schema'
-import { ReadMessageOrdersSchema, ReadMessageOrders } from '../../messages/generated-schemas/read-message-orders.schema'
-import { ReadPostOrdersSchema, ReadPostOrders } from '../../posts/generated-schemas/read-post-orders.schema'
-import { ReadStoryOrdersSchema, ReadStoryOrders } from '../../stories/generated-schemas/read-story-orders.schema'
-import { ReadSavedCollectionOrdersSchema, ReadSavedCollectionOrders } from '../../saved-collections/generated-schemas/read-saved-collection-orders.schema'
-import { ReadRecentSearchesOrdersSchema, ReadRecentSearchesOrders } from '../../search/generated-schemas/read-recent-searches-orders.schema'
-import { ReadPostLikesOrdersSchema, ReadPostLikesOrders } from '../../posts/generated-schemas/read-post-likes-orders.schema'
-import { ReadStoryLikesOrdersSchema, ReadStoryLikesOrders } from '../../stories/generated-schemas/read-story-likes-orders.schema'
+import ReadShopperProfileOrdersSchema, { ReadShopperProfileOrders } from './read-shopper-profile-orders.schema'
+import ReadBrandProfileOrdersSchema, { ReadBrandProfileOrders } from './read-brand-profile-orders.schema'
+import ReadCommentOrdersSchema, { ReadCommentOrders } from '../../comments/generated-schemas/read-comment-orders.schema'
+import ReadAffiliationLinkTrackingOrdersSchema, { ReadAffiliationLinkTrackingOrders } from '../../affiliation-links/generated-schemas/read-affiliation-link-tracking-orders.schema'
+import ReadNotificationOrdersSchema, { ReadNotificationOrders } from '../../notifications/generated-schemas/read-notification-orders.schema'
+import ReadConversationOrdersSchema, { ReadConversationOrders } from '../../conversations/generated-schemas/read-conversation-orders.schema'
+import ReadMessageOrdersSchema, { ReadMessageOrders } from '../../messages/generated-schemas/read-message-orders.schema'
+import ReadPostOrdersSchema, { ReadPostOrders } from '../../posts/generated-schemas/read-post-orders.schema'
+import ReadStoryOrdersSchema, { ReadStoryOrders } from '../../stories/generated-schemas/read-story-orders.schema'
+import ReadSavedCollectionOrdersSchema, { ReadSavedCollectionOrders } from '../../saved-collections/generated-schemas/read-saved-collection-orders.schema'
+import ReadRecentSearchesOrdersSchema, { ReadRecentSearchesOrders } from '../../search/generated-schemas/read-recent-searches-orders.schema'
+import ReadPostLikesOrdersSchema, { ReadPostLikesOrders } from '../../posts/generated-schemas/read-post-likes-orders.schema'
+import ReadStoryLikesOrdersSchema, { ReadStoryLikesOrders } from '../../stories/generated-schemas/read-story-likes-orders.schema'
 
 
 import { LanguageEnum } from '../../../lib/enums'
@@ -52,7 +52,7 @@ isFollowing?: OrderDirectionEnum | undefined;
 isBlockedBy?: OrderDirectionEnum | undefined;
 followersCount?: OrderDirectionEnum | undefined}
 
-export const ReadUserOrdersSchema: v.GenericSchema<ReadUserOrders> = v.object({status: v.nullish(v.enum(AccountStatus)),
+const ReadUserOrdersSchema: v.GenericSchema<ReadUserOrders> = v.object({status: v.nullish(v.enum(AccountStatus)),
 email: v.undefinedable(OrderDirectionSchema),
 phone: v.undefinedable(OrderDirectionSchema),
 password: v.undefinedable(OrderDirectionSchema),
@@ -84,7 +84,10 @@ blockedBy: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserO
 blockedUsers: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
 isFollowing: v.undefinedable(OrderDirectionSchema),
 isBlockedBy: v.undefinedable(OrderDirectionSchema),
-followersCount: v.undefinedable(OrderDirectionSchema)})
+followersCount: v.undefinedable(OrderDirectionSchema)});
+
+export default ReadUserOrdersSchema;
+
 
 
 

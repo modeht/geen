@@ -1,10 +1,10 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadBrandOrderRelationsSchema, ReadBrandOrderRelations } from './read-brand-order-relations.schema'
-import { ReadProductVariantRelationsSchema, ReadProductVariantRelations } from '../../products/generated-schemas/read-product-variant-relations.schema'
-import { ReadProductRelationsSchema, ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
-import { ReadPromoCodeRelationsSchema, ReadPromoCodeRelations } from '../../promotions/generated-schemas/read-promo-code-relations.schema'
-import { ReadPromotionRelationsSchema, ReadPromotionRelations } from '../../promotions/generated-schemas/read-promotion-relations.schema'
+import ReadBrandOrderRelationsSchema, { ReadBrandOrderRelations } from './read-brand-order-relations.schema'
+import ReadProductVariantRelationsSchema, { ReadProductVariantRelations } from '../../products/generated-schemas/read-product-variant-relations.schema'
+import ReadProductRelationsSchema, { ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
+import ReadPromoCodeRelationsSchema, { ReadPromoCodeRelations } from '../../promotions/generated-schemas/read-promo-code-relations.schema'
+import ReadPromotionRelationsSchema, { ReadPromotionRelations } from '../../promotions/generated-schemas/read-promotion-relations.schema'
 
 
 
@@ -14,7 +14,7 @@ product?: ReadProductRelations | string | boolean | undefined;
 appliedPromoCode?: ReadPromoCodeRelations | string | boolean | undefined;
 appliedPromotions?: ReadPromotionRelations | string | boolean | undefined}
 
-export const ReadOrderItemRelationsSchema: v.GenericSchema<ReadOrderItemRelations> = v.object({brandOrder: v.undefinedable(v.union([v.pipe(
+const ReadOrderItemRelationsSchema: v.GenericSchema<ReadOrderItemRelations> = v.object({brandOrder: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadBrandOrderRelationsSchema)])),
@@ -33,7 +33,10 @@ appliedPromoCode: v.undefinedable(v.union([v.pipe(
 appliedPromotions: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
-					v.boolean(),), v.lazy(() => ReadPromotionRelationsSchema)]))})
+					v.boolean(),), v.lazy(() => ReadPromotionRelationsSchema)]))});
+
+export default ReadOrderItemRelationsSchema;
+
 
 
 

@@ -1,10 +1,10 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/order.schema"
 import * as v from 'valibot';
-import { ReadMediaOrdersSchema, ReadMediaOrders } from '../../media/generated-schemas/read-media-orders.schema'
-import { ReadProductOrdersSchema, ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
-import { ReadBrandProfileOrdersSchema, ReadBrandProfileOrders } from '../../users/generated-schemas/read-brand-profile-orders.schema'
-import { ReadSeasonalPromotionOrdersSchema, ReadSeasonalPromotionOrders } from '../../promotions/generated-schemas/read-seasonal-promotion-orders.schema'
+import ReadMediaOrdersSchema, { ReadMediaOrders } from '../../media/generated-schemas/read-media-orders.schema'
+import ReadProductOrdersSchema, { ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
+import ReadBrandProfileOrdersSchema, { ReadBrandProfileOrders } from '../../users/generated-schemas/read-brand-profile-orders.schema'
+import ReadSeasonalPromotionOrdersSchema, { ReadSeasonalPromotionOrders } from '../../promotions/generated-schemas/read-seasonal-promotion-orders.schema'
 
 
 
@@ -19,7 +19,7 @@ categorybrandProfiles?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
 subCategoriesBrandProfiles?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
 seasonalPromotions?: ReadSeasonalPromotionOrders | OrderDirectionEnum | undefined}
 
-export const ReadCategoryOrdersSchema: v.GenericSchema<ReadCategoryOrders> = v.object({name: v.undefinedable(OrderDirectionSchema),
+const ReadCategoryOrdersSchema: v.GenericSchema<ReadCategoryOrders> = v.object({name: v.undefinedable(OrderDirectionSchema),
 isArchived: v.undefinedable(OrderDirectionSchema),
 media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
 subCategories: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCategoryOrdersSchema)])),
@@ -28,7 +28,10 @@ superCategoryId: v.undefinedable(OrderDirectionSchema),
 products: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
 categorybrandProfiles: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
 subCategoriesBrandProfiles: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
-seasonalPromotions: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadSeasonalPromotionOrdersSchema)]))})
+seasonalPromotions: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadSeasonalPromotionOrdersSchema)]))});
+
+export default ReadCategoryOrdersSchema;
+
 
 
 

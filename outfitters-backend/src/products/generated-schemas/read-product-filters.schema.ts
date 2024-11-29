@@ -1,21 +1,21 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadMediaFiltersSchema, ReadMediaFiltersSchemaFilters } from '../../media/generated-schemas/read-media-filters.schema'
-import { ReadProductVariantFiltersSchema, ReadProductVariantFiltersSchemaFilters } from './read-product-variant-filters.schema'
-import { ReadProductOptionFiltersSchema, ReadProductOptionFiltersSchemaFilters } from './read-product-option-filters.schema'
-import { ReadProductReviewFiltersSchema, ReadProductReviewFiltersSchemaFilters } from './read-product-review-filters.schema'
-import { ReadTaggedProductFiltersSchema, ReadTaggedProductFiltersSchemaFilters } from './read-tagged-product-filters.schema'
-import { ReadAffiliationLinkFiltersSchema, ReadAffiliationLinkFiltersSchemaFilters } from '../../affiliation-links/generated-schemas/read-affiliation-link-filters.schema'
-import { ReadNotificationFiltersSchema, ReadNotificationFiltersSchemaFilters } from '../../notifications/generated-schemas/read-notification-filters.schema'
-import { ReadOrderItemFiltersSchema, ReadOrderItemFiltersSchemaFilters } from '../../orders/generated-schemas/read-order-item-filters.schema'
-import { ReadMessageFiltersSchema, ReadMessageFiltersSchemaFilters } from '../../messages/generated-schemas/read-message-filters.schema'
-import { ReadBrandProfileFiltersSchema, ReadBrandProfileFiltersSchemaFilters } from '../../users/generated-schemas/read-brand-profile-filters.schema'
-import { ReadCategoryFiltersSchema, ReadCategoryFiltersSchemaFilters } from '../../categories/generated-schemas/read-category-filters.schema'
-import { ReadCollectionFiltersSchema, ReadCollectionFiltersSchemaFilters } from '../../collections/generated-schemas/read-collection-filters.schema'
-import { ReadCartItemsFiltersSchema, ReadCartItemsFiltersSchemaFilters } from '../../carts/generated-schemas/read-cart-items-filters.schema'
-import { ReadPromotionFiltersSchema, ReadPromotionFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promotion-filters.schema'
-import { ReadPromoCodeFiltersSchema, ReadPromoCodeFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promo-code-filters.schema'
-import { ReadSavedCollectionItemFiltersSchema, ReadSavedCollectionItemFiltersSchemaFilters } from '../../saved-collections/generated-schemas/read-saved-collection-item-filters.schema'
+import ReadMediaFiltersSchema, { ReadMediaFiltersSchemaFilters } from '../../media/generated-schemas/read-media-filters.schema'
+import ReadProductVariantFiltersSchema, { ReadProductVariantFiltersSchemaFilters } from './read-product-variant-filters.schema'
+import ReadProductOptionFiltersSchema, { ReadProductOptionFiltersSchemaFilters } from './read-product-option-filters.schema'
+import ReadProductReviewFiltersSchema, { ReadProductReviewFiltersSchemaFilters } from './read-product-review-filters.schema'
+import ReadTaggedProductFiltersSchema, { ReadTaggedProductFiltersSchemaFilters } from './read-tagged-product-filters.schema'
+import ReadAffiliationLinkFiltersSchema, { ReadAffiliationLinkFiltersSchemaFilters } from '../../affiliation-links/generated-schemas/read-affiliation-link-filters.schema'
+import ReadNotificationFiltersSchema, { ReadNotificationFiltersSchemaFilters } from '../../notifications/generated-schemas/read-notification-filters.schema'
+import ReadOrderItemFiltersSchema, { ReadOrderItemFiltersSchemaFilters } from '../../orders/generated-schemas/read-order-item-filters.schema'
+import ReadMessageFiltersSchema, { ReadMessageFiltersSchemaFilters } from '../../messages/generated-schemas/read-message-filters.schema'
+import ReadBrandProfileFiltersSchema, { ReadBrandProfileFiltersSchemaFilters } from '../../users/generated-schemas/read-brand-profile-filters.schema'
+import ReadCategoryFiltersSchema, { ReadCategoryFiltersSchemaFilters } from '../../categories/generated-schemas/read-category-filters.schema'
+import ReadCollectionFiltersSchema, { ReadCollectionFiltersSchemaFilters } from '../../collections/generated-schemas/read-collection-filters.schema'
+import ReadCartItemsFiltersSchema, { ReadCartItemsFiltersSchemaFilters } from '../../carts/generated-schemas/read-cart-items-filters.schema'
+import ReadPromotionFiltersSchema, { ReadPromotionFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promotion-filters.schema'
+import ReadPromoCodeFiltersSchema, { ReadPromoCodeFiltersSchemaFilters } from '../../promotions/generated-schemas/read-promo-code-filters.schema'
+import ReadSavedCollectionItemFiltersSchema, { ReadSavedCollectionItemFiltersSchemaFilters } from '../../saved-collections/generated-schemas/read-saved-collection-item-filters.schema'
 
 
 
@@ -53,7 +53,7 @@ subCategoryId?: GenericComparable<"number"> | null | undefined;
 averageRating?: GenericComparable<"number"> | null | undefined;
 isSaved?: GenericComparable<"bool"> | null | undefined}
 
-export const ReadProductFiltersSchema: v.GenericSchema<ReadProductFiltersSchemaFilters> = v.object({isArchived: v.nullish(comparable("bool")),
+const ReadProductFiltersSchema: v.GenericSchema<ReadProductFiltersSchemaFilters> = v.object({isArchived: v.nullish(comparable("bool")),
 title: v.nullish(comparable("string")),
 description: v.nullish(comparable("string")),
 basePrice: v.nullish(comparable("number")),
@@ -85,7 +85,10 @@ brandId: v.nullish(comparable("number")),
 categoryId: v.nullish(comparable("number")),
 subCategoryId: v.nullish(comparable("number")),
 averageRating: v.nullish(comparable("number")),
-isSaved: v.nullish(comparable("bool"))})
+isSaved: v.nullish(comparable("bool"))});
+
+export default ReadProductFiltersSchema;
+
 
 
 

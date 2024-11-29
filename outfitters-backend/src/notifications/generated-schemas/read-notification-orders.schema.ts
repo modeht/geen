@@ -2,11 +2,11 @@ import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/order.schema"
 import * as v from 'valibot';
 import { NotificationType } from '../entities/notification.entity';
-import { ReadUserOrdersSchema, ReadUserOrders } from '../../users/generated-schemas/read-user-orders.schema'
-import { ReadCollaborationOrdersSchema, ReadCollaborationOrders } from '../../collaborations/generated-schemas/read-collaboration-orders.schema'
-import { ReadCommentOrdersSchema, ReadCommentOrders } from '../../comments/generated-schemas/read-comment-orders.schema'
-import { ReadPromotionOrdersSchema, ReadPromotionOrders } from '../../promotions/generated-schemas/read-promotion-orders.schema'
-import { ReadProductOrdersSchema, ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
+import ReadUserOrdersSchema, { ReadUserOrders } from '../../users/generated-schemas/read-user-orders.schema'
+import ReadCollaborationOrdersSchema, { ReadCollaborationOrders } from '../../collaborations/generated-schemas/read-collaboration-orders.schema'
+import ReadCommentOrdersSchema, { ReadCommentOrders } from '../../comments/generated-schemas/read-comment-orders.schema'
+import ReadPromotionOrdersSchema, { ReadPromotionOrders } from '../../promotions/generated-schemas/read-promotion-orders.schema'
+import ReadProductOrdersSchema, { ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
 
 
 
@@ -24,7 +24,7 @@ commentId?: OrderDirectionEnum | undefined;
 promotionId?: OrderDirectionEnum | undefined;
 productId?: OrderDirectionEnum | undefined}
 
-export const ReadNotificationOrdersSchema: v.GenericSchema<ReadNotificationOrders> = v.object({type: v.nullish(v.enum(NotificationType)),
+const ReadNotificationOrdersSchema: v.GenericSchema<ReadNotificationOrders> = v.object({type: v.nullish(v.enum(NotificationType)),
 customContent: v.undefinedable(OrderDirectionSchema),
 isRead: v.undefinedable(OrderDirectionSchema),
 user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
@@ -36,7 +36,10 @@ userId: v.undefinedable(OrderDirectionSchema),
 collaborationId: v.undefinedable(OrderDirectionSchema),
 commentId: v.undefinedable(OrderDirectionSchema),
 promotionId: v.undefinedable(OrderDirectionSchema),
-productId: v.undefinedable(OrderDirectionSchema)})
+productId: v.undefinedable(OrderDirectionSchema)});
+
+export default ReadNotificationOrdersSchema;
+
 
 
 

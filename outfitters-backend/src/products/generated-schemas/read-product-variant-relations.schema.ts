@@ -1,10 +1,10 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadMediaRelationsSchema, ReadMediaRelations } from '../../media/generated-schemas/read-media-relations.schema'
-import { ReadOrderItemRelationsSchema, ReadOrderItemRelations } from '../../orders/generated-schemas/read-order-item-relations.schema'
-import { ReadCartItemsRelationsSchema, ReadCartItemsRelations } from '../../carts/generated-schemas/read-cart-items-relations.schema'
-import { ReadProductRelationsSchema, ReadProductRelations } from './read-product-relations.schema'
-import { ReadProductOptionValueRelationsSchema, ReadProductOptionValueRelations } from './read-product-option-value-relations.schema'
+import ReadMediaRelationsSchema, { ReadMediaRelations } from '../../media/generated-schemas/read-media-relations.schema'
+import ReadOrderItemRelationsSchema, { ReadOrderItemRelations } from '../../orders/generated-schemas/read-order-item-relations.schema'
+import ReadCartItemsRelationsSchema, { ReadCartItemsRelations } from '../../carts/generated-schemas/read-cart-items-relations.schema'
+import ReadProductRelationsSchema, { ReadProductRelations } from './read-product-relations.schema'
+import ReadProductOptionValueRelationsSchema, { ReadProductOptionValueRelations } from './read-product-option-value-relations.schema'
 
 
 
@@ -14,7 +14,7 @@ carts?: ReadCartItemsRelations | string | boolean | undefined;
 mainProduct?: ReadProductRelations | string | boolean | undefined;
 optionValues?: ReadProductOptionValueRelations | string | boolean | undefined}
 
-export const ReadProductVariantRelationsSchema: v.GenericSchema<ReadProductVariantRelations> = v.object({media: v.undefinedable(v.union([v.pipe(
+const ReadProductVariantRelationsSchema: v.GenericSchema<ReadProductVariantRelations> = v.object({media: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
@@ -33,7 +33,10 @@ mainProduct: v.undefinedable(v.union([v.pipe(
 optionValues: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
-					v.boolean(),), v.lazy(() => ReadProductOptionValueRelationsSchema)]))})
+					v.boolean(),), v.lazy(() => ReadProductOptionValueRelationsSchema)]))});
+
+export default ReadProductVariantRelationsSchema;
+
 
 
 

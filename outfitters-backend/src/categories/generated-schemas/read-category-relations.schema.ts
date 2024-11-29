@@ -1,9 +1,9 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadMediaRelationsSchema, ReadMediaRelations } from '../../media/generated-schemas/read-media-relations.schema'
-import { ReadProductRelationsSchema, ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
-import { ReadBrandProfileRelationsSchema, ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
-import { ReadSeasonalPromotionRelationsSchema, ReadSeasonalPromotionRelations } from '../../promotions/generated-schemas/read-seasonal-promotion-relations.schema'
+import ReadMediaRelationsSchema, { ReadMediaRelations } from '../../media/generated-schemas/read-media-relations.schema'
+import ReadProductRelationsSchema, { ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
+import ReadBrandProfileRelationsSchema, { ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
+import ReadSeasonalPromotionRelationsSchema, { ReadSeasonalPromotionRelations } from '../../promotions/generated-schemas/read-seasonal-promotion-relations.schema'
 
 
 
@@ -15,7 +15,7 @@ categorybrandProfiles?: ReadBrandProfileRelations | string | boolean | undefined
 subCategoriesBrandProfiles?: ReadBrandProfileRelations | string | boolean | undefined;
 seasonalPromotions?: ReadSeasonalPromotionRelations | string | boolean | undefined}
 
-export const ReadCategoryRelationsSchema: v.GenericSchema<ReadCategoryRelations> = v.object({media: v.undefinedable(v.union([v.pipe(
+const ReadCategoryRelationsSchema: v.GenericSchema<ReadCategoryRelations> = v.object({media: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
@@ -42,7 +42,10 @@ subCategoriesBrandProfiles: v.undefinedable(v.union([v.pipe(
 seasonalPromotions: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
-					v.boolean(),), v.lazy(() => ReadSeasonalPromotionRelationsSchema)]))})
+					v.boolean(),), v.lazy(() => ReadSeasonalPromotionRelationsSchema)]))});
+
+export default ReadCategoryRelationsSchema;
+
 
 
 

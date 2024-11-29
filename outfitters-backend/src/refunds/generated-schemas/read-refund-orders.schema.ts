@@ -6,7 +6,10 @@ import * as v from 'valibot';
 
 export class ReadRefundOrders {}
 
-export const ReadRefundOrdersSchema: v.GenericSchema<ReadRefundOrders> = v.object({})
+const ReadRefundOrdersSchema: v.GenericSchema<ReadRefundOrders> = v.object({});
+
+export default ReadRefundOrdersSchema;
+
 
 
 

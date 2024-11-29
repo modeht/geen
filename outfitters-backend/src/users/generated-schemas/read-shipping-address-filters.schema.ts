@@ -1,7 +1,7 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadOrderFiltersSchema, ReadOrderFiltersSchemaFilters } from '../../orders/generated-schemas/read-order-filters.schema'
-import { ReadShopperProfileFiltersSchema, ReadShopperProfileFiltersSchemaFilters } from './read-shopper-profile-filters.schema'
+import ReadOrderFiltersSchema, { ReadOrderFiltersSchemaFilters } from '../../orders/generated-schemas/read-order-filters.schema'
+import ReadShopperProfileFiltersSchema, { ReadShopperProfileFiltersSchemaFilters } from './read-shopper-profile-filters.schema'
 
 
 
@@ -21,7 +21,7 @@ orders?: ReadOrderFiltersSchemaFilters | null | undefined;
 shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null | undefined;
 shopperId?: GenericComparable<"number"> | null | undefined}
 
-export const ReadShippingAddressFiltersSchema: v.GenericSchema<ReadShippingAddressFiltersSchemaFilters> = v.object({deletedAt: v.nullish(comparable("date")),
+const ReadShippingAddressFiltersSchema: v.GenericSchema<ReadShippingAddressFiltersSchemaFilters> = v.object({deletedAt: v.nullish(comparable("date")),
 isDefault: v.nullish(comparable("bool")),
 name: v.nullish(comparable("string")),
 country: v.nullish(comparable("string")),
@@ -35,7 +35,10 @@ latitude: v.nullish(comparable("string")),
 longitude: v.nullish(comparable("string")),
 orders: v.nullish(v.lazy(() => ReadOrderFiltersSchema)),
 shopperProfile: v.nullish(v.lazy(() => ReadShopperProfileFiltersSchema)),
-shopperId: v.nullish(comparable("number"))})
+shopperId: v.nullish(comparable("number"))});
+
+export default ReadShippingAddressFiltersSchema;
+
 
 
 

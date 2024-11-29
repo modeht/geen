@@ -42,7 +42,9 @@ function LogParameter(ctx?: ExecutionContext, ...args: any[]) {
 @ApiTags('countries')
 @Controller('countries')
 export class CountriesController {
-	constructor(private readonly countriesService: CountriesService) {}
+	constructor(private readonly countriesService: CountriesService) {
+		// console.log(defs);
+	}
 
 	@Get()
 	findSupported(@Query() paginated: Paginated) {
@@ -68,10 +70,9 @@ export class CountriesController {
 	// })
 	@ApiQuery({
 		name: 'query',
-		required: false,
-		schema: toJsonSchema(ReadCountrySchema, {
-			errorMode: 'ignore',
-		}) as any,
+		schema: {
+			$ref: '#/components/schemas/ReadCountryQuery',
+		},
 	})
 	async testRead(@MoQuery(this, ReadCountrySchema) query: TReadCountrySchemaOutput) {
 		// console.log(toJsonSchema(ReadCountrySchema, { errorMode: 'ignore' }));

@@ -1,9 +1,9 @@
 import * as v from 'valibot';
 import { ReadPaginationSchema } from "../../globals/schemas/pagination.schema"
 
-import { ReadSavedCollectionFiltersSchema } from './read-saved-collection-filters.schema';
-import { ReadSavedCollectionRelationsSchema } from './read-saved-collection-relations.schema';
-import { ReadSavedCollectionOrdersSchema } from './read-saved-collection-orders.schema';
+import ReadSavedCollectionFiltersSchema from './read-saved-collection-filters.schema';
+import ReadSavedCollectionRelationsSchema from './read-saved-collection-relations.schema';
+import ReadSavedCollectionOrdersSchema from './read-saved-collection-orders.schema';
 const ReadSavedCollectionSchema = v.optional(v.object({
 filters: v.undefinedable(ReadSavedCollectionFiltersSchema),
 relations: v.undefinedable(ReadSavedCollectionRelationsSchema),

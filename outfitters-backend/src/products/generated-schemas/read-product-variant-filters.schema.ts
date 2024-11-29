@@ -1,10 +1,10 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadMediaFiltersSchema, ReadMediaFiltersSchemaFilters } from '../../media/generated-schemas/read-media-filters.schema'
-import { ReadOrderItemFiltersSchema, ReadOrderItemFiltersSchemaFilters } from '../../orders/generated-schemas/read-order-item-filters.schema'
-import { ReadCartItemsFiltersSchema, ReadCartItemsFiltersSchemaFilters } from '../../carts/generated-schemas/read-cart-items-filters.schema'
-import { ReadProductFiltersSchema, ReadProductFiltersSchemaFilters } from './read-product-filters.schema'
-import { ReadProductOptionValueFiltersSchema, ReadProductOptionValueFiltersSchemaFilters } from './read-product-option-value-filters.schema'
+import ReadMediaFiltersSchema, { ReadMediaFiltersSchemaFilters } from '../../media/generated-schemas/read-media-filters.schema'
+import ReadOrderItemFiltersSchema, { ReadOrderItemFiltersSchemaFilters } from '../../orders/generated-schemas/read-order-item-filters.schema'
+import ReadCartItemsFiltersSchema, { ReadCartItemsFiltersSchemaFilters } from '../../carts/generated-schemas/read-cart-items-filters.schema'
+import ReadProductFiltersSchema, { ReadProductFiltersSchemaFilters } from './read-product-filters.schema'
+import ReadProductOptionValueFiltersSchema, { ReadProductOptionValueFiltersSchemaFilters } from './read-product-option-value-filters.schema'
 
 
 
@@ -20,7 +20,7 @@ mainProduct?: ReadProductFiltersSchemaFilters | null | undefined;
 optionValues?: ReadProductOptionValueFiltersSchemaFilters | null | undefined;
 mainProductId?: GenericComparable<"number"> | null | undefined}
 
-export const ReadProductVariantFiltersSchema: v.GenericSchema<ReadProductVariantFiltersSchemaFilters> = v.object({isArchived: v.nullish(comparable("bool")),
+const ReadProductVariantFiltersSchema: v.GenericSchema<ReadProductVariantFiltersSchemaFilters> = v.object({isArchived: v.nullish(comparable("bool")),
 stock: v.nullish(comparable("number")),
 price: v.nullish(comparable("number")),
 lastStockUpdate: v.nullish(comparable("date")),
@@ -30,7 +30,10 @@ orderItems: v.nullish(v.lazy(() => ReadOrderItemFiltersSchema)),
 carts: v.nullish(v.lazy(() => ReadCartItemsFiltersSchema)),
 mainProduct: v.nullish(v.lazy(() => ReadProductFiltersSchema)),
 optionValues: v.nullish(v.lazy(() => ReadProductOptionValueFiltersSchema)),
-mainProductId: v.nullish(comparable("number"))})
+mainProductId: v.nullish(comparable("number"))});
+
+export default ReadProductVariantFiltersSchema;
+
 
 
 

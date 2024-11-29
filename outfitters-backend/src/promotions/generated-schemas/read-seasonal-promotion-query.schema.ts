@@ -1,9 +1,9 @@
 import * as v from 'valibot';
 import { ReadPaginationSchema } from "../../globals/schemas/pagination.schema"
 
-import { ReadSeasonalPromotionFiltersSchema } from './read-seasonal-promotion-filters.schema';
-import { ReadSeasonalPromotionRelationsSchema } from './read-seasonal-promotion-relations.schema';
-import { ReadSeasonalPromotionOrdersSchema } from './read-seasonal-promotion-orders.schema';
+import ReadSeasonalPromotionFiltersSchema from './read-seasonal-promotion-filters.schema';
+import ReadSeasonalPromotionRelationsSchema from './read-seasonal-promotion-relations.schema';
+import ReadSeasonalPromotionOrdersSchema from './read-seasonal-promotion-orders.schema';
 const ReadSeasonalPromotionSchema = v.optional(v.object({
 filters: v.undefinedable(ReadSeasonalPromotionFiltersSchema),
 relations: v.undefinedable(ReadSeasonalPromotionRelationsSchema),

@@ -2,9 +2,9 @@ import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/order.schema"
 import * as v from 'valibot';
 import { OrderStatusEnum } from '../entities/brand-orders.entity';
-import { ReadOrderItemOrdersSchema, ReadOrderItemOrders } from './read-order-item-orders.schema'
-import { ReadBrandProfileOrdersSchema, ReadBrandProfileOrders } from '../../users/generated-schemas/read-brand-profile-orders.schema'
-import { ReadOrderOrdersSchema, ReadOrderOrders } from './read-order-orders.schema'
+import ReadOrderItemOrdersSchema, { ReadOrderItemOrders } from './read-order-item-orders.schema'
+import ReadBrandProfileOrdersSchema, { ReadBrandProfileOrders } from '../../users/generated-schemas/read-brand-profile-orders.schema'
+import ReadOrderOrdersSchema, { ReadOrderOrders } from './read-order-orders.schema'
 
 
 
@@ -25,7 +25,7 @@ order?: ReadOrderOrders | OrderDirectionEnum | undefined;
 orderId?: OrderDirectionEnum | undefined;
 brandId?: OrderDirectionEnum | undefined}
 
-export const ReadBrandOrderOrdersSchema: v.GenericSchema<ReadBrandOrderOrders> = v.object({status: v.nullish(v.enum(OrderStatusEnum)),
+const ReadBrandOrderOrdersSchema: v.GenericSchema<ReadBrandOrderOrders> = v.object({status: v.nullish(v.enum(OrderStatusEnum)),
 totalSalePrice: v.undefinedable(OrderDirectionSchema),
 totalPurchasePrice: v.undefinedable(OrderDirectionSchema),
 shippingFees: v.undefinedable(OrderDirectionSchema),
@@ -40,7 +40,10 @@ items: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderItem
 brand: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
 order: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderOrdersSchema)])),
 orderId: v.undefinedable(OrderDirectionSchema),
-brandId: v.undefinedable(OrderDirectionSchema)})
+brandId: v.undefinedable(OrderDirectionSchema)});
+
+export default ReadBrandOrderOrdersSchema;
+
 
 
 

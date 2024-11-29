@@ -1,11 +1,11 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/order.schema"
 import * as v from 'valibot';
-import { ReadBrandOrderOrdersSchema, ReadBrandOrderOrders } from './read-brand-order-orders.schema'
-import { ReadProductVariantOrdersSchema, ReadProductVariantOrders } from '../../products/generated-schemas/read-product-variant-orders.schema'
-import { ReadProductOrdersSchema, ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
-import { ReadPromoCodeOrdersSchema, ReadPromoCodeOrders } from '../../promotions/generated-schemas/read-promo-code-orders.schema'
-import { ReadPromotionOrdersSchema, ReadPromotionOrders } from '../../promotions/generated-schemas/read-promotion-orders.schema'
+import ReadBrandOrderOrdersSchema, { ReadBrandOrderOrders } from './read-brand-order-orders.schema'
+import ReadProductVariantOrdersSchema, { ReadProductVariantOrders } from '../../products/generated-schemas/read-product-variant-orders.schema'
+import ReadProductOrdersSchema, { ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
+import ReadPromoCodeOrdersSchema, { ReadPromoCodeOrders } from '../../promotions/generated-schemas/read-promo-code-orders.schema'
+import ReadPromotionOrdersSchema, { ReadPromotionOrders } from '../../promotions/generated-schemas/read-promotion-orders.schema'
 
 
 
@@ -24,7 +24,7 @@ productId?: OrderDirectionEnum | undefined;
 variantId?: OrderDirectionEnum | undefined;
 promoCodeId?: OrderDirectionEnum | undefined}
 
-export const ReadOrderItemOrdersSchema: v.GenericSchema<ReadOrderItemOrders> = v.object({quantity: v.undefinedable(OrderDirectionSchema),
+const ReadOrderItemOrdersSchema: v.GenericSchema<ReadOrderItemOrders> = v.object({quantity: v.undefinedable(OrderDirectionSchema),
 unitSalePrice: v.undefinedable(OrderDirectionSchema),
 unitPurchasePrice: v.undefinedable(OrderDirectionSchema),
 totalSalePrice: v.undefinedable(OrderDirectionSchema),
@@ -37,7 +37,10 @@ appliedPromotions: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => R
 brandOrderId: v.undefinedable(OrderDirectionSchema),
 productId: v.undefinedable(OrderDirectionSchema),
 variantId: v.undefinedable(OrderDirectionSchema),
-promoCodeId: v.undefinedable(OrderDirectionSchema)})
+promoCodeId: v.undefinedable(OrderDirectionSchema)});
+
+export default ReadOrderItemOrdersSchema;
+
 
 
 

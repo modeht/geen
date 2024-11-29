@@ -1,19 +1,19 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
 import { AccountStatus } from '../entities/user.entity';
-import { ReadShopperProfileFiltersSchema, ReadShopperProfileFiltersSchemaFilters } from './read-shopper-profile-filters.schema'
-import { ReadBrandProfileFiltersSchema, ReadBrandProfileFiltersSchemaFilters } from './read-brand-profile-filters.schema'
-import { ReadCommentFiltersSchema, ReadCommentFiltersSchemaFilters } from '../../comments/generated-schemas/read-comment-filters.schema'
-import { ReadAffiliationLinkTrackingFiltersSchema, ReadAffiliationLinkTrackingFiltersSchemaFilters } from '../../affiliation-links/generated-schemas/read-affiliation-link-tracking-filters.schema'
-import { ReadNotificationFiltersSchema, ReadNotificationFiltersSchemaFilters } from '../../notifications/generated-schemas/read-notification-filters.schema'
-import { ReadConversationFiltersSchema, ReadConversationFiltersSchemaFilters } from '../../conversations/generated-schemas/read-conversation-filters.schema'
-import { ReadMessageFiltersSchema, ReadMessageFiltersSchemaFilters } from '../../messages/generated-schemas/read-message-filters.schema'
-import { ReadPostFiltersSchema, ReadPostFiltersSchemaFilters } from '../../posts/generated-schemas/read-post-filters.schema'
-import { ReadStoryFiltersSchema, ReadStoryFiltersSchemaFilters } from '../../stories/generated-schemas/read-story-filters.schema'
-import { ReadSavedCollectionFiltersSchema, ReadSavedCollectionFiltersSchemaFilters } from '../../saved-collections/generated-schemas/read-saved-collection-filters.schema'
-import { ReadRecentSearchesFiltersSchema, ReadRecentSearchesFiltersSchemaFilters } from '../../search/generated-schemas/read-recent-searches-filters.schema'
-import { ReadPostLikesFiltersSchema, ReadPostLikesFiltersSchemaFilters } from '../../posts/generated-schemas/read-post-likes-filters.schema'
-import { ReadStoryLikesFiltersSchema, ReadStoryLikesFiltersSchemaFilters } from '../../stories/generated-schemas/read-story-likes-filters.schema'
+import ReadShopperProfileFiltersSchema, { ReadShopperProfileFiltersSchemaFilters } from './read-shopper-profile-filters.schema'
+import ReadBrandProfileFiltersSchema, { ReadBrandProfileFiltersSchemaFilters } from './read-brand-profile-filters.schema'
+import ReadCommentFiltersSchema, { ReadCommentFiltersSchemaFilters } from '../../comments/generated-schemas/read-comment-filters.schema'
+import ReadAffiliationLinkTrackingFiltersSchema, { ReadAffiliationLinkTrackingFiltersSchemaFilters } from '../../affiliation-links/generated-schemas/read-affiliation-link-tracking-filters.schema'
+import ReadNotificationFiltersSchema, { ReadNotificationFiltersSchemaFilters } from '../../notifications/generated-schemas/read-notification-filters.schema'
+import ReadConversationFiltersSchema, { ReadConversationFiltersSchemaFilters } from '../../conversations/generated-schemas/read-conversation-filters.schema'
+import ReadMessageFiltersSchema, { ReadMessageFiltersSchemaFilters } from '../../messages/generated-schemas/read-message-filters.schema'
+import ReadPostFiltersSchema, { ReadPostFiltersSchemaFilters } from '../../posts/generated-schemas/read-post-filters.schema'
+import ReadStoryFiltersSchema, { ReadStoryFiltersSchemaFilters } from '../../stories/generated-schemas/read-story-filters.schema'
+import ReadSavedCollectionFiltersSchema, { ReadSavedCollectionFiltersSchemaFilters } from '../../saved-collections/generated-schemas/read-saved-collection-filters.schema'
+import ReadRecentSearchesFiltersSchema, { ReadRecentSearchesFiltersSchemaFilters } from '../../search/generated-schemas/read-recent-searches-filters.schema'
+import ReadPostLikesFiltersSchema, { ReadPostLikesFiltersSchemaFilters } from '../../posts/generated-schemas/read-post-likes-filters.schema'
+import ReadStoryLikesFiltersSchema, { ReadStoryLikesFiltersSchemaFilters } from '../../stories/generated-schemas/read-story-likes-filters.schema'
 
 
 import { LanguageEnum } from '../../../lib/enums'
@@ -51,7 +51,7 @@ isFollowing?: GenericComparable<"bool"> | null | undefined;
 isBlockedBy?: GenericComparable<"bool"> | null | undefined;
 followersCount?: GenericComparable<"number"> | null | undefined}
 
-export const ReadUserFiltersSchema: v.GenericSchema<ReadUserFiltersSchemaFilters> = v.object({status: v.nullish(v.enum(AccountStatus)),
+const ReadUserFiltersSchema: v.GenericSchema<ReadUserFiltersSchemaFilters> = v.object({status: v.nullish(v.enum(AccountStatus)),
 email: v.nullish(comparable("string")),
 phone: v.nullish(comparable("string")),
 password: v.nullish(comparable("string")),
@@ -83,7 +83,10 @@ blockedBy: v.nullish(v.lazy(() => ReadUserFiltersSchema)),
 blockedUsers: v.nullish(v.lazy(() => ReadUserFiltersSchema)),
 isFollowing: v.nullish(comparable("bool")),
 isBlockedBy: v.nullish(comparable("bool")),
-followersCount: v.nullish(comparable("number"))})
+followersCount: v.nullish(comparable("number"))});
+
+export default ReadUserFiltersSchema;
+
 
 
 

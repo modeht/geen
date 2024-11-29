@@ -1,16 +1,16 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadUserRelationsSchema, ReadUserRelations } from './read-user-relations.schema'
-import { ReadMediaRelationsSchema, ReadMediaRelations } from '../../media/generated-schemas/read-media-relations.schema'
-import { ReadCollectionRelationsSchema, ReadCollectionRelations } from '../../collections/generated-schemas/read-collection-relations.schema'
-import { ReadProductRelationsSchema, ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
-import { ReadPromotionRelationsSchema, ReadPromotionRelations } from '../../promotions/generated-schemas/read-promotion-relations.schema'
-import { ReadPromoCodeRelationsSchema, ReadPromoCodeRelations } from '../../promotions/generated-schemas/read-promo-code-relations.schema'
-import { ReadBrandOrderRelationsSchema, ReadBrandOrderRelations } from '../../orders/generated-schemas/read-brand-order-relations.schema'
-import { ReadPreferenceRelationsSchema, ReadPreferenceRelations } from '../../preferences/generated-schemas/read-preference-relations.schema'
-import { ReadCollaborationRelationsSchema, ReadCollaborationRelations } from '../../collaborations/generated-schemas/read-collaboration-relations.schema'
-import { ReadCategoryRelationsSchema, ReadCategoryRelations } from '../../categories/generated-schemas/read-category-relations.schema'
-import { ReadCountryRelationsSchema, ReadCountryRelations } from '../../countries/generated-schemas/read-country-relations.schema'
+import ReadUserRelationsSchema, { ReadUserRelations } from './read-user-relations.schema'
+import ReadMediaRelationsSchema, { ReadMediaRelations } from '../../media/generated-schemas/read-media-relations.schema'
+import ReadCollectionRelationsSchema, { ReadCollectionRelations } from '../../collections/generated-schemas/read-collection-relations.schema'
+import ReadProductRelationsSchema, { ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
+import ReadPromotionRelationsSchema, { ReadPromotionRelations } from '../../promotions/generated-schemas/read-promotion-relations.schema'
+import ReadPromoCodeRelationsSchema, { ReadPromoCodeRelations } from '../../promotions/generated-schemas/read-promo-code-relations.schema'
+import ReadBrandOrderRelationsSchema, { ReadBrandOrderRelations } from '../../orders/generated-schemas/read-brand-order-relations.schema'
+import ReadPreferenceRelationsSchema, { ReadPreferenceRelations } from '../../preferences/generated-schemas/read-preference-relations.schema'
+import ReadCollaborationRelationsSchema, { ReadCollaborationRelations } from '../../collaborations/generated-schemas/read-collaboration-relations.schema'
+import ReadCategoryRelationsSchema, { ReadCategoryRelations } from '../../categories/generated-schemas/read-category-relations.schema'
+import ReadCountryRelationsSchema, { ReadCountryRelations } from '../../countries/generated-schemas/read-country-relations.schema'
 
 
 
@@ -28,7 +28,7 @@ categories?: ReadCategoryRelations | string | boolean | undefined;
 subCategories?: ReadCategoryRelations | string | boolean | undefined;
 countries?: ReadCountryRelations | string | boolean | undefined}
 
-export const ReadBrandProfileRelationsSchema: v.GenericSchema<ReadBrandProfileRelations> = v.object({user: v.undefinedable(v.union([v.pipe(
+const ReadBrandProfileRelationsSchema: v.GenericSchema<ReadBrandProfileRelations> = v.object({user: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
@@ -79,7 +79,10 @@ subCategories: v.undefinedable(v.union([v.pipe(
 countries: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
-					v.boolean(),), v.lazy(() => ReadCountryRelationsSchema)]))})
+					v.boolean(),), v.lazy(() => ReadCountryRelationsSchema)]))});
+
+export default ReadBrandProfileRelationsSchema;
+
 
 
 

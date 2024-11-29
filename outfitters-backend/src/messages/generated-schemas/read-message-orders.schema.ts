@@ -1,14 +1,14 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import { OrderDirectionSchema, OrderDirectionEnum } from "../../globals/schemas/order.schema"
 import * as v from 'valibot';
-import { ReadMediaOrdersSchema, ReadMediaOrders } from '../../media/generated-schemas/read-media-orders.schema'
-import { ReadCollaborationOrdersSchema, ReadCollaborationOrders } from '../../collaborations/generated-schemas/read-collaboration-orders.schema'
-import { ReadPostOrdersSchema, ReadPostOrders } from '../../posts/generated-schemas/read-post-orders.schema'
-import { ReadStoryOrdersSchema, ReadStoryOrders } from '../../stories/generated-schemas/read-story-orders.schema'
-import { ReadProductOrdersSchema, ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
-import { ReadConversationOrdersSchema, ReadConversationOrders } from '../../conversations/generated-schemas/read-conversation-orders.schema'
-import { ReadUserOrdersSchema, ReadUserOrders } from '../../users/generated-schemas/read-user-orders.schema'
-import { ReadCommentOrdersSchema, ReadCommentOrders } from '../../comments/generated-schemas/read-comment-orders.schema'
+import ReadMediaOrdersSchema, { ReadMediaOrders } from '../../media/generated-schemas/read-media-orders.schema'
+import ReadCollaborationOrdersSchema, { ReadCollaborationOrders } from '../../collaborations/generated-schemas/read-collaboration-orders.schema'
+import ReadPostOrdersSchema, { ReadPostOrders } from '../../posts/generated-schemas/read-post-orders.schema'
+import ReadStoryOrdersSchema, { ReadStoryOrders } from '../../stories/generated-schemas/read-story-orders.schema'
+import ReadProductOrdersSchema, { ReadProductOrders } from '../../products/generated-schemas/read-product-orders.schema'
+import ReadConversationOrdersSchema, { ReadConversationOrders } from '../../conversations/generated-schemas/read-conversation-orders.schema'
+import ReadUserOrdersSchema, { ReadUserOrders } from '../../users/generated-schemas/read-user-orders.schema'
+import ReadCommentOrdersSchema, { ReadCommentOrders } from '../../comments/generated-schemas/read-comment-orders.schema'
 
 
 
@@ -33,7 +33,7 @@ storyId?: OrderDirectionEnum | undefined;
 commentId?: OrderDirectionEnum | undefined;
 productId?: OrderDirectionEnum | undefined}
 
-export const ReadMessageOrdersSchema: v.GenericSchema<ReadMessageOrders> = v.object({readAt: v.undefinedable(OrderDirectionSchema),
+const ReadMessageOrdersSchema: v.GenericSchema<ReadMessageOrders> = v.object({readAt: v.undefinedable(OrderDirectionSchema),
 content: v.undefinedable(OrderDirectionSchema),
 media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
 reaction: v.undefinedable(OrderDirectionSchema),
@@ -52,7 +52,10 @@ collaborationId: v.undefinedable(OrderDirectionSchema),
 postId: v.undefinedable(OrderDirectionSchema),
 storyId: v.undefinedable(OrderDirectionSchema),
 commentId: v.undefinedable(OrderDirectionSchema),
-productId: v.undefinedable(OrderDirectionSchema)})
+productId: v.undefinedable(OrderDirectionSchema)});
+
+export default ReadMessageOrdersSchema;
+
 
 
 

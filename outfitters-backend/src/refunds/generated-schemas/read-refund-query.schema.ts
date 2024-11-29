@@ -1,9 +1,9 @@
 import * as v from 'valibot';
 import { ReadPaginationSchema } from "../../globals/schemas/pagination.schema"
 
-import { ReadRefundFiltersSchema } from './read-refund-filters.schema';
-import { ReadRefundRelationsSchema } from './read-refund-relations.schema';
-import { ReadRefundOrdersSchema } from './read-refund-orders.schema';
+import ReadRefundFiltersSchema from './read-refund-filters.schema';
+import ReadRefundRelationsSchema from './read-refund-relations.schema';
+import ReadRefundOrdersSchema from './read-refund-orders.schema';
 const ReadRefundSchema = v.optional(v.object({
 filters: v.undefinedable(ReadRefundFiltersSchema),
 relations: v.undefinedable(ReadRefundRelationsSchema),

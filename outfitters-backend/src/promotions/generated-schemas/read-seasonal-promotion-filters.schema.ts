@@ -1,7 +1,7 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadPromotionFiltersSchema, ReadPromotionFiltersSchemaFilters } from './read-promotion-filters.schema'
-import { ReadCategoryFiltersSchema, ReadCategoryFiltersSchemaFilters } from '../../categories/generated-schemas/read-category-filters.schema'
+import ReadPromotionFiltersSchema, { ReadPromotionFiltersSchemaFilters } from './read-promotion-filters.schema'
+import ReadCategoryFiltersSchema, { ReadCategoryFiltersSchemaFilters } from '../../categories/generated-schemas/read-category-filters.schema'
 
 
 import { PromotionStatusEnum } from '../entities/enums'
@@ -12,12 +12,15 @@ status?: PromotionStatusEnum | null | undefined;
 promotions?: ReadPromotionFiltersSchemaFilters | null | undefined;
 subCategories?: ReadCategoryFiltersSchemaFilters | null | undefined}
 
-export const ReadSeasonalPromotionFiltersSchema: v.GenericSchema<ReadSeasonalPromotionFiltersSchemaFilters> = v.object({title: v.nullish(comparable("string")),
+const ReadSeasonalPromotionFiltersSchema: v.GenericSchema<ReadSeasonalPromotionFiltersSchemaFilters> = v.object({title: v.nullish(comparable("string")),
 start: v.nullish(comparable("date")),
 end: v.nullish(comparable("date")),
 status: v.nullish(v.enum(PromotionStatusEnum)),
 promotions: v.nullish(v.lazy(() => ReadPromotionFiltersSchema)),
-subCategories: v.nullish(v.lazy(() => ReadCategoryFiltersSchema))})
+subCategories: v.nullish(v.lazy(() => ReadCategoryFiltersSchema))});
+
+export default ReadSeasonalPromotionFiltersSchema;
+
 
 
 

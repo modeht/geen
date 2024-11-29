@@ -1,10 +1,10 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
 import { CollaborationStatusEnum } from '../entities/collaboration.entity';
-import { ReadMessageRelationsSchema, ReadMessageRelations } from '../../messages/generated-schemas/read-message-relations.schema'
-import { ReadBrandProfileRelationsSchema, ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
-import { ReadShopperProfileRelationsSchema, ReadShopperProfileRelations } from '../../users/generated-schemas/read-shopper-profile-relations.schema'
-import { ReadNotificationRelationsSchema, ReadNotificationRelations } from '../../notifications/generated-schemas/read-notification-relations.schema'
+import ReadMessageRelationsSchema, { ReadMessageRelations } from '../../messages/generated-schemas/read-message-relations.schema'
+import ReadBrandProfileRelationsSchema, { ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
+import ReadShopperProfileRelationsSchema, { ReadShopperProfileRelations } from '../../users/generated-schemas/read-shopper-profile-relations.schema'
+import ReadNotificationRelationsSchema, { ReadNotificationRelations } from '../../notifications/generated-schemas/read-notification-relations.schema'
 
 
 
@@ -14,7 +14,7 @@ shopperProfile?: ReadShopperProfileRelations | string | boolean | undefined;
 status?: CollaborationStatusEnum | null | undefined;
 notifications?: ReadNotificationRelations | string | boolean | undefined}
 
-export const ReadCollaborationRelationsSchema: v.GenericSchema<ReadCollaborationRelations> = v.object({message: v.undefinedable(v.union([v.pipe(
+const ReadCollaborationRelationsSchema: v.GenericSchema<ReadCollaborationRelations> = v.object({message: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMessageRelationsSchema)])),
@@ -30,7 +30,10 @@ status: v.nullish(v.enum(CollaborationStatusEnum)),
 notifications: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
-					v.boolean(),), v.lazy(() => ReadNotificationRelationsSchema)]))})
+					v.boolean(),), v.lazy(() => ReadNotificationRelationsSchema)]))});
+
+export default ReadCollaborationRelationsSchema;
+
 
 
 

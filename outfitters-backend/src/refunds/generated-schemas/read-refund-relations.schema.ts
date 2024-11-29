@@ -5,7 +5,10 @@ import * as v from 'valibot';
 
 export class ReadRefundRelations {}
 
-export const ReadRefundRelationsSchema: v.GenericSchema<ReadRefundRelations> = v.object({})
+const ReadRefundRelationsSchema: v.GenericSchema<ReadRefundRelations> = v.object({});
+
+export default ReadRefundRelationsSchema;
+
 
 
 

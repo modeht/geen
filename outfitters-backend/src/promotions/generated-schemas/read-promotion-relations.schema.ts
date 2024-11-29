@@ -1,10 +1,10 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadNotificationRelationsSchema, ReadNotificationRelations } from '../../notifications/generated-schemas/read-notification-relations.schema'
-import { ReadBrandProfileRelationsSchema, ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
-import { ReadSeasonalPromotionRelationsSchema, ReadSeasonalPromotionRelations } from './read-seasonal-promotion-relations.schema'
-import { ReadProductRelationsSchema, ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
-import { ReadOrderItemRelationsSchema, ReadOrderItemRelations } from '../../orders/generated-schemas/read-order-item-relations.schema'
+import ReadNotificationRelationsSchema, { ReadNotificationRelations } from '../../notifications/generated-schemas/read-notification-relations.schema'
+import ReadBrandProfileRelationsSchema, { ReadBrandProfileRelations } from '../../users/generated-schemas/read-brand-profile-relations.schema'
+import ReadSeasonalPromotionRelationsSchema, { ReadSeasonalPromotionRelations } from './read-seasonal-promotion-relations.schema'
+import ReadProductRelationsSchema, { ReadProductRelations } from '../../products/generated-schemas/read-product-relations.schema'
+import ReadOrderItemRelationsSchema, { ReadOrderItemRelations } from '../../orders/generated-schemas/read-order-item-relations.schema'
 
 
 import { PromotionTypeEnum } from '../entities/enums'
@@ -19,7 +19,7 @@ seasonalPromotion?: ReadSeasonalPromotionRelations | string | boolean | undefine
 products?: ReadProductRelations | string | boolean | undefined;
 orderItems?: ReadOrderItemRelations | string | boolean | undefined}
 
-export const ReadPromotionRelationsSchema: v.GenericSchema<ReadPromotionRelations> = v.object({type: v.nullish(v.enum(PromotionTypeEnum)),
+const ReadPromotionRelationsSchema: v.GenericSchema<ReadPromotionRelations> = v.object({type: v.nullish(v.enum(PromotionTypeEnum)),
 target: v.nullish(v.enum(PromotionTargetEnum)),
 status: v.nullish(v.enum(PromotionStatusEnum)),
 notifications: v.undefinedable(v.union([v.pipe(
@@ -41,7 +41,10 @@ products: v.undefinedable(v.union([v.pipe(
 orderItems: v.undefinedable(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
-					v.boolean(),), v.lazy(() => ReadOrderItemRelationsSchema)]))})
+					v.boolean(),), v.lazy(() => ReadOrderItemRelationsSchema)]))});
+
+export default ReadPromotionRelationsSchema;
+
 
 
 

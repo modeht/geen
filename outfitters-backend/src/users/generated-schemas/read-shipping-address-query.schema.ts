@@ -1,9 +1,9 @@
 import * as v from 'valibot';
 import { ReadPaginationSchema } from "../../globals/schemas/pagination.schema"
 
-import { ReadShippingAddressFiltersSchema } from './read-shipping-address-filters.schema';
-import { ReadShippingAddressRelationsSchema } from './read-shipping-address-relations.schema';
-import { ReadShippingAddressOrdersSchema } from './read-shipping-address-orders.schema';
+import ReadShippingAddressFiltersSchema from './read-shipping-address-filters.schema';
+import ReadShippingAddressRelationsSchema from './read-shipping-address-relations.schema';
+import ReadShippingAddressOrdersSchema from './read-shipping-address-orders.schema';
 const ReadShippingAddressSchema = v.optional(v.object({
 filters: v.undefinedable(ReadShippingAddressFiltersSchema),
 relations: v.undefinedable(ReadShippingAddressRelationsSchema),

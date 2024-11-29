@@ -1,7 +1,7 @@
 import { GenericComparable, comparable } from "../../globals/lib/comparable"
 import * as v from 'valibot';
-import { ReadProductOptionFiltersSchema, ReadProductOptionFiltersSchemaFilters } from './read-product-option-filters.schema'
-import { ReadProductVariantFiltersSchema, ReadProductVariantFiltersSchemaFilters } from './read-product-variant-filters.schema'
+import ReadProductOptionFiltersSchema, { ReadProductOptionFiltersSchemaFilters } from './read-product-option-filters.schema'
+import ReadProductVariantFiltersSchema, { ReadProductVariantFiltersSchemaFilters } from './read-product-variant-filters.schema'
 
 
 
@@ -11,11 +11,14 @@ productId?: GenericComparable<"number"> | null | undefined;
 option?: ReadProductOptionFiltersSchemaFilters | null | undefined;
 variants?: ReadProductVariantFiltersSchemaFilters | null | undefined}
 
-export const ReadProductOptionValueFiltersSchema: v.GenericSchema<ReadProductOptionValueFiltersSchemaFilters> = v.object({value: v.nullish(comparable("string")),
+const ReadProductOptionValueFiltersSchema: v.GenericSchema<ReadProductOptionValueFiltersSchemaFilters> = v.object({value: v.nullish(comparable("string")),
 optionName: v.nullish(comparable("string")),
 productId: v.nullish(comparable("number")),
 option: v.nullish(v.lazy(() => ReadProductOptionFiltersSchema)),
-variants: v.nullish(v.lazy(() => ReadProductVariantFiltersSchema))})
+variants: v.nullish(v.lazy(() => ReadProductVariantFiltersSchema))});
+
+export default ReadProductOptionValueFiltersSchema;
+
 
 
 
