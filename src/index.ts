@@ -43,11 +43,11 @@ async function main() {
 	// console.dir(acc, { depth: null });
 	// console.log(Object.keys(ASTs).length);
 	for (const ast in ASTs) {
-		// const c = new CreateSchemaCreator(ASTs[ast].sourceFile, ASTs[ast].fullPath, ASTs);
+		const c = new CreateSchemaCreator(ASTs[ast].sourceFile, ASTs[ast].fullPath, ASTs);
 		const f = new ReadSchemaCreator(ASTs[ast].sourceFile, ASTs[ast].fullPath, ASTs);
 		f.baseSetup();
 
-		// await c.buildFile();
+		await c.buildFile();
 		await f.build();
 	}
 

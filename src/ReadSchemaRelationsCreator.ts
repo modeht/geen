@@ -245,7 +245,9 @@ export type TRead${this.entityName}RelationsSchemaInput = v.InferInput<typeof ${
 		const relationsClassName = `Read${this.entityName}Relations`;
 
 		const classExportStatment = `export class ${relationsClassName} {${classPropsObject}}`;
-		const schemaExportStatment = `export const ${this.relationsSchemaName}: v.GenericSchema<${relationsClassName}> = ${validationObject}`;
+		const schemaExportStatment = `const ${this.relationsSchemaName}: v.GenericSchema<${relationsClassName}> = ${validationObject};\n
+export default ${this.relationsSchemaName};
+`;
 
 		this.readSchemaText = `${classExportStatment}\n\n${schemaExportStatment}\n\n`;
 
@@ -282,7 +284,7 @@ export type TRead${this.entityName}RelationsSchemaInput = v.InferInput<typeof ${
 				.replace('.ts', '');
 
 			this.imports.add(
-				`import { ${nestedRelationsSchemaName}, ${nestedRelationsClassName} } from '${
+				`import ${nestedRelationsSchemaName}, { ${nestedRelationsClassName} } from '${
 					relPathToNested.startsWith('.') ? relPathToNested : `./${relPathToNested}`
 				}'`
 			);

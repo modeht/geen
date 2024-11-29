@@ -259,7 +259,9 @@ export type TRead${this.entityName}OrdersSchemaInput = v.InferInput<typeof ${thi
 		const ordersClassName = `Read${this.entityName}Orders`;
 
 		const classExportStatment = `export class ${ordersClassName} {${classPropsObject}}`;
-		const schemaExportStatment = `export const ${this.ordersSchemaName}: v.GenericSchema<${ordersClassName}> = ${validationObject}`;
+		const schemaExportStatment = `const ${this.ordersSchemaName}: v.GenericSchema<${ordersClassName}> = ${validationObject};\n
+export default ${this.ordersSchemaName};
+`;
 
 		this.readSchemaText = `${classExportStatment}\n\n${schemaExportStatment}\n\n`;
 
@@ -296,7 +298,7 @@ export type TRead${this.entityName}OrdersSchemaInput = v.InferInput<typeof ${thi
 				.replace('.ts', '');
 
 			this.imports.add(
-				`import { ${nestedOrdersSchemaName}, ${nestedOrdersClassName} } from '${
+				`import ${nestedOrdersSchemaName}, { ${nestedOrdersClassName} } from '${
 					relPathToNested.startsWith('.') ? relPathToNested : `./${relPathToNested}`
 				}'`
 			);

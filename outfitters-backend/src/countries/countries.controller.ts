@@ -11,19 +11,19 @@ import { CountriesService } from './countires.service';
 import { parse as queryParser } from 'qs';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
-import { safeParse } from 'valibot';
-import {
-	ReadCountrySchema,
-	TReadCountrySchemaInput,
-	TReadCountrySchemaOutput,
-} from './generated-schemas/read-country.schema';
-
+import { file, safeParse } from 'valibot';
 import { createWhere } from '../globals/lib/create-where';
 import { createRelations } from '../globals/lib/create-relations';
 import { MoQuery } from '../globals/decorators/mo-query.decorator';
 import { toJsonSchema } from '@valibot/to-json-schema';
 import { writeFile } from 'fs/promises';
-import { ReadMediaFiltersSchema } from '../media/generated-schemas/read-media-filters.schema';
+import ReadCountrySchema, {
+	TReadCountrySchemaOutput,
+} from './generated-schemas/read-country-query.schema';
+import ReadMediaSchema from '../media/generated-schemas/read-media-query.schema';
+import { async as globAsync } from 'fast-glob';
+import { dirname, join, relative, resolve, sep } from 'path';
+import { fileURLToPath } from 'url';
 
 function LogParameter(ctx?: ExecutionContext, ...args: any[]) {
 	console.log(ctx, args);
@@ -69,37 +69,12 @@ export class CountriesController {
 	@ApiQuery({
 		name: 'query',
 		required: false,
-		schema: toJsonSchema(ReadCountrySchema, { errorMode: 'ignore' }) as any,
-		// schema: {
-		// 	type: 'object',
-		// 	properties: {
-		// 		name: {
-		// 			type: 'string',
-		// 		},`
-		// 	},
-		// 	title: 'test',
-		// },
-		// type: ,
-		// items:
+		schema: toJsonSchema(ReadCountrySchema, {
+			errorMode: 'ignore',
+		}) as any,
 	})
-	testRead(
-		@MoQuery(ReadCountrySchema) query: TReadCountrySchemaOutput,
-		// @LogParameter() age: number,
-	) {
+	async testRead(@MoQuery(this, ReadCountrySchema) query: TReadCountrySchemaOutput) {
 		// console.log(toJsonSchema(ReadCountrySchema, { errorMode: 'ignore' }));
-		writeFile(
-			'./jsonschema.json',
-			JSON.stringify(
-				toJsonSchema(ReadCountrySchema, {
-					errorMode: 'ignore',
-					definitions: {
-						ReadMediaFiltersSchema,
-					},
-				}),
-				null,
-				4,
-			),
-		);
 		return 'true';
 		// const where = createWhere(query);
 		// const relations = createRelations(query, { depth: 1 });

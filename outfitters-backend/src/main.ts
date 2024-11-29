@@ -8,11 +8,13 @@ import { ValidationError } from 'class-validator';
 import Handlebars from 'handlebars';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import { join } from 'path';
+import { join, sep, relative } from 'path';
 import { AppModule } from './app.module';
 import { GeneralExceptionFilter } from './globals/filters/exception.filter';
 import { ResponseInterceptor } from './globals/interceptors/response.interceptor';
 import 'reflect-metadata';
+import { async } from 'fast-glob';
+import { toJsonSchema } from '@valibot/to-json-schema';
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(
@@ -119,7 +121,7 @@ async function bootstrap() {
 	// console.dir(document.paths['/api/v1/countries/test'], { depth: null });
 	// console.log(app.getHttpAdapter());
 	// app.getHttpServer();
-
+	// await createSchemas();
 	const configService = app.get(ConfigService);
 	const PORT = configService.get('DOCKER_PORT') || configService.get('PORT');
 

@@ -287,7 +287,9 @@ export type TRead${this.entityName}FiltersSchemaInput = v.InferInput<typeof ${th
 		const filtersClassName = `${this.filtersSchemaName}Filters`;
 
 		const classExportStatment = `export class ${filtersClassName} {${classPropsObject}}`;
-		const schemaExportStatment = `export const ${this.filtersSchemaName}: v.GenericSchema<${filtersClassName}> = ${validationObject}`;
+		const schemaExportStatment = `const ${this.filtersSchemaName}: v.GenericSchema<${filtersClassName}> = ${validationObject};\n
+export default ${this.filtersSchemaName};
+`;
 
 		this.readSchemaText = `${classExportStatment}\n\n${schemaExportStatment}\n\n`;
 
@@ -324,7 +326,7 @@ export type TRead${this.entityName}FiltersSchemaInput = v.InferInput<typeof ${th
 				.replace('.ts', '');
 
 			this.imports.add(
-				`import { ${nestedFiltersSchemaName}, ${nestedFiltersClassName} } from '${
+				`import ${nestedFiltersSchemaName}, { ${nestedFiltersClassName} } from '${
 					relPathToNested.startsWith('.') ? relPathToNested : `./${relPathToNested}`
 				}'`
 			);

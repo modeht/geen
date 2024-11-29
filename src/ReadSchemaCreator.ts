@@ -128,7 +128,7 @@ export class ReadSchemaCreator {
 				};
 			})
 			.map((f) => {
-				return `import { ${f.importName} } from '${f.relativePath}'`;
+				return `import ${f.importName} from '${f.relativePath}'`;
 			});
 
 		const importsText = Array.from(this.imports).join('\n');
