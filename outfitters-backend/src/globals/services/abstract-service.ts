@@ -90,7 +90,7 @@ export class AbstractService {
 	}
 
 	async read(
-		entity: EntitySchema,
+		entity: EntitySchema | string,
 		query: Record<string, any>,
 		options: ReadOptions = { depth: 0 },
 	) {
