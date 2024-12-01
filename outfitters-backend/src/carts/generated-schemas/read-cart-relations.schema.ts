@@ -8,26 +8,26 @@ import ReadPromoCodeRelationsSchema, { ReadPromoCodeRelations } from '../../prom
 
 
 
-export class ReadCartRelations {status?: CartStatus | null | undefined;
-order?: ReadOrderRelations | string | boolean | undefined;
-items?: ReadCartItemsRelations | string | boolean | undefined;
-shopperProfile?: ReadShopperProfileRelations | string | boolean | undefined;
-promoCode?: ReadPromoCodeRelations | string | boolean | undefined}
+export class ReadCartRelations {status?: CartStatus | null;
+order?: ReadOrderRelations | string | boolean;
+items?: ReadCartItemsRelations | string | boolean;
+shopperProfile?: ReadShopperProfileRelations | string | boolean;
+promoCode?: ReadPromoCodeRelations | string | boolean}
 
 const ReadCartRelationsSchema: v.GenericSchema<ReadCartRelations> = v.object({status: v.nullish(v.enum(CartStatus)),
-order: v.undefinedable(v.union([v.pipe(
+order: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadOrderRelationsSchema)])),
-items: v.undefinedable(v.union([v.pipe(
+items: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCartItemsRelationsSchema)])),
-shopperProfile: v.undefinedable(v.union([v.pipe(
+shopperProfile: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadShopperProfileRelationsSchema)])),
-promoCode: v.undefinedable(v.union([v.pipe(
+promoCode: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPromoCodeRelationsSchema)]))});

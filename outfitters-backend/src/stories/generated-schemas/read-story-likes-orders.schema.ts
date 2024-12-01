@@ -6,15 +6,15 @@ import ReadStoryOrdersSchema, { ReadStoryOrders } from './read-story-orders.sche
 
 
 
-export class ReadStoryLikesOrders {user?: ReadUserOrders | OrderDirectionEnum | undefined;
-story?: ReadStoryOrders | OrderDirectionEnum | undefined;
-userId?: OrderDirectionEnum | undefined;
-storyId?: OrderDirectionEnum | undefined}
+export class ReadStoryLikesOrders {user?: ReadUserOrders | OrderDirectionEnum;
+story?: ReadStoryOrders | OrderDirectionEnum;
+userId?: OrderDirectionEnum;
+storyId?: OrderDirectionEnum}
 
-const ReadStoryLikesOrdersSchema: v.GenericSchema<ReadStoryLikesOrders> = v.object({user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-story: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryOrdersSchema)])),
-userId: v.undefinedable(OrderDirectionSchema),
-storyId: v.undefinedable(OrderDirectionSchema)});
+const ReadStoryLikesOrdersSchema: v.GenericSchema<ReadStoryLikesOrders> = v.object({user: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+story: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryOrdersSchema)])),
+userId: v.optional(OrderDirectionSchema),
+storyId: v.optional(OrderDirectionSchema)});
 
 export default ReadStoryLikesOrdersSchema;
 

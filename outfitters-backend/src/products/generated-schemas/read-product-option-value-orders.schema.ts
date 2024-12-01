@@ -6,17 +6,17 @@ import ReadProductVariantOrdersSchema, { ReadProductVariantOrders } from './read
 
 
 
-export class ReadProductOptionValueOrders {value?: OrderDirectionEnum | undefined;
-optionName?: OrderDirectionEnum | undefined;
-productId?: OrderDirectionEnum | undefined;
-option?: ReadProductOptionOrders | OrderDirectionEnum | undefined;
-variants?: ReadProductVariantOrders | OrderDirectionEnum | undefined}
+export class ReadProductOptionValueOrders {value?: OrderDirectionEnum;
+optionName?: OrderDirectionEnum;
+productId?: OrderDirectionEnum;
+option?: ReadProductOptionOrders | OrderDirectionEnum;
+variants?: ReadProductVariantOrders | OrderDirectionEnum}
 
-const ReadProductOptionValueOrdersSchema: v.GenericSchema<ReadProductOptionValueOrders> = v.object({value: v.undefinedable(OrderDirectionSchema),
-optionName: v.undefinedable(OrderDirectionSchema),
-productId: v.undefinedable(OrderDirectionSchema),
-option: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOptionOrdersSchema)])),
-variants: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductVariantOrdersSchema)]))});
+const ReadProductOptionValueOrdersSchema: v.GenericSchema<ReadProductOptionValueOrders> = v.object({value: v.optional(OrderDirectionSchema),
+optionName: v.optional(OrderDirectionSchema),
+productId: v.optional(OrderDirectionSchema),
+option: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOptionOrdersSchema)])),
+variants: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductVariantOrdersSchema)]))});
 
 export default ReadProductOptionValueOrdersSchema;
 

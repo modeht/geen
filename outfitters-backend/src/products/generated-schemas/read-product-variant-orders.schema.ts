@@ -9,29 +9,29 @@ import ReadProductOptionValueOrdersSchema, { ReadProductOptionValueOrders } from
 
 
 
-export class ReadProductVariantOrders {isArchived?: OrderDirectionEnum | undefined;
-stock?: OrderDirectionEnum | undefined;
-price?: OrderDirectionEnum | undefined;
-lastStockUpdate?: OrderDirectionEnum | undefined;
-sku?: OrderDirectionEnum | undefined;
-media?: ReadMediaOrders | OrderDirectionEnum | undefined;
-orderItems?: ReadOrderItemOrders | OrderDirectionEnum | undefined;
-carts?: ReadCartItemsOrders | OrderDirectionEnum | undefined;
-mainProduct?: ReadProductOrders | OrderDirectionEnum | undefined;
-optionValues?: ReadProductOptionValueOrders | OrderDirectionEnum | undefined;
-mainProductId?: OrderDirectionEnum | undefined}
+export class ReadProductVariantOrders {isArchived?: OrderDirectionEnum;
+stock?: OrderDirectionEnum;
+price?: OrderDirectionEnum;
+lastStockUpdate?: OrderDirectionEnum;
+sku?: OrderDirectionEnum;
+media?: ReadMediaOrders | OrderDirectionEnum;
+orderItems?: ReadOrderItemOrders | OrderDirectionEnum;
+carts?: ReadCartItemsOrders | OrderDirectionEnum;
+mainProduct?: ReadProductOrders | OrderDirectionEnum;
+optionValues?: ReadProductOptionValueOrders | OrderDirectionEnum;
+mainProductId?: OrderDirectionEnum}
 
-const ReadProductVariantOrdersSchema: v.GenericSchema<ReadProductVariantOrders> = v.object({isArchived: v.undefinedable(OrderDirectionSchema),
-stock: v.undefinedable(OrderDirectionSchema),
-price: v.undefinedable(OrderDirectionSchema),
-lastStockUpdate: v.undefinedable(OrderDirectionSchema),
-sku: v.undefinedable(OrderDirectionSchema),
-media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
-orderItems: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderItemOrdersSchema)])),
-carts: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCartItemsOrdersSchema)])),
-mainProduct: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
-optionValues: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOptionValueOrdersSchema)])),
-mainProductId: v.undefinedable(OrderDirectionSchema)});
+const ReadProductVariantOrdersSchema: v.GenericSchema<ReadProductVariantOrders> = v.object({isArchived: v.optional(OrderDirectionSchema),
+stock: v.optional(OrderDirectionSchema),
+price: v.optional(OrderDirectionSchema),
+lastStockUpdate: v.optional(OrderDirectionSchema),
+sku: v.optional(OrderDirectionSchema),
+media: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
+orderItems: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderItemOrdersSchema)])),
+carts: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCartItemsOrdersSchema)])),
+mainProduct: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+optionValues: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOptionValueOrdersSchema)])),
+mainProductId: v.optional(OrderDirectionSchema)});
 
 export default ReadProductVariantOrdersSchema;
 

@@ -11,39 +11,39 @@ import ReadOrderItemOrdersSchema, { ReadOrderItemOrders } from '../../orders/gen
 import { PromotionTypeEnum } from '../entities/enums'
 import { PromotionTargetEnum } from '../entities/enums'
 import { PromotionStatusEnum } from '../entities/enums'
-export class ReadPromotionOrders {title?: OrderDirectionEnum | undefined;
-type?: PromotionTypeEnum | null | undefined;
-discountPercentage?: OrderDirectionEnum | undefined;
-minPurchaseAmount?: OrderDirectionEnum | undefined;
-start?: OrderDirectionEnum | undefined;
-end?: OrderDirectionEnum | undefined;
-target?: PromotionTargetEnum | null | undefined;
-status?: PromotionStatusEnum | null | undefined;
-notifications?: ReadNotificationOrders | OrderDirectionEnum | undefined;
-brand?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
-seasonalPromotion?: ReadSeasonalPromotionOrders | OrderDirectionEnum | undefined;
-products?: ReadProductOrders | OrderDirectionEnum | undefined;
-orderItems?: ReadOrderItemOrders | OrderDirectionEnum | undefined;
-isDeleted?: OrderDirectionEnum | undefined;
-seasonalPromotionId?: OrderDirectionEnum | undefined;
-brandId?: OrderDirectionEnum | undefined}
+export class ReadPromotionOrders {title?: OrderDirectionEnum;
+type?: PromotionTypeEnum | null;
+discountPercentage?: OrderDirectionEnum;
+minPurchaseAmount?: OrderDirectionEnum;
+start?: OrderDirectionEnum;
+end?: OrderDirectionEnum;
+target?: PromotionTargetEnum | null;
+status?: PromotionStatusEnum | null;
+notifications?: ReadNotificationOrders | OrderDirectionEnum;
+brand?: ReadBrandProfileOrders | OrderDirectionEnum;
+seasonalPromotion?: ReadSeasonalPromotionOrders | OrderDirectionEnum;
+products?: ReadProductOrders | OrderDirectionEnum;
+orderItems?: ReadOrderItemOrders | OrderDirectionEnum;
+isDeleted?: OrderDirectionEnum;
+seasonalPromotionId?: OrderDirectionEnum;
+brandId?: OrderDirectionEnum}
 
-const ReadPromotionOrdersSchema: v.GenericSchema<ReadPromotionOrders> = v.object({title: v.undefinedable(OrderDirectionSchema),
+const ReadPromotionOrdersSchema: v.GenericSchema<ReadPromotionOrders> = v.object({title: v.optional(OrderDirectionSchema),
 type: v.nullish(v.enum(PromotionTypeEnum)),
-discountPercentage: v.undefinedable(OrderDirectionSchema),
-minPurchaseAmount: v.undefinedable(OrderDirectionSchema),
-start: v.undefinedable(OrderDirectionSchema),
-end: v.undefinedable(OrderDirectionSchema),
+discountPercentage: v.optional(OrderDirectionSchema),
+minPurchaseAmount: v.optional(OrderDirectionSchema),
+start: v.optional(OrderDirectionSchema),
+end: v.optional(OrderDirectionSchema),
 target: v.nullish(v.enum(PromotionTargetEnum)),
 status: v.nullish(v.enum(PromotionStatusEnum)),
-notifications: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadNotificationOrdersSchema)])),
-brand: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
-seasonalPromotion: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadSeasonalPromotionOrdersSchema)])),
-products: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
-orderItems: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderItemOrdersSchema)])),
-isDeleted: v.undefinedable(OrderDirectionSchema),
-seasonalPromotionId: v.undefinedable(OrderDirectionSchema),
-brandId: v.undefinedable(OrderDirectionSchema)});
+notifications: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadNotificationOrdersSchema)])),
+brand: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
+seasonalPromotion: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadSeasonalPromotionOrdersSchema)])),
+products: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+orderItems: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderItemOrdersSchema)])),
+isDeleted: v.optional(OrderDirectionSchema),
+seasonalPromotionId: v.optional(OrderDirectionSchema),
+brandId: v.optional(OrderDirectionSchema)});
 
 export default ReadPromotionOrdersSchema;
 

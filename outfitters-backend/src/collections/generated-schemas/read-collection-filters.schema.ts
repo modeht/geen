@@ -6,13 +6,13 @@ import ReadProductFiltersSchema, { ReadProductFiltersSchemaFilters } from '../..
 
 
 
-export class ReadCollectionFiltersSchemaFilters {name?: GenericComparable<"string"> | null | undefined;
-isFeatured?: GenericComparable<"bool"> | null | undefined;
-isPublic?: GenericComparable<"bool"> | null | undefined;
-cover?: ReadMediaFiltersSchemaFilters | null | undefined;
-brand?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
-products?: ReadProductFiltersSchemaFilters | null | undefined;
-brandId?: GenericComparable<"number"> | null | undefined}
+export class ReadCollectionFiltersSchemaFilters {name?: GenericComparable<"string"> | null;
+isFeatured?: GenericComparable<"bool"> | null;
+isPublic?: GenericComparable<"bool"> | null;
+cover?: ReadMediaFiltersSchemaFilters | null;
+brand?: ReadBrandProfileFiltersSchemaFilters | null;
+products?: ReadProductFiltersSchemaFilters | null;
+brandId?: GenericComparable<"number"> | null}
 
 const ReadCollectionFiltersSchema: v.GenericSchema<ReadCollectionFiltersSchemaFilters> = v.object({name: v.nullish(comparable("string")),
 isFeatured: v.nullish(comparable("bool")),

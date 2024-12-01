@@ -6,21 +6,21 @@ import ReadBrandProfileOrdersSchema, { ReadBrandProfileOrders } from '../../user
 
 
 
-export class ReadCountryOrders {name?: OrderDirectionEnum | undefined;
-code?: OrderDirectionEnum | undefined;
-dialCode?: OrderDirectionEnum | undefined;
-isSupported?: OrderDirectionEnum | undefined;
-icon?: ReadMediaOrders | OrderDirectionEnum | undefined;
-brands?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
-iconId?: OrderDirectionEnum | undefined}
+export class ReadCountryOrders {name?: OrderDirectionEnum;
+code?: OrderDirectionEnum;
+dialCode?: OrderDirectionEnum;
+isSupported?: OrderDirectionEnum;
+icon?: ReadMediaOrders | OrderDirectionEnum;
+brands?: ReadBrandProfileOrders | OrderDirectionEnum;
+iconId?: OrderDirectionEnum}
 
-const ReadCountryOrdersSchema: v.GenericSchema<ReadCountryOrders> = v.object({name: v.undefinedable(OrderDirectionSchema),
-code: v.undefinedable(OrderDirectionSchema),
-dialCode: v.undefinedable(OrderDirectionSchema),
-isSupported: v.undefinedable(OrderDirectionSchema),
-icon: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
-brands: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
-iconId: v.undefinedable(OrderDirectionSchema)});
+const ReadCountryOrdersSchema: v.GenericSchema<ReadCountryOrders> = v.object({name: v.optional(OrderDirectionSchema),
+code: v.optional(OrderDirectionSchema),
+dialCode: v.optional(OrderDirectionSchema),
+isSupported: v.optional(OrderDirectionSchema),
+icon: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
+brands: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
+iconId: v.optional(OrderDirectionSchema)});
 
 export default ReadCountryOrdersSchema;
 

@@ -5,11 +5,11 @@ import ReadProductVariantFiltersSchema, { ReadProductVariantFiltersSchemaFilters
 
 
 
-export class ReadProductOptionValueFiltersSchemaFilters {value?: GenericComparable<"string"> | null | undefined;
-optionName?: GenericComparable<"string"> | null | undefined;
-productId?: GenericComparable<"number"> | null | undefined;
-option?: ReadProductOptionFiltersSchemaFilters | null | undefined;
-variants?: ReadProductVariantFiltersSchemaFilters | null | undefined}
+export class ReadProductOptionValueFiltersSchemaFilters {value?: GenericComparable<"string"> | null;
+optionName?: GenericComparable<"string"> | null;
+productId?: GenericComparable<"number"> | null;
+option?: ReadProductOptionFiltersSchemaFilters | null;
+variants?: ReadProductVariantFiltersSchemaFilters | null}
 
 const ReadProductOptionValueFiltersSchema: v.GenericSchema<ReadProductOptionValueFiltersSchemaFilters> = v.object({value: v.nullish(comparable("string")),
 optionName: v.nullish(comparable("string")),

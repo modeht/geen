@@ -5,10 +5,10 @@ import ReadUserFiltersSchema, { ReadUserFiltersSchemaFilters } from '../../users
 
 
 
-export class ReadSavedCollectionFiltersSchemaFilters {name?: GenericComparable<"string"> | null | undefined;
-items?: ReadSavedCollectionItemFiltersSchemaFilters | null | undefined;
-user?: ReadUserFiltersSchemaFilters | null | undefined;
-userId?: GenericComparable<"number"> | null | undefined}
+export class ReadSavedCollectionFiltersSchemaFilters {name?: GenericComparable<"string"> | null;
+items?: ReadSavedCollectionItemFiltersSchemaFilters | null;
+user?: ReadUserFiltersSchemaFilters | null;
+userId?: GenericComparable<"number"> | null}
 
 const ReadSavedCollectionFiltersSchema: v.GenericSchema<ReadSavedCollectionFiltersSchemaFilters> = v.object({name: v.nullish(comparable("string")),
 items: v.nullish(v.lazy(() => ReadSavedCollectionItemFiltersSchema)),

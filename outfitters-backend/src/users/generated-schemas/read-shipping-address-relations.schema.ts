@@ -5,14 +5,14 @@ import ReadShopperProfileRelationsSchema, { ReadShopperProfileRelations } from '
 
 
 
-export class ReadShippingAddressRelations {orders?: ReadOrderRelations | string | boolean | undefined;
-shopperProfile?: ReadShopperProfileRelations | string | boolean | undefined}
+export class ReadShippingAddressRelations {orders?: ReadOrderRelations | string | boolean;
+shopperProfile?: ReadShopperProfileRelations | string | boolean}
 
-const ReadShippingAddressRelationsSchema: v.GenericSchema<ReadShippingAddressRelations> = v.object({orders: v.undefinedable(v.union([v.pipe(
+const ReadShippingAddressRelationsSchema: v.GenericSchema<ReadShippingAddressRelations> = v.object({orders: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadOrderRelationsSchema)])),
-shopperProfile: v.undefinedable(v.union([v.pipe(
+shopperProfile: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadShopperProfileRelationsSchema)]))});

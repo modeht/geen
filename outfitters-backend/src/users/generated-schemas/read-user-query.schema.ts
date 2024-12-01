@@ -5,10 +5,10 @@ import ReadUserFiltersSchema from './read-user-filters.schema';
 import ReadUserRelationsSchema from './read-user-relations.schema';
 import ReadUserOrdersSchema from './read-user-orders.schema';
 const ReadUserSchema = v.optional(v.object({
-filters: v.undefinedable(ReadUserFiltersSchema),
-relations: v.undefinedable(ReadUserRelationsSchema),
-orders: v.undefinedable(ReadUserOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadUserFiltersSchema),
+relations: v.optional(ReadUserRelationsSchema),
+orders: v.optional(ReadUserOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadUserSchema;
 export type TReadUserSchemaInput = v.InferInput<typeof ReadUserSchema>;

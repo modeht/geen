@@ -5,12 +5,12 @@ import ReadUserFiltersSchema, { ReadUserFiltersSchemaFilters } from '../../users
 
 
 
-export class ReadAffiliationLinkTrackingFiltersSchemaFilters {affiliationLink?: ReadAffiliationLinkFiltersSchemaFilters | null | undefined;
-user?: ReadUserFiltersSchemaFilters | null | undefined;
-referrer?: GenericComparable<"string"> | null | undefined;
-country?: GenericComparable<"string"> | null | undefined;
-ipAddress?: GenericComparable<"string"> | null | undefined;
-userAgent?: GenericComparable<"string"> | null | undefined}
+export class ReadAffiliationLinkTrackingFiltersSchemaFilters {affiliationLink?: ReadAffiliationLinkFiltersSchemaFilters | null;
+user?: ReadUserFiltersSchemaFilters | null;
+referrer?: GenericComparable<"string"> | null;
+country?: GenericComparable<"string"> | null;
+ipAddress?: GenericComparable<"string"> | null;
+userAgent?: GenericComparable<"string"> | null}
 
 const ReadAffiliationLinkTrackingFiltersSchema: v.GenericSchema<ReadAffiliationLinkTrackingFiltersSchemaFilters> = v.object({affiliationLink: v.nullish(v.lazy(() => ReadAffiliationLinkFiltersSchema)),
 user: v.nullish(v.lazy(() => ReadUserFiltersSchema)),

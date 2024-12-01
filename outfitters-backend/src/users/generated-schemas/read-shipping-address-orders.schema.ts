@@ -6,37 +6,37 @@ import ReadShopperProfileOrdersSchema, { ReadShopperProfileOrders } from './read
 
 
 
-export class ReadShippingAddressOrders {deletedAt?: OrderDirectionEnum | undefined;
-isDefault?: OrderDirectionEnum | undefined;
-name?: OrderDirectionEnum | undefined;
-country?: OrderDirectionEnum | undefined;
-city?: OrderDirectionEnum | undefined;
-street?: OrderDirectionEnum | undefined;
-apartment?: OrderDirectionEnum | undefined;
-address?: OrderDirectionEnum | undefined;
-floor?: OrderDirectionEnum | undefined;
-building?: OrderDirectionEnum | undefined;
-latitude?: OrderDirectionEnum | undefined;
-longitude?: OrderDirectionEnum | undefined;
-orders?: ReadOrderOrders | OrderDirectionEnum | undefined;
-shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
-shopperId?: OrderDirectionEnum | undefined}
+export class ReadShippingAddressOrders {deletedAt?: OrderDirectionEnum;
+isDefault?: OrderDirectionEnum;
+name?: OrderDirectionEnum;
+country?: OrderDirectionEnum;
+city?: OrderDirectionEnum;
+street?: OrderDirectionEnum;
+apartment?: OrderDirectionEnum;
+address?: OrderDirectionEnum;
+floor?: OrderDirectionEnum;
+building?: OrderDirectionEnum;
+latitude?: OrderDirectionEnum;
+longitude?: OrderDirectionEnum;
+orders?: ReadOrderOrders | OrderDirectionEnum;
+shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum;
+shopperId?: OrderDirectionEnum}
 
-const ReadShippingAddressOrdersSchema: v.GenericSchema<ReadShippingAddressOrders> = v.object({deletedAt: v.undefinedable(OrderDirectionSchema),
-isDefault: v.undefinedable(OrderDirectionSchema),
-name: v.undefinedable(OrderDirectionSchema),
-country: v.undefinedable(OrderDirectionSchema),
-city: v.undefinedable(OrderDirectionSchema),
-street: v.undefinedable(OrderDirectionSchema),
-apartment: v.undefinedable(OrderDirectionSchema),
-address: v.undefinedable(OrderDirectionSchema),
-floor: v.undefinedable(OrderDirectionSchema),
-building: v.undefinedable(OrderDirectionSchema),
-latitude: v.undefinedable(OrderDirectionSchema),
-longitude: v.undefinedable(OrderDirectionSchema),
-orders: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderOrdersSchema)])),
-shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
-shopperId: v.undefinedable(OrderDirectionSchema)});
+const ReadShippingAddressOrdersSchema: v.GenericSchema<ReadShippingAddressOrders> = v.object({deletedAt: v.optional(OrderDirectionSchema),
+isDefault: v.optional(OrderDirectionSchema),
+name: v.optional(OrderDirectionSchema),
+country: v.optional(OrderDirectionSchema),
+city: v.optional(OrderDirectionSchema),
+street: v.optional(OrderDirectionSchema),
+apartment: v.optional(OrderDirectionSchema),
+address: v.optional(OrderDirectionSchema),
+floor: v.optional(OrderDirectionSchema),
+building: v.optional(OrderDirectionSchema),
+latitude: v.optional(OrderDirectionSchema),
+longitude: v.optional(OrderDirectionSchema),
+orders: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderOrdersSchema)])),
+shopperProfile: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
+shopperId: v.optional(OrderDirectionSchema)});
 
 export default ReadShippingAddressOrdersSchema;
 

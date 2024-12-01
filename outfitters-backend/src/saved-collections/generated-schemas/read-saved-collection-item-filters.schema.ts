@@ -6,13 +6,13 @@ import ReadPostFiltersSchema, { ReadPostFiltersSchemaFilters } from '../../posts
 
 
 
-export class ReadSavedCollectionItemFiltersSchemaFilters {savedCollection?: ReadSavedCollectionFiltersSchemaFilters | null | undefined;
-product?: ReadProductFiltersSchemaFilters | null | undefined;
-post?: ReadPostFiltersSchemaFilters | null | undefined;
-savedCollectionId?: GenericComparable<"number"> | null | undefined;
-productId?: GenericComparable<"number"> | null | undefined;
-postId?: GenericComparable<"number"> | null | undefined;
-userId?: GenericComparable<"number"> | null | undefined}
+export class ReadSavedCollectionItemFiltersSchemaFilters {savedCollection?: ReadSavedCollectionFiltersSchemaFilters | null;
+product?: ReadProductFiltersSchemaFilters | null;
+post?: ReadPostFiltersSchemaFilters | null;
+savedCollectionId?: GenericComparable<"number"> | null;
+productId?: GenericComparable<"number"> | null;
+postId?: GenericComparable<"number"> | null;
+userId?: GenericComparable<"number"> | null}
 
 const ReadSavedCollectionItemFiltersSchema: v.GenericSchema<ReadSavedCollectionItemFiltersSchemaFilters> = v.object({savedCollection: v.nullish(v.lazy(() => ReadSavedCollectionFiltersSchema)),
 product: v.nullish(v.lazy(() => ReadProductFiltersSchema)),

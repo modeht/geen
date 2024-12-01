@@ -6,19 +6,19 @@ import ReadCategoryOrdersSchema, { ReadCategoryOrders } from '../../categories/g
 
 
 import { PromotionStatusEnum } from '../entities/enums'
-export class ReadSeasonalPromotionOrders {title?: OrderDirectionEnum | undefined;
-start?: OrderDirectionEnum | undefined;
-end?: OrderDirectionEnum | undefined;
-status?: PromotionStatusEnum | null | undefined;
-promotions?: ReadPromotionOrders | OrderDirectionEnum | undefined;
-subCategories?: ReadCategoryOrders | OrderDirectionEnum | undefined}
+export class ReadSeasonalPromotionOrders {title?: OrderDirectionEnum;
+start?: OrderDirectionEnum;
+end?: OrderDirectionEnum;
+status?: PromotionStatusEnum | null;
+promotions?: ReadPromotionOrders | OrderDirectionEnum;
+subCategories?: ReadCategoryOrders | OrderDirectionEnum}
 
-const ReadSeasonalPromotionOrdersSchema: v.GenericSchema<ReadSeasonalPromotionOrders> = v.object({title: v.undefinedable(OrderDirectionSchema),
-start: v.undefinedable(OrderDirectionSchema),
-end: v.undefinedable(OrderDirectionSchema),
+const ReadSeasonalPromotionOrdersSchema: v.GenericSchema<ReadSeasonalPromotionOrders> = v.object({title: v.optional(OrderDirectionSchema),
+start: v.optional(OrderDirectionSchema),
+end: v.optional(OrderDirectionSchema),
 status: v.nullish(v.enum(PromotionStatusEnum)),
-promotions: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromotionOrdersSchema)])),
-subCategories: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCategoryOrdersSchema)]))});
+promotions: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPromotionOrdersSchema)])),
+subCategories: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCategoryOrdersSchema)]))});
 
 export default ReadSeasonalPromotionOrdersSchema;
 

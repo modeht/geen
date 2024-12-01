@@ -6,15 +6,15 @@ import ReadProductOptionValueOrdersSchema, { ReadProductOptionValueOrders } from
 
 
 
-export class ReadProductOptionOrders {name?: OrderDirectionEnum | undefined;
-productId?: OrderDirectionEnum | undefined;
-product?: ReadProductOrders | OrderDirectionEnum | undefined;
-values?: ReadProductOptionValueOrders | OrderDirectionEnum | undefined}
+export class ReadProductOptionOrders {name?: OrderDirectionEnum;
+productId?: OrderDirectionEnum;
+product?: ReadProductOrders | OrderDirectionEnum;
+values?: ReadProductOptionValueOrders | OrderDirectionEnum}
 
-const ReadProductOptionOrdersSchema: v.GenericSchema<ReadProductOptionOrders> = v.object({name: v.undefinedable(OrderDirectionSchema),
-productId: v.undefinedable(OrderDirectionSchema),
-product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
-values: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOptionValueOrdersSchema)]))});
+const ReadProductOptionOrdersSchema: v.GenericSchema<ReadProductOptionOrders> = v.object({name: v.optional(OrderDirectionSchema),
+productId: v.optional(OrderDirectionSchema),
+product: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+values: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOptionValueOrdersSchema)]))});
 
 export default ReadProductOptionOrdersSchema;
 

@@ -9,21 +9,21 @@ import ReadNotificationOrdersSchema, { ReadNotificationOrders } from '../../noti
 
 
 
-export class ReadCollaborationOrders {message?: ReadMessageOrders | OrderDirectionEnum | undefined;
-brandProfile?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
-shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
-status?: CollaborationStatusEnum | null | undefined;
-notifications?: ReadNotificationOrders | OrderDirectionEnum | undefined;
-brandId?: OrderDirectionEnum | undefined;
-shopperId?: OrderDirectionEnum | undefined}
+export class ReadCollaborationOrders {message?: ReadMessageOrders | OrderDirectionEnum;
+brandProfile?: ReadBrandProfileOrders | OrderDirectionEnum;
+shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum;
+status?: CollaborationStatusEnum | null;
+notifications?: ReadNotificationOrders | OrderDirectionEnum;
+brandId?: OrderDirectionEnum;
+shopperId?: OrderDirectionEnum}
 
-const ReadCollaborationOrdersSchema: v.GenericSchema<ReadCollaborationOrders> = v.object({message: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
-brandProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
-shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
+const ReadCollaborationOrdersSchema: v.GenericSchema<ReadCollaborationOrders> = v.object({message: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
+brandProfile: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
+shopperProfile: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
 status: v.nullish(v.enum(CollaborationStatusEnum)),
-notifications: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadNotificationOrdersSchema)])),
-brandId: v.undefinedable(OrderDirectionSchema),
-shopperId: v.undefinedable(OrderDirectionSchema)});
+notifications: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadNotificationOrdersSchema)])),
+brandId: v.optional(OrderDirectionSchema),
+shopperId: v.optional(OrderDirectionSchema)});
 
 export default ReadCollaborationOrdersSchema;
 

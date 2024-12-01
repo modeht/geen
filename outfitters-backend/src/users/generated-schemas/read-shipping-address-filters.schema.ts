@@ -5,21 +5,21 @@ import ReadShopperProfileFiltersSchema, { ReadShopperProfileFiltersSchemaFilters
 
 
 
-export class ReadShippingAddressFiltersSchemaFilters {deletedAt?: GenericComparable<"date"> | null | undefined;
-isDefault?: GenericComparable<"bool"> | null | undefined;
-name?: GenericComparable<"string"> | null | undefined;
-country?: GenericComparable<"string"> | null | undefined;
-city?: GenericComparable<"string"> | null | undefined;
-street?: GenericComparable<"string"> | null | undefined;
-apartment?: GenericComparable<"string"> | null | undefined;
-address?: GenericComparable<"string"> | null | undefined;
-floor?: GenericComparable<"string"> | null | undefined;
-building?: GenericComparable<"string"> | null | undefined;
-latitude?: GenericComparable<"string"> | null | undefined;
-longitude?: GenericComparable<"string"> | null | undefined;
-orders?: ReadOrderFiltersSchemaFilters | null | undefined;
-shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null | undefined;
-shopperId?: GenericComparable<"number"> | null | undefined}
+export class ReadShippingAddressFiltersSchemaFilters {deletedAt?: GenericComparable<"date"> | null;
+isDefault?: GenericComparable<"bool"> | null;
+name?: GenericComparable<"string"> | null;
+country?: GenericComparable<"string"> | null;
+city?: GenericComparable<"string"> | null;
+street?: GenericComparable<"string"> | null;
+apartment?: GenericComparable<"string"> | null;
+address?: GenericComparable<"string"> | null;
+floor?: GenericComparable<"string"> | null;
+building?: GenericComparable<"string"> | null;
+latitude?: GenericComparable<"string"> | null;
+longitude?: GenericComparable<"string"> | null;
+orders?: ReadOrderFiltersSchemaFilters | null;
+shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null;
+shopperId?: GenericComparable<"number"> | null}
 
 const ReadShippingAddressFiltersSchema: v.GenericSchema<ReadShippingAddressFiltersSchemaFilters> = v.object({deletedAt: v.nullish(comparable("date")),
 isDefault: v.nullish(comparable("bool")),

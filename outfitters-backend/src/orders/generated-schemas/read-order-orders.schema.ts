@@ -10,31 +10,31 @@ import ReadShopperProfileOrdersSchema, { ReadShopperProfileOrders } from '../../
 
 
 
-export class ReadOrderOrders {paymentMethod?: OrderPaymentMethod | null | undefined;
-paymentStatus?: OrderPaymentStatusEnum | null | undefined;
-totalSalePrice?: OrderDirectionEnum | undefined;
-totalPurchasePrice?: OrderDirectionEnum | undefined;
-totalShippingFees?: OrderDirectionEnum | undefined;
-cart?: ReadCartOrders | OrderDirectionEnum | undefined;
-brandOrders?: ReadBrandOrderOrders | OrderDirectionEnum | undefined;
-shippingAddress?: ReadShippingAddressOrders | OrderDirectionEnum | undefined;
-shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
-cartId?: OrderDirectionEnum | undefined;
-shippingAddressId?: OrderDirectionEnum | undefined;
-shopperId?: OrderDirectionEnum | undefined}
+export class ReadOrderOrders {paymentMethod?: OrderPaymentMethod | null;
+paymentStatus?: OrderPaymentStatusEnum | null;
+totalSalePrice?: OrderDirectionEnum;
+totalPurchasePrice?: OrderDirectionEnum;
+totalShippingFees?: OrderDirectionEnum;
+cart?: ReadCartOrders | OrderDirectionEnum;
+brandOrders?: ReadBrandOrderOrders | OrderDirectionEnum;
+shippingAddress?: ReadShippingAddressOrders | OrderDirectionEnum;
+shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum;
+cartId?: OrderDirectionEnum;
+shippingAddressId?: OrderDirectionEnum;
+shopperId?: OrderDirectionEnum}
 
 const ReadOrderOrdersSchema: v.GenericSchema<ReadOrderOrders> = v.object({paymentMethod: v.nullish(v.enum(OrderPaymentMethod)),
 paymentStatus: v.nullish(v.enum(OrderPaymentStatusEnum)),
-totalSalePrice: v.undefinedable(OrderDirectionSchema),
-totalPurchasePrice: v.undefinedable(OrderDirectionSchema),
-totalShippingFees: v.undefinedable(OrderDirectionSchema),
-cart: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCartOrdersSchema)])),
-brandOrders: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandOrderOrdersSchema)])),
-shippingAddress: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShippingAddressOrdersSchema)])),
-shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
-cartId: v.undefinedable(OrderDirectionSchema),
-shippingAddressId: v.undefinedable(OrderDirectionSchema),
-shopperId: v.undefinedable(OrderDirectionSchema)});
+totalSalePrice: v.optional(OrderDirectionSchema),
+totalPurchasePrice: v.optional(OrderDirectionSchema),
+totalShippingFees: v.optional(OrderDirectionSchema),
+cart: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCartOrdersSchema)])),
+brandOrders: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandOrderOrdersSchema)])),
+shippingAddress: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadShippingAddressOrdersSchema)])),
+shopperProfile: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
+cartId: v.optional(OrderDirectionSchema),
+shippingAddressId: v.optional(OrderDirectionSchema),
+shopperId: v.optional(OrderDirectionSchema)});
 
 export default ReadOrderOrdersSchema;
 

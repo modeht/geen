@@ -15,61 +15,61 @@ import ReadCountryOrdersSchema, { ReadCountryOrders } from '../../countries/gene
 
 
 
-export class ReadBrandProfileOrders {storeName?: OrderDirectionEnum | undefined;
-brandName?: OrderDirectionEnum | undefined;
-storeBio?: OrderDirectionEnum | undefined;
-website?: OrderDirectionEnum | undefined;
-isPublished?: OrderDirectionEnum | undefined;
-shippingCost?: OrderDirectionEnum | undefined;
-currency?: OrderDirectionEnum | undefined;
-brandManagerFullName?: OrderDirectionEnum | undefined;
-user?: ReadUserOrders | OrderDirectionEnum | undefined;
-logo?: ReadMediaOrders | OrderDirectionEnum | undefined;
-cover?: ReadMediaOrders | OrderDirectionEnum | undefined;
-collections?: ReadCollectionOrders | OrderDirectionEnum | undefined;
-products?: ReadProductOrders | OrderDirectionEnum | undefined;
-promotions?: ReadPromotionOrders | OrderDirectionEnum | undefined;
-promoCodes?: ReadPromoCodeOrders | OrderDirectionEnum | undefined;
-brandOrders?: ReadBrandOrderOrders | OrderDirectionEnum | undefined;
-preferences?: ReadPreferenceOrders | OrderDirectionEnum | undefined;
-collaborations?: ReadCollaborationOrders | OrderDirectionEnum | undefined;
-categories?: ReadCategoryOrders | OrderDirectionEnum | undefined;
-subCategories?: ReadCategoryOrders | OrderDirectionEnum | undefined;
-countries?: ReadCountryOrders | OrderDirectionEnum | undefined;
-logoId?: OrderDirectionEnum | undefined;
-isFollowing?: OrderDirectionEnum | undefined;
-hasStory?: OrderDirectionEnum | undefined;
-followersCount?: OrderDirectionEnum | undefined;
-followingCount?: OrderDirectionEnum | undefined;
-postsCount?: OrderDirectionEnum | undefined}
+export class ReadBrandProfileOrders {storeName?: OrderDirectionEnum;
+brandName?: OrderDirectionEnum;
+storeBio?: OrderDirectionEnum;
+website?: OrderDirectionEnum;
+isPublished?: OrderDirectionEnum;
+shippingCost?: OrderDirectionEnum;
+currency?: OrderDirectionEnum;
+brandManagerFullName?: OrderDirectionEnum;
+user?: ReadUserOrders | OrderDirectionEnum;
+logo?: ReadMediaOrders | OrderDirectionEnum;
+cover?: ReadMediaOrders | OrderDirectionEnum;
+collections?: ReadCollectionOrders | OrderDirectionEnum;
+products?: ReadProductOrders | OrderDirectionEnum;
+promotions?: ReadPromotionOrders | OrderDirectionEnum;
+promoCodes?: ReadPromoCodeOrders | OrderDirectionEnum;
+brandOrders?: ReadBrandOrderOrders | OrderDirectionEnum;
+preferences?: ReadPreferenceOrders | OrderDirectionEnum;
+collaborations?: ReadCollaborationOrders | OrderDirectionEnum;
+categories?: ReadCategoryOrders | OrderDirectionEnum;
+subCategories?: ReadCategoryOrders | OrderDirectionEnum;
+countries?: ReadCountryOrders | OrderDirectionEnum;
+logoId?: OrderDirectionEnum;
+isFollowing?: OrderDirectionEnum;
+hasStory?: OrderDirectionEnum;
+followersCount?: OrderDirectionEnum;
+followingCount?: OrderDirectionEnum;
+postsCount?: OrderDirectionEnum}
 
-const ReadBrandProfileOrdersSchema: v.GenericSchema<ReadBrandProfileOrders> = v.object({storeName: v.undefinedable(OrderDirectionSchema),
-brandName: v.undefinedable(OrderDirectionSchema),
-storeBio: v.undefinedable(OrderDirectionSchema),
-website: v.undefinedable(OrderDirectionSchema),
-isPublished: v.undefinedable(OrderDirectionSchema),
-shippingCost: v.undefinedable(OrderDirectionSchema),
-currency: v.undefinedable(OrderDirectionSchema),
-brandManagerFullName: v.undefinedable(OrderDirectionSchema),
-user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-logo: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
-cover: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
-collections: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCollectionOrdersSchema)])),
-products: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
-promotions: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromotionOrdersSchema)])),
-promoCodes: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromoCodeOrdersSchema)])),
-brandOrders: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandOrderOrdersSchema)])),
-preferences: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPreferenceOrdersSchema)])),
-collaborations: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCollaborationOrdersSchema)])),
-categories: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCategoryOrdersSchema)])),
-subCategories: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCategoryOrdersSchema)])),
-countries: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCountryOrdersSchema)])),
-logoId: v.undefinedable(OrderDirectionSchema),
-isFollowing: v.undefinedable(OrderDirectionSchema),
-hasStory: v.undefinedable(OrderDirectionSchema),
-followersCount: v.undefinedable(OrderDirectionSchema),
-followingCount: v.undefinedable(OrderDirectionSchema),
-postsCount: v.undefinedable(OrderDirectionSchema)});
+const ReadBrandProfileOrdersSchema: v.GenericSchema<ReadBrandProfileOrders> = v.object({storeName: v.optional(OrderDirectionSchema),
+brandName: v.optional(OrderDirectionSchema),
+storeBio: v.optional(OrderDirectionSchema),
+website: v.optional(OrderDirectionSchema),
+isPublished: v.optional(OrderDirectionSchema),
+shippingCost: v.optional(OrderDirectionSchema),
+currency: v.optional(OrderDirectionSchema),
+brandManagerFullName: v.optional(OrderDirectionSchema),
+user: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+logo: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
+cover: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
+collections: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCollectionOrdersSchema)])),
+products: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+promotions: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPromotionOrdersSchema)])),
+promoCodes: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPromoCodeOrdersSchema)])),
+brandOrders: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandOrderOrdersSchema)])),
+preferences: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPreferenceOrdersSchema)])),
+collaborations: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCollaborationOrdersSchema)])),
+categories: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCategoryOrdersSchema)])),
+subCategories: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCategoryOrdersSchema)])),
+countries: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCountryOrdersSchema)])),
+logoId: v.optional(OrderDirectionSchema),
+isFollowing: v.optional(OrderDirectionSchema),
+hasStory: v.optional(OrderDirectionSchema),
+followersCount: v.optional(OrderDirectionSchema),
+followingCount: v.optional(OrderDirectionSchema),
+postsCount: v.optional(OrderDirectionSchema)});
 
 export default ReadBrandProfileOrdersSchema;
 

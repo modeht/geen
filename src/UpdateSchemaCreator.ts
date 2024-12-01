@@ -13,10 +13,12 @@ export type UpdateDtoInfo = {
 	fileName: string;
 	savedFileName: string;
 };
+
 export type ServiceFileInfo = {
 	serviceClassName: string;
 	serviceAbsPath: string;
 };
+
 export type ControllerFileInfo = {
 	controllerClassName: string;
 	controllerAbsPath: string;
@@ -142,7 +144,7 @@ export type TUpdate${this.entityName}SchemaOutput = v.InferOutput<typeof ${this.
 	}
 
 	//for fields parsing
-	excludedFields: string[] = ['id', 'updatedAt', 'updatedAt', 'updated_at', 'updated_at'];
+	excludedFields: string[] = ['id', 'updatedAt', 'createdAt', 'created_at', 'updated_at'];
 
 	parseFields({ fields }: { fields?: Node[] } = {}) {
 		if (!fields) {
@@ -294,7 +296,7 @@ export type TUpdate${this.entityName}SchemaOutput = v.InferOutput<typeof ${this.
 		if (undefindable && nullable) {
 			field = `v.nullish(${field})`;
 		} else if (undefindable && !nullable) {
-			field = `v.undefinedable(${field})`;
+			field = `v.optional(${field})`;
 		} else if (nullable && !undefindable) {
 			field = `v.nullish(${field})`;
 		}

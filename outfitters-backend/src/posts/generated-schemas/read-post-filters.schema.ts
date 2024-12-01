@@ -10,23 +10,23 @@ import ReadSavedCollectionItemFiltersSchema, { ReadSavedCollectionItemFiltersSch
 
 
 
-export class ReadPostFiltersSchemaFilters {caption?: GenericComparable<"string"> | null | undefined;
-media?: ReadMediaFiltersSchemaFilters | null | undefined;
-thumbnail?: ReadMediaFiltersSchemaFilters | null | undefined;
-taggedProducts?: ReadTaggedProductFiltersSchemaFilters | null | undefined;
-postedBy?: ReadUserFiltersSchemaFilters | null | undefined;
-postedById?: GenericComparable<"number"> | null | undefined;
-taggedUsers?: ReadUserFiltersSchemaFilters | null | undefined;
-likedByUsers?: ReadPostLikesFiltersSchemaFilters | null | undefined;
-comments?: ReadCommentFiltersSchemaFilters | null | undefined;
-shares?: ReadMessageFiltersSchemaFilters | null | undefined;
-savedInCollections?: ReadSavedCollectionItemFiltersSchemaFilters | null | undefined;
-thumbnailId?: GenericComparable<"number"> | null | undefined;
-likesCount?: GenericComparable<"number"> | null | undefined;
-commentsCount?: GenericComparable<"number"> | null | undefined;
-taggedProductsCount?: GenericComparable<"number"> | null | undefined;
-taggedUsersCount?: GenericComparable<"number"> | null | undefined;
-isLiked?: GenericComparable<"bool"> | null | undefined}
+export class ReadPostFiltersSchemaFilters {caption?: GenericComparable<"string"> | null;
+media?: ReadMediaFiltersSchemaFilters | null;
+thumbnail?: ReadMediaFiltersSchemaFilters | null;
+taggedProducts?: ReadTaggedProductFiltersSchemaFilters | null;
+postedBy?: ReadUserFiltersSchemaFilters | null;
+postedById?: GenericComparable<"number"> | null;
+taggedUsers?: ReadUserFiltersSchemaFilters | null;
+likedByUsers?: ReadPostLikesFiltersSchemaFilters | null;
+comments?: ReadCommentFiltersSchemaFilters | null;
+shares?: ReadMessageFiltersSchemaFilters | null;
+savedInCollections?: ReadSavedCollectionItemFiltersSchemaFilters | null;
+thumbnailId?: GenericComparable<"number"> | null;
+likesCount?: GenericComparable<"number"> | null;
+commentsCount?: GenericComparable<"number"> | null;
+taggedProductsCount?: GenericComparable<"number"> | null;
+taggedUsersCount?: GenericComparable<"number"> | null;
+isLiked?: GenericComparable<"bool"> | null}
 
 const ReadPostFiltersSchema: v.GenericSchema<ReadPostFiltersSchemaFilters> = v.object({caption: v.nullish(comparable("string")),
 media: v.nullish(v.lazy(() => ReadMediaFiltersSchema)),

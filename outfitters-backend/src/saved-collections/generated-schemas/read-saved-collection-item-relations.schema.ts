@@ -6,19 +6,19 @@ import ReadPostRelationsSchema, { ReadPostRelations } from '../../posts/generate
 
 
 
-export class ReadSavedCollectionItemRelations {savedCollection?: ReadSavedCollectionRelations | string | boolean | undefined;
-product?: ReadProductRelations | string | boolean | undefined;
-post?: ReadPostRelations | string | boolean | undefined}
+export class ReadSavedCollectionItemRelations {savedCollection?: ReadSavedCollectionRelations | string | boolean;
+product?: ReadProductRelations | string | boolean;
+post?: ReadPostRelations | string | boolean}
 
-const ReadSavedCollectionItemRelationsSchema: v.GenericSchema<ReadSavedCollectionItemRelations> = v.object({savedCollection: v.undefinedable(v.union([v.pipe(
+const ReadSavedCollectionItemRelationsSchema: v.GenericSchema<ReadSavedCollectionItemRelations> = v.object({savedCollection: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadSavedCollectionRelationsSchema)])),
-product: v.undefinedable(v.union([v.pipe(
+product: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)])),
-post: v.undefinedable(v.union([v.pipe(
+post: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPostRelationsSchema)]))});

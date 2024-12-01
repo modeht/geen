@@ -8,17 +8,17 @@ import ReadProductOptionValueFiltersSchema, { ReadProductOptionValueFiltersSchem
 
 
 
-export class ReadProductVariantFiltersSchemaFilters {isArchived?: GenericComparable<"bool"> | null | undefined;
-stock?: GenericComparable<"number"> | null | undefined;
-price?: GenericComparable<"number"> | null | undefined;
-lastStockUpdate?: GenericComparable<"date"> | null | undefined;
-sku?: GenericComparable<"string"> | null | undefined;
-media?: ReadMediaFiltersSchemaFilters | null | undefined;
-orderItems?: ReadOrderItemFiltersSchemaFilters | null | undefined;
-carts?: ReadCartItemsFiltersSchemaFilters | null | undefined;
-mainProduct?: ReadProductFiltersSchemaFilters | null | undefined;
-optionValues?: ReadProductOptionValueFiltersSchemaFilters | null | undefined;
-mainProductId?: GenericComparable<"number"> | null | undefined}
+export class ReadProductVariantFiltersSchemaFilters {isArchived?: GenericComparable<"bool"> | null;
+stock?: GenericComparable<"number"> | null;
+price?: GenericComparable<"number"> | null;
+lastStockUpdate?: GenericComparable<"date"> | null;
+sku?: GenericComparable<"string"> | null;
+media?: ReadMediaFiltersSchemaFilters | null;
+orderItems?: ReadOrderItemFiltersSchemaFilters | null;
+carts?: ReadCartItemsFiltersSchemaFilters | null;
+mainProduct?: ReadProductFiltersSchemaFilters | null;
+optionValues?: ReadProductOptionValueFiltersSchemaFilters | null;
+mainProductId?: GenericComparable<"number"> | null}
 
 const ReadProductVariantFiltersSchema: v.GenericSchema<ReadProductVariantFiltersSchemaFilters> = v.object({isArchived: v.nullish(comparable("bool")),
 stock: v.nullish(comparable("number")),

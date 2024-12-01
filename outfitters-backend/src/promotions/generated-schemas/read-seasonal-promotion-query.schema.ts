@@ -5,10 +5,10 @@ import ReadSeasonalPromotionFiltersSchema from './read-seasonal-promotion-filter
 import ReadSeasonalPromotionRelationsSchema from './read-seasonal-promotion-relations.schema';
 import ReadSeasonalPromotionOrdersSchema from './read-seasonal-promotion-orders.schema';
 const ReadSeasonalPromotionSchema = v.optional(v.object({
-filters: v.undefinedable(ReadSeasonalPromotionFiltersSchema),
-relations: v.undefinedable(ReadSeasonalPromotionRelationsSchema),
-orders: v.undefinedable(ReadSeasonalPromotionOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadSeasonalPromotionFiltersSchema),
+relations: v.optional(ReadSeasonalPromotionRelationsSchema),
+orders: v.optional(ReadSeasonalPromotionOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadSeasonalPromotionSchema;
 export type TReadSeasonalPromotionSchemaInput = v.InferInput<typeof ReadSeasonalPromotionSchema>;

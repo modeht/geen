@@ -15,25 +15,25 @@ import ReadProductReviewFiltersSchema, { ReadProductReviewFiltersSchemaFilters }
 
 
 
-export class ReadMediaFiltersSchemaFilters {preference?: ReadPreferenceFiltersSchemaFilters | null | undefined;
-collectionCover?: ReadCollectionFiltersSchemaFilters | null | undefined;
-user?: ReadShopperProfileFiltersSchemaFilters | null | undefined;
-story?: ReadStoryFiltersSchemaFilters | null | undefined;
-brandStoreCover?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
-brandStoreLogo?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
-category?: ReadCategoryFiltersSchemaFilters | null | undefined;
-country?: ReadCountryFiltersSchemaFilters | null | undefined;
-postThumbnail?: ReadPostFiltersSchemaFilters | null | undefined;
-product?: ReadProductFiltersSchemaFilters | null | undefined;
-productVariant?: ReadProductVariantFiltersSchemaFilters | null | undefined;
-message?: ReadMessageFiltersSchemaFilters | null | undefined;
-post?: ReadPostFiltersSchemaFilters | null | undefined;
-review?: ReadProductReviewFiltersSchemaFilters | null | undefined;
-mimetype?: GenericComparable<"string"> | null | undefined;
-url?: GenericComparable<"string"> | null | undefined;
-size?: GenericComparable<"number"> | null | undefined;
-width?: GenericComparable<"number"> | null | undefined;
-height?: GenericComparable<"number"> | null | undefined}
+export class ReadMediaFiltersSchemaFilters {preference?: ReadPreferenceFiltersSchemaFilters | null;
+collectionCover?: ReadCollectionFiltersSchemaFilters | null;
+user?: ReadShopperProfileFiltersSchemaFilters | null;
+story?: ReadStoryFiltersSchemaFilters | null;
+brandStoreCover?: ReadBrandProfileFiltersSchemaFilters | null;
+brandStoreLogo?: ReadBrandProfileFiltersSchemaFilters | null;
+category?: ReadCategoryFiltersSchemaFilters | null;
+country?: ReadCountryFiltersSchemaFilters | null;
+postThumbnail?: ReadPostFiltersSchemaFilters | null;
+product?: ReadProductFiltersSchemaFilters | null;
+productVariant?: ReadProductVariantFiltersSchemaFilters | null;
+message?: ReadMessageFiltersSchemaFilters | null;
+post?: ReadPostFiltersSchemaFilters | null;
+review?: ReadProductReviewFiltersSchemaFilters | null;
+mimetype?: GenericComparable<"string"> | null;
+url?: GenericComparable<"string"> | null;
+size?: GenericComparable<"number"> | null;
+width?: GenericComparable<"number"> | null;
+height?: GenericComparable<"number"> | null}
 
 const ReadMediaFiltersSchema: v.GenericSchema<ReadMediaFiltersSchemaFilters> = v.object({preference: v.nullish(v.lazy(() => ReadPreferenceFiltersSchema)),
 collectionCover: v.nullish(v.lazy(() => ReadCollectionFiltersSchema)),

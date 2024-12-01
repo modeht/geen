@@ -6,19 +6,19 @@ import ReadUserOrdersSchema, { ReadUserOrders } from '../../users/generated-sche
 
 
 
-export class ReadAffiliationLinkTrackingOrders {affiliationLink?: ReadAffiliationLinkOrders | OrderDirectionEnum | undefined;
-user?: ReadUserOrders | OrderDirectionEnum | undefined;
-referrer?: OrderDirectionEnum | undefined;
-country?: OrderDirectionEnum | undefined;
-ipAddress?: OrderDirectionEnum | undefined;
-userAgent?: OrderDirectionEnum | undefined}
+export class ReadAffiliationLinkTrackingOrders {affiliationLink?: ReadAffiliationLinkOrders | OrderDirectionEnum;
+user?: ReadUserOrders | OrderDirectionEnum;
+referrer?: OrderDirectionEnum;
+country?: OrderDirectionEnum;
+ipAddress?: OrderDirectionEnum;
+userAgent?: OrderDirectionEnum}
 
-const ReadAffiliationLinkTrackingOrdersSchema: v.GenericSchema<ReadAffiliationLinkTrackingOrders> = v.object({affiliationLink: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkOrdersSchema)])),
-user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-referrer: v.undefinedable(OrderDirectionSchema),
-country: v.undefinedable(OrderDirectionSchema),
-ipAddress: v.undefinedable(OrderDirectionSchema),
-userAgent: v.undefinedable(OrderDirectionSchema)});
+const ReadAffiliationLinkTrackingOrdersSchema: v.GenericSchema<ReadAffiliationLinkTrackingOrders> = v.object({affiliationLink: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkOrdersSchema)])),
+user: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+referrer: v.optional(OrderDirectionSchema),
+country: v.optional(OrderDirectionSchema),
+ipAddress: v.optional(OrderDirectionSchema),
+userAgent: v.optional(OrderDirectionSchema)});
 
 export default ReadAffiliationLinkTrackingOrdersSchema;
 

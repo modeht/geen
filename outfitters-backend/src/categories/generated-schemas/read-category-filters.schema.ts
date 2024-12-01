@@ -7,16 +7,16 @@ import ReadSeasonalPromotionFiltersSchema, { ReadSeasonalPromotionFiltersSchemaF
 
 
 
-export class ReadCategoryFiltersSchemaFilters {name?: GenericComparable<"string"> | null | undefined;
-isArchived?: GenericComparable<"bool"> | null | undefined;
-media?: ReadMediaFiltersSchemaFilters | null | undefined;
-subCategories?: ReadCategoryFiltersSchemaFilters | null | undefined;
-superCategory?: ReadCategoryFiltersSchemaFilters | null | undefined;
-superCategoryId?: GenericComparable<"number"> | null | undefined;
-products?: ReadProductFiltersSchemaFilters | null | undefined;
-categorybrandProfiles?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
-subCategoriesBrandProfiles?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
-seasonalPromotions?: ReadSeasonalPromotionFiltersSchemaFilters | null | undefined}
+export class ReadCategoryFiltersSchemaFilters {name?: GenericComparable<"string"> | null;
+isArchived?: GenericComparable<"bool"> | null;
+media?: ReadMediaFiltersSchemaFilters | null;
+subCategories?: ReadCategoryFiltersSchemaFilters | null;
+superCategory?: ReadCategoryFiltersSchemaFilters | null;
+superCategoryId?: GenericComparable<"number"> | null;
+products?: ReadProductFiltersSchemaFilters | null;
+categorybrandProfiles?: ReadBrandProfileFiltersSchemaFilters | null;
+subCategoriesBrandProfiles?: ReadBrandProfileFiltersSchemaFilters | null;
+seasonalPromotions?: ReadSeasonalPromotionFiltersSchemaFilters | null}
 
 const ReadCategoryFiltersSchema: v.GenericSchema<ReadCategoryFiltersSchemaFilters> = v.object({name: v.nullish(comparable("string")),
 isArchived: v.nullish(comparable("bool")),

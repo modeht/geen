@@ -5,10 +5,10 @@ import ReadPostFiltersSchema, { ReadPostFiltersSchemaFilters } from './read-post
 
 
 
-export class ReadPostLikesFiltersSchemaFilters {user?: ReadUserFiltersSchemaFilters | null | undefined;
-post?: ReadPostFiltersSchemaFilters | null | undefined;
-userId?: GenericComparable<"number"> | null | undefined;
-postId?: GenericComparable<"number"> | null | undefined}
+export class ReadPostLikesFiltersSchemaFilters {user?: ReadUserFiltersSchemaFilters | null;
+post?: ReadPostFiltersSchemaFilters | null;
+userId?: GenericComparable<"number"> | null;
+postId?: GenericComparable<"number"> | null}
 
 const ReadPostLikesFiltersSchema: v.GenericSchema<ReadPostLikesFiltersSchemaFilters> = v.object({user: v.nullish(v.lazy(() => ReadUserFiltersSchema)),
 post: v.nullish(v.lazy(() => ReadPostFiltersSchema)),

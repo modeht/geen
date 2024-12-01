@@ -5,10 +5,10 @@ import ReadUserFiltersSchema, { ReadUserFiltersSchemaFilters } from '../../users
 
 
 
-export class ReadRecentSearchesFiltersSchemaFilters {keyword?: GenericComparable<"string"> | null | undefined;
-mode?: searchMode | null | undefined;
-user?: ReadUserFiltersSchemaFilters | null | undefined;
-userId?: GenericComparable<"number"> | null | undefined}
+export class ReadRecentSearchesFiltersSchemaFilters {keyword?: GenericComparable<"string"> | null;
+mode?: searchMode | null;
+user?: ReadUserFiltersSchemaFilters | null;
+userId?: GenericComparable<"number"> | null}
 
 const ReadRecentSearchesFiltersSchema: v.GenericSchema<ReadRecentSearchesFiltersSchemaFilters> = v.object({keyword: v.nullish(comparable("string")),
 mode: v.nullish(v.enum(searchMode)),

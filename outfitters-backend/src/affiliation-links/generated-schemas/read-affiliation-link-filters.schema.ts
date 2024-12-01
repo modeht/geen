@@ -8,15 +8,15 @@ import ReadProductFiltersSchema, { ReadProductFiltersSchemaFilters } from '../..
 
 
 
-export class ReadAffiliationLinkFiltersSchemaFilters {isDisabled?: GenericComparable<"bool"> | null | undefined;
-url?: GenericComparable<"string"> | null | undefined;
-taggedProducts?: ReadTaggedProductFiltersSchemaFilters | null | undefined;
-cartItems?: ReadCartItemsFiltersSchemaFilters | null | undefined;
-affiliationLinkTracking?: ReadAffiliationLinkTrackingFiltersSchemaFilters | null | undefined;
-shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null | undefined;
-product?: ReadProductFiltersSchemaFilters | null | undefined;
-productId?: GenericComparable<"number"> | null | undefined;
-shopperId?: GenericComparable<"number"> | null | undefined}
+export class ReadAffiliationLinkFiltersSchemaFilters {isDisabled?: GenericComparable<"bool"> | null;
+url?: GenericComparable<"string"> | null;
+taggedProducts?: ReadTaggedProductFiltersSchemaFilters | null;
+cartItems?: ReadCartItemsFiltersSchemaFilters | null;
+affiliationLinkTracking?: ReadAffiliationLinkTrackingFiltersSchemaFilters | null;
+shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null;
+product?: ReadProductFiltersSchemaFilters | null;
+productId?: GenericComparable<"number"> | null;
+shopperId?: GenericComparable<"number"> | null}
 
 const ReadAffiliationLinkFiltersSchema: v.GenericSchema<ReadAffiliationLinkFiltersSchemaFilters> = v.object({isDisabled: v.nullish(comparable("bool")),
 url: v.nullish(comparable("string")),

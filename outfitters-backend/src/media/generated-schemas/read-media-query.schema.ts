@@ -5,10 +5,10 @@ import ReadMediaFiltersSchema from './read-media-filters.schema';
 import ReadMediaRelationsSchema from './read-media-relations.schema';
 import ReadMediaOrdersSchema from './read-media-orders.schema';
 const ReadMediaSchema = v.optional(v.object({
-filters: v.undefinedable(ReadMediaFiltersSchema),
-relations: v.undefinedable(ReadMediaRelationsSchema),
-orders: v.undefinedable(ReadMediaOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadMediaFiltersSchema),
+relations: v.optional(ReadMediaRelationsSchema),
+orders: v.optional(ReadMediaOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadMediaSchema;
 export type TReadMediaSchemaInput = v.InferInput<typeof ReadMediaSchema>;

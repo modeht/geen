@@ -14,56 +14,56 @@ import ReadPromoCodeRelationsSchema, { ReadPromoCodeRelations } from '../../prom
 
 
 
-export class ReadShopperProfileRelations {gender?: GenderEnum | null | undefined;
-user?: ReadUserRelations | string | boolean | undefined;
-reviews?: ReadProductReviewRelations | string | boolean | undefined;
-addresses?: ReadShippingAddressRelations | string | boolean | undefined;
-profilePicture?: ReadMediaRelations | string | boolean | undefined;
-carts?: ReadCartRelations | string | boolean | undefined;
-orders?: ReadOrderRelations | string | boolean | undefined;
-preferences?: ReadPreferenceRelations | string | boolean | undefined;
-collaborations?: ReadCollaborationRelations | string | boolean | undefined;
-affiliationLinks?: ReadAffiliationLinkRelations | string | boolean | undefined;
-promoCodes?: ReadPromoCodeRelations | string | boolean | undefined}
+export class ReadShopperProfileRelations {gender?: GenderEnum | null;
+user?: ReadUserRelations | string | boolean;
+reviews?: ReadProductReviewRelations | string | boolean;
+addresses?: ReadShippingAddressRelations | string | boolean;
+profilePicture?: ReadMediaRelations | string | boolean;
+carts?: ReadCartRelations | string | boolean;
+orders?: ReadOrderRelations | string | boolean;
+preferences?: ReadPreferenceRelations | string | boolean;
+collaborations?: ReadCollaborationRelations | string | boolean;
+affiliationLinks?: ReadAffiliationLinkRelations | string | boolean;
+promoCodes?: ReadPromoCodeRelations | string | boolean}
 
 const ReadShopperProfileRelationsSchema: v.GenericSchema<ReadShopperProfileRelations> = v.object({gender: v.nullish(v.enum(GenderEnum)),
-user: v.undefinedable(v.union([v.pipe(
+user: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
-reviews: v.undefinedable(v.union([v.pipe(
+reviews: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductReviewRelationsSchema)])),
-addresses: v.undefinedable(v.union([v.pipe(
+addresses: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadShippingAddressRelationsSchema)])),
-profilePicture: v.undefinedable(v.union([v.pipe(
+profilePicture: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
-carts: v.undefinedable(v.union([v.pipe(
+carts: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCartRelationsSchema)])),
-orders: v.undefinedable(v.union([v.pipe(
+orders: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadOrderRelationsSchema)])),
-preferences: v.undefinedable(v.union([v.pipe(
+preferences: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPreferenceRelationsSchema)])),
-collaborations: v.undefinedable(v.union([v.pipe(
+collaborations: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCollaborationRelationsSchema)])),
-affiliationLinks: v.undefinedable(v.union([v.pipe(
+affiliationLinks: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadAffiliationLinkRelationsSchema)])),
-promoCodes: v.undefinedable(v.union([v.pipe(
+promoCodes: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPromoCodeRelationsSchema)]))});

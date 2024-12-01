@@ -7,22 +7,22 @@ import ReadOrderFiltersSchema, { ReadOrderFiltersSchemaFilters } from './read-or
 
 
 
-export class ReadBrandOrderFiltersSchemaFilters {status?: OrderStatusEnum | null | undefined;
-totalSalePrice?: GenericComparable<"number"> | null | undefined;
-totalPurchasePrice?: GenericComparable<"number"> | null | undefined;
-shippingFees?: GenericComparable<"number"> | null | undefined;
-rating?: GenericComparable<"number"> | null | undefined;
-review?: GenericComparable<"string"> | null | undefined;
-expectedDeliveryDate?: GenericComparable<"date"> | null | undefined;
-acceptedAt?: GenericComparable<"date"> | null | undefined;
-shippedAt?: GenericComparable<"date"> | null | undefined;
-deliveredAt?: GenericComparable<"date"> | null | undefined;
-cancelledAt?: GenericComparable<"date"> | null | undefined;
-items?: ReadOrderItemFiltersSchemaFilters | null | undefined;
-brand?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
-order?: ReadOrderFiltersSchemaFilters | null | undefined;
-orderId?: GenericComparable<"number"> | null | undefined;
-brandId?: GenericComparable<"number"> | null | undefined}
+export class ReadBrandOrderFiltersSchemaFilters {status?: OrderStatusEnum | null;
+totalSalePrice?: GenericComparable<"number"> | null;
+totalPurchasePrice?: GenericComparable<"number"> | null;
+shippingFees?: GenericComparable<"number"> | null;
+rating?: GenericComparable<"number"> | null;
+review?: GenericComparable<"string"> | null;
+expectedDeliveryDate?: GenericComparable<"date"> | null;
+acceptedAt?: GenericComparable<"date"> | null;
+shippedAt?: GenericComparable<"date"> | null;
+deliveredAt?: GenericComparable<"date"> | null;
+cancelledAt?: GenericComparable<"date"> | null;
+items?: ReadOrderItemFiltersSchemaFilters | null;
+brand?: ReadBrandProfileFiltersSchemaFilters | null;
+order?: ReadOrderFiltersSchemaFilters | null;
+orderId?: GenericComparable<"number"> | null;
+brandId?: GenericComparable<"number"> | null}
 
 const ReadBrandOrderFiltersSchema: v.GenericSchema<ReadBrandOrderFiltersSchemaFilters> = v.object({status: v.nullish(v.enum(OrderStatusEnum)),
 totalSalePrice: v.nullish(comparable("number")),

@@ -8,13 +8,13 @@ import ReadNotificationFiltersSchema, { ReadNotificationFiltersSchemaFilters } f
 
 
 
-export class ReadCollaborationFiltersSchemaFilters {message?: ReadMessageFiltersSchemaFilters | null | undefined;
-brandProfile?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
-shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null | undefined;
-status?: CollaborationStatusEnum | null | undefined;
-notifications?: ReadNotificationFiltersSchemaFilters | null | undefined;
-brandId?: GenericComparable<"number"> | null | undefined;
-shopperId?: GenericComparable<"number"> | null | undefined}
+export class ReadCollaborationFiltersSchemaFilters {message?: ReadMessageFiltersSchemaFilters | null;
+brandProfile?: ReadBrandProfileFiltersSchemaFilters | null;
+shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null;
+status?: CollaborationStatusEnum | null;
+notifications?: ReadNotificationFiltersSchemaFilters | null;
+brandId?: GenericComparable<"number"> | null;
+shopperId?: GenericComparable<"number"> | null}
 
 const ReadCollaborationFiltersSchema: v.GenericSchema<ReadCollaborationFiltersSchemaFilters> = v.object({message: v.nullish(v.lazy(() => ReadMessageFiltersSchema)),
 brandProfile: v.nullish(v.lazy(() => ReadBrandProfileFiltersSchema)),

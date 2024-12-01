@@ -19,89 +19,89 @@ import ReadSavedCollectionItemRelationsSchema, { ReadSavedCollectionItemRelation
 
 
 
-export class ReadProductRelations {media?: ReadMediaRelations | string | boolean | undefined;
-variants?: ReadProductVariantRelations | string | boolean | undefined;
-options?: ReadProductOptionRelations | string | boolean | undefined;
-ratings?: ReadProductReviewRelations | string | boolean | undefined;
-taggedIn?: ReadTaggedProductRelations | string | boolean | undefined;
-affiliationLinks?: ReadAffiliationLinkRelations | string | boolean | undefined;
-notifications?: ReadNotificationRelations | string | boolean | undefined;
-orderItems?: ReadOrderItemRelations | string | boolean | undefined;
-messages?: ReadMessageRelations | string | boolean | undefined;
-brand?: ReadBrandProfileRelations | string | boolean | undefined;
-category?: ReadCategoryRelations | string | boolean | undefined;
-subCategory?: ReadCategoryRelations | string | boolean | undefined;
-collections?: ReadCollectionRelations | string | boolean | undefined;
-carts?: ReadCartItemsRelations | string | boolean | undefined;
-promotions?: ReadPromotionRelations | string | boolean | undefined;
-promoCodes?: ReadPromoCodeRelations | string | boolean | undefined;
-savedInCollections?: ReadSavedCollectionItemRelations | string | boolean | undefined}
+export class ReadProductRelations {media?: ReadMediaRelations | string | boolean;
+variants?: ReadProductVariantRelations | string | boolean;
+options?: ReadProductOptionRelations | string | boolean;
+ratings?: ReadProductReviewRelations | string | boolean;
+taggedIn?: ReadTaggedProductRelations | string | boolean;
+affiliationLinks?: ReadAffiliationLinkRelations | string | boolean;
+notifications?: ReadNotificationRelations | string | boolean;
+orderItems?: ReadOrderItemRelations | string | boolean;
+messages?: ReadMessageRelations | string | boolean;
+brand?: ReadBrandProfileRelations | string | boolean;
+category?: ReadCategoryRelations | string | boolean;
+subCategory?: ReadCategoryRelations | string | boolean;
+collections?: ReadCollectionRelations | string | boolean;
+carts?: ReadCartItemsRelations | string | boolean;
+promotions?: ReadPromotionRelations | string | boolean;
+promoCodes?: ReadPromoCodeRelations | string | boolean;
+savedInCollections?: ReadSavedCollectionItemRelations | string | boolean}
 
-const ReadProductRelationsSchema: v.GenericSchema<ReadProductRelations> = v.object({media: v.undefinedable(v.union([v.pipe(
+const ReadProductRelationsSchema: v.GenericSchema<ReadProductRelations> = v.object({media: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
-variants: v.undefinedable(v.union([v.pipe(
+variants: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductVariantRelationsSchema)])),
-options: v.undefinedable(v.union([v.pipe(
+options: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductOptionRelationsSchema)])),
-ratings: v.undefinedable(v.union([v.pipe(
+ratings: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductReviewRelationsSchema)])),
-taggedIn: v.undefinedable(v.union([v.pipe(
+taggedIn: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadTaggedProductRelationsSchema)])),
-affiliationLinks: v.undefinedable(v.union([v.pipe(
+affiliationLinks: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadAffiliationLinkRelationsSchema)])),
-notifications: v.undefinedable(v.union([v.pipe(
+notifications: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadNotificationRelationsSchema)])),
-orderItems: v.undefinedable(v.union([v.pipe(
+orderItems: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadOrderItemRelationsSchema)])),
-messages: v.undefinedable(v.union([v.pipe(
+messages: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMessageRelationsSchema)])),
-brand: v.undefinedable(v.union([v.pipe(
+brand: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadBrandProfileRelationsSchema)])),
-category: v.undefinedable(v.union([v.pipe(
+category: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCategoryRelationsSchema)])),
-subCategory: v.undefinedable(v.union([v.pipe(
+subCategory: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCategoryRelationsSchema)])),
-collections: v.undefinedable(v.union([v.pipe(
+collections: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCollectionRelationsSchema)])),
-carts: v.undefinedable(v.union([v.pipe(
+carts: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCartItemsRelationsSchema)])),
-promotions: v.undefinedable(v.union([v.pipe(
+promotions: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPromotionRelationsSchema)])),
-promoCodes: v.undefinedable(v.union([v.pipe(
+promoCodes: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPromoCodeRelationsSchema)])),
-savedInCollections: v.undefinedable(v.union([v.pipe(
+savedInCollections: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadSavedCollectionItemRelationsSchema)]))});

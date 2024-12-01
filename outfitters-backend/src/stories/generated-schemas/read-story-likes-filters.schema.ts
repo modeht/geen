@@ -5,10 +5,10 @@ import ReadStoryFiltersSchema, { ReadStoryFiltersSchemaFilters } from './read-st
 
 
 
-export class ReadStoryLikesFiltersSchemaFilters {user?: ReadUserFiltersSchemaFilters | null | undefined;
-story?: ReadStoryFiltersSchemaFilters | null | undefined;
-userId?: GenericComparable<"number"> | null | undefined;
-storyId?: GenericComparable<"number"> | null | undefined}
+export class ReadStoryLikesFiltersSchemaFilters {user?: ReadUserFiltersSchemaFilters | null;
+story?: ReadStoryFiltersSchemaFilters | null;
+userId?: GenericComparable<"number"> | null;
+storyId?: GenericComparable<"number"> | null}
 
 const ReadStoryLikesFiltersSchema: v.GenericSchema<ReadStoryLikesFiltersSchemaFilters> = v.object({user: v.nullish(v.lazy(() => ReadUserFiltersSchema)),
 story: v.nullish(v.lazy(() => ReadStoryFiltersSchema)),

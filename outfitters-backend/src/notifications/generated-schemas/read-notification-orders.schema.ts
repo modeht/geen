@@ -10,33 +10,33 @@ import ReadProductOrdersSchema, { ReadProductOrders } from '../../products/gener
 
 
 
-export class ReadNotificationOrders {type?: NotificationType | null | undefined;
-customContent?: OrderDirectionEnum | undefined;
-isRead?: OrderDirectionEnum | undefined;
-user?: ReadUserOrders | OrderDirectionEnum | undefined;
-collaboration?: ReadCollaborationOrders | OrderDirectionEnum | undefined;
-comment?: ReadCommentOrders | OrderDirectionEnum | undefined;
-promotion?: ReadPromotionOrders | OrderDirectionEnum | undefined;
-product?: ReadProductOrders | OrderDirectionEnum | undefined;
-userId?: OrderDirectionEnum | undefined;
-collaborationId?: OrderDirectionEnum | undefined;
-commentId?: OrderDirectionEnum | undefined;
-promotionId?: OrderDirectionEnum | undefined;
-productId?: OrderDirectionEnum | undefined}
+export class ReadNotificationOrders {type?: NotificationType | null;
+customContent?: OrderDirectionEnum;
+isRead?: OrderDirectionEnum;
+user?: ReadUserOrders | OrderDirectionEnum;
+collaboration?: ReadCollaborationOrders | OrderDirectionEnum;
+comment?: ReadCommentOrders | OrderDirectionEnum;
+promotion?: ReadPromotionOrders | OrderDirectionEnum;
+product?: ReadProductOrders | OrderDirectionEnum;
+userId?: OrderDirectionEnum;
+collaborationId?: OrderDirectionEnum;
+commentId?: OrderDirectionEnum;
+promotionId?: OrderDirectionEnum;
+productId?: OrderDirectionEnum}
 
 const ReadNotificationOrdersSchema: v.GenericSchema<ReadNotificationOrders> = v.object({type: v.nullish(v.enum(NotificationType)),
-customContent: v.undefinedable(OrderDirectionSchema),
-isRead: v.undefinedable(OrderDirectionSchema),
-user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-collaboration: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCollaborationOrdersSchema)])),
-comment: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCommentOrdersSchema)])),
-promotion: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromotionOrdersSchema)])),
-product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
-userId: v.undefinedable(OrderDirectionSchema),
-collaborationId: v.undefinedable(OrderDirectionSchema),
-commentId: v.undefinedable(OrderDirectionSchema),
-promotionId: v.undefinedable(OrderDirectionSchema),
-productId: v.undefinedable(OrderDirectionSchema)});
+customContent: v.optional(OrderDirectionSchema),
+isRead: v.optional(OrderDirectionSchema),
+user: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+collaboration: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCollaborationOrdersSchema)])),
+comment: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCommentOrdersSchema)])),
+promotion: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPromotionOrdersSchema)])),
+product: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+userId: v.optional(OrderDirectionSchema),
+collaborationId: v.optional(OrderDirectionSchema),
+commentId: v.optional(OrderDirectionSchema),
+promotionId: v.optional(OrderDirectionSchema),
+productId: v.optional(OrderDirectionSchema)});
 
 export default ReadNotificationOrdersSchema;
 

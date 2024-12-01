@@ -8,19 +8,19 @@ import ReadMessageFiltersSchema, { ReadMessageFiltersSchemaFilters } from '../..
 
 
 
-export class ReadStoryFiltersSchemaFilters {background?: GenericComparable<"string"> | null | undefined;
-text?: GenericComparable<"string"> | null | undefined;
-media?: ReadMediaFiltersSchemaFilters | null | undefined;
-taggedProducts?: ReadTaggedProductFiltersSchemaFilters | null | undefined;
-postedBy?: ReadUserFiltersSchemaFilters | null | undefined;
-taggedUsers?: ReadUserFiltersSchemaFilters | null | undefined;
-likedByUsers?: ReadStoryLikesFiltersSchemaFilters | null | undefined;
-shares?: ReadMessageFiltersSchemaFilters | null | undefined;
-postedById?: GenericComparable<"number"> | null | undefined;
-taggedProductsCount?: GenericComparable<"number"> | null | undefined;
-taggedUsersCount?: GenericComparable<"number"> | null | undefined;
-isLiked?: GenericComparable<"bool"> | null | undefined;
-isViewed?: GenericComparable<"bool"> | null | undefined}
+export class ReadStoryFiltersSchemaFilters {background?: GenericComparable<"string"> | null;
+text?: GenericComparable<"string"> | null;
+media?: ReadMediaFiltersSchemaFilters | null;
+taggedProducts?: ReadTaggedProductFiltersSchemaFilters | null;
+postedBy?: ReadUserFiltersSchemaFilters | null;
+taggedUsers?: ReadUserFiltersSchemaFilters | null;
+likedByUsers?: ReadStoryLikesFiltersSchemaFilters | null;
+shares?: ReadMessageFiltersSchemaFilters | null;
+postedById?: GenericComparable<"number"> | null;
+taggedProductsCount?: GenericComparable<"number"> | null;
+taggedUsersCount?: GenericComparable<"number"> | null;
+isLiked?: GenericComparable<"bool"> | null;
+isViewed?: GenericComparable<"bool"> | null}
 
 const ReadStoryFiltersSchema: v.GenericSchema<ReadStoryFiltersSchemaFilters> = v.object({background: v.nullish(comparable("string")),
 text: v.nullish(comparable("string")),

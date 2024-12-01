@@ -6,13 +6,13 @@ import ReadProductFiltersSchema, { ReadProductFiltersSchemaFilters } from './rea
 
 
 
-export class ReadProductReviewFiltersSchemaFilters {shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null | undefined;
-stars?: GenericComparable<"number"> | null | undefined;
-comment?: GenericComparable<"string"> | null | undefined;
-media?: ReadMediaFiltersSchemaFilters | null | undefined;
-product?: ReadProductFiltersSchemaFilters | null | undefined;
-productId?: GenericComparable<"number"> | null | undefined;
-shopperId?: GenericComparable<"number"> | null | undefined}
+export class ReadProductReviewFiltersSchemaFilters {shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null;
+stars?: GenericComparable<"number"> | null;
+comment?: GenericComparable<"string"> | null;
+media?: ReadMediaFiltersSchemaFilters | null;
+product?: ReadProductFiltersSchemaFilters | null;
+productId?: GenericComparable<"number"> | null;
+shopperId?: GenericComparable<"number"> | null}
 
 const ReadProductReviewFiltersSchema: v.GenericSchema<ReadProductReviewFiltersSchemaFilters> = v.object({shopperProfile: v.nullish(v.lazy(() => ReadShopperProfileFiltersSchema)),
 stars: v.nullish(comparable("number")),

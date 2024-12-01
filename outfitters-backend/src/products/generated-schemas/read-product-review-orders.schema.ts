@@ -7,21 +7,21 @@ import ReadProductOrdersSchema, { ReadProductOrders } from './read-product-order
 
 
 
-export class ReadProductReviewOrders {shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
-stars?: OrderDirectionEnum | undefined;
-comment?: OrderDirectionEnum | undefined;
-media?: ReadMediaOrders | OrderDirectionEnum | undefined;
-product?: ReadProductOrders | OrderDirectionEnum | undefined;
-productId?: OrderDirectionEnum | undefined;
-shopperId?: OrderDirectionEnum | undefined}
+export class ReadProductReviewOrders {shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum;
+stars?: OrderDirectionEnum;
+comment?: OrderDirectionEnum;
+media?: ReadMediaOrders | OrderDirectionEnum;
+product?: ReadProductOrders | OrderDirectionEnum;
+productId?: OrderDirectionEnum;
+shopperId?: OrderDirectionEnum}
 
-const ReadProductReviewOrdersSchema: v.GenericSchema<ReadProductReviewOrders> = v.object({shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
-stars: v.undefinedable(OrderDirectionSchema),
-comment: v.undefinedable(OrderDirectionSchema),
-media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
-product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
-productId: v.undefinedable(OrderDirectionSchema),
-shopperId: v.undefinedable(OrderDirectionSchema)});
+const ReadProductReviewOrdersSchema: v.GenericSchema<ReadProductReviewOrders> = v.object({shopperProfile: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
+stars: v.optional(OrderDirectionSchema),
+comment: v.optional(OrderDirectionSchema),
+media: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
+product: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+productId: v.optional(OrderDirectionSchema),
+shopperId: v.optional(OrderDirectionSchema)});
 
 export default ReadProductReviewOrdersSchema;
 

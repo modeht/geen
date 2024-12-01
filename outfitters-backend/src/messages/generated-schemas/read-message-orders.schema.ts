@@ -12,47 +12,47 @@ import ReadCommentOrdersSchema, { ReadCommentOrders } from '../../comments/gener
 
 
 
-export class ReadMessageOrders {readAt?: OrderDirectionEnum | undefined;
-content?: OrderDirectionEnum | undefined;
-media?: ReadMediaOrders | OrderDirectionEnum | undefined;
-reaction?: OrderDirectionEnum | undefined;
-collaboration?: ReadCollaborationOrders | OrderDirectionEnum | undefined;
-post?: ReadPostOrders | OrderDirectionEnum | undefined;
-story?: ReadStoryOrders | OrderDirectionEnum | undefined;
-product?: ReadProductOrders | OrderDirectionEnum | undefined;
-conversation?: ReadConversationOrders | OrderDirectionEnum | undefined;
-from?: ReadUserOrders | OrderDirectionEnum | undefined;
-to?: ReadUserOrders | OrderDirectionEnum | undefined;
-comment?: ReadCommentOrders | OrderDirectionEnum | undefined;
-fromId?: OrderDirectionEnum | undefined;
-toId?: OrderDirectionEnum | undefined;
-conversationId?: OrderDirectionEnum | undefined;
-collaborationId?: OrderDirectionEnum | undefined;
-postId?: OrderDirectionEnum | undefined;
-storyId?: OrderDirectionEnum | undefined;
-commentId?: OrderDirectionEnum | undefined;
-productId?: OrderDirectionEnum | undefined}
+export class ReadMessageOrders {readAt?: OrderDirectionEnum;
+content?: OrderDirectionEnum;
+media?: ReadMediaOrders | OrderDirectionEnum;
+reaction?: OrderDirectionEnum;
+collaboration?: ReadCollaborationOrders | OrderDirectionEnum;
+post?: ReadPostOrders | OrderDirectionEnum;
+story?: ReadStoryOrders | OrderDirectionEnum;
+product?: ReadProductOrders | OrderDirectionEnum;
+conversation?: ReadConversationOrders | OrderDirectionEnum;
+from?: ReadUserOrders | OrderDirectionEnum;
+to?: ReadUserOrders | OrderDirectionEnum;
+comment?: ReadCommentOrders | OrderDirectionEnum;
+fromId?: OrderDirectionEnum;
+toId?: OrderDirectionEnum;
+conversationId?: OrderDirectionEnum;
+collaborationId?: OrderDirectionEnum;
+postId?: OrderDirectionEnum;
+storyId?: OrderDirectionEnum;
+commentId?: OrderDirectionEnum;
+productId?: OrderDirectionEnum}
 
-const ReadMessageOrdersSchema: v.GenericSchema<ReadMessageOrders> = v.object({readAt: v.undefinedable(OrderDirectionSchema),
-content: v.undefinedable(OrderDirectionSchema),
-media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
-reaction: v.undefinedable(OrderDirectionSchema),
-collaboration: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCollaborationOrdersSchema)])),
-post: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
-story: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryOrdersSchema)])),
-product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
-conversation: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadConversationOrdersSchema)])),
-from: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-to: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-comment: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCommentOrdersSchema)])),
-fromId: v.undefinedable(OrderDirectionSchema),
-toId: v.undefinedable(OrderDirectionSchema),
-conversationId: v.undefinedable(OrderDirectionSchema),
-collaborationId: v.undefinedable(OrderDirectionSchema),
-postId: v.undefinedable(OrderDirectionSchema),
-storyId: v.undefinedable(OrderDirectionSchema),
-commentId: v.undefinedable(OrderDirectionSchema),
-productId: v.undefinedable(OrderDirectionSchema)});
+const ReadMessageOrdersSchema: v.GenericSchema<ReadMessageOrders> = v.object({readAt: v.optional(OrderDirectionSchema),
+content: v.optional(OrderDirectionSchema),
+media: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
+reaction: v.optional(OrderDirectionSchema),
+collaboration: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCollaborationOrdersSchema)])),
+post: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
+story: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryOrdersSchema)])),
+product: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+conversation: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadConversationOrdersSchema)])),
+from: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+to: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+comment: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCommentOrdersSchema)])),
+fromId: v.optional(OrderDirectionSchema),
+toId: v.optional(OrderDirectionSchema),
+conversationId: v.optional(OrderDirectionSchema),
+collaborationId: v.optional(OrderDirectionSchema),
+postId: v.optional(OrderDirectionSchema),
+storyId: v.optional(OrderDirectionSchema),
+commentId: v.optional(OrderDirectionSchema),
+productId: v.optional(OrderDirectionSchema)});
 
 export default ReadMessageOrdersSchema;
 

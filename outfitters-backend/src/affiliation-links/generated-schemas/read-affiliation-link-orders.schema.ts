@@ -9,25 +9,25 @@ import ReadProductOrdersSchema, { ReadProductOrders } from '../../products/gener
 
 
 
-export class ReadAffiliationLinkOrders {isDisabled?: OrderDirectionEnum | undefined;
-url?: OrderDirectionEnum | undefined;
-taggedProducts?: ReadTaggedProductOrders | OrderDirectionEnum | undefined;
-cartItems?: ReadCartItemsOrders | OrderDirectionEnum | undefined;
-affiliationLinkTracking?: ReadAffiliationLinkTrackingOrders | OrderDirectionEnum | undefined;
-shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
-product?: ReadProductOrders | OrderDirectionEnum | undefined;
-productId?: OrderDirectionEnum | undefined;
-shopperId?: OrderDirectionEnum | undefined}
+export class ReadAffiliationLinkOrders {isDisabled?: OrderDirectionEnum;
+url?: OrderDirectionEnum;
+taggedProducts?: ReadTaggedProductOrders | OrderDirectionEnum;
+cartItems?: ReadCartItemsOrders | OrderDirectionEnum;
+affiliationLinkTracking?: ReadAffiliationLinkTrackingOrders | OrderDirectionEnum;
+shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum;
+product?: ReadProductOrders | OrderDirectionEnum;
+productId?: OrderDirectionEnum;
+shopperId?: OrderDirectionEnum}
 
-const ReadAffiliationLinkOrdersSchema: v.GenericSchema<ReadAffiliationLinkOrders> = v.object({isDisabled: v.undefinedable(OrderDirectionSchema),
-url: v.undefinedable(OrderDirectionSchema),
-taggedProducts: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadTaggedProductOrdersSchema)])),
-cartItems: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCartItemsOrdersSchema)])),
-affiliationLinkTracking: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkTrackingOrdersSchema)])),
-shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
-product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
-productId: v.undefinedable(OrderDirectionSchema),
-shopperId: v.undefinedable(OrderDirectionSchema)});
+const ReadAffiliationLinkOrdersSchema: v.GenericSchema<ReadAffiliationLinkOrders> = v.object({isDisabled: v.optional(OrderDirectionSchema),
+url: v.optional(OrderDirectionSchema),
+taggedProducts: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadTaggedProductOrdersSchema)])),
+cartItems: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCartItemsOrdersSchema)])),
+affiliationLinkTracking: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkTrackingOrdersSchema)])),
+shopperProfile: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
+product: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+productId: v.optional(OrderDirectionSchema),
+shopperId: v.optional(OrderDirectionSchema)});
 
 export default ReadAffiliationLinkOrdersSchema;
 

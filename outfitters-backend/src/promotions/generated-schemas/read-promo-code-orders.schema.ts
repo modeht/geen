@@ -10,47 +10,47 @@ import ReadProductOrdersSchema, { ReadProductOrders } from '../../products/gener
 
 import { PromotionTypeEnum } from '../entities/enums'
 import { PromotionStatusEnum } from '../entities/enums'
-export class ReadPromoCodeOrders {deletedAt?: OrderDirectionEnum | undefined;
-code?: OrderDirectionEnum | undefined;
-title?: OrderDirectionEnum | undefined;
-minPurchaseAmount?: OrderDirectionEnum | undefined;
-perUserLimit?: OrderDirectionEnum | undefined;
-totalLimit?: OrderDirectionEnum | undefined;
-start?: OrderDirectionEnum | undefined;
-end?: OrderDirectionEnum | undefined;
-discountPercentage?: OrderDirectionEnum | undefined;
-type?: PromotionTypeEnum | null | undefined;
-status?: PromotionStatusEnum | null | undefined;
-carts?: ReadCartOrders | OrderDirectionEnum | undefined;
-orderItems?: ReadOrderItemOrders | OrderDirectionEnum | undefined;
-brand?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
-shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
-products?: ReadProductOrders | OrderDirectionEnum | undefined;
-brandId?: OrderDirectionEnum | undefined;
-shopperId?: OrderDirectionEnum | undefined;
-ussageCount?: OrderDirectionEnum | undefined;
-totalMoneyDeducted?: OrderDirectionEnum | undefined}
+export class ReadPromoCodeOrders {deletedAt?: OrderDirectionEnum;
+code?: OrderDirectionEnum;
+title?: OrderDirectionEnum;
+minPurchaseAmount?: OrderDirectionEnum;
+perUserLimit?: OrderDirectionEnum;
+totalLimit?: OrderDirectionEnum;
+start?: OrderDirectionEnum;
+end?: OrderDirectionEnum;
+discountPercentage?: OrderDirectionEnum;
+type?: PromotionTypeEnum | null;
+status?: PromotionStatusEnum | null;
+carts?: ReadCartOrders | OrderDirectionEnum;
+orderItems?: ReadOrderItemOrders | OrderDirectionEnum;
+brand?: ReadBrandProfileOrders | OrderDirectionEnum;
+shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum;
+products?: ReadProductOrders | OrderDirectionEnum;
+brandId?: OrderDirectionEnum;
+shopperId?: OrderDirectionEnum;
+ussageCount?: OrderDirectionEnum;
+totalMoneyDeducted?: OrderDirectionEnum}
 
-const ReadPromoCodeOrdersSchema: v.GenericSchema<ReadPromoCodeOrders> = v.object({deletedAt: v.undefinedable(OrderDirectionSchema),
-code: v.undefinedable(OrderDirectionSchema),
-title: v.undefinedable(OrderDirectionSchema),
-minPurchaseAmount: v.undefinedable(OrderDirectionSchema),
-perUserLimit: v.undefinedable(OrderDirectionSchema),
-totalLimit: v.undefinedable(OrderDirectionSchema),
-start: v.undefinedable(OrderDirectionSchema),
-end: v.undefinedable(OrderDirectionSchema),
-discountPercentage: v.undefinedable(OrderDirectionSchema),
+const ReadPromoCodeOrdersSchema: v.GenericSchema<ReadPromoCodeOrders> = v.object({deletedAt: v.optional(OrderDirectionSchema),
+code: v.optional(OrderDirectionSchema),
+title: v.optional(OrderDirectionSchema),
+minPurchaseAmount: v.optional(OrderDirectionSchema),
+perUserLimit: v.optional(OrderDirectionSchema),
+totalLimit: v.optional(OrderDirectionSchema),
+start: v.optional(OrderDirectionSchema),
+end: v.optional(OrderDirectionSchema),
+discountPercentage: v.optional(OrderDirectionSchema),
 type: v.nullish(v.enum(PromotionTypeEnum)),
 status: v.nullish(v.enum(PromotionStatusEnum)),
-carts: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCartOrdersSchema)])),
-orderItems: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderItemOrdersSchema)])),
-brand: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
-shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
-products: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
-brandId: v.undefinedable(OrderDirectionSchema),
-shopperId: v.undefinedable(OrderDirectionSchema),
-ussageCount: v.undefinedable(OrderDirectionSchema),
-totalMoneyDeducted: v.undefinedable(OrderDirectionSchema)});
+carts: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCartOrdersSchema)])),
+orderItems: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderItemOrdersSchema)])),
+brand: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
+shopperProfile: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
+products: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+brandId: v.optional(OrderDirectionSchema),
+shopperId: v.optional(OrderDirectionSchema),
+ussageCount: v.optional(OrderDirectionSchema),
+totalMoneyDeducted: v.optional(OrderDirectionSchema)});
 
 export default ReadPromoCodeOrdersSchema;
 

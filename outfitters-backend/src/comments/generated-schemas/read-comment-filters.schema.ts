@@ -7,16 +7,16 @@ import ReadMessageFiltersSchema, { ReadMessageFiltersSchemaFilters } from '../..
 
 
 
-export class ReadCommentFiltersSchemaFilters {content?: GenericComparable<"string"> | null | undefined;
-commentor?: ReadUserFiltersSchemaFilters | null | undefined;
-post?: ReadPostFiltersSchemaFilters | null | undefined;
-level?: GenericComparable<"number"> | null | undefined;
-notifications?: ReadNotificationFiltersSchemaFilters | null | undefined;
-messages?: ReadMessageFiltersSchemaFilters | null | undefined;
-userId?: GenericComparable<"number"> | null | undefined;
-replyToId?: GenericComparable<"number"> | null | undefined;
-postId?: GenericComparable<"number"> | null | undefined;
-repliesDepth?: GenericComparable<"number"> | null | undefined}
+export class ReadCommentFiltersSchemaFilters {content?: GenericComparable<"string"> | null;
+commentor?: ReadUserFiltersSchemaFilters | null;
+post?: ReadPostFiltersSchemaFilters | null;
+level?: GenericComparable<"number"> | null;
+notifications?: ReadNotificationFiltersSchemaFilters | null;
+messages?: ReadMessageFiltersSchemaFilters | null;
+userId?: GenericComparable<"number"> | null;
+replyToId?: GenericComparable<"number"> | null;
+postId?: GenericComparable<"number"> | null;
+repliesDepth?: GenericComparable<"number"> | null}
 
 const ReadCommentFiltersSchema: v.GenericSchema<ReadCommentFiltersSchemaFilters> = v.object({content: v.nullish(comparable("string")),
 commentor: v.nullish(v.lazy(() => ReadUserFiltersSchema)),

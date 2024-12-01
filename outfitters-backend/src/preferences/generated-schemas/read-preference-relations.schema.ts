@@ -6,19 +6,19 @@ import ReadShopperProfileRelationsSchema, { ReadShopperProfileRelations } from '
 
 
 
-export class ReadPreferenceRelations {media?: ReadMediaRelations | string | boolean | undefined;
-brandProfile?: ReadBrandProfileRelations | string | boolean | undefined;
-shopperProfile?: ReadShopperProfileRelations | string | boolean | undefined}
+export class ReadPreferenceRelations {media?: ReadMediaRelations | string | boolean;
+brandProfile?: ReadBrandProfileRelations | string | boolean;
+shopperProfile?: ReadShopperProfileRelations | string | boolean}
 
-const ReadPreferenceRelationsSchema: v.GenericSchema<ReadPreferenceRelations> = v.object({media: v.undefinedable(v.union([v.pipe(
+const ReadPreferenceRelationsSchema: v.GenericSchema<ReadPreferenceRelations> = v.object({media: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
-brandProfile: v.undefinedable(v.union([v.pipe(
+brandProfile: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadBrandProfileRelationsSchema)])),
-shopperProfile: v.undefinedable(v.union([v.pipe(
+shopperProfile: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadShopperProfileRelationsSchema)]))});

@@ -6,25 +6,25 @@ import ReadMessageOrdersSchema, { ReadMessageOrders } from '../../messages/gener
 
 
 
-export class ReadConversationOrders {isSupport?: OrderDirectionEnum | undefined;
-from?: ReadUserOrders | OrderDirectionEnum | undefined;
-to?: ReadUserOrders | OrderDirectionEnum | undefined;
-messages?: ReadMessageOrders | OrderDirectionEnum | undefined;
-archivedByFrom?: OrderDirectionEnum | undefined;
-archivedByTo?: OrderDirectionEnum | undefined;
-fromId?: OrderDirectionEnum | undefined;
-toId?: OrderDirectionEnum | undefined;
-isCollaboration?: OrderDirectionEnum | undefined}
+export class ReadConversationOrders {isSupport?: OrderDirectionEnum;
+from?: ReadUserOrders | OrderDirectionEnum;
+to?: ReadUserOrders | OrderDirectionEnum;
+messages?: ReadMessageOrders | OrderDirectionEnum;
+archivedByFrom?: OrderDirectionEnum;
+archivedByTo?: OrderDirectionEnum;
+fromId?: OrderDirectionEnum;
+toId?: OrderDirectionEnum;
+isCollaboration?: OrderDirectionEnum}
 
-const ReadConversationOrdersSchema: v.GenericSchema<ReadConversationOrders> = v.object({isSupport: v.undefinedable(OrderDirectionSchema),
-from: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-to: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-messages: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
-archivedByFrom: v.undefinedable(OrderDirectionSchema),
-archivedByTo: v.undefinedable(OrderDirectionSchema),
-fromId: v.undefinedable(OrderDirectionSchema),
-toId: v.undefinedable(OrderDirectionSchema),
-isCollaboration: v.undefinedable(OrderDirectionSchema)});
+const ReadConversationOrdersSchema: v.GenericSchema<ReadConversationOrders> = v.object({isSupport: v.optional(OrderDirectionSchema),
+from: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+to: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+messages: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
+archivedByFrom: v.optional(OrderDirectionSchema),
+archivedByTo: v.optional(OrderDirectionSchema),
+fromId: v.optional(OrderDirectionSchema),
+toId: v.optional(OrderDirectionSchema),
+isCollaboration: v.optional(OrderDirectionSchema)});
 
 export default ReadConversationOrdersSchema;
 

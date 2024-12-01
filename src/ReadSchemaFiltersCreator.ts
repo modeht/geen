@@ -336,7 +336,7 @@ export default ${this.filtersSchemaName};
 		let property = '';
 
 		key = `v.nullish(v.lazy(() => ${nestedFiltersSchemaName}))`;
-		property = `${nestedFiltersClassName} | null | undefined`;
+		property = `${nestedFiltersClassName} | null`;
 
 		key = `${fieldName}: ${key}`;
 		property = `${fieldName}?: ${property}`;
@@ -345,11 +345,11 @@ export default ${this.filtersSchemaName};
 
 	_handleClassEmptyStates(field: string, nullable: boolean, undefindable: boolean) {
 		if (undefindable && nullable) {
-			field = `?: ${field} | null | undefined`;
-		} else if (undefindable && !nullable) {
-			field = `?: ${field} | undefined`;
-		} else if (nullable && !undefindable) {
 			field = `?: ${field} | null`;
+		} else if (undefindable && !nullable) {
+			field = `?: ${field}`;
+		} else if (nullable && !undefindable) {
+			field = `: ${field} | null`;
 		}
 		return field;
 	}
@@ -358,7 +358,7 @@ export default ${this.filtersSchemaName};
 		if (undefindable && nullable) {
 			field = `v.nullish(${field})`;
 		} else if (undefindable && !nullable) {
-			field = `v.undefinedable(${field})`;
+			field = `v.optional(${field})`;
 		} else if (nullable && !undefindable) {
 			field = `v.nullish(${field})`;
 		}

@@ -184,8 +184,8 @@ export type TRead${this.entityName}OrdersSchemaInput = v.InferInput<typeof ${thi
 				let fieldAsString = '';
 				let propertyAsString = '';
 
-				let t = 'v.undefinedable(OrderDirectionSchema)';
-				let p = 'OrderDirectionEnum | undefined';
+				let t = 'v.optional(OrderDirectionSchema)';
+				let p = 'OrderDirectionEnum';
 
 				// t = this._handleEmptyStates(t, fieldNullable, fieldUndefindable);
 				// p = this._handleClassEmptyStates(p, fieldNullable, fieldUndefindable);
@@ -307,8 +307,8 @@ export default ${this.ordersSchemaName};
 		let key = '';
 		let property = '';
 
-		key = `v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ${nestedOrdersSchemaName})]))`;
-		property = `${nestedOrdersClassName} | OrderDirectionEnum | undefined`;
+		key = `v.optional(v.union([OrderDirectionSchema, v.lazy(() => ${nestedOrdersSchemaName})]))`;
+		property = `${nestedOrdersClassName} | OrderDirectionEnum`;
 
 		key = `${fieldName}: ${key}`;
 		property = `${fieldName}?: ${property}`;
@@ -318,11 +318,11 @@ export default ${this.ordersSchemaName};
 
 	_handleClassEmptyStates(field: string, nullable: boolean, undefindable: boolean) {
 		if (undefindable && nullable) {
-			field = `?: ${field} | null | undefined`;
-		} else if (undefindable && !nullable) {
-			field = `?: ${field} | undefined`;
-		} else if (nullable && !undefindable) {
 			field = `?: ${field} | null`;
+		} else if (undefindable && !nullable) {
+			field = `?: ${field}`;
+		} else if (nullable && !undefindable) {
+			field = `: ${field} | null`;
 		}
 		return field;
 	}
@@ -331,7 +331,7 @@ export default ${this.ordersSchemaName};
 		if (undefindable && nullable) {
 			field = `v.nullish(${field})`;
 		} else if (undefindable && !nullable) {
-			field = `v.undefinedable(${field})`;
+			field = `v.optional(${field})`;
 		} else if (nullable && !undefindable) {
 			field = `v.nullish(${field})`;
 		}

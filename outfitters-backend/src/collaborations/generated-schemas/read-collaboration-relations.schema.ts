@@ -8,26 +8,26 @@ import ReadNotificationRelationsSchema, { ReadNotificationRelations } from '../.
 
 
 
-export class ReadCollaborationRelations {message?: ReadMessageRelations | string | boolean | undefined;
-brandProfile?: ReadBrandProfileRelations | string | boolean | undefined;
-shopperProfile?: ReadShopperProfileRelations | string | boolean | undefined;
-status?: CollaborationStatusEnum | null | undefined;
-notifications?: ReadNotificationRelations | string | boolean | undefined}
+export class ReadCollaborationRelations {message?: ReadMessageRelations | string | boolean;
+brandProfile?: ReadBrandProfileRelations | string | boolean;
+shopperProfile?: ReadShopperProfileRelations | string | boolean;
+status?: CollaborationStatusEnum | null;
+notifications?: ReadNotificationRelations | string | boolean}
 
-const ReadCollaborationRelationsSchema: v.GenericSchema<ReadCollaborationRelations> = v.object({message: v.undefinedable(v.union([v.pipe(
+const ReadCollaborationRelationsSchema: v.GenericSchema<ReadCollaborationRelations> = v.object({message: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMessageRelationsSchema)])),
-brandProfile: v.undefinedable(v.union([v.pipe(
+brandProfile: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadBrandProfileRelationsSchema)])),
-shopperProfile: v.undefinedable(v.union([v.pipe(
+shopperProfile: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadShopperProfileRelationsSchema)])),
 status: v.nullish(v.enum(CollaborationStatusEnum)),
-notifications: v.undefinedable(v.union([v.pipe(
+notifications: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadNotificationRelationsSchema)]))});

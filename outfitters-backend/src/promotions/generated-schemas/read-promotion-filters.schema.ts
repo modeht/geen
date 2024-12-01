@@ -10,22 +10,22 @@ import ReadOrderItemFiltersSchema, { ReadOrderItemFiltersSchemaFilters } from '.
 import { PromotionTypeEnum } from '../entities/enums'
 import { PromotionTargetEnum } from '../entities/enums'
 import { PromotionStatusEnum } from '../entities/enums'
-export class ReadPromotionFiltersSchemaFilters {title?: GenericComparable<"string"> | null | undefined;
-type?: PromotionTypeEnum | null | undefined;
-discountPercentage?: GenericComparable<"number"> | null | undefined;
-minPurchaseAmount?: GenericComparable<"number"> | null | undefined;
-start?: GenericComparable<"date"> | null | undefined;
-end?: GenericComparable<"date"> | null | undefined;
-target?: PromotionTargetEnum | null | undefined;
-status?: PromotionStatusEnum | null | undefined;
-notifications?: ReadNotificationFiltersSchemaFilters | null | undefined;
-brand?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
-seasonalPromotion?: ReadSeasonalPromotionFiltersSchemaFilters | null | undefined;
-products?: ReadProductFiltersSchemaFilters | null | undefined;
-orderItems?: ReadOrderItemFiltersSchemaFilters | null | undefined;
-isDeleted?: GenericComparable<"bool"> | null | undefined;
-seasonalPromotionId?: GenericComparable<"number"> | null | undefined;
-brandId?: GenericComparable<"number"> | null | undefined}
+export class ReadPromotionFiltersSchemaFilters {title?: GenericComparable<"string"> | null;
+type?: PromotionTypeEnum | null;
+discountPercentage?: GenericComparable<"number"> | null;
+minPurchaseAmount?: GenericComparable<"number"> | null;
+start?: GenericComparable<"date"> | null;
+end?: GenericComparable<"date"> | null;
+target?: PromotionTargetEnum | null;
+status?: PromotionStatusEnum | null;
+notifications?: ReadNotificationFiltersSchemaFilters | null;
+brand?: ReadBrandProfileFiltersSchemaFilters | null;
+seasonalPromotion?: ReadSeasonalPromotionFiltersSchemaFilters | null;
+products?: ReadProductFiltersSchemaFilters | null;
+orderItems?: ReadOrderItemFiltersSchemaFilters | null;
+isDeleted?: GenericComparable<"bool"> | null;
+seasonalPromotionId?: GenericComparable<"number"> | null;
+brandId?: GenericComparable<"number"> | null}
 
 const ReadPromotionFiltersSchema: v.GenericSchema<ReadPromotionFiltersSchemaFilters> = v.object({title: v.nullish(comparable("string")),
 type: v.nullish(v.enum(PromotionTypeEnum)),

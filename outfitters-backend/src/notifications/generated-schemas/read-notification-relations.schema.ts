@@ -9,31 +9,31 @@ import ReadProductRelationsSchema, { ReadProductRelations } from '../../products
 
 
 
-export class ReadNotificationRelations {type?: NotificationType | null | undefined;
-user?: ReadUserRelations | string | boolean | undefined;
-collaboration?: ReadCollaborationRelations | string | boolean | undefined;
-comment?: ReadCommentRelations | string | boolean | undefined;
-promotion?: ReadPromotionRelations | string | boolean | undefined;
-product?: ReadProductRelations | string | boolean | undefined}
+export class ReadNotificationRelations {type?: NotificationType | null;
+user?: ReadUserRelations | string | boolean;
+collaboration?: ReadCollaborationRelations | string | boolean;
+comment?: ReadCommentRelations | string | boolean;
+promotion?: ReadPromotionRelations | string | boolean;
+product?: ReadProductRelations | string | boolean}
 
 const ReadNotificationRelationsSchema: v.GenericSchema<ReadNotificationRelations> = v.object({type: v.nullish(v.enum(NotificationType)),
-user: v.undefinedable(v.union([v.pipe(
+user: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
-collaboration: v.undefinedable(v.union([v.pipe(
+collaboration: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCollaborationRelationsSchema)])),
-comment: v.undefinedable(v.union([v.pipe(
+comment: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCommentRelationsSchema)])),
-promotion: v.undefinedable(v.union([v.pipe(
+promotion: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPromotionRelationsSchema)])),
-product: v.undefinedable(v.union([v.pipe(
+product: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)]))});

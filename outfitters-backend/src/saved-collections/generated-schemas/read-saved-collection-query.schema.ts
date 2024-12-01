@@ -5,10 +5,10 @@ import ReadSavedCollectionFiltersSchema from './read-saved-collection-filters.sc
 import ReadSavedCollectionRelationsSchema from './read-saved-collection-relations.schema';
 import ReadSavedCollectionOrdersSchema from './read-saved-collection-orders.schema';
 const ReadSavedCollectionSchema = v.optional(v.object({
-filters: v.undefinedable(ReadSavedCollectionFiltersSchema),
-relations: v.undefinedable(ReadSavedCollectionRelationsSchema),
-orders: v.undefinedable(ReadSavedCollectionOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadSavedCollectionFiltersSchema),
+relations: v.optional(ReadSavedCollectionRelationsSchema),
+orders: v.optional(ReadSavedCollectionOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadSavedCollectionSchema;
 export type TReadSavedCollectionSchemaInput = v.InferInput<typeof ReadSavedCollectionSchema>;

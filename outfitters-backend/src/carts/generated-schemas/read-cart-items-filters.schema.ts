@@ -7,19 +7,19 @@ import ReadAffiliationLinkFiltersSchema, { ReadAffiliationLinkFiltersSchemaFilte
 
 
 
-export class ReadCartItemsFiltersSchemaFilters {quantity?: GenericComparable<"number"> | null | undefined;
-cart?: ReadCartFiltersSchemaFilters | null | undefined;
-product?: ReadProductFiltersSchemaFilters | null | undefined;
-variant?: ReadProductVariantFiltersSchemaFilters | null | undefined;
-affiliationLink?: ReadAffiliationLinkFiltersSchemaFilters | null | undefined;
-cartId?: GenericComparable<"number"> | null | undefined;
-productId?: GenericComparable<"number"> | null | undefined;
-variantId?: GenericComparable<"number"> | null | undefined;
-affiliationLinkId?: GenericComparable<"number"> | null | undefined;
-totalPrice?: GenericComparable<"number"> | null | undefined;
-totalDiscountedPrice?: GenericComparable<"number"> | null | undefined;
-promoCodeApplied?: GenericComparable<"bool"> | null | undefined;
-appliedpromotionsIds?: GenericComparable<"number">[] | null | undefined}
+export class ReadCartItemsFiltersSchemaFilters {quantity?: GenericComparable<"number"> | null;
+cart?: ReadCartFiltersSchemaFilters | null;
+product?: ReadProductFiltersSchemaFilters | null;
+variant?: ReadProductVariantFiltersSchemaFilters | null;
+affiliationLink?: ReadAffiliationLinkFiltersSchemaFilters | null;
+cartId?: GenericComparable<"number"> | null;
+productId?: GenericComparable<"number"> | null;
+variantId?: GenericComparable<"number"> | null;
+affiliationLinkId?: GenericComparable<"number"> | null;
+totalPrice?: GenericComparable<"number"> | null;
+totalDiscountedPrice?: GenericComparable<"number"> | null;
+promoCodeApplied?: GenericComparable<"bool"> | null;
+appliedpromotionsIds?: GenericComparable<"number">[] | null}
 
 const ReadCartItemsFiltersSchema: v.GenericSchema<ReadCartItemsFiltersSchemaFilters> = v.object({quantity: v.nullish(comparable("number")),
 cart: v.nullish(v.lazy(() => ReadCartFiltersSchema)),
