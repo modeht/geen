@@ -5,7 +5,7 @@ import * as v from 'valibot';
 import { OrderStatusEnum } from '../entities/brand-orders.entity'
 import { OrderPaymentMethod } from '../entities/order.entity'
 import { OrderPaymentStatusEnum } from '../entities/order.entity'
-export const CreateBrandOrderSchema = v.pipe(v.object({status: v.enum(OrderStatusEnum),
+const CreateBrandOrderSchema = v.pipe(v.object({status: v.enum(OrderStatusEnum),
 totalSalePrice: v.nullish(v.number()),
 totalPurchasePrice: v.nullish(v.number()),
 shippingFees: v.nullish(v.number()),
@@ -51,7 +51,9 @@ orderId: v.number(),
 brandId: v.number()}),v.metadata({[modelSymbol]: 'BrandOrderEntity',
 items: 'OrderItemEntity',
 brand: 'BrandProfileEntity',
-order: 'OrderEntity'}))
+order: 'OrderEntity'}));
+export default CreateBrandOrderSchema;
+
 
 export type TCreateBrandOrderSchemaInput = v.InferInput<typeof CreateBrandOrderSchema>;
 export type TCreateBrandOrderSchemaOutput = v.InferOutput<typeof CreateBrandOrderSchema>;

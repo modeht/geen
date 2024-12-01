@@ -3,7 +3,7 @@ import * as v from 'valibot';
 
 
 
-export const UpdateTaggedProductSchema = v.pipe(v.object({product: v.nullish(v.union([v.object({ id: v.number() }), v.object({isArchived: v.boolean(),
+const UpdateTaggedProductSchema = v.pipe(v.object({product: v.nullish(v.union([v.object({ id: v.number() }), v.object({isArchived: v.boolean(),
 title: v.nullish(v.string()),
 description: v.nullish(v.string()),
 basePrice: v.nullish(v.number()),
@@ -45,7 +45,8 @@ affiliationLinkId: v.nullish(v.number())}),v.metadata({[modelSymbol]: 'TaggedPro
 product: 'ProductEntity',
 post: 'PostEntity',
 story: 'StoryEntity',
-affiliationLink: 'AffiliationLinkEntity'}))
+affiliationLink: 'AffiliationLinkEntity'}));
+export default UpdateTaggedProductSchema;
 
 export type TUpdateTaggedProductSchemaInput = v.InferInput<typeof UpdateTaggedProductSchema>;
 export type TUpdateTaggedProductSchemaOutput = v.InferOutput<typeof UpdateTaggedProductSchema>;

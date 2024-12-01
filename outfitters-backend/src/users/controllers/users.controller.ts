@@ -8,8 +8,7 @@ import { FindUserDto } from '../dto/find-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UsersService } from '../services/users.service';
 
-import {
-	CreateUserSchema,
+import CreateUserSchema, {
 	TCreateUserSchemaInput,
 } from '../generated-schemas/create-user.schema';
 import { MoBody } from '../../globals/decorators/mo-body.decorator';

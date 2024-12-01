@@ -3,7 +3,7 @@ import * as v from 'valibot';
 
 
 
-export const CreateCountrySchema = v.pipe(v.object({name: v.string(),
+const CreateCountrySchema = v.pipe(v.object({name: v.string(),
 code: v.string(),
 dialCode: v.string(),
 isSupported: v.boolean(),
@@ -28,7 +28,9 @@ followingCount: v.nullish(v.number()),
 postsCount: v.nullish(v.number())}))])),
 iconId: v.number()}),v.metadata({[modelSymbol]: 'CountryEntity',
 icon: 'MediaEntity',
-brands: 'BrandProfileEntity'}))
+brands: 'BrandProfileEntity'}));
+export default CreateCountrySchema;
+
 
 export type TCreateCountrySchemaInput = v.InferInput<typeof CreateCountrySchema>;
 export type TCreateCountrySchemaOutput = v.InferOutput<typeof CreateCountrySchema>;

@@ -5,7 +5,7 @@ import * as v from 'valibot';
 import { AccountStatus } from '../../users/entities/user.entity'
 import { LanguageEnum } from '../../../lib/enums'
 import { NotificationType } from '../../notifications/entities/notification.entity'
-export const CreateCommentSchema = v.pipe(v.object({content: v.string(),
+const CreateCommentSchema = v.pipe(v.object({content: v.string(),
 commentor: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(AccountStatus),
 email: v.nullish(v.string()),
 phone: v.nullish(v.string()),
@@ -53,7 +53,9 @@ repliesDepth: v.number()}),v.metadata({[modelSymbol]: 'CommentEntity',
 commentor: 'UserEntity',
 post: 'PostEntity',
 notifications: 'NotificationEntity',
-messages: 'MessageEntity'}))
+messages: 'MessageEntity'}));
+export default CreateCommentSchema;
+
 
 export type TCreateCommentSchemaInput = v.InferInput<typeof CreateCommentSchema>;
 export type TCreateCommentSchemaOutput = v.InferOutput<typeof CreateCommentSchema>;

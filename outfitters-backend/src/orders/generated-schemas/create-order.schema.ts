@@ -7,7 +7,7 @@ import { OrderPaymentStatusEnum } from '../entities/order.entity'
 import { CartStatus } from '../../carts/entities/cart.entity'
 import { OrderStatusEnum } from '../entities/brand-orders.entity'
 import { GenderEnum } from '../../users/entities/shopper-profile.entity'
-export const CreateOrderSchema = v.pipe(v.object({paymentMethod: v.enum(OrderPaymentMethod),
+const CreateOrderSchema = v.pipe(v.object({paymentMethod: v.enum(OrderPaymentMethod),
 paymentStatus: v.nullish(v.enum(OrderPaymentStatusEnum)),
 totalSalePrice: v.nullish(v.number()),
 totalPurchasePrice: v.nullish(v.number()),
@@ -64,7 +64,9 @@ shopperId: v.number()}),v.metadata({[modelSymbol]: 'OrderEntity',
 cart: 'CartEntity',
 brandOrders: 'BrandOrderEntity',
 shippingAddress: 'ShippingAddressEntity',
-shopperProfile: 'ShopperProfileEntity'}))
+shopperProfile: 'ShopperProfileEntity'}));
+export default CreateOrderSchema;
+
 
 export type TCreateOrderSchemaInput = v.InferInput<typeof CreateOrderSchema>;
 export type TCreateOrderSchemaOutput = v.InferOutput<typeof CreateOrderSchema>;

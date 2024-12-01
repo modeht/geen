@@ -15,7 +15,7 @@ import { ResponseInterceptor } from './globals/interceptors/response.interceptor
 import 'reflect-metadata';
 import { async } from 'fast-glob';
 import { toJsonSchema } from '@valibot/to-json-schema';
-import { createComponentsSchemas } from './test';
+import { createComponentsSchemas } from './openapi-schemas';
 import { writeFile } from 'fs/promises';
 
 async function bootstrap() {
@@ -119,18 +119,14 @@ async function bootstrap() {
 
 	const document = SwaggerModule.createDocument(app, config);
 
+	const valibotSchemas = await createComponentsSchemas();
+
 	document.components.schemas = {
 		...document.components.schemas,
-		...(await createComponentsSchemas()),
+		...valibotSchemas,
 	};
-	// await writeFile('./openapi.json', JSON.stringify(document, null, 4));
 	SwaggerModule.setup('docs', app, document);
-
-	// console.log(document);
-	// console.dir(document.paths['/api/v1/countries/test'], { depth: null });
-	// console.log(app.getHttpAdapter());
-	// app.getHttpServer();
-	// await createSchemas();
+	writeFile('./openapi.json', JSON.stringify(document, null, 4));
 
 	const configService = app.get(ConfigService);
 	const PORT = configService.get('DOCKER_PORT') || configService.get('PORT');

@@ -3,7 +3,7 @@ import * as v from 'valibot';
 
 
 import { PromotionStatusEnum } from '../../promotions/entities/enums'
-export const CreateCategorySchema = v.pipe(v.object({name: v.string(),
+const CreateCategorySchema = v.pipe(v.object({name: v.string(),
 isArchived: v.boolean(),
 media: v.nullish(v.union([v.object({ id: v.number() }), v.object({mimetype: v.nullish(v.string()),
 url: v.nullish(v.string()),
@@ -71,7 +71,9 @@ superCategory: 'CategoryEntity',
 products: 'ProductEntity',
 categorybrandProfiles: 'BrandProfileEntity',
 subCategoriesBrandProfiles: 'BrandProfileEntity',
-seasonalPromotions: 'SeasonalPromotionEntity'}))
+seasonalPromotions: 'SeasonalPromotionEntity'}));
+export default CreateCategorySchema;
+
 
 export type TCreateCategorySchemaInput = v.InferInput<typeof CreateCategorySchema>;
 export type TCreateCategorySchemaOutput = v.InferOutput<typeof CreateCategorySchema>;

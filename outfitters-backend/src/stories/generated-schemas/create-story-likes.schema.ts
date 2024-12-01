@@ -4,7 +4,7 @@ import * as v from 'valibot';
 
 import { AccountStatus } from '../../users/entities/user.entity'
 import { LanguageEnum } from '../../../lib/enums'
-export const CreateStoryLikesSchema = v.pipe(v.object({user: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(AccountStatus),
+const CreateStoryLikesSchema = v.pipe(v.object({user: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(AccountStatus),
 email: v.nullish(v.string()),
 phone: v.nullish(v.string()),
 password: v.nullish(v.string()),
@@ -26,7 +26,9 @@ isViewed: v.optional(v.boolean())})])),
 userId: v.number(),
 storyId: v.number()}),v.metadata({[modelSymbol]: 'StoryLikesEntity',
 user: 'UserEntity',
-story: 'StoryEntity'}))
+story: 'StoryEntity'}));
+export default CreateStoryLikesSchema;
+
 
 export type TCreateStoryLikesSchemaInput = v.InferInput<typeof CreateStoryLikesSchema>;
 export type TCreateStoryLikesSchemaOutput = v.InferOutput<typeof CreateStoryLikesSchema>;

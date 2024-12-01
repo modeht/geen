@@ -7,7 +7,7 @@ import { OrderPaymentStatusEnum } from '../entities/order.entity'
 import { CartStatus } from '../../carts/entities/cart.entity'
 import { OrderStatusEnum } from '../entities/brand-orders.entity'
 import { GenderEnum } from '../../users/entities/shopper-profile.entity'
-export const UpdateOrderSchema = v.pipe(v.object({paymentMethod: v.optional(v.enum(OrderPaymentMethod)),
+const UpdateOrderSchema = v.pipe(v.object({paymentMethod: v.optional(v.enum(OrderPaymentMethod)),
 paymentStatus: v.nullish(v.enum(OrderPaymentStatusEnum)),
 totalSalePrice: v.nullish(v.number()),
 totalPurchasePrice: v.nullish(v.number()),
@@ -64,7 +64,8 @@ shopperId: v.optional(v.number())}),v.metadata({[modelSymbol]: 'OrderEntity',
 cart: 'CartEntity',
 brandOrders: 'BrandOrderEntity',
 shippingAddress: 'ShippingAddressEntity',
-shopperProfile: 'ShopperProfileEntity'}))
+shopperProfile: 'ShopperProfileEntity'}));
+export default UpdateOrderSchema;
 
 export type TUpdateOrderSchemaInput = v.InferInput<typeof UpdateOrderSchema>;
 export type TUpdateOrderSchemaOutput = v.InferOutput<typeof UpdateOrderSchema>;

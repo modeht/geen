@@ -11,7 +11,7 @@ import { OrderPaymentStatusEnum } from '../../orders/entities/order.entity'
 import { CollaborationStatusEnum } from '../../collaborations/entities/collaboration.entity'
 import { PromotionTypeEnum } from '../../promotions/entities/enums'
 import { PromotionStatusEnum } from '../../promotions/entities/enums'
-export const CreateShopperProfileSchema = v.pipe(v.object({username: v.nullish(v.string()),
+const CreateShopperProfileSchema = v.pipe(v.object({username: v.nullish(v.string()),
 fullName: v.nullish(v.string()),
 dateOfBirth: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
 bio: v.string(),
@@ -106,7 +106,9 @@ orders: 'OrderEntity',
 preferences: 'PreferenceEntity',
 collaborations: 'CollaborationEntity',
 affiliationLinks: 'AffiliationLinkEntity',
-promoCodes: 'PromoCodeEntity'}))
+promoCodes: 'PromoCodeEntity'}));
+export default CreateShopperProfileSchema;
+
 
 export type TCreateShopperProfileSchemaInput = v.InferInput<typeof CreateShopperProfileSchema>;
 export type TCreateShopperProfileSchemaOutput = v.InferOutput<typeof CreateShopperProfileSchema>;

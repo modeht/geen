@@ -3,7 +3,7 @@ import * as v from 'valibot';
 
 
 
-export const UpdateProductOptionSchema = v.pipe(v.object({name: v.optional(v.string()),
+const UpdateProductOptionSchema = v.pipe(v.object({name: v.optional(v.string()),
 productId: v.optional(v.number()),
 product: v.nullish(v.union([v.object({ id: v.number() }), v.object({isArchived: v.boolean(),
 title: v.nullish(v.string()),
@@ -25,7 +25,8 @@ values: v.nullish(v.union([v.array(v.object({id:v.number()})), v.array(v.object(
 optionName: v.string(),
 productId: v.number()}))]))}),v.metadata({[modelSymbol]: 'ProductOptionEntity',
 product: 'ProductEntity',
-values: 'ProductOptionValueEntity'}))
+values: 'ProductOptionValueEntity'}));
+export default UpdateProductOptionSchema;
 
 export type TUpdateProductOptionSchemaInput = v.InferInput<typeof UpdateProductOptionSchema>;
 export type TUpdateProductOptionSchemaOutput = v.InferOutput<typeof UpdateProductOptionSchema>;

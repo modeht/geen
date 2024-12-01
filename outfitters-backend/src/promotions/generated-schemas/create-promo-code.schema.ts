@@ -6,7 +6,7 @@ import { PromotionTypeEnum } from '../entities/enums'
 import { PromotionStatusEnum } from '../entities/enums'
 import { CartStatus } from '../../carts/entities/cart.entity'
 import { GenderEnum } from '../../users/entities/shopper-profile.entity'
-export const CreatePromoCodeSchema = v.pipe(v.object({deletedAt: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
+const CreatePromoCodeSchema = v.pipe(v.object({deletedAt: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
 code: v.string(),
 title: v.string(),
 minPurchaseAmount: v.nullish(v.number()),
@@ -84,7 +84,9 @@ carts: 'CartEntity',
 orderItems: 'OrderItemEntity',
 brand: 'BrandProfileEntity',
 shopperProfile: 'ShopperProfileEntity',
-products: 'ProductEntity'}))
+products: 'ProductEntity'}));
+export default CreatePromoCodeSchema;
+
 
 export type TCreatePromoCodeSchemaInput = v.InferInput<typeof CreatePromoCodeSchema>;
 export type TCreatePromoCodeSchemaOutput = v.InferOutput<typeof CreatePromoCodeSchema>;

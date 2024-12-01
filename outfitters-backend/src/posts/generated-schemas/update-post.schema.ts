@@ -4,7 +4,7 @@ import * as v from 'valibot';
 
 import { AccountStatus } from '../../users/entities/user.entity'
 import { LanguageEnum } from '../../../lib/enums'
-export const UpdatePostSchema = v.pipe(v.object({caption: v.nullish(v.string()),
+const UpdatePostSchema = v.pipe(v.object({caption: v.nullish(v.string()),
 media: v.nullish(v.union([v.array(v.object({id:v.number()})), v.array(v.object({mimetype: v.nullish(v.string()),
 url: v.nullish(v.string()),
 size: v.nullish(v.number()),
@@ -81,7 +81,8 @@ taggedUsers: 'UserEntity',
 likedByUsers: 'PostLikesEntity',
 comments: 'CommentEntity',
 shares: 'MessageEntity',
-savedInCollections: 'SavedCollectionItemEntity'}))
+savedInCollections: 'SavedCollectionItemEntity'}));
+export default UpdatePostSchema;
 
 export type TUpdatePostSchemaInput = v.InferInput<typeof UpdatePostSchema>;
 export type TUpdatePostSchemaOutput = v.InferOutput<typeof UpdatePostSchema>;

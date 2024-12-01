@@ -10,7 +10,7 @@ import {
 	Post,
 	Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { Relations } from 'src/globals/decorators/relations.decorator';
 import { Paginated } from 'src/globals/dto/paginated.dto';
@@ -20,12 +20,13 @@ import { CategoriesService } from './categories.service';
 import { categoryQueryableRelations, FindCategoryDto } from './dto/find-category.dto';
 import { BaseIssue, BaseSchema, safeParse, SchemaWithPipe, parse } from 'valibot';
 import { FastifyRequest } from 'fastify';
-import {
-	CreateCategorySchema,
+import CreateCategorySchema, {
 	TCreateCategorySchemaInput,
 } from './generated-schemas/create-category.schema';
 import { metadataSymbol } from '../globals/constants/schema-symbols';
 import { MoBody } from '../globals/decorators/mo-body.decorator';
+import { CategoryEntity } from './entities/category.entity';
+import { SchemaDefs } from '../schema-defs';
 // import { AddCategoryEntityDto } from './generated-dtos/add-category-entity.dto';
 
 @ApiTags('Categories')
@@ -40,16 +41,17 @@ export class CategoriesController {
 		@Query() findCategoryDto: FindCategoryDto,
 		@Relations(categoryQueryableRelations)
 		relations: QueryableRelations<typeof categoryQueryableRelations>,
-	) {
-		return this.categoriesService.findAll({
-			where: {
-				isArchived: false,
-				// superCategoryId: findCategoryDto.superCategoryId ?? IsNull(),
-			},
-			take: +paginated.limit,
-			skip: +paginated.page * +paginated.limit,
-			relations,
-		});
+	): Promise<CategoryEntity[]> {
+		// return this.categoriesService.findAll({
+		// 	where: {
+		// 		isArchived: false,
+		// 		// superCategoryId: findCategoryDto.superCategoryId ?? IsNull(),
+		// 	},
+		// 	take: +paginated.limit,
+		// 	skip: +paginated.page * +paginated.limit,
+		// 	relations,
+		// });
+		return [] as unknown as Promise<CategoryEntity[]>;
 	}
 
 	@Get(':id')
@@ -65,6 +67,11 @@ export class CategoriesController {
 	}
 
 	@Post('test')
+	@ApiBody({
+		schema: {
+			$ref: SchemaDefs.CreateCategory,
+		},
+	})
 	test(@MoBody(CreateCategorySchema) body: TCreateCategorySchemaInput) {
 		// return body;
 		return this.categoriesService.testCreate(body);

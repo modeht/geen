@@ -4,7 +4,7 @@ import * as v from 'valibot';
 
 import { AccountStatus } from '../../users/entities/user.entity'
 import { LanguageEnum } from '../../../lib/enums'
-export const CreateConversationSchema = v.pipe(v.object({isSupport: v.boolean(),
+const CreateConversationSchema = v.pipe(v.object({isSupport: v.boolean(),
 from: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(AccountStatus),
 email: v.nullish(v.string()),
 phone: v.nullish(v.string()),
@@ -47,7 +47,9 @@ toId: v.number(),
 isCollaboration: v.boolean()}),v.metadata({[modelSymbol]: 'ConversationEntity',
 from: 'UserEntity',
 to: 'UserEntity',
-messages: 'MessageEntity'}))
+messages: 'MessageEntity'}));
+export default CreateConversationSchema;
+
 
 export type TCreateConversationSchemaInput = v.InferInput<typeof CreateConversationSchema>;
 export type TCreateConversationSchemaOutput = v.InferOutput<typeof CreateConversationSchema>;

@@ -3,6 +3,7 @@ import { sync } from 'fast-glob';
 import { relative } from 'path';
 import { log } from 'console';
 import { toJsonSchema } from '@valibot/to-json-schema';
+import { writeFile } from 'fs/promises';
 
 const defs: Record<string, any> = {};
 const allSchemas: Record<string, any> = {};
@@ -14,6 +15,8 @@ export function getDefs() {
 	}
 
 	log('defs not created, creating...');
+
+	console.warn('project need to be build');
 
 	console.time('glob');
 	const files = sync('**/*.schema.js', {

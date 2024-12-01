@@ -3,7 +3,7 @@ import * as v from 'valibot';
 
 
 
-export const UpdateProductVariantSchema = v.pipe(v.object({isArchived: v.optional(v.boolean()),
+const UpdateProductVariantSchema = v.pipe(v.object({isArchived: v.optional(v.boolean()),
 stock: v.optional(v.number()),
 price: v.nullish(v.number()),
 lastStockUpdate: v.nullish(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())),
@@ -55,7 +55,8 @@ media: 'MediaEntity',
 orderItems: 'OrderItemEntity',
 carts: 'CartItemsEntity',
 mainProduct: 'ProductEntity',
-optionValues: 'ProductOptionValueEntity'}))
+optionValues: 'ProductOptionValueEntity'}));
+export default UpdateProductVariantSchema;
 
 export type TUpdateProductVariantSchemaInput = v.InferInput<typeof UpdateProductVariantSchema>;
 export type TUpdateProductVariantSchemaOutput = v.InferOutput<typeof UpdateProductVariantSchema>;

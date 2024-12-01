@@ -6,7 +6,7 @@ import { OrderStatusEnum } from '../entities/brand-orders.entity'
 import { PromotionTypeEnum } from '../../promotions/entities/enums'
 import { PromotionStatusEnum } from '../../promotions/entities/enums'
 import { PromotionTargetEnum } from '../../promotions/entities/enums'
-export const CreateOrderItemSchema = v.pipe(v.object({quantity: v.nullish(v.number()),
+const CreateOrderItemSchema = v.pipe(v.object({quantity: v.nullish(v.number()),
 unitSalePrice: v.nullish(v.number()),
 unitPurchasePrice: v.nullish(v.number()),
 totalSalePrice: v.nullish(v.number()),
@@ -80,7 +80,9 @@ brandOrder: 'BrandOrderEntity',
 variant: 'ProductVariantEntity',
 product: 'ProductEntity',
 appliedPromoCode: 'PromoCodeEntity',
-appliedPromotions: 'PromotionEntity'}))
+appliedPromotions: 'PromotionEntity'}));
+export default CreateOrderItemSchema;
+
 
 export type TCreateOrderItemSchemaInput = v.InferInput<typeof CreateOrderItemSchema>;
 export type TCreateOrderItemSchemaOutput = v.InferOutput<typeof CreateOrderItemSchema>;

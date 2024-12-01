@@ -4,7 +4,7 @@ import * as v from 'valibot';
 
 import { AccountStatus } from '../../users/entities/user.entity'
 import { LanguageEnum } from '../../../lib/enums'
-export const CreateSavedCollectionSchema = v.pipe(v.object({name: v.nullish(v.string()),
+const CreateSavedCollectionSchema = v.pipe(v.object({name: v.nullish(v.string()),
 items: v.nullish(v.union([v.array(v.object({id:v.number()})), v.array(v.object({savedCollectionId: v.number(),
 productId: v.number(),
 postId: v.number(),
@@ -23,7 +23,9 @@ isBlockedBy: v.nullish(v.boolean()),
 followersCount: v.nullish(v.number())})])),
 userId: v.number()}),v.metadata({[modelSymbol]: 'SavedCollectionEntity',
 items: 'SavedCollectionItemEntity',
-user: 'UserEntity'}))
+user: 'UserEntity'}));
+export default CreateSavedCollectionSchema;
+
 
 export type TCreateSavedCollectionSchemaInput = v.InferInput<typeof CreateSavedCollectionSchema>;
 export type TCreateSavedCollectionSchemaOutput = v.InferOutput<typeof CreateSavedCollectionSchema>;

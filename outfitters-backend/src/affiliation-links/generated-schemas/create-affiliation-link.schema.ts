@@ -3,7 +3,7 @@ import * as v from 'valibot';
 
 
 import { GenderEnum } from '../../users/entities/shopper-profile.entity'
-export const CreateAffiliationLinkSchema = v.pipe(v.object({isDisabled: v.boolean(),
+const CreateAffiliationLinkSchema = v.pipe(v.object({isDisabled: v.boolean(),
 url: v.string(),
 taggedProducts: v.nullish(v.union([v.array(v.object({id:v.number()})), v.array(v.object({productId: v.nullish(v.number()),
 postId: v.nullish(v.number()),
@@ -61,7 +61,9 @@ taggedProducts: 'TaggedProductEntity',
 cartItems: 'CartItemsEntity',
 affiliationLinkTracking: 'AffiliationLinkTrackingEntity',
 shopperProfile: 'ShopperProfileEntity',
-product: 'ProductEntity'}))
+product: 'ProductEntity'}));
+export default CreateAffiliationLinkSchema;
+
 
 export type TCreateAffiliationLinkSchemaInput = v.InferInput<typeof CreateAffiliationLinkSchema>;
 export type TCreateAffiliationLinkSchemaOutput = v.InferOutput<typeof CreateAffiliationLinkSchema>;

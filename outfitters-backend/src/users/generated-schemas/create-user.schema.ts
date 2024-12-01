@@ -7,7 +7,7 @@ import { LanguageEnum } from '../../../lib/enums'
 import { GenderEnum } from '../entities/shopper-profile.entity'
 import { NotificationType } from '../../notifications/entities/notification.entity'
 import { searchMode } from '../../search/entities/recent-searches.entity'
-export const CreateUserSchema = v.pipe(v.object({status: v.enum(AccountStatus),
+const CreateUserSchema = v.pipe(v.object({status: v.enum(AccountStatus),
 email: v.nullish(v.string()),
 phone: v.nullish(v.string()),
 password: v.nullish(v.string()),
@@ -209,7 +209,9 @@ taggedInStories: 'StoryEntity',
 following: 'UserEntity',
 follows: 'UserEntity',
 blockedBy: 'UserEntity',
-blockedUsers: 'UserEntity'}))
+blockedUsers: 'UserEntity'}));
+export default CreateUserSchema;
+
 
 export type TCreateUserSchemaInput = v.InferInput<typeof CreateUserSchema>;
 export type TCreateUserSchemaOutput = v.InferOutput<typeof CreateUserSchema>;

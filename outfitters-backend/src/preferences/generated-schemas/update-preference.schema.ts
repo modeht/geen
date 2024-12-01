@@ -3,7 +3,7 @@ import * as v from 'valibot';
 
 
 import { GenderEnum } from '../../users/entities/shopper-profile.entity'
-export const UpdatePreferenceSchema = v.pipe(v.object({media: v.nullish(v.union([v.object({ id: v.number() }), v.object({mimetype: v.nullish(v.string()),
+const UpdatePreferenceSchema = v.pipe(v.object({media: v.nullish(v.union([v.object({ id: v.number() }), v.object({mimetype: v.nullish(v.string()),
 url: v.nullish(v.string()),
 size: v.nullish(v.number()),
 width: v.nullish(v.number()),
@@ -43,7 +43,8 @@ engagementCount: v.nullish(v.number())}))])),
 mediaId: v.nullish(v.number())}),v.metadata({[modelSymbol]: 'PreferenceEntity',
 media: 'MediaEntity',
 brandProfile: 'BrandProfileEntity',
-shopperProfile: 'ShopperProfileEntity'}))
+shopperProfile: 'ShopperProfileEntity'}));
+export default UpdatePreferenceSchema;
 
 export type TUpdatePreferenceSchemaInput = v.InferInput<typeof UpdatePreferenceSchema>;
 export type TUpdatePreferenceSchemaOutput = v.InferOutput<typeof UpdatePreferenceSchema>;

@@ -4,7 +4,7 @@ import * as v from 'valibot';
 
 import { AccountStatus } from '../../users/entities/user.entity'
 import { LanguageEnum } from '../../../lib/enums'
-export const CreateStorySchema = v.pipe(v.object({background: v.nullish(v.string()),
+const CreateStorySchema = v.pipe(v.object({background: v.nullish(v.string()),
 text: v.nullish(v.string()),
 media: v.nullish(v.union([v.object({ id: v.number() }), v.object({mimetype: v.nullish(v.string()),
 url: v.nullish(v.string()),
@@ -62,7 +62,9 @@ taggedProducts: 'TaggedProductEntity',
 postedBy: 'UserEntity',
 taggedUsers: 'UserEntity',
 likedByUsers: 'StoryLikesEntity',
-shares: 'MessageEntity'}))
+shares: 'MessageEntity'}));
+export default CreateStorySchema;
+
 
 export type TCreateStorySchemaInput = v.InferInput<typeof CreateStorySchema>;
 export type TCreateStorySchemaOutput = v.InferOutput<typeof CreateStorySchema>;

@@ -9,7 +9,7 @@ import { PromotionTargetEnum } from '../../promotions/entities/enums'
 import { PromotionStatusEnum } from '../../promotions/entities/enums'
 import { OrderStatusEnum } from '../../orders/entities/brand-orders.entity'
 import { CollaborationStatusEnum } from '../../collaborations/entities/collaboration.entity'
-export const CreateBrandProfileSchema = v.pipe(v.object({storeName: v.nullish(v.string()),
+const CreateBrandProfileSchema = v.pipe(v.object({storeName: v.nullish(v.string()),
 brandName: v.nullish(v.string()),
 storeBio: v.nullish(v.string()),
 website: v.nullish(v.string()),
@@ -132,7 +132,9 @@ preferences: 'PreferenceEntity',
 collaborations: 'CollaborationEntity',
 categories: 'CategoryEntity',
 subCategories: 'CategoryEntity',
-countries: 'CountryEntity'}))
+countries: 'CountryEntity'}));
+export default CreateBrandProfileSchema;
+
 
 export type TCreateBrandProfileSchemaInput = v.InferInput<typeof CreateBrandProfileSchema>;
 export type TCreateBrandProfileSchemaOutput = v.InferOutput<typeof CreateBrandProfileSchema>;

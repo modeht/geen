@@ -3,7 +3,7 @@ import * as v from 'valibot';
 
 
 import { CartStatus } from '../entities/cart.entity'
-export const UpdateCartItemsSchema = v.pipe(v.object({quantity: v.nullish(v.number()),
+const UpdateCartItemsSchema = v.pipe(v.object({quantity: v.nullish(v.number()),
 cart: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(CartStatus),
 promoCodeId: v.nullish(v.number()),
 shopperId: v.nullish(v.number())})])),
@@ -44,7 +44,8 @@ appliedpromotionsIds: v.optional(v.array(v.number()))}),v.metadata({[modelSymbol
 cart: 'CartEntity',
 product: 'ProductEntity',
 variant: 'ProductVariantEntity',
-affiliationLink: 'AffiliationLinkEntity'}))
+affiliationLink: 'AffiliationLinkEntity'}));
+export default UpdateCartItemsSchema;
 
 export type TUpdateCartItemsSchemaInput = v.InferInput<typeof UpdateCartItemsSchema>;
 export type TUpdateCartItemsSchemaOutput = v.InferOutput<typeof UpdateCartItemsSchema>;

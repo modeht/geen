@@ -283,7 +283,9 @@ export type TCreate${this.entityName}SchemaOutput = v.InferOutput<typeof ${this.
 		const metadataObject = `v.metadata({${metadatas.join(',\n')}})`;
 		const validationObject = `v.object({${schema.join(',\n')}})`;
 		//TODO: can be useful later
-		const exportStatment = `export const ${this.schemaName} = v.pipe(${validationObject},${metadataObject})`;
+		const exportStatment = `const ${this.schemaName} = v.pipe(${validationObject},${metadataObject});
+export default ${this.schemaName};
+`;
 		this.createSchemaText = exportStatment;
 		return { exportStatment, validationObject };
 	}

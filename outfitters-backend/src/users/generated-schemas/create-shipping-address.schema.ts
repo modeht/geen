@@ -5,7 +5,7 @@ import * as v from 'valibot';
 import { OrderPaymentMethod } from '../../orders/entities/order.entity'
 import { OrderPaymentStatusEnum } from '../../orders/entities/order.entity'
 import { GenderEnum } from '../entities/shopper-profile.entity'
-export const CreateShippingAddressSchema = v.pipe(v.object({deletedAt: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
+const CreateShippingAddressSchema = v.pipe(v.object({deletedAt: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
 isDefault: v.boolean(),
 name: v.string(),
 country: v.string(),
@@ -44,7 +44,9 @@ brandsCount: v.nullish(v.number()),
 engagementCount: v.nullish(v.number())})])),
 shopperId: v.number()}),v.metadata({[modelSymbol]: 'ShippingAddressEntity',
 orders: 'OrderEntity',
-shopperProfile: 'ShopperProfileEntity'}))
+shopperProfile: 'ShopperProfileEntity'}));
+export default CreateShippingAddressSchema;
+
 
 export type TCreateShippingAddressSchemaInput = v.InferInput<typeof CreateShippingAddressSchema>;
 export type TCreateShippingAddressSchemaOutput = v.InferOutput<typeof CreateShippingAddressSchema>;

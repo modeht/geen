@@ -5,7 +5,7 @@ import * as v from 'valibot';
 import { CollaborationStatusEnum } from '../entities/collaboration.entity'
 import { GenderEnum } from '../../users/entities/shopper-profile.entity'
 import { NotificationType } from '../../notifications/entities/notification.entity'
-export const UpdateCollaborationSchema = v.pipe(v.object({message: v.nullish(v.union([v.object({ id: v.number() }), v.object({readAt: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
+const UpdateCollaborationSchema = v.pipe(v.object({message: v.nullish(v.union([v.object({ id: v.number() }), v.object({readAt: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
 content: v.nullish(v.string()),
 reaction: v.nullish(v.string()),
 fromId: v.number(),
@@ -61,7 +61,8 @@ shopperId: v.nullish(v.number())}),v.metadata({[modelSymbol]: 'CollaborationEnti
 message: 'MessageEntity',
 brandProfile: 'BrandProfileEntity',
 shopperProfile: 'ShopperProfileEntity',
-notifications: 'NotificationEntity'}))
+notifications: 'NotificationEntity'}));
+export default UpdateCollaborationSchema;
 
 export type TUpdateCollaborationSchemaInput = v.InferInput<typeof UpdateCollaborationSchema>;
 export type TUpdateCollaborationSchemaOutput = v.InferOutput<typeof UpdateCollaborationSchema>;

@@ -3,7 +3,7 @@ import * as v from 'valibot';
 
 
 import { GenderEnum } from '../../users/entities/shopper-profile.entity'
-export const CreateProductReviewSchema = v.pipe(v.object({shopperProfile: v.nullish(v.union([v.object({ id: v.number() }), v.object({username: v.nullish(v.string()),
+const CreateProductReviewSchema = v.pipe(v.object({shopperProfile: v.nullish(v.union([v.object({ id: v.number() }), v.object({username: v.nullish(v.string()),
 fullName: v.nullish(v.string()),
 dateOfBirth: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
 bio: v.string(),
@@ -47,7 +47,9 @@ productId: v.number(),
 shopperId: v.number()}),v.metadata({[modelSymbol]: 'ProductReviewEntity',
 shopperProfile: 'ShopperProfileEntity',
 media: 'MediaEntity',
-product: 'ProductEntity'}))
+product: 'ProductEntity'}));
+export default CreateProductReviewSchema;
+
 
 export type TCreateProductReviewSchemaInput = v.InferInput<typeof CreateProductReviewSchema>;
 export type TCreateProductReviewSchemaOutput = v.InferOutput<typeof CreateProductReviewSchema>;

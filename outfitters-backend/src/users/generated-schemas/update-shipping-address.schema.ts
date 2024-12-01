@@ -5,7 +5,7 @@ import * as v from 'valibot';
 import { OrderPaymentMethod } from '../../orders/entities/order.entity'
 import { OrderPaymentStatusEnum } from '../../orders/entities/order.entity'
 import { GenderEnum } from '../entities/shopper-profile.entity'
-export const UpdateShippingAddressSchema = v.pipe(v.object({deletedAt: v.optional(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())),
+const UpdateShippingAddressSchema = v.pipe(v.object({deletedAt: v.optional(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())),
 isDefault: v.optional(v.boolean()),
 name: v.optional(v.string()),
 country: v.optional(v.string()),
@@ -44,7 +44,8 @@ brandsCount: v.nullish(v.number()),
 engagementCount: v.nullish(v.number())})])),
 shopperId: v.optional(v.number())}),v.metadata({[modelSymbol]: 'ShippingAddressEntity',
 orders: 'OrderEntity',
-shopperProfile: 'ShopperProfileEntity'}))
+shopperProfile: 'ShopperProfileEntity'}));
+export default UpdateShippingAddressSchema;
 
 export type TUpdateShippingAddressSchemaInput = v.InferInput<typeof UpdateShippingAddressSchema>;
 export type TUpdateShippingAddressSchemaOutput = v.InferOutput<typeof UpdateShippingAddressSchema>;

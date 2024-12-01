@@ -4,7 +4,7 @@ import * as v from 'valibot';
 
 import { AccountStatus } from '../../users/entities/user.entity'
 import { LanguageEnum } from '../../../lib/enums'
-export const UpdateAffiliationLinkTrackingSchema = v.pipe(v.object({affiliationLink: v.nullish(v.union([v.object({ id: v.number() }), v.object({isDisabled: v.boolean(),
+const UpdateAffiliationLinkTrackingSchema = v.pipe(v.object({affiliationLink: v.nullish(v.union([v.object({ id: v.number() }), v.object({isDisabled: v.boolean(),
 url: v.string(),
 productId: v.number(),
 shopperId: v.number()})])),
@@ -25,7 +25,8 @@ country: v.optional(v.string()),
 ipAddress: v.nullish(v.string()),
 userAgent: v.nullish(v.string())}),v.metadata({[modelSymbol]: 'AffiliationLinkTrackingEntity',
 affiliationLink: 'AffiliationLinkEntity',
-user: 'UserEntity'}))
+user: 'UserEntity'}));
+export default UpdateAffiliationLinkTrackingSchema;
 
 export type TUpdateAffiliationLinkTrackingSchemaInput = v.InferInput<typeof UpdateAffiliationLinkTrackingSchema>;
 export type TUpdateAffiliationLinkTrackingSchemaOutput = v.InferOutput<typeof UpdateAffiliationLinkTrackingSchema>;

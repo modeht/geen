@@ -3,7 +3,7 @@ import * as v from 'valibot';
 
 
 import { GenderEnum } from '../../users/entities/shopper-profile.entity'
-export const UpdateMediaSchema = v.pipe(v.object({preference: v.nullish(v.union([v.object({ id: v.number() }), v.object({name: v.nullish(v.string()),
+const UpdateMediaSchema = v.pipe(v.object({preference: v.nullish(v.union([v.object({ id: v.number() }), v.object({name: v.nullish(v.string()),
 mediaId: v.nullish(v.number())})])),
 collectionCover: v.nullish(v.union([v.object({ id: v.number() }), v.object({name: v.nullish(v.string()),
 isFeatured: v.boolean(),
@@ -140,7 +140,8 @@ product: 'ProductEntity',
 productVariant: 'ProductVariantEntity',
 message: 'MessageEntity',
 post: 'PostEntity',
-review: 'ProductReviewEntity'}))
+review: 'ProductReviewEntity'}));
+export default UpdateMediaSchema;
 
 export type TUpdateMediaSchemaInput = v.InferInput<typeof UpdateMediaSchema>;
 export type TUpdateMediaSchemaOutput = v.InferOutput<typeof UpdateMediaSchema>;

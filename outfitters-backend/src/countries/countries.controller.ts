@@ -24,6 +24,7 @@ import ReadMediaSchema from '../media/generated-schemas/read-media-query.schema'
 import { async as globAsync } from 'fast-glob';
 import { dirname, join, relative, resolve, sep } from 'path';
 import { fileURLToPath } from 'url';
+import { SchemaDefs } from '../schema-defs';
 
 function LogParameter(ctx?: ExecutionContext, ...args: any[]) {
 	console.log(ctx, args);
@@ -59,16 +60,12 @@ export class CountriesController {
 	@ApiQuery({
 		name: 'query',
 		schema: {
-			$ref: '#/components/schemas/ReadCountryQuery',
+			$ref: SchemaDefs.ReadCountryQuery,
 		},
 	})
 	async testRead(@MoQuery(ReadCountrySchema) query: TReadCountrySchemaOutput) {
 		// console.log(toJsonSchema(ReadCountrySchema, { errorMode: 'ignore' }));
 		return 'true';
-		// const where = createWhere(query);
-		// const relations = createRelations(query, { depth: 1 });
-		// const order = query['orders'];
-		// const pagination = query['pagination'];
 
 		// return this.countriesService.findAll({
 		// 	where,

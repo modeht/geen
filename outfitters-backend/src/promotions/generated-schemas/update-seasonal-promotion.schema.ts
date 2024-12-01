@@ -5,7 +5,7 @@ import * as v from 'valibot';
 import { PromotionStatusEnum } from '../entities/enums'
 import { PromotionTypeEnum } from '../entities/enums'
 import { PromotionTargetEnum } from '../entities/enums'
-export const UpdateSeasonalPromotionSchema = v.pipe(v.object({title: v.optional(v.string()),
+const UpdateSeasonalPromotionSchema = v.pipe(v.object({title: v.optional(v.string()),
 start: v.optional(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())),
 end: v.optional(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())),
 status: v.optional(v.enum(PromotionStatusEnum)),
@@ -24,7 +24,8 @@ subCategories: v.nullish(v.union([v.array(v.object({name: v.string(),
 isArchived: v.boolean(),
 superCategoryId: v.nullish(v.number())}))]))}),v.metadata({[modelSymbol]: 'SeasonalPromotionEntity',
 promotions: 'PromotionEntity',
-subCategories: 'CategoryEntity'}))
+subCategories: 'CategoryEntity'}));
+export default UpdateSeasonalPromotionSchema;
 
 export type TUpdateSeasonalPromotionSchemaInput = v.InferInput<typeof UpdateSeasonalPromotionSchema>;
 export type TUpdateSeasonalPromotionSchemaOutput = v.InferOutput<typeof UpdateSeasonalPromotionSchema>;

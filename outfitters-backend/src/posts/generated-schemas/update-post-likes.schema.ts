@@ -4,7 +4,7 @@ import * as v from 'valibot';
 
 import { AccountStatus } from '../../users/entities/user.entity'
 import { LanguageEnum } from '../../../lib/enums'
-export const UpdatePostLikesSchema = v.pipe(v.object({user: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(AccountStatus),
+const UpdatePostLikesSchema = v.pipe(v.object({user: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(AccountStatus),
 email: v.nullish(v.string()),
 phone: v.nullish(v.string()),
 password: v.nullish(v.string()),
@@ -27,7 +27,8 @@ isLiked: v.optional(v.boolean())})])),
 userId: v.optional(v.number()),
 postId: v.optional(v.number())}),v.metadata({[modelSymbol]: 'PostLikesEntity',
 user: 'UserEntity',
-post: 'PostEntity'}))
+post: 'PostEntity'}));
+export default UpdatePostLikesSchema;
 
 export type TUpdatePostLikesSchemaInput = v.InferInput<typeof UpdatePostLikesSchema>;
 export type TUpdatePostLikesSchemaOutput = v.InferOutput<typeof UpdatePostLikesSchema>;

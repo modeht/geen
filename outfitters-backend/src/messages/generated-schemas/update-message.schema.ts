@@ -5,7 +5,7 @@ import * as v from 'valibot';
 import { CollaborationStatusEnum } from '../../collaborations/entities/collaboration.entity'
 import { AccountStatus } from '../../users/entities/user.entity'
 import { LanguageEnum } from '../../../lib/enums'
-export const UpdateMessageSchema = v.pipe(v.object({readAt: v.optional(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())),
+const UpdateMessageSchema = v.pipe(v.object({readAt: v.optional(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())),
 content: v.nullish(v.string()),
 media: v.nullish(v.union([v.array(v.object({id:v.number()})), v.array(v.object({mimetype: v.nullish(v.string()),
 url: v.nullish(v.string()),
@@ -99,7 +99,8 @@ product: 'ProductEntity',
 conversation: 'ConversationEntity',
 from: 'UserEntity',
 to: 'UserEntity',
-comment: 'CommentEntity'}))
+comment: 'CommentEntity'}));
+export default UpdateMessageSchema;
 
 export type TUpdateMessageSchemaInput = v.InferInput<typeof UpdateMessageSchema>;
 export type TUpdateMessageSchemaOutput = v.InferOutput<typeof UpdateMessageSchema>;

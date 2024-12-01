@@ -3,7 +3,7 @@ import * as v from 'valibot';
 
 
 
-export const UpdateSavedCollectionItemSchema = v.pipe(v.object({savedCollection: v.nullish(v.union([v.object({ id: v.number() }), v.object({name: v.nullish(v.string()),
+const UpdateSavedCollectionItemSchema = v.pipe(v.object({savedCollection: v.nullish(v.union([v.object({ id: v.number() }), v.object({name: v.nullish(v.string()),
 userId: v.number()})])),
 product: v.nullish(v.union([v.object({ id: v.number() }), v.object({isArchived: v.boolean(),
 title: v.nullish(v.string()),
@@ -35,7 +35,8 @@ postId: v.optional(v.number()),
 userId: v.optional(v.number())}),v.metadata({[modelSymbol]: 'SavedCollectionItemEntity',
 savedCollection: 'SavedCollectionEntity',
 product: 'ProductEntity',
-post: 'PostEntity'}))
+post: 'PostEntity'}));
+export default UpdateSavedCollectionItemSchema;
 
 export type TUpdateSavedCollectionItemSchemaInput = v.InferInput<typeof UpdateSavedCollectionItemSchema>;
 export type TUpdateSavedCollectionItemSchemaOutput = v.InferOutput<typeof UpdateSavedCollectionItemSchema>;

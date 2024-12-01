@@ -6,7 +6,7 @@ import { NotificationType } from '../../notifications/entities/notification.enti
 import { PromotionTypeEnum } from '../../promotions/entities/enums'
 import { PromotionTargetEnum } from '../../promotions/entities/enums'
 import { PromotionStatusEnum } from '../../promotions/entities/enums'
-export const CreateProductSchema = v.pipe(v.object({isArchived: v.boolean(),
+const CreateProductSchema = v.pipe(v.object({isArchived: v.boolean(),
 title: v.nullish(v.string()),
 description: v.nullish(v.string()),
 basePrice: v.nullish(v.number()),
@@ -154,7 +154,9 @@ collections: 'CollectionEntity',
 carts: 'CartItemsEntity',
 promotions: 'PromotionEntity',
 promoCodes: 'PromoCodeEntity',
-savedInCollections: 'SavedCollectionItemEntity'}))
+savedInCollections: 'SavedCollectionItemEntity'}));
+export default CreateProductSchema;
+
 
 export type TCreateProductSchemaInput = v.InferInput<typeof CreateProductSchema>;
 export type TCreateProductSchemaOutput = v.InferOutput<typeof CreateProductSchema>;

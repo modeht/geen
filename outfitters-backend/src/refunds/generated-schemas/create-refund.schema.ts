@@ -3,7 +3,9 @@ import * as v from 'valibot';
 
 
 
-export const CreateRefundSchema = v.pipe(v.object({}),v.metadata({[modelSymbol]: 'RefundEntity'}))
+const CreateRefundSchema = v.pipe(v.object({}),v.metadata({[modelSymbol]: 'RefundEntity'}));
+export default CreateRefundSchema;
+
 
 export type TCreateRefundSchemaInput = v.InferInput<typeof CreateRefundSchema>;
 export type TCreateRefundSchemaOutput = v.InferOutput<typeof CreateRefundSchema>;

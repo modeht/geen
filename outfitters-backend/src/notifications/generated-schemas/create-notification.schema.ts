@@ -9,7 +9,7 @@ import { CollaborationStatusEnum } from '../../collaborations/entities/collabora
 import { PromotionTypeEnum } from '../../promotions/entities/enums'
 import { PromotionTargetEnum } from '../../promotions/entities/enums'
 import { PromotionStatusEnum } from '../../promotions/entities/enums'
-export const CreateNotificationSchema = v.pipe(v.object({type: v.enum(NotificationType),
+const CreateNotificationSchema = v.pipe(v.object({type: v.enum(NotificationType),
 customContent: v.string(),
 isRead: v.boolean(),
 user: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(AccountStatus),
@@ -69,7 +69,9 @@ user: 'UserEntity',
 collaboration: 'CollaborationEntity',
 comment: 'CommentEntity',
 promotion: 'PromotionEntity',
-product: 'ProductEntity'}))
+product: 'ProductEntity'}));
+export default CreateNotificationSchema;
+
 
 export type TCreateNotificationSchemaInput = v.InferInput<typeof CreateNotificationSchema>;
 export type TCreateNotificationSchemaOutput = v.InferOutput<typeof CreateNotificationSchema>;

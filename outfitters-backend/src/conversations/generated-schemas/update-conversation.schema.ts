@@ -4,7 +4,7 @@ import * as v from 'valibot';
 
 import { AccountStatus } from '../../users/entities/user.entity'
 import { LanguageEnum } from '../../../lib/enums'
-export const UpdateConversationSchema = v.pipe(v.object({isSupport: v.optional(v.boolean()),
+const UpdateConversationSchema = v.pipe(v.object({isSupport: v.optional(v.boolean()),
 from: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(AccountStatus),
 email: v.nullish(v.string()),
 phone: v.nullish(v.string()),
@@ -47,7 +47,8 @@ toId: v.optional(v.number()),
 isCollaboration: v.optional(v.boolean())}),v.metadata({[modelSymbol]: 'ConversationEntity',
 from: 'UserEntity',
 to: 'UserEntity',
-messages: 'MessageEntity'}))
+messages: 'MessageEntity'}));
+export default UpdateConversationSchema;
 
 export type TUpdateConversationSchemaInput = v.InferInput<typeof UpdateConversationSchema>;
 export type TUpdateConversationSchemaOutput = v.InferOutput<typeof UpdateConversationSchema>;
