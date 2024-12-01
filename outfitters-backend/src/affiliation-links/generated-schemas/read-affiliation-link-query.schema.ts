@@ -5,10 +5,10 @@ import ReadAffiliationLinkFiltersSchema from './read-affiliation-link-filters.sc
 import ReadAffiliationLinkRelationsSchema from './read-affiliation-link-relations.schema';
 import ReadAffiliationLinkOrdersSchema from './read-affiliation-link-orders.schema';
 const ReadAffiliationLinkSchema = v.optional(v.object({
-filters: v.undefinedable(ReadAffiliationLinkFiltersSchema),
-relations: v.undefinedable(ReadAffiliationLinkRelationsSchema),
-orders: v.undefinedable(ReadAffiliationLinkOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadAffiliationLinkFiltersSchema),
+relations: v.optional(ReadAffiliationLinkRelationsSchema),
+orders: v.optional(ReadAffiliationLinkOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadAffiliationLinkSchema;
 export type TReadAffiliationLinkSchemaInput = v.InferInput<typeof ReadAffiliationLinkSchema>;

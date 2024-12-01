@@ -16,45 +16,45 @@ import ReadProductReviewOrdersSchema, { ReadProductReviewOrders } from '../../pr
 
 
 
-export class ReadMediaOrders {preference?: ReadPreferenceOrders | OrderDirectionEnum | undefined;
-collectionCover?: ReadCollectionOrders | OrderDirectionEnum | undefined;
-user?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
-story?: ReadStoryOrders | OrderDirectionEnum | undefined;
-brandStoreCover?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
-brandStoreLogo?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
-category?: ReadCategoryOrders | OrderDirectionEnum | undefined;
-country?: ReadCountryOrders | OrderDirectionEnum | undefined;
-postThumbnail?: ReadPostOrders | OrderDirectionEnum | undefined;
-product?: ReadProductOrders | OrderDirectionEnum | undefined;
-productVariant?: ReadProductVariantOrders | OrderDirectionEnum | undefined;
-message?: ReadMessageOrders | OrderDirectionEnum | undefined;
-post?: ReadPostOrders | OrderDirectionEnum | undefined;
-review?: ReadProductReviewOrders | OrderDirectionEnum | undefined;
-mimetype?: OrderDirectionEnum | undefined;
-url?: OrderDirectionEnum | undefined;
-size?: OrderDirectionEnum | undefined;
-width?: OrderDirectionEnum | undefined;
-height?: OrderDirectionEnum | undefined}
+export class ReadMediaOrders {preference?: ReadPreferenceOrders | OrderDirectionEnum;
+collectionCover?: ReadCollectionOrders | OrderDirectionEnum;
+user?: ReadShopperProfileOrders | OrderDirectionEnum;
+story?: ReadStoryOrders | OrderDirectionEnum;
+brandStoreCover?: ReadBrandProfileOrders | OrderDirectionEnum;
+brandStoreLogo?: ReadBrandProfileOrders | OrderDirectionEnum;
+category?: ReadCategoryOrders | OrderDirectionEnum;
+country?: ReadCountryOrders | OrderDirectionEnum;
+postThumbnail?: ReadPostOrders | OrderDirectionEnum;
+product?: ReadProductOrders | OrderDirectionEnum;
+productVariant?: ReadProductVariantOrders | OrderDirectionEnum;
+message?: ReadMessageOrders | OrderDirectionEnum;
+post?: ReadPostOrders | OrderDirectionEnum;
+review?: ReadProductReviewOrders | OrderDirectionEnum;
+mimetype?: OrderDirectionEnum;
+url?: OrderDirectionEnum;
+size?: OrderDirectionEnum;
+width?: OrderDirectionEnum;
+height?: OrderDirectionEnum}
 
-const ReadMediaOrdersSchema: v.GenericSchema<ReadMediaOrders> = v.object({preference: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPreferenceOrdersSchema)])),
-collectionCover: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCollectionOrdersSchema)])),
-user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
-story: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryOrdersSchema)])),
-brandStoreCover: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
-brandStoreLogo: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
-category: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCategoryOrdersSchema)])),
-country: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCountryOrdersSchema)])),
-postThumbnail: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
-product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
-productVariant: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductVariantOrdersSchema)])),
-message: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
-post: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
-review: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductReviewOrdersSchema)])),
-mimetype: v.undefinedable(OrderDirectionSchema),
-url: v.undefinedable(OrderDirectionSchema),
-size: v.undefinedable(OrderDirectionSchema),
-width: v.undefinedable(OrderDirectionSchema),
-height: v.undefinedable(OrderDirectionSchema)});
+const ReadMediaOrdersSchema: v.GenericSchema<ReadMediaOrders> = v.object({preference: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPreferenceOrdersSchema)])),
+collectionCover: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCollectionOrdersSchema)])),
+user: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
+story: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryOrdersSchema)])),
+brandStoreCover: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
+brandStoreLogo: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
+category: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCategoryOrdersSchema)])),
+country: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCountryOrdersSchema)])),
+postThumbnail: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
+product: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+productVariant: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductVariantOrdersSchema)])),
+message: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
+post: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
+review: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductReviewOrdersSchema)])),
+mimetype: v.optional(OrderDirectionSchema),
+url: v.optional(OrderDirectionSchema),
+size: v.optional(OrderDirectionSchema),
+width: v.optional(OrderDirectionSchema),
+height: v.optional(OrderDirectionSchema)});
 
 export default ReadMediaOrdersSchema;
 

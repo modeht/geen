@@ -5,10 +5,10 @@ import ReadPostFiltersSchema from './read-post-filters.schema';
 import ReadPostRelationsSchema from './read-post-relations.schema';
 import ReadPostOrdersSchema from './read-post-orders.schema';
 const ReadPostSchema = v.optional(v.object({
-filters: v.undefinedable(ReadPostFiltersSchema),
-relations: v.undefinedable(ReadPostRelationsSchema),
-orders: v.undefinedable(ReadPostOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadPostFiltersSchema),
+relations: v.optional(ReadPostRelationsSchema),
+orders: v.optional(ReadPostOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadPostSchema;
 export type TReadPostSchemaInput = v.InferInput<typeof ReadPostSchema>;

@@ -5,11 +5,11 @@ import ReadUserRelationsSchema, { ReadUserRelations } from '../../users/generate
 
 
 
-export class ReadRecentSearchesRelations {mode?: searchMode | null | undefined;
-user?: ReadUserRelations | string | boolean | undefined}
+export class ReadRecentSearchesRelations {mode?: searchMode | null;
+user?: ReadUserRelations | string | boolean}
 
 const ReadRecentSearchesRelationsSchema: v.GenericSchema<ReadRecentSearchesRelations> = v.object({mode: v.nullish(v.enum(searchMode)),
-user: v.undefinedable(v.union([v.pipe(
+user: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)]))});

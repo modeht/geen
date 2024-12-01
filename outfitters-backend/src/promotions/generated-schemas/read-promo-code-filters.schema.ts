@@ -9,26 +9,26 @@ import ReadProductFiltersSchema, { ReadProductFiltersSchemaFilters } from '../..
 
 import { PromotionTypeEnum } from '../entities/enums'
 import { PromotionStatusEnum } from '../entities/enums'
-export class ReadPromoCodeFiltersSchemaFilters {deletedAt?: GenericComparable<"date"> | null | undefined;
-code?: GenericComparable<"string"> | null | undefined;
-title?: GenericComparable<"string"> | null | undefined;
-minPurchaseAmount?: GenericComparable<"number"> | null | undefined;
-perUserLimit?: GenericComparable<"number"> | null | undefined;
-totalLimit?: GenericComparable<"number"> | null | undefined;
-start?: GenericComparable<"date"> | null | undefined;
-end?: GenericComparable<"date"> | null | undefined;
-discountPercentage?: GenericComparable<"number"> | null | undefined;
-type?: PromotionTypeEnum | null | undefined;
-status?: PromotionStatusEnum | null | undefined;
-carts?: ReadCartFiltersSchemaFilters | null | undefined;
-orderItems?: ReadOrderItemFiltersSchemaFilters | null | undefined;
-brand?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
-shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null | undefined;
-products?: ReadProductFiltersSchemaFilters | null | undefined;
-brandId?: GenericComparable<"number"> | null | undefined;
-shopperId?: GenericComparable<"number"> | null | undefined;
-ussageCount?: GenericComparable<"number"> | null | undefined;
-totalMoneyDeducted?: GenericComparable<"number"> | null | undefined}
+export class ReadPromoCodeFiltersSchemaFilters {deletedAt?: GenericComparable<"date"> | null;
+code?: GenericComparable<"string"> | null;
+title?: GenericComparable<"string"> | null;
+minPurchaseAmount?: GenericComparable<"number"> | null;
+perUserLimit?: GenericComparable<"number"> | null;
+totalLimit?: GenericComparable<"number"> | null;
+start?: GenericComparable<"date"> | null;
+end?: GenericComparable<"date"> | null;
+discountPercentage?: GenericComparable<"number"> | null;
+type?: PromotionTypeEnum | null;
+status?: PromotionStatusEnum | null;
+carts?: ReadCartFiltersSchemaFilters | null;
+orderItems?: ReadOrderItemFiltersSchemaFilters | null;
+brand?: ReadBrandProfileFiltersSchemaFilters | null;
+shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null;
+products?: ReadProductFiltersSchemaFilters | null;
+brandId?: GenericComparable<"number"> | null;
+shopperId?: GenericComparable<"number"> | null;
+ussageCount?: GenericComparable<"number"> | null;
+totalMoneyDeducted?: GenericComparable<"number"> | null}
 
 const ReadPromoCodeFiltersSchema: v.GenericSchema<ReadPromoCodeFiltersSchemaFilters> = v.object({deletedAt: v.nullish(comparable("date")),
 code: v.nullish(comparable("string")),

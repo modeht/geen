@@ -5,14 +5,14 @@ import ReadStoryRelationsSchema, { ReadStoryRelations } from './read-story-relat
 
 
 
-export class ReadStoryLikesRelations {user?: ReadUserRelations | string | boolean | undefined;
-story?: ReadStoryRelations | string | boolean | undefined}
+export class ReadStoryLikesRelations {user?: ReadUserRelations | string | boolean;
+story?: ReadStoryRelations | string | boolean}
 
-const ReadStoryLikesRelationsSchema: v.GenericSchema<ReadStoryLikesRelations> = v.object({user: v.undefinedable(v.union([v.pipe(
+const ReadStoryLikesRelationsSchema: v.GenericSchema<ReadStoryLikesRelations> = v.object({user: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
-story: v.undefinedable(v.union([v.pipe(
+story: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadStoryRelationsSchema)]))});

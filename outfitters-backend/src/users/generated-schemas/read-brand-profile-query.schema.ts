@@ -5,10 +5,10 @@ import ReadBrandProfileFiltersSchema from './read-brand-profile-filters.schema';
 import ReadBrandProfileRelationsSchema from './read-brand-profile-relations.schema';
 import ReadBrandProfileOrdersSchema from './read-brand-profile-orders.schema';
 const ReadBrandProfileSchema = v.optional(v.object({
-filters: v.undefinedable(ReadBrandProfileFiltersSchema),
-relations: v.undefinedable(ReadBrandProfileRelationsSchema),
-orders: v.undefinedable(ReadBrandProfileOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadBrandProfileFiltersSchema),
+relations: v.optional(ReadBrandProfileRelationsSchema),
+orders: v.optional(ReadBrandProfileOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadBrandProfileSchema;
 export type TReadBrandProfileSchemaInput = v.InferInput<typeof ReadBrandProfileSchema>;

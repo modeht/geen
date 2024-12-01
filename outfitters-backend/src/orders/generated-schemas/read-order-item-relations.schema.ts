@@ -8,29 +8,29 @@ import ReadPromotionRelationsSchema, { ReadPromotionRelations } from '../../prom
 
 
 
-export class ReadOrderItemRelations {brandOrder?: ReadBrandOrderRelations | string | boolean | undefined;
-variant?: ReadProductVariantRelations | string | boolean | undefined;
-product?: ReadProductRelations | string | boolean | undefined;
-appliedPromoCode?: ReadPromoCodeRelations | string | boolean | undefined;
-appliedPromotions?: ReadPromotionRelations | string | boolean | undefined}
+export class ReadOrderItemRelations {brandOrder?: ReadBrandOrderRelations | string | boolean;
+variant?: ReadProductVariantRelations | string | boolean;
+product?: ReadProductRelations | string | boolean;
+appliedPromoCode?: ReadPromoCodeRelations | string | boolean;
+appliedPromotions?: ReadPromotionRelations | string | boolean}
 
-const ReadOrderItemRelationsSchema: v.GenericSchema<ReadOrderItemRelations> = v.object({brandOrder: v.undefinedable(v.union([v.pipe(
+const ReadOrderItemRelationsSchema: v.GenericSchema<ReadOrderItemRelations> = v.object({brandOrder: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadBrandOrderRelationsSchema)])),
-variant: v.undefinedable(v.union([v.pipe(
+variant: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductVariantRelationsSchema)])),
-product: v.undefinedable(v.union([v.pipe(
+product: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)])),
-appliedPromoCode: v.undefinedable(v.union([v.pipe(
+appliedPromoCode: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPromoCodeRelationsSchema)])),
-appliedPromotions: v.undefinedable(v.union([v.pipe(
+appliedPromotions: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPromotionRelationsSchema)]))});

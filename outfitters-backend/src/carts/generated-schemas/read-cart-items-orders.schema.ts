@@ -8,33 +8,33 @@ import ReadAffiliationLinkOrdersSchema, { ReadAffiliationLinkOrders } from '../.
 
 
 
-export class ReadCartItemsOrders {quantity?: OrderDirectionEnum | undefined;
-cart?: ReadCartOrders | OrderDirectionEnum | undefined;
-product?: ReadProductOrders | OrderDirectionEnum | undefined;
-variant?: ReadProductVariantOrders | OrderDirectionEnum | undefined;
-affiliationLink?: ReadAffiliationLinkOrders | OrderDirectionEnum | undefined;
-cartId?: OrderDirectionEnum | undefined;
-productId?: OrderDirectionEnum | undefined;
-variantId?: OrderDirectionEnum | undefined;
-affiliationLinkId?: OrderDirectionEnum | undefined;
-totalPrice?: OrderDirectionEnum | undefined;
-totalDiscountedPrice?: OrderDirectionEnum | undefined;
-promoCodeApplied?: OrderDirectionEnum | undefined;
-appliedpromotionsIds?: OrderDirectionEnum | undefined}
+export class ReadCartItemsOrders {quantity?: OrderDirectionEnum;
+cart?: ReadCartOrders | OrderDirectionEnum;
+product?: ReadProductOrders | OrderDirectionEnum;
+variant?: ReadProductVariantOrders | OrderDirectionEnum;
+affiliationLink?: ReadAffiliationLinkOrders | OrderDirectionEnum;
+cartId?: OrderDirectionEnum;
+productId?: OrderDirectionEnum;
+variantId?: OrderDirectionEnum;
+affiliationLinkId?: OrderDirectionEnum;
+totalPrice?: OrderDirectionEnum;
+totalDiscountedPrice?: OrderDirectionEnum;
+promoCodeApplied?: OrderDirectionEnum;
+appliedpromotionsIds?: OrderDirectionEnum}
 
-const ReadCartItemsOrdersSchema: v.GenericSchema<ReadCartItemsOrders> = v.object({quantity: v.undefinedable(OrderDirectionSchema),
-cart: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCartOrdersSchema)])),
-product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
-variant: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductVariantOrdersSchema)])),
-affiliationLink: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkOrdersSchema)])),
-cartId: v.undefinedable(OrderDirectionSchema),
-productId: v.undefinedable(OrderDirectionSchema),
-variantId: v.undefinedable(OrderDirectionSchema),
-affiliationLinkId: v.undefinedable(OrderDirectionSchema),
-totalPrice: v.undefinedable(OrderDirectionSchema),
-totalDiscountedPrice: v.undefinedable(OrderDirectionSchema),
-promoCodeApplied: v.undefinedable(OrderDirectionSchema),
-appliedpromotionsIds: v.undefinedable(OrderDirectionSchema)});
+const ReadCartItemsOrdersSchema: v.GenericSchema<ReadCartItemsOrders> = v.object({quantity: v.optional(OrderDirectionSchema),
+cart: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCartOrdersSchema)])),
+product: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+variant: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductVariantOrdersSchema)])),
+affiliationLink: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkOrdersSchema)])),
+cartId: v.optional(OrderDirectionSchema),
+productId: v.optional(OrderDirectionSchema),
+variantId: v.optional(OrderDirectionSchema),
+affiliationLinkId: v.optional(OrderDirectionSchema),
+totalPrice: v.optional(OrderDirectionSchema),
+totalDiscountedPrice: v.optional(OrderDirectionSchema),
+promoCodeApplied: v.optional(OrderDirectionSchema),
+appliedpromotionsIds: v.optional(OrderDirectionSchema)});
 
 export default ReadCartItemsOrdersSchema;
 

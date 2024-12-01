@@ -17,113 +17,113 @@ import ReadStoryLikesRelationsSchema, { ReadStoryLikesRelations } from '../../st
 
 
 import { LanguageEnum } from '../../../lib/enums'
-export class ReadUserRelations {status?: AccountStatus | null | undefined;
-defaultLang?: LanguageEnum | null | undefined;
-shopperProfile?: ReadShopperProfileRelations | string | boolean | undefined;
-brandProfile?: ReadBrandProfileRelations | string | boolean | undefined;
-comments?: ReadCommentRelations | string | boolean | undefined;
-affiliationLinkTracking?: ReadAffiliationLinkTrackingRelations | string | boolean | undefined;
-notifications?: ReadNotificationRelations | string | boolean | undefined;
-initiatedConversations?: ReadConversationRelations | string | boolean | undefined;
-receivedConversations?: ReadConversationRelations | string | boolean | undefined;
-sentMessages?: ReadMessageRelations | string | boolean | undefined;
-receivedMessages?: ReadMessageRelations | string | boolean | undefined;
-posts?: ReadPostRelations | string | boolean | undefined;
-stories?: ReadStoryRelations | string | boolean | undefined;
-savedCollections?: ReadSavedCollectionRelations | string | boolean | undefined;
-recentSearches?: ReadRecentSearchesRelations | string | boolean | undefined;
-likedPosts?: ReadPostLikesRelations | string | boolean | undefined;
-likedStories?: ReadStoryLikesRelations | string | boolean | undefined;
-taggedInPosts?: ReadPostRelations | string | boolean | undefined;
-taggedInStories?: ReadStoryRelations | string | boolean | undefined;
-following?: ReadUserRelations | string | boolean | undefined;
-follows?: ReadUserRelations | string | boolean | undefined;
-blockedBy?: ReadUserRelations | string | boolean | undefined;
-blockedUsers?: ReadUserRelations | string | boolean | undefined}
+export class ReadUserRelations {status?: AccountStatus | null;
+defaultLang?: LanguageEnum | null;
+shopperProfile?: ReadShopperProfileRelations | string | boolean;
+brandProfile?: ReadBrandProfileRelations | string | boolean;
+comments?: ReadCommentRelations | string | boolean;
+affiliationLinkTracking?: ReadAffiliationLinkTrackingRelations | string | boolean;
+notifications?: ReadNotificationRelations | string | boolean;
+initiatedConversations?: ReadConversationRelations | string | boolean;
+receivedConversations?: ReadConversationRelations | string | boolean;
+sentMessages?: ReadMessageRelations | string | boolean;
+receivedMessages?: ReadMessageRelations | string | boolean;
+posts?: ReadPostRelations | string | boolean;
+stories?: ReadStoryRelations | string | boolean;
+savedCollections?: ReadSavedCollectionRelations | string | boolean;
+recentSearches?: ReadRecentSearchesRelations | string | boolean;
+likedPosts?: ReadPostLikesRelations | string | boolean;
+likedStories?: ReadStoryLikesRelations | string | boolean;
+taggedInPosts?: ReadPostRelations | string | boolean;
+taggedInStories?: ReadStoryRelations | string | boolean;
+following?: ReadUserRelations | string | boolean;
+follows?: ReadUserRelations | string | boolean;
+blockedBy?: ReadUserRelations | string | boolean;
+blockedUsers?: ReadUserRelations | string | boolean}
 
 const ReadUserRelationsSchema: v.GenericSchema<ReadUserRelations> = v.object({status: v.nullish(v.enum(AccountStatus)),
 defaultLang: v.nullish(v.enum(LanguageEnum)),
-shopperProfile: v.undefinedable(v.union([v.pipe(
+shopperProfile: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadShopperProfileRelationsSchema)])),
-brandProfile: v.undefinedable(v.union([v.pipe(
+brandProfile: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadBrandProfileRelationsSchema)])),
-comments: v.undefinedable(v.union([v.pipe(
+comments: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCommentRelationsSchema)])),
-affiliationLinkTracking: v.undefinedable(v.union([v.pipe(
+affiliationLinkTracking: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadAffiliationLinkTrackingRelationsSchema)])),
-notifications: v.undefinedable(v.union([v.pipe(
+notifications: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadNotificationRelationsSchema)])),
-initiatedConversations: v.undefinedable(v.union([v.pipe(
+initiatedConversations: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadConversationRelationsSchema)])),
-receivedConversations: v.undefinedable(v.union([v.pipe(
+receivedConversations: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadConversationRelationsSchema)])),
-sentMessages: v.undefinedable(v.union([v.pipe(
+sentMessages: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMessageRelationsSchema)])),
-receivedMessages: v.undefinedable(v.union([v.pipe(
+receivedMessages: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMessageRelationsSchema)])),
-posts: v.undefinedable(v.union([v.pipe(
+posts: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPostRelationsSchema)])),
-stories: v.undefinedable(v.union([v.pipe(
+stories: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadStoryRelationsSchema)])),
-savedCollections: v.undefinedable(v.union([v.pipe(
+savedCollections: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadSavedCollectionRelationsSchema)])),
-recentSearches: v.undefinedable(v.union([v.pipe(
+recentSearches: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadRecentSearchesRelationsSchema)])),
-likedPosts: v.undefinedable(v.union([v.pipe(
+likedPosts: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPostLikesRelationsSchema)])),
-likedStories: v.undefinedable(v.union([v.pipe(
+likedStories: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadStoryLikesRelationsSchema)])),
-taggedInPosts: v.undefinedable(v.union([v.pipe(
+taggedInPosts: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPostRelationsSchema)])),
-taggedInStories: v.undefinedable(v.union([v.pipe(
+taggedInStories: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadStoryRelationsSchema)])),
-following: v.undefinedable(v.union([v.pipe(
+following: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
-follows: v.undefinedable(v.union([v.pipe(
+follows: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
-blockedBy: v.undefinedable(v.union([v.pipe(
+blockedBy: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
-blockedUsers: v.undefinedable(v.union([v.pipe(
+blockedUsers: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)]))});

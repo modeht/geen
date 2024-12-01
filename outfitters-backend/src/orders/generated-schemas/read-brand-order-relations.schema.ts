@@ -7,21 +7,21 @@ import ReadOrderRelationsSchema, { ReadOrderRelations } from './read-order-relat
 
 
 
-export class ReadBrandOrderRelations {status?: OrderStatusEnum | null | undefined;
-items?: ReadOrderItemRelations | string | boolean | undefined;
-brand?: ReadBrandProfileRelations | string | boolean | undefined;
-order?: ReadOrderRelations | string | boolean | undefined}
+export class ReadBrandOrderRelations {status?: OrderStatusEnum | null;
+items?: ReadOrderItemRelations | string | boolean;
+brand?: ReadBrandProfileRelations | string | boolean;
+order?: ReadOrderRelations | string | boolean}
 
 const ReadBrandOrderRelationsSchema: v.GenericSchema<ReadBrandOrderRelations> = v.object({status: v.nullish(v.enum(OrderStatusEnum)),
-items: v.undefinedable(v.union([v.pipe(
+items: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadOrderItemRelationsSchema)])),
-brand: v.undefinedable(v.union([v.pipe(
+brand: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadBrandProfileRelationsSchema)])),
-order: v.undefinedable(v.union([v.pipe(
+order: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadOrderRelationsSchema)]))});

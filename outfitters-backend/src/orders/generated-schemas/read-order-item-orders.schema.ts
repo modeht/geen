@@ -9,35 +9,35 @@ import ReadPromotionOrdersSchema, { ReadPromotionOrders } from '../../promotions
 
 
 
-export class ReadOrderItemOrders {quantity?: OrderDirectionEnum | undefined;
-unitSalePrice?: OrderDirectionEnum | undefined;
-unitPurchasePrice?: OrderDirectionEnum | undefined;
-totalSalePrice?: OrderDirectionEnum | undefined;
-totalPurchasePrice?: OrderDirectionEnum | undefined;
-brandOrder?: ReadBrandOrderOrders | OrderDirectionEnum | undefined;
-variant?: ReadProductVariantOrders | OrderDirectionEnum | undefined;
-product?: ReadProductOrders | OrderDirectionEnum | undefined;
-appliedPromoCode?: ReadPromoCodeOrders | OrderDirectionEnum | undefined;
-appliedPromotions?: ReadPromotionOrders | OrderDirectionEnum | undefined;
-brandOrderId?: OrderDirectionEnum | undefined;
-productId?: OrderDirectionEnum | undefined;
-variantId?: OrderDirectionEnum | undefined;
-promoCodeId?: OrderDirectionEnum | undefined}
+export class ReadOrderItemOrders {quantity?: OrderDirectionEnum;
+unitSalePrice?: OrderDirectionEnum;
+unitPurchasePrice?: OrderDirectionEnum;
+totalSalePrice?: OrderDirectionEnum;
+totalPurchasePrice?: OrderDirectionEnum;
+brandOrder?: ReadBrandOrderOrders | OrderDirectionEnum;
+variant?: ReadProductVariantOrders | OrderDirectionEnum;
+product?: ReadProductOrders | OrderDirectionEnum;
+appliedPromoCode?: ReadPromoCodeOrders | OrderDirectionEnum;
+appliedPromotions?: ReadPromotionOrders | OrderDirectionEnum;
+brandOrderId?: OrderDirectionEnum;
+productId?: OrderDirectionEnum;
+variantId?: OrderDirectionEnum;
+promoCodeId?: OrderDirectionEnum}
 
-const ReadOrderItemOrdersSchema: v.GenericSchema<ReadOrderItemOrders> = v.object({quantity: v.undefinedable(OrderDirectionSchema),
-unitSalePrice: v.undefinedable(OrderDirectionSchema),
-unitPurchasePrice: v.undefinedable(OrderDirectionSchema),
-totalSalePrice: v.undefinedable(OrderDirectionSchema),
-totalPurchasePrice: v.undefinedable(OrderDirectionSchema),
-brandOrder: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandOrderOrdersSchema)])),
-variant: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductVariantOrdersSchema)])),
-product: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
-appliedPromoCode: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromoCodeOrdersSchema)])),
-appliedPromotions: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromotionOrdersSchema)])),
-brandOrderId: v.undefinedable(OrderDirectionSchema),
-productId: v.undefinedable(OrderDirectionSchema),
-variantId: v.undefinedable(OrderDirectionSchema),
-promoCodeId: v.undefinedable(OrderDirectionSchema)});
+const ReadOrderItemOrdersSchema: v.GenericSchema<ReadOrderItemOrders> = v.object({quantity: v.optional(OrderDirectionSchema),
+unitSalePrice: v.optional(OrderDirectionSchema),
+unitPurchasePrice: v.optional(OrderDirectionSchema),
+totalSalePrice: v.optional(OrderDirectionSchema),
+totalPurchasePrice: v.optional(OrderDirectionSchema),
+brandOrder: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandOrderOrdersSchema)])),
+variant: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductVariantOrdersSchema)])),
+product: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+appliedPromoCode: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPromoCodeOrdersSchema)])),
+appliedPromotions: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPromotionOrdersSchema)])),
+brandOrderId: v.optional(OrderDirectionSchema),
+productId: v.optional(OrderDirectionSchema),
+variantId: v.optional(OrderDirectionSchema),
+promoCodeId: v.optional(OrderDirectionSchema)});
 
 export default ReadOrderItemOrdersSchema;
 

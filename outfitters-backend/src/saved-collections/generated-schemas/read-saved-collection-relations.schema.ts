@@ -5,14 +5,14 @@ import ReadUserRelationsSchema, { ReadUserRelations } from '../../users/generate
 
 
 
-export class ReadSavedCollectionRelations {items?: ReadSavedCollectionItemRelations | string | boolean | undefined;
-user?: ReadUserRelations | string | boolean | undefined}
+export class ReadSavedCollectionRelations {items?: ReadSavedCollectionItemRelations | string | boolean;
+user?: ReadUserRelations | string | boolean}
 
-const ReadSavedCollectionRelationsSchema: v.GenericSchema<ReadSavedCollectionRelations> = v.object({items: v.undefinedable(v.union([v.pipe(
+const ReadSavedCollectionRelationsSchema: v.GenericSchema<ReadSavedCollectionRelations> = v.object({items: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadSavedCollectionItemRelationsSchema)])),
-user: v.undefinedable(v.union([v.pipe(
+user: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)]))});

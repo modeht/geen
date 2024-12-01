@@ -9,21 +9,21 @@ import ReadPromoCodeOrdersSchema, { ReadPromoCodeOrders } from '../../promotions
 
 
 
-export class ReadCartOrders {status?: CartStatus | null | undefined;
-order?: ReadOrderOrders | OrderDirectionEnum | undefined;
-items?: ReadCartItemsOrders | OrderDirectionEnum | undefined;
-shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
-promoCode?: ReadPromoCodeOrders | OrderDirectionEnum | undefined;
-promoCodeId?: OrderDirectionEnum | undefined;
-shopperId?: OrderDirectionEnum | undefined}
+export class ReadCartOrders {status?: CartStatus | null;
+order?: ReadOrderOrders | OrderDirectionEnum;
+items?: ReadCartItemsOrders | OrderDirectionEnum;
+shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum;
+promoCode?: ReadPromoCodeOrders | OrderDirectionEnum;
+promoCodeId?: OrderDirectionEnum;
+shopperId?: OrderDirectionEnum}
 
 const ReadCartOrdersSchema: v.GenericSchema<ReadCartOrders> = v.object({status: v.nullish(v.enum(CartStatus)),
-order: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderOrdersSchema)])),
-items: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCartItemsOrdersSchema)])),
-shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
-promoCode: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromoCodeOrdersSchema)])),
-promoCodeId: v.undefinedable(OrderDirectionSchema),
-shopperId: v.undefinedable(OrderDirectionSchema)});
+order: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderOrdersSchema)])),
+items: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCartItemsOrdersSchema)])),
+shopperProfile: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
+promoCode: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPromoCodeOrdersSchema)])),
+promoCodeId: v.optional(OrderDirectionSchema),
+shopperId: v.optional(OrderDirectionSchema)});
 
 export default ReadCartOrdersSchema;
 

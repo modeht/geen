@@ -17,39 +17,39 @@ import ReadStoryLikesFiltersSchema, { ReadStoryLikesFiltersSchemaFilters } from 
 
 
 import { LanguageEnum } from '../../../lib/enums'
-export class ReadUserFiltersSchemaFilters {status?: AccountStatus | null | undefined;
-email?: GenericComparable<"string"> | null | undefined;
-phone?: GenericComparable<"string"> | null | undefined;
-password?: GenericComparable<"string"> | null | undefined;
-firebaseId?: GenericComparable<"string"> | null | undefined;
-emailVerified?: GenericComparable<"bool"> | null | undefined;
-isGoogleSignin?: GenericComparable<"bool"> | null | undefined;
-isAppleSignin?: GenericComparable<"bool"> | null | undefined;
-defaultLang?: LanguageEnum | null | undefined;
-shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null | undefined;
-brandProfile?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
-comments?: ReadCommentFiltersSchemaFilters | null | undefined;
-affiliationLinkTracking?: ReadAffiliationLinkTrackingFiltersSchemaFilters | null | undefined;
-notifications?: ReadNotificationFiltersSchemaFilters | null | undefined;
-initiatedConversations?: ReadConversationFiltersSchemaFilters | null | undefined;
-receivedConversations?: ReadConversationFiltersSchemaFilters | null | undefined;
-sentMessages?: ReadMessageFiltersSchemaFilters | null | undefined;
-receivedMessages?: ReadMessageFiltersSchemaFilters | null | undefined;
-posts?: ReadPostFiltersSchemaFilters | null | undefined;
-stories?: ReadStoryFiltersSchemaFilters | null | undefined;
-savedCollections?: ReadSavedCollectionFiltersSchemaFilters | null | undefined;
-recentSearches?: ReadRecentSearchesFiltersSchemaFilters | null | undefined;
-likedPosts?: ReadPostLikesFiltersSchemaFilters | null | undefined;
-likedStories?: ReadStoryLikesFiltersSchemaFilters | null | undefined;
-taggedInPosts?: ReadPostFiltersSchemaFilters | null | undefined;
-taggedInStories?: ReadStoryFiltersSchemaFilters | null | undefined;
-following?: ReadUserFiltersSchemaFilters | null | undefined;
-follows?: ReadUserFiltersSchemaFilters | null | undefined;
-blockedBy?: ReadUserFiltersSchemaFilters | null | undefined;
-blockedUsers?: ReadUserFiltersSchemaFilters | null | undefined;
-isFollowing?: GenericComparable<"bool"> | null | undefined;
-isBlockedBy?: GenericComparable<"bool"> | null | undefined;
-followersCount?: GenericComparable<"number"> | null | undefined}
+export class ReadUserFiltersSchemaFilters {status?: AccountStatus | null;
+email?: GenericComparable<"string"> | null;
+phone?: GenericComparable<"string"> | null;
+password?: GenericComparable<"string"> | null;
+firebaseId?: GenericComparable<"string"> | null;
+emailVerified?: GenericComparable<"bool"> | null;
+isGoogleSignin?: GenericComparable<"bool"> | null;
+isAppleSignin?: GenericComparable<"bool"> | null;
+defaultLang?: LanguageEnum | null;
+shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null;
+brandProfile?: ReadBrandProfileFiltersSchemaFilters | null;
+comments?: ReadCommentFiltersSchemaFilters | null;
+affiliationLinkTracking?: ReadAffiliationLinkTrackingFiltersSchemaFilters | null;
+notifications?: ReadNotificationFiltersSchemaFilters | null;
+initiatedConversations?: ReadConversationFiltersSchemaFilters | null;
+receivedConversations?: ReadConversationFiltersSchemaFilters | null;
+sentMessages?: ReadMessageFiltersSchemaFilters | null;
+receivedMessages?: ReadMessageFiltersSchemaFilters | null;
+posts?: ReadPostFiltersSchemaFilters | null;
+stories?: ReadStoryFiltersSchemaFilters | null;
+savedCollections?: ReadSavedCollectionFiltersSchemaFilters | null;
+recentSearches?: ReadRecentSearchesFiltersSchemaFilters | null;
+likedPosts?: ReadPostLikesFiltersSchemaFilters | null;
+likedStories?: ReadStoryLikesFiltersSchemaFilters | null;
+taggedInPosts?: ReadPostFiltersSchemaFilters | null;
+taggedInStories?: ReadStoryFiltersSchemaFilters | null;
+following?: ReadUserFiltersSchemaFilters | null;
+follows?: ReadUserFiltersSchemaFilters | null;
+blockedBy?: ReadUserFiltersSchemaFilters | null;
+blockedUsers?: ReadUserFiltersSchemaFilters | null;
+isFollowing?: GenericComparable<"bool"> | null;
+isBlockedBy?: GenericComparable<"bool"> | null;
+followersCount?: GenericComparable<"number"> | null}
 
 const ReadUserFiltersSchema: v.GenericSchema<ReadUserFiltersSchemaFilters> = v.object({status: v.nullish(v.enum(AccountStatus)),
 email: v.nullish(comparable("string")),

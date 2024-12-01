@@ -5,10 +5,10 @@ import ReadCommentFiltersSchema from './read-comment-filters.schema';
 import ReadCommentRelationsSchema from './read-comment-relations.schema';
 import ReadCommentOrdersSchema from './read-comment-orders.schema';
 const ReadCommentSchema = v.optional(v.object({
-filters: v.undefinedable(ReadCommentFiltersSchema),
-relations: v.undefinedable(ReadCommentRelationsSchema),
-orders: v.undefinedable(ReadCommentOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadCommentFiltersSchema),
+relations: v.optional(ReadCommentRelationsSchema),
+orders: v.optional(ReadCommentOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadCommentSchema;
 export type TReadCommentSchemaInput = v.InferInput<typeof ReadCommentSchema>;

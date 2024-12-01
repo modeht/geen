@@ -8,20 +8,20 @@ import ReadPromotionFiltersSchema, { ReadPromotionFiltersSchemaFilters } from '.
 
 
 
-export class ReadOrderItemFiltersSchemaFilters {quantity?: GenericComparable<"number"> | null | undefined;
-unitSalePrice?: GenericComparable<"number"> | null | undefined;
-unitPurchasePrice?: GenericComparable<"number"> | null | undefined;
-totalSalePrice?: GenericComparable<"number"> | null | undefined;
-totalPurchasePrice?: GenericComparable<"number"> | null | undefined;
-brandOrder?: ReadBrandOrderFiltersSchemaFilters | null | undefined;
-variant?: ReadProductVariantFiltersSchemaFilters | null | undefined;
-product?: ReadProductFiltersSchemaFilters | null | undefined;
-appliedPromoCode?: ReadPromoCodeFiltersSchemaFilters | null | undefined;
-appliedPromotions?: ReadPromotionFiltersSchemaFilters | null | undefined;
-brandOrderId?: GenericComparable<"number"> | null | undefined;
-productId?: GenericComparable<"number"> | null | undefined;
-variantId?: GenericComparable<"number"> | null | undefined;
-promoCodeId?: GenericComparable<"number"> | null | undefined}
+export class ReadOrderItemFiltersSchemaFilters {quantity?: GenericComparable<"number"> | null;
+unitSalePrice?: GenericComparable<"number"> | null;
+unitPurchasePrice?: GenericComparable<"number"> | null;
+totalSalePrice?: GenericComparable<"number"> | null;
+totalPurchasePrice?: GenericComparable<"number"> | null;
+brandOrder?: ReadBrandOrderFiltersSchemaFilters | null;
+variant?: ReadProductVariantFiltersSchemaFilters | null;
+product?: ReadProductFiltersSchemaFilters | null;
+appliedPromoCode?: ReadPromoCodeFiltersSchemaFilters | null;
+appliedPromotions?: ReadPromotionFiltersSchemaFilters | null;
+brandOrderId?: GenericComparable<"number"> | null;
+productId?: GenericComparable<"number"> | null;
+variantId?: GenericComparable<"number"> | null;
+promoCodeId?: GenericComparable<"number"> | null}
 
 const ReadOrderItemFiltersSchema: v.GenericSchema<ReadOrderItemFiltersSchemaFilters> = v.object({quantity: v.nullish(comparable("number")),
 unitSalePrice: v.nullish(comparable("number")),

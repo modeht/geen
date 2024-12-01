@@ -293,11 +293,11 @@ export default ${this.relationsSchemaName};
 		let key = '';
 		let property = '';
 
-		key = `v.undefinedable(v.union([v.pipe(
+		key = `v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ${nestedRelationsSchemaName})]))`;
-		property = `${nestedRelationsClassName} | string | boolean | undefined`;
+		property = `${nestedRelationsClassName} | string | boolean`;
 
 		key = `${fieldName}: ${key}`;
 		property = `${fieldName}?: ${property}`;
@@ -307,11 +307,11 @@ export default ${this.relationsSchemaName};
 
 	_handleClassEmptyStates(field: string, nullable: boolean, undefindable: boolean) {
 		if (undefindable && nullable) {
-			field = `?: ${field} | null | undefined`;
-		} else if (undefindable && !nullable) {
-			field = `?: ${field} | undefined`;
-		} else if (nullable && !undefindable) {
 			field = `?: ${field} | null`;
+		} else if (undefindable && !nullable) {
+			field = `?: ${field}`;
+		} else if (nullable && !undefindable) {
+			field = `: ${field} | null`;
 		}
 		return field;
 	}
@@ -320,7 +320,7 @@ export default ${this.relationsSchemaName};
 		if (undefindable && nullable) {
 			field = `v.nullish(${field})`;
 		} else if (undefindable && !nullable) {
-			field = `v.undefinedable(${field})`;
+			field = `v.optional(${field})`;
 		} else if (nullable && !undefindable) {
 			field = `v.nullish(${field})`;
 		}

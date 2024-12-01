@@ -18,73 +18,73 @@ import ReadStoryLikesOrdersSchema, { ReadStoryLikesOrders } from '../../stories/
 
 
 import { LanguageEnum } from '../../../lib/enums'
-export class ReadUserOrders {status?: AccountStatus | null | undefined;
-email?: OrderDirectionEnum | undefined;
-phone?: OrderDirectionEnum | undefined;
-password?: OrderDirectionEnum | undefined;
-firebaseId?: OrderDirectionEnum | undefined;
-emailVerified?: OrderDirectionEnum | undefined;
-isGoogleSignin?: OrderDirectionEnum | undefined;
-isAppleSignin?: OrderDirectionEnum | undefined;
-defaultLang?: LanguageEnum | null | undefined;
-shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum | undefined;
-brandProfile?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
-comments?: ReadCommentOrders | OrderDirectionEnum | undefined;
-affiliationLinkTracking?: ReadAffiliationLinkTrackingOrders | OrderDirectionEnum | undefined;
-notifications?: ReadNotificationOrders | OrderDirectionEnum | undefined;
-initiatedConversations?: ReadConversationOrders | OrderDirectionEnum | undefined;
-receivedConversations?: ReadConversationOrders | OrderDirectionEnum | undefined;
-sentMessages?: ReadMessageOrders | OrderDirectionEnum | undefined;
-receivedMessages?: ReadMessageOrders | OrderDirectionEnum | undefined;
-posts?: ReadPostOrders | OrderDirectionEnum | undefined;
-stories?: ReadStoryOrders | OrderDirectionEnum | undefined;
-savedCollections?: ReadSavedCollectionOrders | OrderDirectionEnum | undefined;
-recentSearches?: ReadRecentSearchesOrders | OrderDirectionEnum | undefined;
-likedPosts?: ReadPostLikesOrders | OrderDirectionEnum | undefined;
-likedStories?: ReadStoryLikesOrders | OrderDirectionEnum | undefined;
-taggedInPosts?: ReadPostOrders | OrderDirectionEnum | undefined;
-taggedInStories?: ReadStoryOrders | OrderDirectionEnum | undefined;
-following?: ReadUserOrders | OrderDirectionEnum | undefined;
-follows?: ReadUserOrders | OrderDirectionEnum | undefined;
-blockedBy?: ReadUserOrders | OrderDirectionEnum | undefined;
-blockedUsers?: ReadUserOrders | OrderDirectionEnum | undefined;
-isFollowing?: OrderDirectionEnum | undefined;
-isBlockedBy?: OrderDirectionEnum | undefined;
-followersCount?: OrderDirectionEnum | undefined}
+export class ReadUserOrders {status?: AccountStatus | null;
+email?: OrderDirectionEnum;
+phone?: OrderDirectionEnum;
+password?: OrderDirectionEnum;
+firebaseId?: OrderDirectionEnum;
+emailVerified?: OrderDirectionEnum;
+isGoogleSignin?: OrderDirectionEnum;
+isAppleSignin?: OrderDirectionEnum;
+defaultLang?: LanguageEnum | null;
+shopperProfile?: ReadShopperProfileOrders | OrderDirectionEnum;
+brandProfile?: ReadBrandProfileOrders | OrderDirectionEnum;
+comments?: ReadCommentOrders | OrderDirectionEnum;
+affiliationLinkTracking?: ReadAffiliationLinkTrackingOrders | OrderDirectionEnum;
+notifications?: ReadNotificationOrders | OrderDirectionEnum;
+initiatedConversations?: ReadConversationOrders | OrderDirectionEnum;
+receivedConversations?: ReadConversationOrders | OrderDirectionEnum;
+sentMessages?: ReadMessageOrders | OrderDirectionEnum;
+receivedMessages?: ReadMessageOrders | OrderDirectionEnum;
+posts?: ReadPostOrders | OrderDirectionEnum;
+stories?: ReadStoryOrders | OrderDirectionEnum;
+savedCollections?: ReadSavedCollectionOrders | OrderDirectionEnum;
+recentSearches?: ReadRecentSearchesOrders | OrderDirectionEnum;
+likedPosts?: ReadPostLikesOrders | OrderDirectionEnum;
+likedStories?: ReadStoryLikesOrders | OrderDirectionEnum;
+taggedInPosts?: ReadPostOrders | OrderDirectionEnum;
+taggedInStories?: ReadStoryOrders | OrderDirectionEnum;
+following?: ReadUserOrders | OrderDirectionEnum;
+follows?: ReadUserOrders | OrderDirectionEnum;
+blockedBy?: ReadUserOrders | OrderDirectionEnum;
+blockedUsers?: ReadUserOrders | OrderDirectionEnum;
+isFollowing?: OrderDirectionEnum;
+isBlockedBy?: OrderDirectionEnum;
+followersCount?: OrderDirectionEnum}
 
 const ReadUserOrdersSchema: v.GenericSchema<ReadUserOrders> = v.object({status: v.nullish(v.enum(AccountStatus)),
-email: v.undefinedable(OrderDirectionSchema),
-phone: v.undefinedable(OrderDirectionSchema),
-password: v.undefinedable(OrderDirectionSchema),
-firebaseId: v.undefinedable(OrderDirectionSchema),
-emailVerified: v.undefinedable(OrderDirectionSchema),
-isGoogleSignin: v.undefinedable(OrderDirectionSchema),
-isAppleSignin: v.undefinedable(OrderDirectionSchema),
+email: v.optional(OrderDirectionSchema),
+phone: v.optional(OrderDirectionSchema),
+password: v.optional(OrderDirectionSchema),
+firebaseId: v.optional(OrderDirectionSchema),
+emailVerified: v.optional(OrderDirectionSchema),
+isGoogleSignin: v.optional(OrderDirectionSchema),
+isAppleSignin: v.optional(OrderDirectionSchema),
 defaultLang: v.nullish(v.enum(LanguageEnum)),
-shopperProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
-brandProfile: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
-comments: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCommentOrdersSchema)])),
-affiliationLinkTracking: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkTrackingOrdersSchema)])),
-notifications: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadNotificationOrdersSchema)])),
-initiatedConversations: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadConversationOrdersSchema)])),
-receivedConversations: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadConversationOrdersSchema)])),
-sentMessages: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
-receivedMessages: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
-posts: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
-stories: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryOrdersSchema)])),
-savedCollections: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadSavedCollectionOrdersSchema)])),
-recentSearches: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadRecentSearchesOrdersSchema)])),
-likedPosts: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPostLikesOrdersSchema)])),
-likedStories: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryLikesOrdersSchema)])),
-taggedInPosts: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
-taggedInStories: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryOrdersSchema)])),
-following: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-follows: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-blockedBy: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-blockedUsers: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-isFollowing: v.undefinedable(OrderDirectionSchema),
-isBlockedBy: v.undefinedable(OrderDirectionSchema),
-followersCount: v.undefinedable(OrderDirectionSchema)});
+shopperProfile: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadShopperProfileOrdersSchema)])),
+brandProfile: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
+comments: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCommentOrdersSchema)])),
+affiliationLinkTracking: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkTrackingOrdersSchema)])),
+notifications: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadNotificationOrdersSchema)])),
+initiatedConversations: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadConversationOrdersSchema)])),
+receivedConversations: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadConversationOrdersSchema)])),
+sentMessages: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
+receivedMessages: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
+posts: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
+stories: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryOrdersSchema)])),
+savedCollections: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadSavedCollectionOrdersSchema)])),
+recentSearches: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadRecentSearchesOrdersSchema)])),
+likedPosts: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPostLikesOrdersSchema)])),
+likedStories: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryLikesOrdersSchema)])),
+taggedInPosts: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
+taggedInStories: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryOrdersSchema)])),
+following: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+follows: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+blockedBy: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+blockedUsers: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+isFollowing: v.optional(OrderDirectionSchema),
+isBlockedBy: v.optional(OrderDirectionSchema),
+followersCount: v.optional(OrderDirectionSchema)});
 
 export default ReadUserOrdersSchema;
 

@@ -14,69 +14,69 @@ import ReadCountryRelationsSchema, { ReadCountryRelations } from '../../countrie
 
 
 
-export class ReadBrandProfileRelations {user?: ReadUserRelations | string | boolean | undefined;
-logo?: ReadMediaRelations | string | boolean | undefined;
-cover?: ReadMediaRelations | string | boolean | undefined;
-collections?: ReadCollectionRelations | string | boolean | undefined;
-products?: ReadProductRelations | string | boolean | undefined;
-promotions?: ReadPromotionRelations | string | boolean | undefined;
-promoCodes?: ReadPromoCodeRelations | string | boolean | undefined;
-brandOrders?: ReadBrandOrderRelations | string | boolean | undefined;
-preferences?: ReadPreferenceRelations | string | boolean | undefined;
-collaborations?: ReadCollaborationRelations | string | boolean | undefined;
-categories?: ReadCategoryRelations | string | boolean | undefined;
-subCategories?: ReadCategoryRelations | string | boolean | undefined;
-countries?: ReadCountryRelations | string | boolean | undefined}
+export class ReadBrandProfileRelations {user?: ReadUserRelations | string | boolean;
+logo?: ReadMediaRelations | string | boolean;
+cover?: ReadMediaRelations | string | boolean;
+collections?: ReadCollectionRelations | string | boolean;
+products?: ReadProductRelations | string | boolean;
+promotions?: ReadPromotionRelations | string | boolean;
+promoCodes?: ReadPromoCodeRelations | string | boolean;
+brandOrders?: ReadBrandOrderRelations | string | boolean;
+preferences?: ReadPreferenceRelations | string | boolean;
+collaborations?: ReadCollaborationRelations | string | boolean;
+categories?: ReadCategoryRelations | string | boolean;
+subCategories?: ReadCategoryRelations | string | boolean;
+countries?: ReadCountryRelations | string | boolean}
 
-const ReadBrandProfileRelationsSchema: v.GenericSchema<ReadBrandProfileRelations> = v.object({user: v.undefinedable(v.union([v.pipe(
+const ReadBrandProfileRelationsSchema: v.GenericSchema<ReadBrandProfileRelations> = v.object({user: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
-logo: v.undefinedable(v.union([v.pipe(
+logo: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
-cover: v.undefinedable(v.union([v.pipe(
+cover: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
-collections: v.undefinedable(v.union([v.pipe(
+collections: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCollectionRelationsSchema)])),
-products: v.undefinedable(v.union([v.pipe(
+products: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)])),
-promotions: v.undefinedable(v.union([v.pipe(
+promotions: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPromotionRelationsSchema)])),
-promoCodes: v.undefinedable(v.union([v.pipe(
+promoCodes: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPromoCodeRelationsSchema)])),
-brandOrders: v.undefinedable(v.union([v.pipe(
+brandOrders: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadBrandOrderRelationsSchema)])),
-preferences: v.undefinedable(v.union([v.pipe(
+preferences: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPreferenceRelationsSchema)])),
-collaborations: v.undefinedable(v.union([v.pipe(
+collaborations: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCollaborationRelationsSchema)])),
-categories: v.undefinedable(v.union([v.pipe(
+categories: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCategoryRelationsSchema)])),
-subCategories: v.undefinedable(v.union([v.pipe(
+subCategories: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCategoryRelationsSchema)])),
-countries: v.undefinedable(v.union([v.pipe(
+countries: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCountryRelationsSchema)]))});

@@ -9,33 +9,33 @@ import ReadMessageOrdersSchema, { ReadMessageOrders } from '../../messages/gener
 
 
 
-export class ReadStoryOrders {background?: OrderDirectionEnum | undefined;
-text?: OrderDirectionEnum | undefined;
-media?: ReadMediaOrders | OrderDirectionEnum | undefined;
-taggedProducts?: ReadTaggedProductOrders | OrderDirectionEnum | undefined;
-postedBy?: ReadUserOrders | OrderDirectionEnum | undefined;
-taggedUsers?: ReadUserOrders | OrderDirectionEnum | undefined;
-likedByUsers?: ReadStoryLikesOrders | OrderDirectionEnum | undefined;
-shares?: ReadMessageOrders | OrderDirectionEnum | undefined;
-postedById?: OrderDirectionEnum | undefined;
-taggedProductsCount?: OrderDirectionEnum | undefined;
-taggedUsersCount?: OrderDirectionEnum | undefined;
-isLiked?: OrderDirectionEnum | undefined;
-isViewed?: OrderDirectionEnum | undefined}
+export class ReadStoryOrders {background?: OrderDirectionEnum;
+text?: OrderDirectionEnum;
+media?: ReadMediaOrders | OrderDirectionEnum;
+taggedProducts?: ReadTaggedProductOrders | OrderDirectionEnum;
+postedBy?: ReadUserOrders | OrderDirectionEnum;
+taggedUsers?: ReadUserOrders | OrderDirectionEnum;
+likedByUsers?: ReadStoryLikesOrders | OrderDirectionEnum;
+shares?: ReadMessageOrders | OrderDirectionEnum;
+postedById?: OrderDirectionEnum;
+taggedProductsCount?: OrderDirectionEnum;
+taggedUsersCount?: OrderDirectionEnum;
+isLiked?: OrderDirectionEnum;
+isViewed?: OrderDirectionEnum}
 
-const ReadStoryOrdersSchema: v.GenericSchema<ReadStoryOrders> = v.object({background: v.undefinedable(OrderDirectionSchema),
-text: v.undefinedable(OrderDirectionSchema),
-media: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
-taggedProducts: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadTaggedProductOrdersSchema)])),
-postedBy: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-taggedUsers: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-likedByUsers: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryLikesOrdersSchema)])),
-shares: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
-postedById: v.undefinedable(OrderDirectionSchema),
-taggedProductsCount: v.undefinedable(OrderDirectionSchema),
-taggedUsersCount: v.undefinedable(OrderDirectionSchema),
-isLiked: v.undefinedable(OrderDirectionSchema),
-isViewed: v.undefinedable(OrderDirectionSchema)});
+const ReadStoryOrdersSchema: v.GenericSchema<ReadStoryOrders> = v.object({background: v.optional(OrderDirectionSchema),
+text: v.optional(OrderDirectionSchema),
+media: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
+taggedProducts: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadTaggedProductOrdersSchema)])),
+postedBy: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+taggedUsers: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+likedByUsers: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadStoryLikesOrdersSchema)])),
+shares: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
+postedById: v.optional(OrderDirectionSchema),
+taggedProductsCount: v.optional(OrderDirectionSchema),
+taggedUsersCount: v.optional(OrderDirectionSchema),
+isLiked: v.optional(OrderDirectionSchema),
+isViewed: v.optional(OrderDirectionSchema)});
 
 export default ReadStoryOrdersSchema;
 

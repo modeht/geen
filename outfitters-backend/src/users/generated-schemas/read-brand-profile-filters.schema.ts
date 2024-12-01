@@ -14,33 +14,33 @@ import ReadCountryFiltersSchema, { ReadCountryFiltersSchemaFilters } from '../..
 
 
 
-export class ReadBrandProfileFiltersSchemaFilters {storeName?: GenericComparable<"string"> | null | undefined;
-brandName?: GenericComparable<"string"> | null | undefined;
-storeBio?: GenericComparable<"string"> | null | undefined;
-website?: GenericComparable<"string"> | null | undefined;
-isPublished?: GenericComparable<"bool"> | null | undefined;
-shippingCost?: GenericComparable<"number"> | null | undefined;
-currency?: GenericComparable<"string"> | null | undefined;
-brandManagerFullName?: GenericComparable<"string"> | null | undefined;
-user?: ReadUserFiltersSchemaFilters | null | undefined;
-logo?: ReadMediaFiltersSchemaFilters | null | undefined;
-cover?: ReadMediaFiltersSchemaFilters | null | undefined;
-collections?: ReadCollectionFiltersSchemaFilters | null | undefined;
-products?: ReadProductFiltersSchemaFilters | null | undefined;
-promotions?: ReadPromotionFiltersSchemaFilters | null | undefined;
-promoCodes?: ReadPromoCodeFiltersSchemaFilters | null | undefined;
-brandOrders?: ReadBrandOrderFiltersSchemaFilters | null | undefined;
-preferences?: ReadPreferenceFiltersSchemaFilters | null | undefined;
-collaborations?: ReadCollaborationFiltersSchemaFilters | null | undefined;
-categories?: ReadCategoryFiltersSchemaFilters | null | undefined;
-subCategories?: ReadCategoryFiltersSchemaFilters | null | undefined;
-countries?: ReadCountryFiltersSchemaFilters | null | undefined;
-logoId?: GenericComparable<"number"> | null | undefined;
-isFollowing?: GenericComparable<"bool"> | null | undefined;
-hasStory?: GenericComparable<"bool"> | null | undefined;
-followersCount?: GenericComparable<"number"> | null | undefined;
-followingCount?: GenericComparable<"number"> | null | undefined;
-postsCount?: GenericComparable<"number"> | null | undefined}
+export class ReadBrandProfileFiltersSchemaFilters {storeName?: GenericComparable<"string"> | null;
+brandName?: GenericComparable<"string"> | null;
+storeBio?: GenericComparable<"string"> | null;
+website?: GenericComparable<"string"> | null;
+isPublished?: GenericComparable<"bool"> | null;
+shippingCost?: GenericComparable<"number"> | null;
+currency?: GenericComparable<"string"> | null;
+brandManagerFullName?: GenericComparable<"string"> | null;
+user?: ReadUserFiltersSchemaFilters | null;
+logo?: ReadMediaFiltersSchemaFilters | null;
+cover?: ReadMediaFiltersSchemaFilters | null;
+collections?: ReadCollectionFiltersSchemaFilters | null;
+products?: ReadProductFiltersSchemaFilters | null;
+promotions?: ReadPromotionFiltersSchemaFilters | null;
+promoCodes?: ReadPromoCodeFiltersSchemaFilters | null;
+brandOrders?: ReadBrandOrderFiltersSchemaFilters | null;
+preferences?: ReadPreferenceFiltersSchemaFilters | null;
+collaborations?: ReadCollaborationFiltersSchemaFilters | null;
+categories?: ReadCategoryFiltersSchemaFilters | null;
+subCategories?: ReadCategoryFiltersSchemaFilters | null;
+countries?: ReadCountryFiltersSchemaFilters | null;
+logoId?: GenericComparable<"number"> | null;
+isFollowing?: GenericComparable<"bool"> | null;
+hasStory?: GenericComparable<"bool"> | null;
+followersCount?: GenericComparable<"number"> | null;
+followingCount?: GenericComparable<"number"> | null;
+postsCount?: GenericComparable<"number"> | null}
 
 const ReadBrandProfileFiltersSchema: v.GenericSchema<ReadBrandProfileFiltersSchemaFilters> = v.object({storeName: v.nullish(comparable("string")),
 brandName: v.nullish(comparable("string")),

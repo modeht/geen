@@ -15,61 +15,61 @@ import ReadPromoCodeOrdersSchema, { ReadPromoCodeOrders } from '../../promotions
 
 
 
-export class ReadShopperProfileOrders {username?: OrderDirectionEnum | undefined;
-fullName?: OrderDirectionEnum | undefined;
-dateOfBirth?: OrderDirectionEnum | undefined;
-bio?: OrderDirectionEnum | undefined;
-gender?: GenderEnum | null | undefined;
-onboardingStep?: OrderDirectionEnum | undefined;
-facebookProfileLink?: OrderDirectionEnum | undefined;
-instagramProfileLink?: OrderDirectionEnum | undefined;
-tiktokProfileLink?: OrderDirectionEnum | undefined;
-isOutfitter?: OrderDirectionEnum | undefined;
-user?: ReadUserOrders | OrderDirectionEnum | undefined;
-reviews?: ReadProductReviewOrders | OrderDirectionEnum | undefined;
-addresses?: ReadShippingAddressOrders | OrderDirectionEnum | undefined;
-profilePicture?: ReadMediaOrders | OrderDirectionEnum | undefined;
-carts?: ReadCartOrders | OrderDirectionEnum | undefined;
-orders?: ReadOrderOrders | OrderDirectionEnum | undefined;
-preferences?: ReadPreferenceOrders | OrderDirectionEnum | undefined;
-collaborations?: ReadCollaborationOrders | OrderDirectionEnum | undefined;
-affiliationLinks?: ReadAffiliationLinkOrders | OrderDirectionEnum | undefined;
-promoCodes?: ReadPromoCodeOrders | OrderDirectionEnum | undefined;
-isFollowing?: OrderDirectionEnum | undefined;
-hasStory?: OrderDirectionEnum | undefined;
-followersCount?: OrderDirectionEnum | undefined;
-followingCount?: OrderDirectionEnum | undefined;
-postsCount?: OrderDirectionEnum | undefined;
-brandsCount?: OrderDirectionEnum | undefined;
-engagementCount?: OrderDirectionEnum | undefined}
+export class ReadShopperProfileOrders {username?: OrderDirectionEnum;
+fullName?: OrderDirectionEnum;
+dateOfBirth?: OrderDirectionEnum;
+bio?: OrderDirectionEnum;
+gender?: GenderEnum | null;
+onboardingStep?: OrderDirectionEnum;
+facebookProfileLink?: OrderDirectionEnum;
+instagramProfileLink?: OrderDirectionEnum;
+tiktokProfileLink?: OrderDirectionEnum;
+isOutfitter?: OrderDirectionEnum;
+user?: ReadUserOrders | OrderDirectionEnum;
+reviews?: ReadProductReviewOrders | OrderDirectionEnum;
+addresses?: ReadShippingAddressOrders | OrderDirectionEnum;
+profilePicture?: ReadMediaOrders | OrderDirectionEnum;
+carts?: ReadCartOrders | OrderDirectionEnum;
+orders?: ReadOrderOrders | OrderDirectionEnum;
+preferences?: ReadPreferenceOrders | OrderDirectionEnum;
+collaborations?: ReadCollaborationOrders | OrderDirectionEnum;
+affiliationLinks?: ReadAffiliationLinkOrders | OrderDirectionEnum;
+promoCodes?: ReadPromoCodeOrders | OrderDirectionEnum;
+isFollowing?: OrderDirectionEnum;
+hasStory?: OrderDirectionEnum;
+followersCount?: OrderDirectionEnum;
+followingCount?: OrderDirectionEnum;
+postsCount?: OrderDirectionEnum;
+brandsCount?: OrderDirectionEnum;
+engagementCount?: OrderDirectionEnum}
 
-const ReadShopperProfileOrdersSchema: v.GenericSchema<ReadShopperProfileOrders> = v.object({username: v.undefinedable(OrderDirectionSchema),
-fullName: v.undefinedable(OrderDirectionSchema),
-dateOfBirth: v.undefinedable(OrderDirectionSchema),
-bio: v.undefinedable(OrderDirectionSchema),
+const ReadShopperProfileOrdersSchema: v.GenericSchema<ReadShopperProfileOrders> = v.object({username: v.optional(OrderDirectionSchema),
+fullName: v.optional(OrderDirectionSchema),
+dateOfBirth: v.optional(OrderDirectionSchema),
+bio: v.optional(OrderDirectionSchema),
 gender: v.nullish(v.enum(GenderEnum)),
-onboardingStep: v.undefinedable(OrderDirectionSchema),
-facebookProfileLink: v.undefinedable(OrderDirectionSchema),
-instagramProfileLink: v.undefinedable(OrderDirectionSchema),
-tiktokProfileLink: v.undefinedable(OrderDirectionSchema),
-isOutfitter: v.undefinedable(OrderDirectionSchema),
-user: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-reviews: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductReviewOrdersSchema)])),
-addresses: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadShippingAddressOrdersSchema)])),
-profilePicture: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
-carts: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCartOrdersSchema)])),
-orders: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderOrdersSchema)])),
-preferences: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPreferenceOrdersSchema)])),
-collaborations: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadCollaborationOrdersSchema)])),
-affiliationLinks: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkOrdersSchema)])),
-promoCodes: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPromoCodeOrdersSchema)])),
-isFollowing: v.undefinedable(OrderDirectionSchema),
-hasStory: v.undefinedable(OrderDirectionSchema),
-followersCount: v.undefinedable(OrderDirectionSchema),
-followingCount: v.undefinedable(OrderDirectionSchema),
-postsCount: v.undefinedable(OrderDirectionSchema),
-brandsCount: v.undefinedable(OrderDirectionSchema),
-engagementCount: v.undefinedable(OrderDirectionSchema)});
+onboardingStep: v.optional(OrderDirectionSchema),
+facebookProfileLink: v.optional(OrderDirectionSchema),
+instagramProfileLink: v.optional(OrderDirectionSchema),
+tiktokProfileLink: v.optional(OrderDirectionSchema),
+isOutfitter: v.optional(OrderDirectionSchema),
+user: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+reviews: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductReviewOrdersSchema)])),
+addresses: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadShippingAddressOrdersSchema)])),
+profilePicture: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
+carts: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCartOrdersSchema)])),
+orders: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderOrdersSchema)])),
+preferences: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPreferenceOrdersSchema)])),
+collaborations: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCollaborationOrdersSchema)])),
+affiliationLinks: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadAffiliationLinkOrdersSchema)])),
+promoCodes: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPromoCodeOrdersSchema)])),
+isFollowing: v.optional(OrderDirectionSchema),
+hasStory: v.optional(OrderDirectionSchema),
+followersCount: v.optional(OrderDirectionSchema),
+followingCount: v.optional(OrderDirectionSchema),
+postsCount: v.optional(OrderDirectionSchema),
+brandsCount: v.optional(OrderDirectionSchema),
+engagementCount: v.optional(OrderDirectionSchema)});
 
 export default ReadShopperProfileOrdersSchema;
 

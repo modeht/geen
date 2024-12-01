@@ -5,10 +5,10 @@ import ReadProductFiltersSchema from './read-product-filters.schema';
 import ReadProductRelationsSchema from './read-product-relations.schema';
 import ReadProductOrdersSchema from './read-product-orders.schema';
 const ReadProductSchema = v.optional(v.object({
-filters: v.undefinedable(ReadProductFiltersSchema),
-relations: v.undefinedable(ReadProductRelationsSchema),
-orders: v.undefinedable(ReadProductOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadProductFiltersSchema),
+relations: v.optional(ReadProductRelationsSchema),
+orders: v.optional(ReadProductOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadProductSchema;
 export type TReadProductSchemaInput = v.InferInput<typeof ReadProductSchema>;

@@ -5,15 +5,15 @@ import ReadMessageFiltersSchema, { ReadMessageFiltersSchemaFilters } from '../..
 
 
 
-export class ReadConversationFiltersSchemaFilters {isSupport?: GenericComparable<"bool"> | null | undefined;
-from?: ReadUserFiltersSchemaFilters | null | undefined;
-to?: ReadUserFiltersSchemaFilters | null | undefined;
-messages?: ReadMessageFiltersSchemaFilters | null | undefined;
-archivedByFrom?: GenericComparable<"bool"> | null | undefined;
-archivedByTo?: GenericComparable<"bool"> | null | undefined;
-fromId?: GenericComparable<"number"> | null | undefined;
-toId?: GenericComparable<"number"> | null | undefined;
-isCollaboration?: GenericComparable<"bool"> | null | undefined}
+export class ReadConversationFiltersSchemaFilters {isSupport?: GenericComparable<"bool"> | null;
+from?: ReadUserFiltersSchemaFilters | null;
+to?: ReadUserFiltersSchemaFilters | null;
+messages?: ReadMessageFiltersSchemaFilters | null;
+archivedByFrom?: GenericComparable<"bool"> | null;
+archivedByTo?: GenericComparable<"bool"> | null;
+fromId?: GenericComparable<"number"> | null;
+toId?: GenericComparable<"number"> | null;
+isCollaboration?: GenericComparable<"bool"> | null}
 
 const ReadConversationFiltersSchema: v.GenericSchema<ReadConversationFiltersSchemaFilters> = v.object({isSupport: v.nullish(comparable("bool")),
 from: v.nullish(v.lazy(() => ReadUserFiltersSchema)),

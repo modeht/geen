@@ -9,28 +9,28 @@ import ReadShopperProfileRelationsSchema, { ReadShopperProfileRelations } from '
 
 
 
-export class ReadOrderRelations {paymentMethod?: OrderPaymentMethod | null | undefined;
-paymentStatus?: OrderPaymentStatusEnum | null | undefined;
-cart?: ReadCartRelations | string | boolean | undefined;
-brandOrders?: ReadBrandOrderRelations | string | boolean | undefined;
-shippingAddress?: ReadShippingAddressRelations | string | boolean | undefined;
-shopperProfile?: ReadShopperProfileRelations | string | boolean | undefined}
+export class ReadOrderRelations {paymentMethod?: OrderPaymentMethod | null;
+paymentStatus?: OrderPaymentStatusEnum | null;
+cart?: ReadCartRelations | string | boolean;
+brandOrders?: ReadBrandOrderRelations | string | boolean;
+shippingAddress?: ReadShippingAddressRelations | string | boolean;
+shopperProfile?: ReadShopperProfileRelations | string | boolean}
 
 const ReadOrderRelationsSchema: v.GenericSchema<ReadOrderRelations> = v.object({paymentMethod: v.nullish(v.enum(OrderPaymentMethod)),
 paymentStatus: v.nullish(v.enum(OrderPaymentStatusEnum)),
-cart: v.undefinedable(v.union([v.pipe(
+cart: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCartRelationsSchema)])),
-brandOrders: v.undefinedable(v.union([v.pipe(
+brandOrders: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadBrandOrderRelationsSchema)])),
-shippingAddress: v.undefinedable(v.union([v.pipe(
+shippingAddress: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadShippingAddressRelationsSchema)])),
-shopperProfile: v.undefinedable(v.union([v.pipe(
+shopperProfile: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadShopperProfileRelationsSchema)]))});

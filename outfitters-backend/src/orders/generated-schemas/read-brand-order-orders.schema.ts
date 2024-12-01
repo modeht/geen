@@ -8,39 +8,39 @@ import ReadOrderOrdersSchema, { ReadOrderOrders } from './read-order-orders.sche
 
 
 
-export class ReadBrandOrderOrders {status?: OrderStatusEnum | null | undefined;
-totalSalePrice?: OrderDirectionEnum | undefined;
-totalPurchasePrice?: OrderDirectionEnum | undefined;
-shippingFees?: OrderDirectionEnum | undefined;
-rating?: OrderDirectionEnum | undefined;
-review?: OrderDirectionEnum | undefined;
-expectedDeliveryDate?: OrderDirectionEnum | undefined;
-acceptedAt?: OrderDirectionEnum | undefined;
-shippedAt?: OrderDirectionEnum | undefined;
-deliveredAt?: OrderDirectionEnum | undefined;
-cancelledAt?: OrderDirectionEnum | undefined;
-items?: ReadOrderItemOrders | OrderDirectionEnum | undefined;
-brand?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
-order?: ReadOrderOrders | OrderDirectionEnum | undefined;
-orderId?: OrderDirectionEnum | undefined;
-brandId?: OrderDirectionEnum | undefined}
+export class ReadBrandOrderOrders {status?: OrderStatusEnum | null;
+totalSalePrice?: OrderDirectionEnum;
+totalPurchasePrice?: OrderDirectionEnum;
+shippingFees?: OrderDirectionEnum;
+rating?: OrderDirectionEnum;
+review?: OrderDirectionEnum;
+expectedDeliveryDate?: OrderDirectionEnum;
+acceptedAt?: OrderDirectionEnum;
+shippedAt?: OrderDirectionEnum;
+deliveredAt?: OrderDirectionEnum;
+cancelledAt?: OrderDirectionEnum;
+items?: ReadOrderItemOrders | OrderDirectionEnum;
+brand?: ReadBrandProfileOrders | OrderDirectionEnum;
+order?: ReadOrderOrders | OrderDirectionEnum;
+orderId?: OrderDirectionEnum;
+brandId?: OrderDirectionEnum}
 
 const ReadBrandOrderOrdersSchema: v.GenericSchema<ReadBrandOrderOrders> = v.object({status: v.nullish(v.enum(OrderStatusEnum)),
-totalSalePrice: v.undefinedable(OrderDirectionSchema),
-totalPurchasePrice: v.undefinedable(OrderDirectionSchema),
-shippingFees: v.undefinedable(OrderDirectionSchema),
-rating: v.undefinedable(OrderDirectionSchema),
-review: v.undefinedable(OrderDirectionSchema),
-expectedDeliveryDate: v.undefinedable(OrderDirectionSchema),
-acceptedAt: v.undefinedable(OrderDirectionSchema),
-shippedAt: v.undefinedable(OrderDirectionSchema),
-deliveredAt: v.undefinedable(OrderDirectionSchema),
-cancelledAt: v.undefinedable(OrderDirectionSchema),
-items: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderItemOrdersSchema)])),
-brand: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
-order: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderOrdersSchema)])),
-orderId: v.undefinedable(OrderDirectionSchema),
-brandId: v.undefinedable(OrderDirectionSchema)});
+totalSalePrice: v.optional(OrderDirectionSchema),
+totalPurchasePrice: v.optional(OrderDirectionSchema),
+shippingFees: v.optional(OrderDirectionSchema),
+rating: v.optional(OrderDirectionSchema),
+review: v.optional(OrderDirectionSchema),
+expectedDeliveryDate: v.optional(OrderDirectionSchema),
+acceptedAt: v.optional(OrderDirectionSchema),
+shippedAt: v.optional(OrderDirectionSchema),
+deliveredAt: v.optional(OrderDirectionSchema),
+cancelledAt: v.optional(OrderDirectionSchema),
+items: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderItemOrdersSchema)])),
+brand: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
+order: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadOrderOrdersSchema)])),
+orderId: v.optional(OrderDirectionSchema),
+brandId: v.optional(OrderDirectionSchema)});
 
 export default ReadBrandOrderOrdersSchema;
 

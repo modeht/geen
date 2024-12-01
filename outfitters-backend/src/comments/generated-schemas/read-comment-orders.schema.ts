@@ -8,27 +8,27 @@ import ReadMessageOrdersSchema, { ReadMessageOrders } from '../../messages/gener
 
 
 
-export class ReadCommentOrders {content?: OrderDirectionEnum | undefined;
-commentor?: ReadUserOrders | OrderDirectionEnum | undefined;
-post?: ReadPostOrders | OrderDirectionEnum | undefined;
-level?: OrderDirectionEnum | undefined;
-notifications?: ReadNotificationOrders | OrderDirectionEnum | undefined;
-messages?: ReadMessageOrders | OrderDirectionEnum | undefined;
-userId?: OrderDirectionEnum | undefined;
-replyToId?: OrderDirectionEnum | undefined;
-postId?: OrderDirectionEnum | undefined;
-repliesDepth?: OrderDirectionEnum | undefined}
+export class ReadCommentOrders {content?: OrderDirectionEnum;
+commentor?: ReadUserOrders | OrderDirectionEnum;
+post?: ReadPostOrders | OrderDirectionEnum;
+level?: OrderDirectionEnum;
+notifications?: ReadNotificationOrders | OrderDirectionEnum;
+messages?: ReadMessageOrders | OrderDirectionEnum;
+userId?: OrderDirectionEnum;
+replyToId?: OrderDirectionEnum;
+postId?: OrderDirectionEnum;
+repliesDepth?: OrderDirectionEnum}
 
-const ReadCommentOrdersSchema: v.GenericSchema<ReadCommentOrders> = v.object({content: v.undefinedable(OrderDirectionSchema),
-commentor: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
-post: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
-level: v.undefinedable(OrderDirectionSchema),
-notifications: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadNotificationOrdersSchema)])),
-messages: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
-userId: v.undefinedable(OrderDirectionSchema),
-replyToId: v.undefinedable(OrderDirectionSchema),
-postId: v.undefinedable(OrderDirectionSchema),
-repliesDepth: v.undefinedable(OrderDirectionSchema)});
+const ReadCommentOrdersSchema: v.GenericSchema<ReadCommentOrders> = v.object({content: v.optional(OrderDirectionSchema),
+commentor: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUserOrdersSchema)])),
+post: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadPostOrdersSchema)])),
+level: v.optional(OrderDirectionSchema),
+notifications: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadNotificationOrdersSchema)])),
+messages: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMessageOrdersSchema)])),
+userId: v.optional(OrderDirectionSchema),
+replyToId: v.optional(OrderDirectionSchema),
+postId: v.optional(OrderDirectionSchema),
+repliesDepth: v.optional(OrderDirectionSchema)});
 
 export default ReadCommentOrdersSchema;
 

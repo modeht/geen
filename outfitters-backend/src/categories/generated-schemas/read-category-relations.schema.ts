@@ -7,39 +7,39 @@ import ReadSeasonalPromotionRelationsSchema, { ReadSeasonalPromotionRelations } 
 
 
 
-export class ReadCategoryRelations {media?: ReadMediaRelations | string | boolean | undefined;
-subCategories?: ReadCategoryRelations | string | boolean | undefined;
-superCategory?: ReadCategoryRelations | string | boolean | undefined;
-products?: ReadProductRelations | string | boolean | undefined;
-categorybrandProfiles?: ReadBrandProfileRelations | string | boolean | undefined;
-subCategoriesBrandProfiles?: ReadBrandProfileRelations | string | boolean | undefined;
-seasonalPromotions?: ReadSeasonalPromotionRelations | string | boolean | undefined}
+export class ReadCategoryRelations {media?: ReadMediaRelations | string | boolean;
+subCategories?: ReadCategoryRelations | string | boolean;
+superCategory?: ReadCategoryRelations | string | boolean;
+products?: ReadProductRelations | string | boolean;
+categorybrandProfiles?: ReadBrandProfileRelations | string | boolean;
+subCategoriesBrandProfiles?: ReadBrandProfileRelations | string | boolean;
+seasonalPromotions?: ReadSeasonalPromotionRelations | string | boolean}
 
-const ReadCategoryRelationsSchema: v.GenericSchema<ReadCategoryRelations> = v.object({media: v.undefinedable(v.union([v.pipe(
+const ReadCategoryRelationsSchema: v.GenericSchema<ReadCategoryRelations> = v.object({media: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
-subCategories: v.undefinedable(v.union([v.pipe(
+subCategories: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCategoryRelationsSchema)])),
-superCategory: v.undefinedable(v.union([v.pipe(
+superCategory: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCategoryRelationsSchema)])),
-products: v.undefinedable(v.union([v.pipe(
+products: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)])),
-categorybrandProfiles: v.undefinedable(v.union([v.pipe(
+categorybrandProfiles: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadBrandProfileRelationsSchema)])),
-subCategoriesBrandProfiles: v.undefinedable(v.union([v.pipe(
+subCategoriesBrandProfiles: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadBrandProfileRelationsSchema)])),
-seasonalPromotions: v.undefinedable(v.union([v.pipe(
+seasonalPromotions: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadSeasonalPromotionRelationsSchema)]))});

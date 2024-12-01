@@ -5,10 +5,10 @@ import ReadRecentSearchesFiltersSchema from './read-recent-searches-filters.sche
 import ReadRecentSearchesRelationsSchema from './read-recent-searches-relations.schema';
 import ReadRecentSearchesOrdersSchema from './read-recent-searches-orders.schema';
 const ReadRecentSearchesSchema = v.optional(v.object({
-filters: v.undefinedable(ReadRecentSearchesFiltersSchema),
-relations: v.undefinedable(ReadRecentSearchesRelationsSchema),
-orders: v.undefinedable(ReadRecentSearchesOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadRecentSearchesFiltersSchema),
+relations: v.optional(ReadRecentSearchesRelationsSchema),
+orders: v.optional(ReadRecentSearchesOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadRecentSearchesSchema;
 export type TReadRecentSearchesSchemaInput = v.InferInput<typeof ReadRecentSearchesSchema>;

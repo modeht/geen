@@ -5,12 +5,12 @@ import ReadCategoryFiltersSchema, { ReadCategoryFiltersSchemaFilters } from '../
 
 
 import { PromotionStatusEnum } from '../entities/enums'
-export class ReadSeasonalPromotionFiltersSchemaFilters {title?: GenericComparable<"string"> | null | undefined;
-start?: GenericComparable<"date"> | null | undefined;
-end?: GenericComparable<"date"> | null | undefined;
-status?: PromotionStatusEnum | null | undefined;
-promotions?: ReadPromotionFiltersSchemaFilters | null | undefined;
-subCategories?: ReadCategoryFiltersSchemaFilters | null | undefined}
+export class ReadSeasonalPromotionFiltersSchemaFilters {title?: GenericComparable<"string"> | null;
+start?: GenericComparable<"date"> | null;
+end?: GenericComparable<"date"> | null;
+status?: PromotionStatusEnum | null;
+promotions?: ReadPromotionFiltersSchemaFilters | null;
+subCategories?: ReadCategoryFiltersSchemaFilters | null}
 
 const ReadSeasonalPromotionFiltersSchema: v.GenericSchema<ReadSeasonalPromotionFiltersSchemaFilters> = v.object({title: v.nullish(comparable("string")),
 start: v.nullish(comparable("date")),

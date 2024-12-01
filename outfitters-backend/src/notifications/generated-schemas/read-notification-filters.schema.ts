@@ -9,19 +9,19 @@ import ReadProductFiltersSchema, { ReadProductFiltersSchemaFilters } from '../..
 
 
 
-export class ReadNotificationFiltersSchemaFilters {type?: NotificationType | null | undefined;
-customContent?: GenericComparable<"string"> | null | undefined;
-isRead?: GenericComparable<"bool"> | null | undefined;
-user?: ReadUserFiltersSchemaFilters | null | undefined;
-collaboration?: ReadCollaborationFiltersSchemaFilters | null | undefined;
-comment?: ReadCommentFiltersSchemaFilters | null | undefined;
-promotion?: ReadPromotionFiltersSchemaFilters | null | undefined;
-product?: ReadProductFiltersSchemaFilters | null | undefined;
-userId?: GenericComparable<"number"> | null | undefined;
-collaborationId?: GenericComparable<"number"> | null | undefined;
-commentId?: GenericComparable<"number"> | null | undefined;
-promotionId?: GenericComparable<"number"> | null | undefined;
-productId?: GenericComparable<"number"> | null | undefined}
+export class ReadNotificationFiltersSchemaFilters {type?: NotificationType | null;
+customContent?: GenericComparable<"string"> | null;
+isRead?: GenericComparable<"bool"> | null;
+user?: ReadUserFiltersSchemaFilters | null;
+collaboration?: ReadCollaborationFiltersSchemaFilters | null;
+comment?: ReadCommentFiltersSchemaFilters | null;
+promotion?: ReadPromotionFiltersSchemaFilters | null;
+product?: ReadProductFiltersSchemaFilters | null;
+userId?: GenericComparable<"number"> | null;
+collaborationId?: GenericComparable<"number"> | null;
+commentId?: GenericComparable<"number"> | null;
+promotionId?: GenericComparable<"number"> | null;
+productId?: GenericComparable<"number"> | null}
 
 const ReadNotificationFiltersSchema: v.GenericSchema<ReadNotificationFiltersSchemaFilters> = v.object({type: v.nullish(v.enum(NotificationType)),
 customContent: v.nullish(comparable("string")),

@@ -5,10 +5,10 @@ import ReadConversationFiltersSchema from './read-conversation-filters.schema';
 import ReadConversationRelationsSchema from './read-conversation-relations.schema';
 import ReadConversationOrdersSchema from './read-conversation-orders.schema';
 const ReadConversationSchema = v.optional(v.object({
-filters: v.undefinedable(ReadConversationFiltersSchema),
-relations: v.undefinedable(ReadConversationRelationsSchema),
-orders: v.undefinedable(ReadConversationOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadConversationFiltersSchema),
+relations: v.optional(ReadConversationRelationsSchema),
+orders: v.optional(ReadConversationOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadConversationSchema;
 export type TReadConversationSchemaInput = v.InferInput<typeof ReadConversationSchema>;

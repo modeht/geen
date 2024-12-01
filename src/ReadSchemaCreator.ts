@@ -138,10 +138,10 @@ ${importsText}\n
 ${relativePaths.join(';\n')};\n`;
 
 		const schema = `const Read${this.entityName}Schema = v.optional(v.object({
-filters: v.undefinedable(${files[0]['schemaName']}),
-relations: v.undefinedable(${files[1]['schemaName']}),
-orders: v.undefinedable(${files[2]['schemaName']}),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(${files[0]['schemaName']}),
+relations: v.optional(${files[1]['schemaName']}),
+orders: v.optional(${files[2]['schemaName']}),
+pagination: v.optional(ReadPaginationSchema),
 }));\n`;
 		file += schema;
 		file += `export default Read${this.entityName}Schema;\n`;

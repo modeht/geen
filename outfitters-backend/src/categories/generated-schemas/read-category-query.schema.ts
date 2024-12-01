@@ -5,10 +5,10 @@ import ReadCategoryFiltersSchema from './read-category-filters.schema';
 import ReadCategoryRelationsSchema from './read-category-relations.schema';
 import ReadCategoryOrdersSchema from './read-category-orders.schema';
 const ReadCategorySchema = v.optional(v.object({
-filters: v.undefinedable(ReadCategoryFiltersSchema),
-relations: v.undefinedable(ReadCategoryRelationsSchema),
-orders: v.undefinedable(ReadCategoryOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadCategoryFiltersSchema),
+relations: v.optional(ReadCategoryRelationsSchema),
+orders: v.optional(ReadCategoryOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadCategorySchema;
 export type TReadCategorySchemaInput = v.InferInput<typeof ReadCategorySchema>;

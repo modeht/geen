@@ -5,10 +5,10 @@ import ReadShopperProfileFiltersSchema from './read-shopper-profile-filters.sche
 import ReadShopperProfileRelationsSchema from './read-shopper-profile-relations.schema';
 import ReadShopperProfileOrdersSchema from './read-shopper-profile-orders.schema';
 const ReadShopperProfileSchema = v.optional(v.object({
-filters: v.undefinedable(ReadShopperProfileFiltersSchema),
-relations: v.undefinedable(ReadShopperProfileRelationsSchema),
-orders: v.undefinedable(ReadShopperProfileOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadShopperProfileFiltersSchema),
+relations: v.optional(ReadShopperProfileRelationsSchema),
+orders: v.optional(ReadShopperProfileOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadShopperProfileSchema;
 export type TReadShopperProfileSchemaInput = v.InferInput<typeof ReadShopperProfileSchema>;

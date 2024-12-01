@@ -7,14 +7,14 @@ import ReadAffiliationLinkFiltersSchema, { ReadAffiliationLinkFiltersSchemaFilte
 
 
 
-export class ReadTaggedProductFiltersSchemaFilters {product?: ReadProductFiltersSchemaFilters | null | undefined;
-post?: ReadPostFiltersSchemaFilters | null | undefined;
-story?: ReadStoryFiltersSchemaFilters | null | undefined;
-affiliationLink?: ReadAffiliationLinkFiltersSchemaFilters | null | undefined;
-productId?: GenericComparable<"number"> | null | undefined;
-postId?: GenericComparable<"number"> | null | undefined;
-storyId?: GenericComparable<"number"> | null | undefined;
-affiliationLinkId?: GenericComparable<"number"> | null | undefined}
+export class ReadTaggedProductFiltersSchemaFilters {product?: ReadProductFiltersSchemaFilters | null;
+post?: ReadPostFiltersSchemaFilters | null;
+story?: ReadStoryFiltersSchemaFilters | null;
+affiliationLink?: ReadAffiliationLinkFiltersSchemaFilters | null;
+productId?: GenericComparable<"number"> | null;
+postId?: GenericComparable<"number"> | null;
+storyId?: GenericComparable<"number"> | null;
+affiliationLinkId?: GenericComparable<"number"> | null}
 
 const ReadTaggedProductFiltersSchema: v.GenericSchema<ReadTaggedProductFiltersSchemaFilters> = v.object({product: v.nullish(v.lazy(() => ReadProductFiltersSchema)),
 post: v.nullish(v.lazy(() => ReadPostFiltersSchema)),

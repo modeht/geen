@@ -5,10 +5,10 @@ import ReadRefundFiltersSchema from './read-refund-filters.schema';
 import ReadRefundRelationsSchema from './read-refund-relations.schema';
 import ReadRefundOrdersSchema from './read-refund-orders.schema';
 const ReadRefundSchema = v.optional(v.object({
-filters: v.undefinedable(ReadRefundFiltersSchema),
-relations: v.undefinedable(ReadRefundRelationsSchema),
-orders: v.undefinedable(ReadRefundOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadRefundFiltersSchema),
+relations: v.optional(ReadRefundRelationsSchema),
+orders: v.optional(ReadRefundOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadRefundSchema;
 export type TReadRefundSchemaInput = v.InferInput<typeof ReadRefundSchema>;

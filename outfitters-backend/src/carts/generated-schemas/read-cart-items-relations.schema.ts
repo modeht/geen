@@ -7,24 +7,24 @@ import ReadAffiliationLinkRelationsSchema, { ReadAffiliationLinkRelations } from
 
 
 
-export class ReadCartItemsRelations {cart?: ReadCartRelations | string | boolean | undefined;
-product?: ReadProductRelations | string | boolean | undefined;
-variant?: ReadProductVariantRelations | string | boolean | undefined;
-affiliationLink?: ReadAffiliationLinkRelations | string | boolean | undefined}
+export class ReadCartItemsRelations {cart?: ReadCartRelations | string | boolean;
+product?: ReadProductRelations | string | boolean;
+variant?: ReadProductVariantRelations | string | boolean;
+affiliationLink?: ReadAffiliationLinkRelations | string | boolean}
 
-const ReadCartItemsRelationsSchema: v.GenericSchema<ReadCartItemsRelations> = v.object({cart: v.undefinedable(v.union([v.pipe(
+const ReadCartItemsRelationsSchema: v.GenericSchema<ReadCartItemsRelations> = v.object({cart: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCartRelationsSchema)])),
-product: v.undefinedable(v.union([v.pipe(
+product: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)])),
-variant: v.undefinedable(v.union([v.pipe(
+variant: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductVariantRelationsSchema)])),
-affiliationLink: v.undefinedable(v.union([v.pipe(
+affiliationLink: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadAffiliationLinkRelationsSchema)]))});

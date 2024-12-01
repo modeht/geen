@@ -19,39 +19,39 @@ import ReadSavedCollectionItemFiltersSchema, { ReadSavedCollectionItemFiltersSch
 
 
 
-export class ReadProductFiltersSchemaFilters {isArchived?: GenericComparable<"bool"> | null | undefined;
-title?: GenericComparable<"string"> | null | undefined;
-description?: GenericComparable<"string"> | null | undefined;
-basePrice?: GenericComparable<"number"> | null | undefined;
-sku?: GenericComparable<"string"> | null | undefined;
-currency?: GenericComparable<"string"> | null | undefined;
-stock?: GenericComparable<"number"> | null | undefined;
-lastStockUpdate?: GenericComparable<"date"> | null | undefined;
-isOutOfStock?: GenericComparable<"bool"> | null | undefined;
-isFeatured?: GenericComparable<"bool"> | null | undefined;
-deliveryEstimationInDays?: GenericComparable<"number"> | null | undefined;
-media?: ReadMediaFiltersSchemaFilters | null | undefined;
-variants?: ReadProductVariantFiltersSchemaFilters | null | undefined;
-options?: ReadProductOptionFiltersSchemaFilters | null | undefined;
-ratings?: ReadProductReviewFiltersSchemaFilters | null | undefined;
-taggedIn?: ReadTaggedProductFiltersSchemaFilters | null | undefined;
-affiliationLinks?: ReadAffiliationLinkFiltersSchemaFilters | null | undefined;
-notifications?: ReadNotificationFiltersSchemaFilters | null | undefined;
-orderItems?: ReadOrderItemFiltersSchemaFilters | null | undefined;
-messages?: ReadMessageFiltersSchemaFilters | null | undefined;
-brand?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
-category?: ReadCategoryFiltersSchemaFilters | null | undefined;
-subCategory?: ReadCategoryFiltersSchemaFilters | null | undefined;
-collections?: ReadCollectionFiltersSchemaFilters | null | undefined;
-carts?: ReadCartItemsFiltersSchemaFilters | null | undefined;
-promotions?: ReadPromotionFiltersSchemaFilters | null | undefined;
-promoCodes?: ReadPromoCodeFiltersSchemaFilters | null | undefined;
-savedInCollections?: ReadSavedCollectionItemFiltersSchemaFilters | null | undefined;
-brandId?: GenericComparable<"number"> | null | undefined;
-categoryId?: GenericComparable<"number"> | null | undefined;
-subCategoryId?: GenericComparable<"number"> | null | undefined;
-averageRating?: GenericComparable<"number"> | null | undefined;
-isSaved?: GenericComparable<"bool"> | null | undefined}
+export class ReadProductFiltersSchemaFilters {isArchived?: GenericComparable<"bool"> | null;
+title?: GenericComparable<"string"> | null;
+description?: GenericComparable<"string"> | null;
+basePrice?: GenericComparable<"number"> | null;
+sku?: GenericComparable<"string"> | null;
+currency?: GenericComparable<"string"> | null;
+stock?: GenericComparable<"number"> | null;
+lastStockUpdate?: GenericComparable<"date"> | null;
+isOutOfStock?: GenericComparable<"bool"> | null;
+isFeatured?: GenericComparable<"bool"> | null;
+deliveryEstimationInDays?: GenericComparable<"number"> | null;
+media?: ReadMediaFiltersSchemaFilters | null;
+variants?: ReadProductVariantFiltersSchemaFilters | null;
+options?: ReadProductOptionFiltersSchemaFilters | null;
+ratings?: ReadProductReviewFiltersSchemaFilters | null;
+taggedIn?: ReadTaggedProductFiltersSchemaFilters | null;
+affiliationLinks?: ReadAffiliationLinkFiltersSchemaFilters | null;
+notifications?: ReadNotificationFiltersSchemaFilters | null;
+orderItems?: ReadOrderItemFiltersSchemaFilters | null;
+messages?: ReadMessageFiltersSchemaFilters | null;
+brand?: ReadBrandProfileFiltersSchemaFilters | null;
+category?: ReadCategoryFiltersSchemaFilters | null;
+subCategory?: ReadCategoryFiltersSchemaFilters | null;
+collections?: ReadCollectionFiltersSchemaFilters | null;
+carts?: ReadCartItemsFiltersSchemaFilters | null;
+promotions?: ReadPromotionFiltersSchemaFilters | null;
+promoCodes?: ReadPromoCodeFiltersSchemaFilters | null;
+savedInCollections?: ReadSavedCollectionItemFiltersSchemaFilters | null;
+brandId?: GenericComparable<"number"> | null;
+categoryId?: GenericComparable<"number"> | null;
+subCategoryId?: GenericComparable<"number"> | null;
+averageRating?: GenericComparable<"number"> | null;
+isSaved?: GenericComparable<"bool"> | null}
 
 const ReadProductFiltersSchema: v.GenericSchema<ReadProductFiltersSchemaFilters> = v.object({isArchived: v.nullish(comparable("bool")),
 title: v.nullish(comparable("string")),

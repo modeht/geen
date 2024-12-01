@@ -5,14 +5,14 @@ import ReadUserRelationsSchema, { ReadUserRelations } from '../../users/generate
 
 
 
-export class ReadAffiliationLinkTrackingRelations {affiliationLink?: ReadAffiliationLinkRelations | string | boolean | undefined;
-user?: ReadUserRelations | string | boolean | undefined}
+export class ReadAffiliationLinkTrackingRelations {affiliationLink?: ReadAffiliationLinkRelations | string | boolean;
+user?: ReadUserRelations | string | boolean}
 
-const ReadAffiliationLinkTrackingRelationsSchema: v.GenericSchema<ReadAffiliationLinkTrackingRelations> = v.object({affiliationLink: v.undefinedable(v.union([v.pipe(
+const ReadAffiliationLinkTrackingRelationsSchema: v.GenericSchema<ReadAffiliationLinkTrackingRelations> = v.object({affiliationLink: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadAffiliationLinkRelationsSchema)])),
-user: v.undefinedable(v.union([v.pipe(
+user: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)]))});

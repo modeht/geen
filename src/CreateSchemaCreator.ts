@@ -292,7 +292,7 @@ export type TCreate${this.entityName}SchemaOutput = v.InferOutput<typeof ${this.
 		if (undefindable && nullable) {
 			field = `v.nullish(${field})`;
 		} else if (undefindable && !nullable) {
-			field = `v.undefinedable(${field})`;
+			field = `v.optional(${field})`;
 		} else if (nullable && !undefindable) {
 			field = `v.nullish(${field})`;
 		}

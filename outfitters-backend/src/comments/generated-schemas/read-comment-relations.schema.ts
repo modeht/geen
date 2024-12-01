@@ -7,24 +7,24 @@ import ReadMessageRelationsSchema, { ReadMessageRelations } from '../../messages
 
 
 
-export class ReadCommentRelations {commentor?: ReadUserRelations | string | boolean | undefined;
-post?: ReadPostRelations | string | boolean | undefined;
-notifications?: ReadNotificationRelations | string | boolean | undefined;
-messages?: ReadMessageRelations | string | boolean | undefined}
+export class ReadCommentRelations {commentor?: ReadUserRelations | string | boolean;
+post?: ReadPostRelations | string | boolean;
+notifications?: ReadNotificationRelations | string | boolean;
+messages?: ReadMessageRelations | string | boolean}
 
-const ReadCommentRelationsSchema: v.GenericSchema<ReadCommentRelations> = v.object({commentor: v.undefinedable(v.union([v.pipe(
+const ReadCommentRelationsSchema: v.GenericSchema<ReadCommentRelations> = v.object({commentor: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
-post: v.undefinedable(v.union([v.pipe(
+post: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPostRelationsSchema)])),
-notifications: v.undefinedable(v.union([v.pipe(
+notifications: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadNotificationRelationsSchema)])),
-messages: v.undefinedable(v.union([v.pipe(
+messages: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMessageRelationsSchema)]))});

@@ -5,14 +5,14 @@ import ReadBrandProfileRelationsSchema, { ReadBrandProfileRelations } from '../.
 
 
 
-export class ReadCountryRelations {icon?: ReadMediaRelations | string | boolean | undefined;
-brands?: ReadBrandProfileRelations | string | boolean | undefined}
+export class ReadCountryRelations {icon?: ReadMediaRelations | string | boolean;
+brands?: ReadBrandProfileRelations | string | boolean}
 
-const ReadCountryRelationsSchema: v.GenericSchema<ReadCountryRelations> = v.object({icon: v.undefinedable(v.union([v.pipe(
+const ReadCountryRelationsSchema: v.GenericSchema<ReadCountryRelations> = v.object({icon: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMediaRelationsSchema)])),
-brands: v.undefinedable(v.union([v.pipe(
+brands: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadBrandProfileRelationsSchema)]))});

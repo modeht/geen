@@ -5,13 +5,13 @@ import ReadBrandProfileFiltersSchema, { ReadBrandProfileFiltersSchemaFilters } f
 
 
 
-export class ReadCountryFiltersSchemaFilters {name?: GenericComparable<"string"> | null | undefined;
-code?: GenericComparable<"string"> | null | undefined;
-dialCode?: GenericComparable<"string"> | null | undefined;
-isSupported?: GenericComparable<"bool"> | null | undefined;
-icon?: ReadMediaFiltersSchemaFilters | null | undefined;
-brands?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
-iconId?: GenericComparable<"number"> | null | undefined}
+export class ReadCountryFiltersSchemaFilters {name?: GenericComparable<"string"> | null;
+code?: GenericComparable<"string"> | null;
+dialCode?: GenericComparable<"string"> | null;
+isSupported?: GenericComparable<"bool"> | null;
+icon?: ReadMediaFiltersSchemaFilters | null;
+brands?: ReadBrandProfileFiltersSchemaFilters | null;
+iconId?: GenericComparable<"number"> | null}
 
 const ReadCountryFiltersSchema: v.GenericSchema<ReadCountryFiltersSchemaFilters> = v.object({name: v.nullish(comparable("string")),
 code: v.nullish(comparable("string")),

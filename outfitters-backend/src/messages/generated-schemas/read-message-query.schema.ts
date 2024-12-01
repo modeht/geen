@@ -5,10 +5,10 @@ import ReadMessageFiltersSchema from './read-message-filters.schema';
 import ReadMessageRelationsSchema from './read-message-relations.schema';
 import ReadMessageOrdersSchema from './read-message-orders.schema';
 const ReadMessageSchema = v.optional(v.object({
-filters: v.undefinedable(ReadMessageFiltersSchema),
-relations: v.undefinedable(ReadMessageRelationsSchema),
-orders: v.undefinedable(ReadMessageOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadMessageFiltersSchema),
+relations: v.optional(ReadMessageRelationsSchema),
+orders: v.optional(ReadMessageOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadMessageSchema;
 export type TReadMessageSchemaInput = v.InferInput<typeof ReadMessageSchema>;

@@ -75,9 +75,9 @@ export const comparable = <T extends 'string' | 'number' | 'bool' | 'date'>(type
 	return v.object({
 		$val:
 			type === 'string'
-				? v.nullable(v.string())
+				? v.optional(v.string())
 				: type === 'number'
-					? v.nullable(
+					? v.optional(
 							v.pipe(
 								v.union([v.string(), v.number()]),
 								v.transform((input) => +input),
@@ -85,7 +85,7 @@ export const comparable = <T extends 'string' | 'number' | 'bool' | 'date'>(type
 							),
 						)
 					: type === 'bool'
-						? v.nullable(
+						? v.optional(
 								v.pipe(
 									v.union([v.string(), v.boolean()]),
 									v.transform((input) => (input === 'true' ? true : false)),
@@ -93,7 +93,7 @@ export const comparable = <T extends 'string' | 'number' | 'bool' | 'date'>(type
 								),
 							)
 						: type === 'date'
-							? v.nullable(
+							? v.optional(
 									v.pipe(
 										v.string('Invalid type: Expected ISO timestamp string'),
 										v.isoTimestamp(),

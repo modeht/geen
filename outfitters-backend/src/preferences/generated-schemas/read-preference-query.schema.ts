@@ -5,10 +5,10 @@ import ReadPreferenceFiltersSchema from './read-preference-filters.schema';
 import ReadPreferenceRelationsSchema from './read-preference-relations.schema';
 import ReadPreferenceOrdersSchema from './read-preference-orders.schema';
 const ReadPreferenceSchema = v.optional(v.object({
-filters: v.undefinedable(ReadPreferenceFiltersSchema),
-relations: v.undefinedable(ReadPreferenceRelationsSchema),
-orders: v.undefinedable(ReadPreferenceOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadPreferenceFiltersSchema),
+relations: v.optional(ReadPreferenceRelationsSchema),
+orders: v.optional(ReadPreferenceOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadPreferenceSchema;
 export type TReadPreferenceSchemaInput = v.InferInput<typeof ReadPreferenceSchema>;

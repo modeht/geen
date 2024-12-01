@@ -5,19 +5,19 @@ import ReadMessageRelationsSchema, { ReadMessageRelations } from '../../messages
 
 
 
-export class ReadConversationRelations {from?: ReadUserRelations | string | boolean | undefined;
-to?: ReadUserRelations | string | boolean | undefined;
-messages?: ReadMessageRelations | string | boolean | undefined}
+export class ReadConversationRelations {from?: ReadUserRelations | string | boolean;
+to?: ReadUserRelations | string | boolean;
+messages?: ReadMessageRelations | string | boolean}
 
-const ReadConversationRelationsSchema: v.GenericSchema<ReadConversationRelations> = v.object({from: v.undefinedable(v.union([v.pipe(
+const ReadConversationRelationsSchema: v.GenericSchema<ReadConversationRelations> = v.object({from: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
-to: v.undefinedable(v.union([v.pipe(
+to: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadUserRelationsSchema)])),
-messages: v.undefinedable(v.union([v.pipe(
+messages: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadMessageRelationsSchema)]))});

@@ -6,11 +6,11 @@ import ReadShopperProfileFiltersSchema, { ReadShopperProfileFiltersSchemaFilters
 
 
 
-export class ReadPreferenceFiltersSchemaFilters {media?: ReadMediaFiltersSchemaFilters | null | undefined;
-name?: GenericComparable<"string"> | null | undefined;
-brandProfile?: ReadBrandProfileFiltersSchemaFilters | null | undefined;
-shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null | undefined;
-mediaId?: GenericComparable<"number"> | null | undefined}
+export class ReadPreferenceFiltersSchemaFilters {media?: ReadMediaFiltersSchemaFilters | null;
+name?: GenericComparable<"string"> | null;
+brandProfile?: ReadBrandProfileFiltersSchemaFilters | null;
+shopperProfile?: ReadShopperProfileFiltersSchemaFilters | null;
+mediaId?: GenericComparable<"number"> | null}
 
 const ReadPreferenceFiltersSchema: v.GenericSchema<ReadPreferenceFiltersSchemaFilters> = v.object({media: v.nullish(v.lazy(() => ReadMediaFiltersSchema)),
 name: v.nullish(comparable("string")),

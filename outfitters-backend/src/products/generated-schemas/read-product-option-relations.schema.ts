@@ -5,14 +5,14 @@ import ReadProductOptionValueRelationsSchema, { ReadProductOptionValueRelations 
 
 
 
-export class ReadProductOptionRelations {product?: ReadProductRelations | string | boolean | undefined;
-values?: ReadProductOptionValueRelations | string | boolean | undefined}
+export class ReadProductOptionRelations {product?: ReadProductRelations | string | boolean;
+values?: ReadProductOptionValueRelations | string | boolean}
 
-const ReadProductOptionRelationsSchema: v.GenericSchema<ReadProductOptionRelations> = v.object({product: v.undefinedable(v.union([v.pipe(
+const ReadProductOptionRelationsSchema: v.GenericSchema<ReadProductOptionRelations> = v.object({product: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductRelationsSchema)])),
-values: v.undefinedable(v.union([v.pipe(
+values: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadProductOptionValueRelationsSchema)]))});

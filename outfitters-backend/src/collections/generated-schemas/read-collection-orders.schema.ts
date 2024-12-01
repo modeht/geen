@@ -7,21 +7,21 @@ import ReadProductOrdersSchema, { ReadProductOrders } from '../../products/gener
 
 
 
-export class ReadCollectionOrders {name?: OrderDirectionEnum | undefined;
-isFeatured?: OrderDirectionEnum | undefined;
-isPublic?: OrderDirectionEnum | undefined;
-cover?: ReadMediaOrders | OrderDirectionEnum | undefined;
-brand?: ReadBrandProfileOrders | OrderDirectionEnum | undefined;
-products?: ReadProductOrders | OrderDirectionEnum | undefined;
-brandId?: OrderDirectionEnum | undefined}
+export class ReadCollectionOrders {name?: OrderDirectionEnum;
+isFeatured?: OrderDirectionEnum;
+isPublic?: OrderDirectionEnum;
+cover?: ReadMediaOrders | OrderDirectionEnum;
+brand?: ReadBrandProfileOrders | OrderDirectionEnum;
+products?: ReadProductOrders | OrderDirectionEnum;
+brandId?: OrderDirectionEnum}
 
-const ReadCollectionOrdersSchema: v.GenericSchema<ReadCollectionOrders> = v.object({name: v.undefinedable(OrderDirectionSchema),
-isFeatured: v.undefinedable(OrderDirectionSchema),
-isPublic: v.undefinedable(OrderDirectionSchema),
-cover: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
-brand: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
-products: v.undefinedable(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
-brandId: v.undefinedable(OrderDirectionSchema)});
+const ReadCollectionOrdersSchema: v.GenericSchema<ReadCollectionOrders> = v.object({name: v.optional(OrderDirectionSchema),
+isFeatured: v.optional(OrderDirectionSchema),
+isPublic: v.optional(OrderDirectionSchema),
+cover: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadMediaOrdersSchema)])),
+brand: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadBrandProfileOrdersSchema)])),
+products: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductOrdersSchema)])),
+brandId: v.optional(OrderDirectionSchema)});
 
 export default ReadCollectionOrdersSchema;
 

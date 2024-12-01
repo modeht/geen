@@ -14,33 +14,33 @@ import ReadPromoCodeFiltersSchema, { ReadPromoCodeFiltersSchemaFilters } from '.
 
 
 
-export class ReadShopperProfileFiltersSchemaFilters {username?: GenericComparable<"string"> | null | undefined;
-fullName?: GenericComparable<"string"> | null | undefined;
-dateOfBirth?: GenericComparable<"date"> | null | undefined;
-bio?: GenericComparable<"string"> | null | undefined;
-gender?: GenderEnum | null | undefined;
-onboardingStep?: GenericComparable<"number"> | null | undefined;
-facebookProfileLink?: GenericComparable<"string"> | null | undefined;
-instagramProfileLink?: GenericComparable<"string"> | null | undefined;
-tiktokProfileLink?: GenericComparable<"string"> | null | undefined;
-isOutfitter?: GenericComparable<"bool"> | null | undefined;
-user?: ReadUserFiltersSchemaFilters | null | undefined;
-reviews?: ReadProductReviewFiltersSchemaFilters | null | undefined;
-addresses?: ReadShippingAddressFiltersSchemaFilters | null | undefined;
-profilePicture?: ReadMediaFiltersSchemaFilters | null | undefined;
-carts?: ReadCartFiltersSchemaFilters | null | undefined;
-orders?: ReadOrderFiltersSchemaFilters | null | undefined;
-preferences?: ReadPreferenceFiltersSchemaFilters | null | undefined;
-collaborations?: ReadCollaborationFiltersSchemaFilters | null | undefined;
-affiliationLinks?: ReadAffiliationLinkFiltersSchemaFilters | null | undefined;
-promoCodes?: ReadPromoCodeFiltersSchemaFilters | null | undefined;
-isFollowing?: GenericComparable<"bool"> | null | undefined;
-hasStory?: GenericComparable<"bool"> | null | undefined;
-followersCount?: GenericComparable<"number"> | null | undefined;
-followingCount?: GenericComparable<"number"> | null | undefined;
-postsCount?: GenericComparable<"number"> | null | undefined;
-brandsCount?: GenericComparable<"number"> | null | undefined;
-engagementCount?: GenericComparable<"number"> | null | undefined}
+export class ReadShopperProfileFiltersSchemaFilters {username?: GenericComparable<"string"> | null;
+fullName?: GenericComparable<"string"> | null;
+dateOfBirth?: GenericComparable<"date"> | null;
+bio?: GenericComparable<"string"> | null;
+gender?: GenderEnum | null;
+onboardingStep?: GenericComparable<"number"> | null;
+facebookProfileLink?: GenericComparable<"string"> | null;
+instagramProfileLink?: GenericComparable<"string"> | null;
+tiktokProfileLink?: GenericComparable<"string"> | null;
+isOutfitter?: GenericComparable<"bool"> | null;
+user?: ReadUserFiltersSchemaFilters | null;
+reviews?: ReadProductReviewFiltersSchemaFilters | null;
+addresses?: ReadShippingAddressFiltersSchemaFilters | null;
+profilePicture?: ReadMediaFiltersSchemaFilters | null;
+carts?: ReadCartFiltersSchemaFilters | null;
+orders?: ReadOrderFiltersSchemaFilters | null;
+preferences?: ReadPreferenceFiltersSchemaFilters | null;
+collaborations?: ReadCollaborationFiltersSchemaFilters | null;
+affiliationLinks?: ReadAffiliationLinkFiltersSchemaFilters | null;
+promoCodes?: ReadPromoCodeFiltersSchemaFilters | null;
+isFollowing?: GenericComparable<"bool"> | null;
+hasStory?: GenericComparable<"bool"> | null;
+followersCount?: GenericComparable<"number"> | null;
+followingCount?: GenericComparable<"number"> | null;
+postsCount?: GenericComparable<"number"> | null;
+brandsCount?: GenericComparable<"number"> | null;
+engagementCount?: GenericComparable<"number"> | null}
 
 const ReadShopperProfileFiltersSchema: v.GenericSchema<ReadShopperProfileFiltersSchemaFilters> = v.object({username: v.nullish(comparable("string")),
 fullName: v.nullish(comparable("string")),

@@ -5,10 +5,10 @@ import ReadAffiliationLinkTrackingFiltersSchema from './read-affiliation-link-tr
 import ReadAffiliationLinkTrackingRelationsSchema from './read-affiliation-link-tracking-relations.schema';
 import ReadAffiliationLinkTrackingOrdersSchema from './read-affiliation-link-tracking-orders.schema';
 const ReadAffiliationLinkTrackingSchema = v.optional(v.object({
-filters: v.undefinedable(ReadAffiliationLinkTrackingFiltersSchema),
-relations: v.undefinedable(ReadAffiliationLinkTrackingRelationsSchema),
-orders: v.undefinedable(ReadAffiliationLinkTrackingOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadAffiliationLinkTrackingFiltersSchema),
+relations: v.optional(ReadAffiliationLinkTrackingRelationsSchema),
+orders: v.optional(ReadAffiliationLinkTrackingOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadAffiliationLinkTrackingSchema;
 export type TReadAffiliationLinkTrackingSchemaInput = v.InferInput<typeof ReadAffiliationLinkTrackingSchema>;

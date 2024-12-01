@@ -5,10 +5,10 @@ import ReadShippingAddressFiltersSchema from './read-shipping-address-filters.sc
 import ReadShippingAddressRelationsSchema from './read-shipping-address-relations.schema';
 import ReadShippingAddressOrdersSchema from './read-shipping-address-orders.schema';
 const ReadShippingAddressSchema = v.optional(v.object({
-filters: v.undefinedable(ReadShippingAddressFiltersSchema),
-relations: v.undefinedable(ReadShippingAddressRelationsSchema),
-orders: v.undefinedable(ReadShippingAddressOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadShippingAddressFiltersSchema),
+relations: v.optional(ReadShippingAddressRelationsSchema),
+orders: v.optional(ReadShippingAddressOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadShippingAddressSchema;
 export type TReadShippingAddressSchemaInput = v.InferInput<typeof ReadShippingAddressSchema>;

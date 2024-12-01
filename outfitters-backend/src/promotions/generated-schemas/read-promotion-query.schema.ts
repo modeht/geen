@@ -5,10 +5,10 @@ import ReadPromotionFiltersSchema from './read-promotion-filters.schema';
 import ReadPromotionRelationsSchema from './read-promotion-relations.schema';
 import ReadPromotionOrdersSchema from './read-promotion-orders.schema';
 const ReadPromotionSchema = v.optional(v.object({
-filters: v.undefinedable(ReadPromotionFiltersSchema),
-relations: v.undefinedable(ReadPromotionRelationsSchema),
-orders: v.undefinedable(ReadPromotionOrdersSchema),
-pagination: v.undefinedable(ReadPaginationSchema),
+filters: v.optional(ReadPromotionFiltersSchema),
+relations: v.optional(ReadPromotionRelationsSchema),
+orders: v.optional(ReadPromotionOrdersSchema),
+pagination: v.optional(ReadPaginationSchema),
 }));
 export default ReadPromotionSchema;
 export type TReadPromotionSchemaInput = v.InferInput<typeof ReadPromotionSchema>;

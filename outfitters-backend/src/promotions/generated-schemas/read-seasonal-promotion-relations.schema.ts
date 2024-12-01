@@ -5,16 +5,16 @@ import ReadCategoryRelationsSchema, { ReadCategoryRelations } from '../../catego
 
 
 import { PromotionStatusEnum } from '../entities/enums'
-export class ReadSeasonalPromotionRelations {status?: PromotionStatusEnum | null | undefined;
-promotions?: ReadPromotionRelations | string | boolean | undefined;
-subCategories?: ReadCategoryRelations | string | boolean | undefined}
+export class ReadSeasonalPromotionRelations {status?: PromotionStatusEnum | null;
+promotions?: ReadPromotionRelations | string | boolean;
+subCategories?: ReadCategoryRelations | string | boolean}
 
 const ReadSeasonalPromotionRelationsSchema: v.GenericSchema<ReadSeasonalPromotionRelations> = v.object({status: v.nullish(v.enum(PromotionStatusEnum)),
-promotions: v.undefinedable(v.union([v.pipe(
+promotions: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadPromotionRelationsSchema)])),
-subCategories: v.undefinedable(v.union([v.pipe(
+subCategories: v.optional(v.union([v.pipe(
 					v.union([v.string(), v.boolean()]),
 					v.transform((input) => (input === 'true' ? true : false)),
 					v.boolean(),), v.lazy(() => ReadCategoryRelationsSchema)]))});
