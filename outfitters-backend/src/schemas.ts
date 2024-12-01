@@ -49,7 +49,7 @@ export function getDefs() {
 			definitions: defs,
 			errorMode: 'ignore',
 		});
-		delete jsonSchema.$defs;
+		// delete jsonSchema.$defs;
 		allSchemas[fileName] = jsonSchema;
 	}
 

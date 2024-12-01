@@ -15,6 +15,8 @@ import { ResponseInterceptor } from './globals/interceptors/response.interceptor
 import 'reflect-metadata';
 import { async } from 'fast-glob';
 import { toJsonSchema } from '@valibot/to-json-schema';
+import { createComponentsSchemas } from './test';
+import { writeFile } from 'fs/promises';
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(
@@ -116,11 +118,12 @@ async function bootstrap() {
 		.build();
 
 	const document = SwaggerModule.createDocument(app, config);
-	console.log(document);
+
 	document.components.schemas = {
 		...document.components.schemas,
-		// ...getDefs(),
+		...(await createComponentsSchemas()),
 	};
+	// await writeFile('./openapi.json', JSON.stringify(document, null, 4));
 	SwaggerModule.setup('docs', app, document);
 
 	// console.log(document);

@@ -56,25 +56,13 @@ export class CountriesController {
 	}
 
 	@Get('test')
-	// @ApiOperation({
-	// 	summary: 'Test endpoint for reading countries with query parameters',
-	// 	parameters: [
-	// 		{
-	// 			name: 'query',
-	// 			in: 'query',
-	// 			schema: toJsonSchema(ReadCountrySchema, {
-	// 				errorMode: 'ignore',
-	// 			}) as any,
-	// 		},
-	// 	],
-	// })
 	@ApiQuery({
 		name: 'query',
 		schema: {
 			$ref: '#/components/schemas/ReadCountryQuery',
 		},
 	})
-	async testRead(@MoQuery(this, ReadCountrySchema) query: TReadCountrySchemaOutput) {
+	async testRead(@MoQuery(ReadCountrySchema) query: TReadCountrySchemaOutput) {
 		// console.log(toJsonSchema(ReadCountrySchema, { errorMode: 'ignore' }));
 		return 'true';
 		// const where = createWhere(query);
