@@ -37,8 +37,8 @@ export class UsersService {
 	) {}
 
 	async testCreate(body: TCreateUserSchemaInput) {
-		const d = await this.service.create(body);
-		return d;
+		// const d = await this.service.create(body);
+		// return d;
 	}
 
 	async exists(

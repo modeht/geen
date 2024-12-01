@@ -16,8 +16,8 @@ export class CategoriesService {
 	) {}
 
 	async testCreate(body: TCreateCategorySchemaInput) {
-		const d = await this.service.create(body);
-		return d;
+		// const d = await this.service.create(body);
+		// return d;
 	}
 
 	async create(createCategoryDto: CreateCategoryDto) {

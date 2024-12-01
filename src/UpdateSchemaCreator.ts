@@ -133,14 +133,28 @@ ${Array.from(new Set(this.enums)).join('\n')}
 ${Array.from(new Set(enums)).join('\n')}
 ${file}`;
 		//add type inference
-		const schemaTypeInference = `export type TUpdate${this.entityName}SchemaInput = v.InferInput<typeof ${this.schemaName}>;
-export type TUpdate${this.entityName}SchemaOutput = v.InferOutput<typeof ${this.schemaName}>;`;
+
+		const inputTypeName = `TUpdate${this.entityName}SchemaInput`;
+		const outputTypeName = `TUpdate${this.entityName}SchemaOutput`;
+		const schemaTypeInference = `export type ${inputTypeName} = v.InferInput<typeof ${this.schemaName}>;
+export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 		file += `\n\n${schemaTypeInference}\n`;
 
 		//save file
 		await writeFile(join(this.entityPath, this.dtoDirRelPath, this.toBeSaved), file);
 
 		//return the data need for wide importing later
+
+		return {
+			absPath: this.toBeSavedAbs,
+			schemaName: this.schemaName,
+			inputType: inputTypeName,
+			outputType: outputTypeName,
+			entityName: this.entityName,
+			fullEntityName: this.fullEntityName,
+			fileName: this.fileName,
+			savedFileName: this.toBeSaved,
+		};
 	}
 
 	//for fields parsing

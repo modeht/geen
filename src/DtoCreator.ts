@@ -14,6 +14,7 @@ export type CreateDtoInfo = {
 	fileName: string; //remove entity or model name from it
 	savedFileName: string; //remove entity or model name from it
 };
+
 export type ServiceFileInfo = {
 	serviceClassName: string;
 	serviceAbsPath: string;
@@ -53,12 +54,7 @@ export class CreateDtoCreator {
 	dtoDirRelPath: string;
 	dtoDirAbsPath: string;
 
-	constructor(
-		ast: ts.SourceFile,
-		ogPath: string,
-		asts: ASTs,
-		{ maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 }
-	) {
+	constructor(ast: ts.SourceFile, ogPath: string, asts: ASTs, { maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 }) {
 		this.parsedTree = TreeParser.parse(ast);
 		this.ogFilePath = ogPath;
 		this.maxDepth = maxDepth;
@@ -76,10 +72,7 @@ export class CreateDtoCreator {
 		mkdirSync(this.dtoDirAbsPath, { recursive: true });
 
 		//relative path to dto directory from entity
-		this.dtoDirRelPath = relative(
-			this.ogFilePath,
-			join(dirname(this.ogFilePath), '..', this.dtoDirPath)
-		);
+		this.dtoDirRelPath = relative(this.ogFilePath, join(dirname(this.ogFilePath), '..', this.dtoDirPath));
 	}
 
 	async build(parenClassName: string = '', parentFileName: string = '') {
@@ -91,15 +84,10 @@ export class CreateDtoCreator {
 		await this.dtoFieldBuilder._parseFields();
 
 		//the dto will be saved with this name
-		const savedFileName = `create${parentFileName ? '-' + parentFileName : ''}-${
-			this.fileName
-		}.dto.ts`;
+		const savedFileName = `create${parentFileName ? '-' + parentFileName : ''}-${this.fileName}.dto.ts`;
 
 		//path of the dto exactly
-		const newDtoFilePath = join(
-			this.ogFilePath,
-			`${this.dtoDirRelPath}/${savedFileName}`
-		);
+		const newDtoFilePath = join(this.ogFilePath, `${this.dtoDirRelPath}/${savedFileName}`);
 
 		//relative path from the new to be saved file to the original entity file for imports use
 		const ogDirRelPath = relative(dirname(newDtoFilePath), this.ogFilePath);
@@ -108,39 +96,24 @@ export class CreateDtoCreator {
 			...this.imports,
 			...this.absoluteImports?.map((i) => {
 				//take relative imports from main entity file and map those imports to the dto file with the correct relative paths
-				const relativePath = relative(dirname(newDtoFilePath), i.absPath)
-					.split(sep)
-					.join('/')
-					.replaceAll('.ts', '');
+				const relativePath = relative(dirname(newDtoFilePath), i.absPath).split(sep).join('/').replaceAll('.ts', '');
 				return `import { ${i.importedFields.join(', ')} } from '${
 					relativePath.startsWith('.') ? relativePath : './' + relativePath
 				}'`;
 			}),
 		]);
 
-		let dtoTemplate = await readFile(
-			join(process.cwd(), 'templates/dto.template'),
-			'utf8'
-		);
-		dtoTemplate = dtoTemplate.replaceAll(
-			'<<imports>>',
-			Array.from(this.imports).join('\n')
-		);
+		let dtoTemplate = await readFile(join(process.cwd(), 'templates/dto.template'), 'utf8');
+		dtoTemplate = dtoTemplate.replaceAll('<<imports>>', Array.from(this.imports).join('\n'));
 		dtoTemplate = dtoTemplate.replaceAll('<<enums>>', this.enums.join('\n'));
 		dtoTemplate = dtoTemplate.replaceAll('<<dtoClass>>', this.className!);
 		dtoTemplate = dtoTemplate.replaceAll('<<properties>>', this.properties.join('\n\n'));
-		dtoTemplate = dtoTemplate.replaceAll(
-			'<<validationsImports>>',
-			Array.from(this.validationsImports).join(', ')
-		);
+		dtoTemplate = dtoTemplate.replaceAll('<<validationsImports>>', Array.from(this.validationsImports).join(', '));
 		dtoTemplate = dtoTemplate.replaceAll(
 			'<<transformationsImports>>',
 			Array.from(this.transformationsImports).join(', ')
 		);
-		dtoTemplate = dtoTemplate.replaceAll(
-			'<<pathToOriginal>>',
-			ogDirRelPath.split(sep).join('/').replaceAll('.ts', '')
-		);
+		dtoTemplate = dtoTemplate.replaceAll('<<pathToOriginal>>', ogDirRelPath.split(sep).join('/').replaceAll('.ts', ''));
 
 		await writeFile(newDtoFilePath, dtoTemplate);
 
@@ -192,10 +165,7 @@ export class CreateDtoCreator {
 		}
 		const importStr =
 			`\nimport { ${module.moduleClassName} as Generated${module.moduleClassName} } from "./` +
-			relative(dirname(appModulePath), module.moduleAbsPath)
-				.split(sep)
-				.join('/')
-				.replace('.ts', '') +
+			relative(dirname(appModulePath), module.moduleAbsPath).split(sep).join('/').replace('.ts', '') +
 			'";';
 
 		moduleTemplate = ''.concat(
@@ -208,35 +178,21 @@ export class CreateDtoCreator {
 	}
 
 	async _createService(addDtoInfo: CreateDtoInfo) {
-		let serviceTemplate = await readFile(
-			join(process.cwd(), 'templates/service.template'),
-			'utf8'
-		);
+		let serviceTemplate = await readFile(join(process.cwd(), 'templates/service.template'), 'utf8');
 		const imports = new Set();
 		imports.add(`import { Injectable } from '@nestjs/common'`);
 		imports.add(`import { DataSource } from 'typeorm'`);
 		imports.add(`import { AbstractService } from '../globals/services/abstract-service'`);
 		imports.add(
-			`import { ${addDtoInfo.className} } from './${
-				this.dtoDirPath
-			}/${addDtoInfo.savedFileName?.replace('.ts', '')}'`
+			`import { ${addDtoInfo.className} } from './${this.dtoDirPath}/${addDtoInfo.savedFileName?.replace('.ts', '')}'`
 		);
 		imports.add(
-			`import { ${addDtoInfo.entityName} } from './entities/${this.ogFilePath
-				.split('/')
-				.at(-1)
-				?.replace('.ts', '')}'`
+			`import { ${addDtoInfo.entityName} } from './entities/${this.ogFilePath.split('/').at(-1)?.replace('.ts', '')}'`
 		);
 		//add dto class import
-		serviceTemplate = serviceTemplate.replace(
-			'<<imports>>',
-			Array.from(imports).join('\n')
-		);
+		serviceTemplate = serviceTemplate.replace('<<imports>>', Array.from(imports).join('\n'));
 
-		const name = addDtoInfo.fileName
-			.toLowerCase()
-			.replace('-entity', '')
-			.replace('-model', '');
+		const name = addDtoInfo.fileName.toLowerCase().replace('-entity', '').replace('-model', '');
 
 		const className = addDtoInfo.entityName.replace('Entity', '').replace('Model', '');
 		const serviceClassName = className + 'Service';
@@ -254,18 +210,11 @@ export class CreateDtoCreator {
 
 		const methods = new Set();
 		methods.add(createMethod);
-		serviceTemplate = serviceTemplate.replace(
-			'<<classMethods>>',
-			Array.from(methods).join('\n')
-		);
+		serviceTemplate = serviceTemplate.replace('<<classMethods>>', Array.from(methods).join('\n'));
 
 		serviceTemplate = serviceTemplate.replace('<<classProperties>>', '');
 
-		const serviceAbsPath = join(
-			this.ogFilePath,
-			'../..',
-			'generated-' + name + '.service.ts'
-		);
+		const serviceAbsPath = join(this.ogFilePath, '../..', 'generated-' + name + '.service.ts');
 
 		await writeFile(serviceAbsPath, serviceTemplate);
 		return {
@@ -275,51 +224,32 @@ export class CreateDtoCreator {
 	}
 
 	async _createController(addDtoInfo: CreateDtoInfo, serviceFileInfo: ServiceFileInfo) {
-		let controllerTemplate = await readFile(
-			join(process.cwd(), 'templates/controller.template'),
-			'utf8'
-		);
+		let controllerTemplate = await readFile(join(process.cwd(), 'templates/controller.template'), 'utf8');
 		const imports = new Set();
 		imports.add(`import { Controller, Post, Body } from '@nestjs/common';`);
 		imports.add(
-			`import { ${addDtoInfo.className} } from './${
-				this.dtoDirPath
-			}/${addDtoInfo.savedFileName?.replace('.ts', '')}'`
+			`import { ${addDtoInfo.className} } from './${this.dtoDirPath}/${addDtoInfo.savedFileName?.replace('.ts', '')}'`
 		);
 		imports.add(
-			`import { ${
-				serviceFileInfo.serviceClassName
-			} } from './${serviceFileInfo.serviceAbsPath
+			`import { ${serviceFileInfo.serviceClassName} } from './${serviceFileInfo.serviceAbsPath
 				.split('/')
 				.at(-1)
 				?.replace('.ts', '')}'`
 		);
 
 		//add dto class import
-		controllerTemplate = controllerTemplate.replace(
-			'<<imports>>',
-			Array.from(imports).join('\n')
-		);
+		controllerTemplate = controllerTemplate.replace('<<imports>>', Array.from(imports).join('\n'));
 
-		const name = addDtoInfo.fileName
-			.toLowerCase()
-			.replace('-entity', '')
-			.replace('-model', '');
+		const name = addDtoInfo.fileName.toLowerCase().replace('-entity', '').replace('-model', '');
 		controllerTemplate = controllerTemplate.replace('<<routeName>>', `'${name}'`);
 
 		const className = addDtoInfo.entityName.replace('Entity', '').replace('Model', '');
 		const controllerClassName = className + 'Controller';
-		controllerTemplate = controllerTemplate.replace(
-			'<<controllerClass>>',
-			controllerClassName
-		);
+		controllerTemplate = controllerTemplate.replace('<<controllerClass>>', controllerClassName);
 
 		//add service file
 		const defaultConstructor = `constructor(private service: ${serviceFileInfo.serviceClassName}){}`;
-		controllerTemplate = controllerTemplate.replace(
-			'<<classConstructor>>',
-			defaultConstructor
-		);
+		controllerTemplate = controllerTemplate.replace('<<classConstructor>>', defaultConstructor);
 
 		const createMethod = `
 			@Post()
@@ -329,18 +259,11 @@ export class CreateDtoCreator {
 		`;
 		const methods = new Set();
 		methods.add(createMethod);
-		controllerTemplate = controllerTemplate.replace(
-			'<<classMethods>>',
-			Array.from(methods).join('\n')
-		);
+		controllerTemplate = controllerTemplate.replace('<<classMethods>>', Array.from(methods).join('\n'));
 
 		controllerTemplate = controllerTemplate.replace('<<classProperties>>', '');
 
-		const controllerAbsPath = join(
-			this.ogFilePath,
-			'../..',
-			'generated-' + name + '.controller.ts'
-		);
+		const controllerAbsPath = join(this.ogFilePath, '../..', 'generated-' + name + '.controller.ts');
 
 		await writeFile(controllerAbsPath, controllerTemplate);
 		return {
@@ -354,71 +277,43 @@ export class CreateDtoCreator {
 		serviceFileInfo: ServiceFileInfo,
 		controllerFileInfo: ControllerFileInfo
 	) {
-		let moduleTemplate = await readFile(
-			join(process.cwd(), 'templates/module.template'),
-			'utf8'
-		);
+		let moduleTemplate = await readFile(join(process.cwd(), 'templates/module.template'), 'utf8');
 		const imports = new Set();
 		imports.add(`import { Module } from '@nestjs/common';`);
 		imports.add(
-			`import { ${
-				serviceFileInfo.serviceClassName
-			} } from './${serviceFileInfo.serviceAbsPath
+			`import { ${serviceFileInfo.serviceClassName} } from './${serviceFileInfo.serviceAbsPath
 				.split('/')
 				.at(-1)
 				?.replace('.ts', '')}'`
 		);
 		imports.add(
-			`import { ${
-				controllerFileInfo.controllerClassName
-			} } from './${controllerFileInfo.controllerAbsPath
+			`import { ${controllerFileInfo.controllerClassName} } from './${controllerFileInfo.controllerAbsPath
 				.split('/')
 				.at(-1)
 				?.replace('.ts', '')}'`
 		);
 
-		moduleTemplate = moduleTemplate.replace(
-			'<<imports>>',
-			Array.from(imports).join('\n')
-		);
+		moduleTemplate = moduleTemplate.replace('<<imports>>', Array.from(imports).join('\n'));
 
 		moduleTemplate = moduleTemplate.replace('<<moduleImports>>', '');
-		moduleTemplate = moduleTemplate.replace(
-			'<<moduleControllers>>',
-			controllerFileInfo.controllerClassName
-		);
-		moduleTemplate = moduleTemplate.replace(
-			'<<moduleProviders>>',
-			serviceFileInfo.serviceClassName
-		);
-		moduleTemplate = moduleTemplate.replace(
-			'<<moduleExports>>',
-			serviceFileInfo.serviceClassName
-		);
+		moduleTemplate = moduleTemplate.replace('<<moduleControllers>>', controllerFileInfo.controllerClassName);
+		moduleTemplate = moduleTemplate.replace('<<moduleProviders>>', serviceFileInfo.serviceClassName);
+		moduleTemplate = moduleTemplate.replace('<<moduleExports>>', serviceFileInfo.serviceClassName);
 
 		const className = addDtoInfo.entityName.replace('Entity', '').replace('Model', '');
 		const moduleClassName = className + 'Module';
 		moduleTemplate = moduleTemplate.replace('<<moduleClass>>', moduleClassName);
 
-		const name = addDtoInfo.fileName
-			.toLowerCase()
-			.replace('-entity', '')
-			.replace('-model', '');
+		const name = addDtoInfo.fileName.toLowerCase().replace('-entity', '').replace('-model', '');
 
-		const moduleAbsPath = join(
-			this.ogFilePath,
-			'../..',
-			'generated-' + name + '.module.ts'
-		);
+		const moduleAbsPath = join(this.ogFilePath, '../..', 'generated-' + name + '.module.ts');
 
 		await writeFile(moduleAbsPath, moduleTemplate);
 		return { moduleAbsPath: moduleAbsPath.split(sep).join('/'), moduleClassName };
 	}
 
 	_setEntityName() {
-		const entityClass = this.parsedTree.classes?.find((c) =>
-			c.decorators?.find((d) => d.text?.startsWith('@Entity'))
-		);
+		const entityClass = this.parsedTree.classes?.find((c) => c.decorators?.find((d) => d.text?.startsWith('@Entity')));
 		if (!entityClass) throw new Error('no entity class found');
 		this.entityName = entityClass.name!;
 		this.entityClass = entityClass;
@@ -457,16 +352,10 @@ export class CreateDtoCreator {
 		this.imports?.add('import { <<transformationsImports>> } from "class-transformer";');
 
 		//TODO: we need a script to make sure these important files exists
-		const relationDecoRelPath = relative(this.dtoDirAbsPath, globalsDirPath)
-			.split(sep)
-			.join('/');
+		const relationDecoRelPath = relative(this.dtoDirAbsPath, globalsDirPath).split(sep).join('/');
 
-		this.imports?.add(
-			`import { Relation } from '${relationDecoRelPath}/decorators/relation.decorator';`
-		);
-		this.imports.add(
-			`import { IsOptionalIf } from '${relationDecoRelPath}/validators/is-option-if.validator';`
-		);
+		this.imports?.add(`import { Relation } from '${relationDecoRelPath}/decorators/relation.decorator';`);
+		this.imports.add(`import { IsOptionalIf } from '${relationDecoRelPath}/validators/is-option-if.validator';`);
 	}
 
 	_setEnums() {

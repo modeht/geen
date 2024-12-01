@@ -1,11 +1,9 @@
 import ts from 'typescript';
 import { Node, TreeParser } from './TreeParser';
-import { mkdir, readFile, writeFile } from 'fs/promises';
+import { mkdir, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types';
-import { appModulePath, globalsDirPath as globalsDirPath } from './utils';
-import { mkdirSync } from 'fs';
-import { log, warn } from 'console';
+import { globalsDirPath as globalsDirPath } from './utils';
 import { ReadSchemaFiltersCreator } from './ReadSchemaFiltersCreator';
 import { ReadSchemaRelationsCreator } from './ReadSchemaRelationsCreator';
 import { ReadSchemaOrdersCreator } from './ReadSchemaOrdersCreator';
@@ -144,15 +142,30 @@ orders: v.optional(${files[2]['schemaName']}),
 pagination: v.optional(ReadPaginationSchema),
 }));\n`;
 		file += schema;
-		file += `export default Read${this.entityName}Schema;\n`;
+		const schemaName = `Read${this.entityName}Schema`;
+		file += `export default ${schemaName};\n`;
 
-		const typeInference = `export type TRead${this.entityName}SchemaInput = v.InferInput<typeof Read${this.entityName}Schema>;
-export type TRead${this.entityName}SchemaOutput = v.InferOutput<typeof Read${this.entityName}Schema>;
+		//add type inference
+		const inputTypeName = `TRead${this.entityName}SchemaInput`;
+		const outputTypeName = `TRead${this.entityName}SchemaOutput`;
+		const typeInference = `export type ${inputTypeName} = v.InferInput<typeof ${schemaName}>;
+export type ${outputTypeName} = v.InferOutput<typeof ${schemaName}>;
 `;
 		file += typeInference;
 
 		//save file
 		await writeFile(this.toBeSavedAbs, file);
+
+		return {
+			absPath: this.toBeSavedAbs,
+			schemaName: schemaName,
+			inputType: inputTypeName,
+			outputType: outputTypeName,
+			entityName: this.entityName,
+			fullEntityName: this.fullEntityName,
+			fileName: this.fileName,
+			savedFileName: this.toBeSaved,
+		};
 	}
 
 	_setEntityName(name?: string) {

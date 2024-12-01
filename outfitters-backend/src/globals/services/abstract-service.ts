@@ -1,4 +1,4 @@
-import { DataSource, EntitySchema } from 'typeorm';
+import { DataSource, EntitySchema, EntityTarget, ObjectLiteral } from 'typeorm';
 import {
 	Injectable,
 	InternalServerErrorException,
@@ -25,7 +25,11 @@ export type ReadOptions = {
 export class AbstractService {
 	constructor(private datasource: DataSource) {}
 
-	async create(body: Record<string | symbol, any>, options: CreateOptions = {}) {
+	async create<T extends ObjectLiteral>(
+		entity: EntityTarget<T>,
+		body: Record<string | symbol, any>,
+		options: CreateOptions = {},
+	) {
 		try {
 			const metadata = body[metadataSymbol];
 			const entityName = metadata[modelSymbol];
@@ -40,7 +44,7 @@ export class AbstractService {
 				row[key] = val;
 			}
 			const created: any = await this.datasource.manager.save(entityName, row);
-			return this.datasource.manager.findOne(entityName, { where: { id: created.id } });
+			return this.datasource.manager.findOne(entity, { where: { id: created.id } });
 		} catch (error: any) {
 			//handle known pg errros
 			const pgError = PostgresErrorCode[error.code];
@@ -55,7 +59,8 @@ export class AbstractService {
 		}
 	}
 
-	async update(
+	async update<T extends ObjectLiteral>(
+		entity: EntityTarget<T>,
 		id: number,
 		body: Record<string | symbol, any>,
 		options: UpdateOptions = {},
@@ -74,7 +79,7 @@ export class AbstractService {
 				row[key] = val;
 			}
 			const created: any = await this.datasource.manager.save(entityName, id, row);
-			return this.datasource.manager.findOne(entityName, { where: { id: created.id } });
+			return this.datasource.manager.findOne(entity, { where: { id: created.id } });
 		} catch (error: any) {
 			//handle known pg errros
 			const pgError = PostgresErrorCode[error.code];
@@ -89,8 +94,8 @@ export class AbstractService {
 		}
 	}
 
-	async read(
-		entity: EntitySchema | string,
+	async read<T extends ObjectLiteral>(
+		entity: EntityTarget<T>,
 		query: Record<string, any>,
 		options: ReadOptions = { depth: 0 },
 	) {
