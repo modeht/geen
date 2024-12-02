@@ -1,46 +1,25 @@
 import { fastifyMultipart } from '@fastify/multipart';
 import { BadRequestException, ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { NestFactory, RouterModule } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationError } from 'class-validator';
 import Handlebars from 'handlebars';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import { join, sep, relative } from 'path';
+import { join } from 'path';
 import { AppModule } from './app.module';
 import { GeneralExceptionFilter } from './globals/filters/exception.filter';
 import { ResponseInterceptor } from './globals/interceptors/response.interceptor';
 import 'reflect-metadata';
-import { async } from 'fast-glob';
-import { toJsonSchema } from '@valibot/to-json-schema';
 import { createComponentsSchemas } from './openapi-schemas';
-import { writeFile } from 'fs/promises';
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(
 		AppModule,
 		new FastifyAdapter(),
 	);
-
-	// (app['container']['modules'] as Map<any, any>).forEach((m) => {
-	// 	const keys = Reflect.getMetadataKeys(m._metatype);
-	// 	for (const key of keys) {
-	// 		console.log(key);
-	// 		if (key === 'controllers') {
-	// 			const controllers = Reflect.getMetadata(key, m._metatype);
-	// 			for (const controller of controllers) {
-	// 				const cKeys = Reflect.getMetadataKeys(controller);
-	// 				// console.log(cKeys);
-	// 				for (const ck of cKeys) {
-	// 					console.log(Reflect.getMetadata(ck, controller));
-	// 				}
-	// 				break;
-	// 			}
-	// 		}
-	// 	}
-	// });
 
 	app.use(
 		helmet({
@@ -117,16 +96,15 @@ async function bootstrap() {
 		.setExternalDoc('Postman Collection', '/docs-json')
 		.build();
 
+	const componentSchemas = await createComponentsSchemas();
 	const document = SwaggerModule.createDocument(app, config);
-
-	const valibotSchemas = await createComponentsSchemas();
 
 	document.components.schemas = {
 		...document.components.schemas,
-		...valibotSchemas,
+		...componentSchemas,
 	};
 	SwaggerModule.setup('docs', app, document);
-	writeFile('./openapi.json', JSON.stringify(document, null, 4));
+	// writeFile('./openapi.json', JSON.stringify(document, null, 4));
 
 	const configService = app.get(ConfigService);
 	const PORT = configService.get('DOCKER_PORT') || configService.get('PORT');

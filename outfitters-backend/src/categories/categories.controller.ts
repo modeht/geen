@@ -66,7 +66,7 @@ export class CategoriesController {
 		});
 	}
 
-	@Post('test')
+	@Post('test/:id')
 	@ApiBody({
 		schema: {
 			$ref: SchemaDefs.CreateCategory,

@@ -3,7 +3,7 @@ import { Node, TreeParser } from './TreeParser';
 import { readFile, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types';
-import { appModulePath, globalsDirPath as globalsDirPath } from './utils';
+import { appModulePath, globalsDirPath as globalsDirPath, projectPath } from './utils';
 import { CreateSchemaCreator } from './CreateSchemaCreator';
 import { UpdateSchemaCreator } from './UpdateSchemaCreator';
 import { ReadSchemaCreator } from './ReadSchemaCreator';
@@ -65,7 +65,7 @@ export class ModuleCreator {
 		const [create, update, read] = await Promise.all([c.buildFile(), u.buildFile(), r.build()]);
 
 		const service = await this._createService(create, update, read);
-		// const controller = await this._createController(dto, service);
+		const controller = await this._createController(create, update, read, service);
 		// const module = await this._createModule(dto, service, controller);
 
 		//add module to generated-modules.ts
@@ -177,7 +177,7 @@ export class ModuleCreator {
 	async _createController(create: SchemaInfo, update: SchemaInfo, read: SchemaInfo, serviceFileInfo: ServiceFileInfo) {
 		let controllerTemplate = await readFile(join(process.cwd(), 'templates/controller.template'), 'utf8');
 		const imports = new Set();
-		imports.add(`import { Controller, Post, Body } from '@nestjs/common';`);
+		imports.add(`import { Controller, Post, Get, Put, Param } from '@nestjs/common';`);
 
 		imports.add(
 			`import ${create.schemaName}, { ${create.inputType}, ${create.outputType} } from './${
@@ -198,7 +198,23 @@ export class ModuleCreator {
 		imports.add(
 			`import { ${create.fullEntityName} } from './entities/${this.entityPath.split('/').at(-1)?.replace('.ts', '')}'`
 		);
+		imports.add(`import { ApiBody, ApiQuery } from '@nestjs/swagger'`);
 
+		const projectRelPath = relative(join(this.dtoDirAbsPath, '..'), join(projectPath, 'src')).split(sep).join('/');
+		const utilFileRelPath = relative(join(this.dtoDirAbsPath, '..'), globalsDirPath).split(sep).join('/');
+		imports.add(
+			`import { SchemaDefs } from "${projectRelPath.startsWith('.') ? '' : './'}${projectRelPath}/schema-defs"`
+		);
+		imports.add(
+			`import { MoBody } from "${
+				utilFileRelPath.startsWith('.') ? '' : './'
+			}${utilFileRelPath}/decorators/mo-body.decorator"`
+		);
+		imports.add(
+			`import { MoQuery } from "${
+				utilFileRelPath.startsWith('.') ? '' : './'
+			}${utilFileRelPath}/decorators/mo-query.decorator"`
+		);
 		imports.add(
 			`import { ${serviceFileInfo.serviceClassName} } from './${serviceFileInfo.serviceAbsPath
 				.split('/')
@@ -209,30 +225,69 @@ export class ModuleCreator {
 		//add dto class import
 		controllerTemplate = controllerTemplate.replace('<<imports>>', Array.from(imports).join('\n'));
 
-		const name = addDtoInfo.fileName.toLowerCase().replace('-entity', '').replace('-model', '');
-		controllerTemplate = controllerTemplate.replace('<<routeName>>', `'${name}'`);
+		controllerTemplate = controllerTemplate.replace('<<routeName>>', `'${create.fileName}'`);
 
-		const className = addDtoInfo.entityName.replace('Entity', '').replace('Model', '');
-		const controllerClassName = className + 'Controller';
+		const controllerClassName = create.entityName + 'Controller';
 		controllerTemplate = controllerTemplate.replace('<<controllerClass>>', controllerClassName);
 
 		//add service file
 		const defaultConstructor = `constructor(private service: ${serviceFileInfo.serviceClassName}){}`;
 		controllerTemplate = controllerTemplate.replace('<<classConstructor>>', defaultConstructor);
-
+		const capitalize = (word: string) => word.charAt(0).toUpperCase() + word.slice(1);
+		const createSchemaName = create.savedFileName.split('.')[0].split('-').map(capitalize).join('');
+		const updateSchemaName = update.savedFileName.split('.')[0].split('-').map(capitalize).join('');
+		const readSchemaName = read.savedFileName.split('.')[0].split('-').map(capitalize).join('');
 		const createMethod = `
 			@Post()
-			async create(@Body() body: ${addDtoInfo.className}){
+			@ApiBody({
+				schema:{
+					$ref: SchemaDefs.${createSchemaName}
+				}
+			})
+			async create(
+				@MoBody(${create.schemaName}) body: ${create.outputType},
+			) {
 				return this.service.createRow(body);
 			}
 		`;
+		const updateMethod = `
+			@Put(':id')
+			@ApiBody({
+				schema:{
+					$ref: SchemaDefs.${updateSchemaName}
+				}
+			})
+			async update(
+				@Param('id') id: string,
+				@MoBody(${update.schemaName}) body: ${update.outputType},
+			) {
+				return this.service.updateRow(+id, body);
+			}
+		`;
+		const readMethod = `
+			@Get()
+			@ApiQuery({
+				schema:{
+					$ref: SchemaDefs.${readSchemaName}
+				}
+			})
+			async read(
+				@MoQuery(${read.schemaName}) query: ${read.outputType},
+			) {
+				return this.service.readRows(query);
+			}
+		`;
+
 		const methods = new Set();
 		methods.add(createMethod);
+		methods.add(updateMethod);
+		methods.add(readMethod);
+
 		controllerTemplate = controllerTemplate.replace('<<classMethods>>', Array.from(methods).join('\n'));
 
 		controllerTemplate = controllerTemplate.replace('<<classProperties>>', '');
 
-		const controllerAbsPath = join(this.entityPath, '../..', 'generated-' + name + '.controller.ts');
+		const controllerAbsPath = join(this.dtoDirAbsPath, '..', 'generated-' + create.fileName + '.controller.ts');
 
 		await writeFile(controllerAbsPath, controllerTemplate);
 		return {

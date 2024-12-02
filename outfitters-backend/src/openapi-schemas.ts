@@ -1,22 +1,37 @@
 import convert from '@openapi-contrib/json-schema-to-openapi-schema';
-import { writeFileSync } from 'fs';
 import { getDefs } from './schemas';
 import { writeFile } from 'fs/promises';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-// const schema = require('../read-country-query.json');
-
-const { allSchemas, defs } = getDefs();
-
 export async function createComponentsSchemas() {
-	const defsTypes = `export enum SchemaDefs {
+	const { allSchemas, defs } = await getDefs();
+	const defsTypes = `
+interface ISchemaDefs {
+  [key: string]: string;
+	${Object.keys(defs)
+		.map((k) => `\t${k}: string;`)
+		.join('\n')}
+}
+
+export const SchemaDefs: ISchemaDefs = {
 		${Object.keys(defs)
-			.map((k) => `\t${k} = '#/components/schemas/${k}',`)
+			.map((k) => `\t${k}: '#/components/schemas/${k}',`)
 			.join('\n')}
-	}`;
-	await writeFile('./src/schema-defs.ts', defsTypes);
+}`;
+
+	await writeFile('./src/schema-defs.ts', defsTypes)
+		.then(() => {
+			console.log('schema-defs.ts created');
+		})
+		.catch((err) => {
+			console.error('error creating schema-defs.ts');
+			console.error(err);
+		})
+		.finally(() => {
+			console.log('create-schema-types.ts finished');
+		});
 
 	const schema = allSchemas[Object.keys(allSchemas)[0]];
+
 	const convertedSchema = await convert(schema, {
 		convertUnreferencedDefinitions: false,
 		cloneSchema: true,

@@ -1,14 +1,13 @@
-import { sep } from 'path';
+import { join, sep } from 'path';
 import { sync } from 'fast-glob';
 import { relative } from 'path';
 import { log } from 'console';
 import { toJsonSchema } from '@valibot/to-json-schema';
-import { writeFile } from 'fs/promises';
 
 const defs: Record<string, any> = {};
 const allSchemas: Record<string, any> = {};
 
-export function getDefs() {
+export async function getDefs() {
 	if (Object.keys(defs).length > 0) {
 		log('defs already created');
 		return { defs, allSchemas };
@@ -16,13 +15,13 @@ export function getDefs() {
 
 	log('defs not created, creating...');
 
-	console.warn('project need to be build');
-
 	console.time('glob');
 	const files = sync('**/*.schema.js', {
 		absolute: true,
 		onlyFiles: true,
-		cwd: process.cwd(),
+		dot: false,
+		ignore: ['**/node_modules'],
+		cwd: join(process.cwd(), 'dist'),
 	});
 	console.timeEnd('glob');
 
@@ -30,8 +29,7 @@ export function getDefs() {
 	for (const file of files) {
 		const relativePathToFile = relative(__dirname, file).split(sep).join('/');
 
-		// eslint-disable-next-line @typescript-eslint/no-var-requires
-		const fileImport = require('./' + relativePathToFile);
+		const fileImport = await import('./' + relativePathToFile).then((m) => m.default);
 
 		let fileName = file.split('/').at(-1).replace('.schema.js', '');
 		if (fileImport.default) {
@@ -52,7 +50,6 @@ export function getDefs() {
 			definitions: defs,
 			errorMode: 'ignore',
 		});
-		// delete jsonSchema.$defs;
 		allSchemas[fileName] = jsonSchema;
 	}
 
