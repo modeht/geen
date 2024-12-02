@@ -174,54 +174,72 @@ export class ModuleCreator {
 		};
 	}
 
-	// async _createController(addDtoInfo: SchemaInfo, serviceFileInfo: ServiceFileInfo) {
-	// 	let controllerTemplate = await readFile(join(process.cwd(), 'templates/controller.template'), 'utf8');
-	// 	const imports = new Set();
-	// 	imports.add(`import { Controller, Post, Body } from '@nestjs/common';`);
-	// 	imports.add(
-	// 		`import { ${addDtoInfo.className} } from './${this.dtoDirPath}/${addDtoInfo.savedFileName?.replace('.ts', '')}'`
-	// 	);
-	// 	imports.add(
-	// 		`import { ${serviceFileInfo.serviceClassName} } from './${serviceFileInfo.serviceAbsPath
-	// 			.split('/')
-	// 			.at(-1)
-	// 			?.replace('.ts', '')}'`
-	// 	);
+	async _createController(create: SchemaInfo, update: SchemaInfo, read: SchemaInfo, serviceFileInfo: ServiceFileInfo) {
+		let controllerTemplate = await readFile(join(process.cwd(), 'templates/controller.template'), 'utf8');
+		const imports = new Set();
+		imports.add(`import { Controller, Post, Body } from '@nestjs/common';`);
 
-	// 	//add dto class import
-	// 	controllerTemplate = controllerTemplate.replace('<<imports>>', Array.from(imports).join('\n'));
+		imports.add(
+			`import ${create.schemaName}, { ${create.inputType}, ${create.outputType} } from './${
+				this.dtoDirPath
+			}/${create.savedFileName?.replace('.ts', '')}'`
+		);
+		imports.add(
+			`import ${update.schemaName}, { ${update.inputType}, ${update.outputType} } from './${
+				this.dtoDirPath
+			}/${update.savedFileName?.replace('.ts', '')}'`
+		);
+		imports.add(
+			`import ${read.schemaName}, { ${read.inputType}, ${read.outputType} } from './${
+				this.dtoDirPath
+			}/${read.savedFileName?.replace('.ts', '')}'`
+		);
 
-	// 	const name = addDtoInfo.fileName.toLowerCase().replace('-entity', '').replace('-model', '');
-	// 	controllerTemplate = controllerTemplate.replace('<<routeName>>', `'${name}'`);
+		imports.add(
+			`import { ${create.fullEntityName} } from './entities/${this.entityPath.split('/').at(-1)?.replace('.ts', '')}'`
+		);
 
-	// 	const className = addDtoInfo.entityName.replace('Entity', '').replace('Model', '');
-	// 	const controllerClassName = className + 'Controller';
-	// 	controllerTemplate = controllerTemplate.replace('<<controllerClass>>', controllerClassName);
+		imports.add(
+			`import { ${serviceFileInfo.serviceClassName} } from './${serviceFileInfo.serviceAbsPath
+				.split('/')
+				.at(-1)
+				?.replace('.ts', '')}'`
+		);
 
-	// 	//add service file
-	// 	const defaultConstructor = `constructor(private service: ${serviceFileInfo.serviceClassName}){}`;
-	// 	controllerTemplate = controllerTemplate.replace('<<classConstructor>>', defaultConstructor);
+		//add dto class import
+		controllerTemplate = controllerTemplate.replace('<<imports>>', Array.from(imports).join('\n'));
 
-	// 	const createMethod = `
-	// 		@Post()
-	// 		async create(@Body() body: ${addDtoInfo.className}){
-	// 			return this.service.createRow(body);
-	// 		}
-	// 	`;
-	// 	const methods = new Set();
-	// 	methods.add(createMethod);
-	// 	controllerTemplate = controllerTemplate.replace('<<classMethods>>', Array.from(methods).join('\n'));
+		const name = addDtoInfo.fileName.toLowerCase().replace('-entity', '').replace('-model', '');
+		controllerTemplate = controllerTemplate.replace('<<routeName>>', `'${name}'`);
 
-	// 	controllerTemplate = controllerTemplate.replace('<<classProperties>>', '');
+		const className = addDtoInfo.entityName.replace('Entity', '').replace('Model', '');
+		const controllerClassName = className + 'Controller';
+		controllerTemplate = controllerTemplate.replace('<<controllerClass>>', controllerClassName);
 
-	// 	const controllerAbsPath = join(this.entityPath, '../..', 'generated-' + name + '.controller.ts');
+		//add service file
+		const defaultConstructor = `constructor(private service: ${serviceFileInfo.serviceClassName}){}`;
+		controllerTemplate = controllerTemplate.replace('<<classConstructor>>', defaultConstructor);
 
-	// 	await writeFile(controllerAbsPath, controllerTemplate);
-	// 	return {
-	// 		controllerAbsPath: controllerAbsPath.split(sep).join('/'),
-	// 		controllerClassName,
-	// 	};
-	// }
+		const createMethod = `
+			@Post()
+			async create(@Body() body: ${addDtoInfo.className}){
+				return this.service.createRow(body);
+			}
+		`;
+		const methods = new Set();
+		methods.add(createMethod);
+		controllerTemplate = controllerTemplate.replace('<<classMethods>>', Array.from(methods).join('\n'));
+
+		controllerTemplate = controllerTemplate.replace('<<classProperties>>', '');
+
+		const controllerAbsPath = join(this.entityPath, '../..', 'generated-' + name + '.controller.ts');
+
+		await writeFile(controllerAbsPath, controllerTemplate);
+		return {
+			controllerAbsPath: controllerAbsPath.split(sep).join('/'),
+			controllerClassName,
+		};
+	}
 
 	// async _createModule(
 	// 	addDtoInfo: SchemaInfo,
