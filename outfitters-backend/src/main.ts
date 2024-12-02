@@ -13,7 +13,7 @@ import { AppModule } from './app.module';
 import { GeneralExceptionFilter } from './globals/filters/exception.filter';
 import { ResponseInterceptor } from './globals/interceptors/response.interceptor';
 import 'reflect-metadata';
-import { createComponentsSchemas } from './openapi-schemas';
+import { createComponentsSchemas } from './generate-openapi-components';
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(
@@ -96,12 +96,12 @@ async function bootstrap() {
 		.setExternalDoc('Postman Collection', '/docs-json')
 		.build();
 
-	const componentSchemas = await createComponentsSchemas();
+	const componentsSchemas = await createComponentsSchemas();
 	const document = SwaggerModule.createDocument(app, config);
 
 	document.components.schemas = {
 		...document.components.schemas,
-		...componentSchemas,
+		...componentsSchemas,
 	};
 	SwaggerModule.setup('docs', app, document);
 	// writeFile('./openapi.json', JSON.stringify(document, null, 4));

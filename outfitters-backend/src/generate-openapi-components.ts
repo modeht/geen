@@ -1,5 +1,5 @@
 import convert from '@openapi-contrib/json-schema-to-openapi-schema';
-import { getDefs } from './schemas';
+import { getDefs } from './parse-schemas';
 import { writeFile } from 'fs/promises';
 
 export async function createComponentsSchemas() {
