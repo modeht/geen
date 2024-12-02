@@ -20,7 +20,7 @@ async function main() {
 	time('Creating modules');
 	for (const ast in ASTs) {
 		const m = new ModuleCreator(ASTs[ast].fullPath, ASTs[ast].sourceFile, ASTs);
-		m.build();
+		await m.build();
 	}
 	timeEnd('Creating modules');
 }

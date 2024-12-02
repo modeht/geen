@@ -66,10 +66,10 @@ export class ModuleCreator {
 
 		const service = await this._createService(create, update, read);
 		const controller = await this._createController(create, update, read, service);
-		// const module = await this._createModule(dto, service, controller);
+		const module = await this._createModule(create, service, controller);
 
 		//add module to generated-modules.ts
-		// await this.addToEntry(module);
+		await this.addToEntry(module);
 	}
 
 	async addToEntry(module: ModuleFileInfo) {
@@ -296,43 +296,39 @@ export class ModuleCreator {
 		};
 	}
 
-	// async _createModule(
-	// 	addDtoInfo: SchemaInfo,
-	// 	serviceFileInfo: ServiceFileInfo,
-	// 	controllerFileInfo: ControllerFileInfo
-	// ) {
-	// 	let moduleTemplate = await readFile(join(process.cwd(), 'templates/module.template'), 'utf8');
-	// 	const imports = new Set();
-	// 	imports.add(`import { Module } from '@nestjs/common';`);
-	// 	imports.add(
-	// 		`import { ${serviceFileInfo.serviceClassName} } from './${serviceFileInfo.serviceAbsPath
-	// 			.split('/')
-	// 			.at(-1)
-	// 			?.replace('.ts', '')}'`
-	// 	);
-	// 	imports.add(
-	// 		`import { ${controllerFileInfo.controllerClassName} } from './${controllerFileInfo.controllerAbsPath
-	// 			.split('/')
-	// 			.at(-1)
-	// 			?.replace('.ts', '')}'`
-	// 	);
+	async _createModule(create: SchemaInfo, serviceFileInfo: ServiceFileInfo, controllerFileInfo: ControllerFileInfo) {
+		let moduleTemplate = await readFile(join(process.cwd(), 'templates/module.template'), 'utf8');
+		const imports = new Set();
+		imports.add(`import { Module } from '@nestjs/common';`);
+		imports.add(
+			`import { ${serviceFileInfo.serviceClassName} } from './${serviceFileInfo.serviceAbsPath
+				.split('/')
+				.at(-1)
+				?.replace('.ts', '')}'`
+		);
+		imports.add(
+			`import { ${controllerFileInfo.controllerClassName} } from './${controllerFileInfo.controllerAbsPath
+				.split('/')
+				.at(-1)
+				?.replace('.ts', '')}'`
+		);
 
-	// 	moduleTemplate = moduleTemplate.replace('<<imports>>', Array.from(imports).join('\n'));
+		moduleTemplate = moduleTemplate.replace('<<imports>>', Array.from(imports).join('\n'));
 
-	// 	moduleTemplate = moduleTemplate.replace('<<moduleImports>>', '');
-	// 	moduleTemplate = moduleTemplate.replace('<<moduleControllers>>', controllerFileInfo.controllerClassName);
-	// 	moduleTemplate = moduleTemplate.replace('<<moduleProviders>>', serviceFileInfo.serviceClassName);
-	// 	moduleTemplate = moduleTemplate.replace('<<moduleExports>>', serviceFileInfo.serviceClassName);
+		moduleTemplate = moduleTemplate.replace('<<moduleImports>>', '');
+		moduleTemplate = moduleTemplate.replace('<<moduleControllers>>', controllerFileInfo.controllerClassName);
+		moduleTemplate = moduleTemplate.replace('<<moduleProviders>>', serviceFileInfo.serviceClassName);
+		moduleTemplate = moduleTemplate.replace('<<moduleExports>>', serviceFileInfo.serviceClassName);
 
-	// 	const className = addDtoInfo.entityName.replace('Entity', '').replace('Model', '');
-	// 	const moduleClassName = className + 'Module';
-	// 	moduleTemplate = moduleTemplate.replace('<<moduleClass>>', moduleClassName);
+		const className = create.entityName;
+		const moduleClassName = className + 'Module';
+		moduleTemplate = moduleTemplate.replace('<<moduleClass>>', moduleClassName);
 
-	// 	const name = addDtoInfo.fileName.toLowerCase().replace('-entity', '').replace('-model', '');
+		const name = create.fileName;
 
-	// 	const moduleAbsPath = join(this.entityPath, '../..', 'generated-' + name + '.module.ts');
+		const moduleAbsPath = join(this.dtoDirAbsPath, '..', 'generated-' + name + '.module.ts');
 
-	// 	await writeFile(moduleAbsPath, moduleTemplate);
-	// 	return { moduleAbsPath: moduleAbsPath.split(sep).join('/'), moduleClassName };
-	// }
+		await writeFile(moduleAbsPath, moduleTemplate);
+		return { moduleAbsPath: moduleAbsPath.split(sep).join('/'), moduleClassName };
+	}
 }
