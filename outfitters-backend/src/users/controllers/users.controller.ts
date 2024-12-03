@@ -7,10 +7,6 @@ import { Paginated } from '../../globals/dto/paginated.dto';
 import { FindUserDto } from '../dto/find-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UsersService } from '../services/users.service';
-
-import CreateUserSchema, {
-	TCreateUserSchemaInput,
-} from '../generated-schemas/create-user.schema';
 import { MoBody } from '../../globals/decorators/mo-body.decorator';
 
 @ApiTags('Users')
@@ -49,11 +45,5 @@ export class UsersController {
 			take: paginated.limit,
 			skip: paginated.limit * paginated.page,
 		});
-	}
-
-	@Post('test')
-	test(@MoBody(CreateUserSchema) body: TCreateUserSchemaInput) {
-		// return body;
-		return this.usersService.testCreate(body);
 	}
 }

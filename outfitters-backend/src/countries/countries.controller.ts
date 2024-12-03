@@ -17,10 +17,6 @@ import { createRelations } from '../globals/lib/create-relations';
 import { MoQuery } from '../globals/decorators/mo-query.decorator';
 import { toJsonSchema } from '@valibot/to-json-schema';
 import { writeFile } from 'fs/promises';
-import ReadCountrySchema, {
-	TReadCountrySchemaOutput,
-} from './generated-schemas/read-country-query.schema';
-import ReadMediaSchema from '../media/generated-schemas/read-media-query.schema';
 import { async as globAsync } from 'fast-glob';
 import { dirname, join, relative, resolve, sep } from 'path';
 import { fileURLToPath } from 'url';
@@ -54,24 +50,5 @@ export class CountriesController {
 			take: paginated.limit,
 			skip: paginated.page * paginated.limit,
 		});
-	}
-
-	@Get('test')
-	@ApiQuery({
-		name: 'query',
-		schema: {
-			$ref: SchemaDefs.ReadCountryQuery,
-		},
-	})
-	async testRead(@MoQuery(ReadCountrySchema) query: TReadCountrySchemaOutput) {
-		// console.log(toJsonSchema(ReadCountrySchema, { errorMode: 'ignore' }));
-		return 'true';
-
-		// return this.countriesService.findAll({
-		// 	where,
-		// 	relations,
-		// 	order: order as any,
-		// 	...pagination,
-		// });
 	}
 }

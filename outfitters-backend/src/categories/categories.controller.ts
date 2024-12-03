@@ -20,9 +20,6 @@ import { CategoriesService } from './categories.service';
 import { categoryQueryableRelations, FindCategoryDto } from './dto/find-category.dto';
 import { BaseIssue, BaseSchema, safeParse, SchemaWithPipe, parse } from 'valibot';
 import { FastifyRequest } from 'fastify';
-import CreateCategorySchema, {
-	TCreateCategorySchemaInput,
-} from './generated-schemas/create-category.schema';
 import { metadataSymbol } from '../globals/constants/schema-symbols';
 import { MoBody } from '../globals/decorators/mo-body.decorator';
 import { CategoryEntity } from './entities/category.entity';
@@ -64,16 +61,5 @@ export class CategoriesController {
 			where: { id: +id, isArchived: false },
 			relations,
 		});
-	}
-
-	@Post('test/:id')
-	@ApiBody({
-		schema: {
-			$ref: SchemaDefs.CreateCategory,
-		},
-	})
-	test(@MoBody(CreateCategorySchema) body: TCreateCategorySchemaInput) {
-		// return body;
-		return this.categoriesService.testCreate(body);
 	}
 }

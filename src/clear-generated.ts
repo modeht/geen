@@ -26,4 +26,4 @@ controllers.forEach((co) => {
 		.catch((e) => error(e));
 });
 
-// prereq();
+prereq().then(() => console.log('prereq done'));

@@ -23,7 +23,6 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { BrandProfileEntity } from '../entities/brand-profile.entity';
 import { ShopperProfileEntity } from '../entities/shopper-profile.entity';
 import { UserEntity } from '../entities/user.entity';
-import { TCreateUserSchemaInput } from '../generated-schemas/create-user.schema';
 import { AbstractService } from '../../globals/services/abstract-service';
 
 @Injectable()
@@ -35,11 +34,6 @@ export class UsersService {
 		private readonly authContext: AuthContext,
 		private service: AbstractService,
 	) {}
-
-	async testCreate(body: TCreateUserSchemaInput) {
-		// const d = await this.service.create(body);
-		// return d;
-	}
 
 	async exists(
 		where: FindOptionsWhere<UserEntity> | FindOptionsWhere<UserEntity>[],

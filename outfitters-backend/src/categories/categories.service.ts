@@ -6,7 +6,6 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CategoryEntity } from './entities/category.entity';
 // import { AddCategoryEntityDto } from './generated-dtos/add-category-entity.dto';
 import { AbstractService } from '../globals/services/abstract-service';
-import { TCreateCategorySchemaInput } from './generated-schemas/create-category.schema';
 
 @Injectable()
 export class CategoriesService {
@@ -14,11 +13,6 @@ export class CategoriesService {
 		private datasource: DataSource,
 		private service: AbstractService,
 	) {}
-
-	async testCreate(body: TCreateCategorySchemaInput) {
-		// const d = await this.service.create(body);
-		// return d;
-	}
 
 	async create(createCategoryDto: CreateCategoryDto) {
 		const category = new CategoryEntity();

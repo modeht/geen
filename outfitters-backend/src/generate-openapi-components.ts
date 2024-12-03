@@ -31,7 +31,7 @@ export const SchemaDefs: ISchemaDefs = {
 		});
 
 	const schema = allSchemas[Object.keys(allSchemas)[0]];
-
+	if (!schema) return {};
 	const convertedSchema = await convert(schema, {
 		convertUnreferencedDefinitions: false,
 		cloneSchema: true,
