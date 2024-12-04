@@ -1,7 +1,9 @@
 import { DataSource, EntitySchema, EntityTarget, ObjectLiteral } from 'typeorm';
 import {
+	HttpException,
 	Injectable,
 	InternalServerErrorException,
+	NotFoundException,
 	UnprocessableEntityException,
 } from '@nestjs/common';
 import { metadataSymbol, modelSymbol } from '../constants/schema-symbols';
@@ -55,6 +57,9 @@ export class AbstractService {
 				});
 			}
 
+			if (error instanceof HttpException) {
+				throw error;
+			}
 			throw new InternalServerErrorException(error.message);
 		}
 	}
@@ -71,6 +76,9 @@ export class AbstractService {
 			const row = await this.datasource.manager.findOne(entity, {
 				where: { id: id } as any,
 			});
+			if (!row) {
+				throw new NotFoundException('Element not found');
+			}
 
 			for (const key in body) {
 				let val = body[key];
@@ -93,7 +101,9 @@ export class AbstractService {
 					cause: error,
 				});
 			}
-
+			if (error instanceof HttpException) {
+				throw error;
+			}
 			throw new InternalServerErrorException(error.message);
 		}
 	}
@@ -125,6 +135,9 @@ export class AbstractService {
 				});
 			}
 
+			if (error instanceof HttpException) {
+				throw error;
+			}
 			throw new InternalServerErrorException(error.message);
 		}
 	}
