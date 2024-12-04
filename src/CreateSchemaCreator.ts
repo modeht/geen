@@ -293,6 +293,7 @@ export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 
 		const metadataObject = `v.metadata({${metadatas.join(',\n')}})`;
 		const validationObject = `v.object({${schema.join(',\n')}})`;
+
 		//TODO: can be useful later
 		const exportStatment = `const ${this.schemaName} = v.pipe(${validationObject},${metadataObject});
 export default ${this.schemaName};

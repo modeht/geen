@@ -59,7 +59,7 @@ export class AbstractService {
 		}
 	}
 
-	async update<T extends ObjectLiteral>(
+	async update<T extends object>(
 		entity: EntityTarget<T>,
 		id: number,
 		body: Record<string | symbol, any>,
@@ -68,7 +68,9 @@ export class AbstractService {
 		try {
 			const metadata = body[metadataSymbol];
 			const entityName = metadata[modelSymbol];
-			const row = {} as any;
+			const row = await this.datasource.manager.findOne(entity, {
+				where: { id: id } as any,
+			});
 
 			for (const key in body) {
 				let val = body[key];
@@ -78,8 +80,10 @@ export class AbstractService {
 				}
 				row[key] = val;
 			}
-			const created: any = await this.datasource.manager.save(entityName, id, row);
-			return this.datasource.manager.findOne(entity, { where: { id: created.id } });
+			const created: any = await this.datasource.manager.save(entityName, row);
+			return this.datasource.manager.findOne(entity, {
+				where: { id: created.id } as any,
+			});
 		} catch (error: any) {
 			//handle known pg errros
 			const pgError = PostgresErrorCode[error.code];
