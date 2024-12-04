@@ -119,12 +119,14 @@ export class AbstractService {
 			const order = query['orders'];
 			const pagination = query['pagination'];
 
-			return this.datasource.manager.find(entity, {
+			const [data, total] = await this.datasource.manager.findAndCount(entity, {
 				where,
 				relations,
 				order,
 				...pagination,
 			});
+			console.log(pagination);
+			return { data, meta: { total, ...pagination } };
 		} catch (error: any) {
 			//handle known pg errros
 			const pgError = PostgresErrorCode[error.code];

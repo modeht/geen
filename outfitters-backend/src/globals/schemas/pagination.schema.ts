@@ -1,7 +1,7 @@
 import * as v from 'valibot';
 
 export const ReadPaginationSchema = v.object({
-	skip: v.undefinedable(
+	skip: v.optional(
 		v.pipe(
 			v.union([v.string(), v.number()]),
 			v.transform((input) => +input),
@@ -9,7 +9,7 @@ export const ReadPaginationSchema = v.object({
 		),
 		0,
 	),
-	take: v.undefinedable(
+	take: v.optional(
 		v.pipe(
 			v.union([v.string(), v.number()]),
 			v.transform((input) => +input),

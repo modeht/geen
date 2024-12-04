@@ -139,7 +139,7 @@ ${relativePaths.join(';\n')};\n`;
 filters: v.optional(${files[0]['schemaName']}),
 relations: v.optional(${files[1]['schemaName']}),
 orders: v.optional(${files[2]['schemaName']}),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));\n`;
 		file += schema;
 		const schemaName = `Read${this.entityName}Schema`;
