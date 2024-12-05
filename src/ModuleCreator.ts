@@ -145,7 +145,7 @@ export class ModuleCreator {
 		const defaultConstructor = `constructor(private datasource: DataSource, private service: AbstractService){}`;
 		serviceTemplate = serviceTemplate.replace('<<classConstructor>>', defaultConstructor);
 
-		const createMethod = `
+		const methodsStr = `
 			async createRow(body: ${create.outputType}){
 				return await this.service.create(${read.fullEntityName}, body);
 			}
@@ -157,10 +157,18 @@ export class ModuleCreator {
 			async readRows(query: ${read.outputType}){
 				return await this.service.read(${read.fullEntityName}, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(${read.fullEntityName}, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(${read.fullEntityName}, id, { soft: true });
+			}
 		`;
 
 		const methods = new Set();
-		methods.add(createMethod);
+		methods.add(methodsStr);
 		serviceTemplate = serviceTemplate.replace('<<classMethods>>', Array.from(methods).join('\n'));
 
 		serviceTemplate = serviceTemplate.replace('<<classProperties>>', '');
@@ -237,6 +245,7 @@ export class ModuleCreator {
 		const createSchemaName = create.savedFileName.split('.')[0].split('-').map(capitalize).join('');
 		const updateSchemaName = update.savedFileName.split('.')[0].split('-').map(capitalize).join('');
 		const readSchemaName = read.savedFileName.split('.')[0].split('-').map(capitalize).join('');
+
 		const createMethod = `
 			@Post()
 			@ApiBody({
@@ -250,6 +259,7 @@ export class ModuleCreator {
 				return this.service.createRow(body);
 			}
 		`;
+
 		const updateMethod = `
 			@Put(':id')
 			@ApiBody({
@@ -264,6 +274,7 @@ export class ModuleCreator {
 				return this.service.updateRow(+id, body);
 			}
 		`;
+
 		const readMethod = `
 			@Get()
 			@ApiQuery({
@@ -278,10 +289,30 @@ export class ModuleCreator {
 			}
 		`;
 
+		const deleteMethod = `
+			@Delete(':id')
+			async delete(
+				@Param('id') id: string,
+			) {
+				return this.service.deleteRow(+id);
+			}
+		`;
+
+		const softDeleteMethod = `
+			@Delete(':id/soft')
+			async delete(
+				@Param('id') id: string,
+			) {
+				return this.service.softDeleteRow(+id);
+			}
+		`;
+
 		const methods = new Set();
 		methods.add(createMethod);
 		methods.add(updateMethod);
 		methods.add(readMethod);
+		methods.add(deleteMethod);
+		methods.add(softDeleteMethod);
 
 		controllerTemplate = controllerTemplate.replace('<<classMethods>>', Array.from(methods).join('\n'));
 

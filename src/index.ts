@@ -1,28 +1,43 @@
+#!/usr/bin/env node
+
 import { async, sync } from 'fast-glob';
 import { parseFiles } from './file-parser';
 import { time, timeEnd } from 'console';
 import { prereq } from './prereq';
 import { ModuleCreator } from './ModuleCreator';
+import { Command } from 'commander';
 
-async function main() {
-	time('Loading entities');
-	const allEntities = await async('**/*/*.entity.ts', { absolute: true, onlyFiles: true, ignore: ['**/node_modules'] });
-	timeEnd('Loading entities');
+const program = new Command();
 
-	time('Parsing');
-	const ASTs = await parseFiles(allEntities);
-	timeEnd('Parsing');
+program
+	.option('-t')
+	.option('-c')
+	.action((...args) => {
+		console.log(args);
+		console.log('1');
+	});
 
-	time('Prerequistes');
-	await prereq();
-	timeEnd('Prerequistes');
+program.parse();
 
-	time('Creating modules');
-	for (const ast in ASTs) {
-		const m = new ModuleCreator(ASTs[ast].fullPath, ASTs[ast].sourceFile, ASTs);
-		await m.build();
-	}
-	timeEnd('Creating modules');
-}
+// async function main() {
+// 	time('Loading entities');
+// 	const allEntities = await async('**/*/*.entity.ts', { absolute: true, onlyFiles: true, ignore: ['**/node_modules'] });
+// 	timeEnd('Loading entities');
 
-main();
+// 	time('Parsing');
+// 	const ASTs = await parseFiles(allEntities);
+// 	timeEnd('Parsing');
+
+// 	time('Prerequistes');
+// 	await prereq();
+// 	timeEnd('Prerequistes');
+
+// 	time('Creating modules');
+// 	for (const ast in ASTs) {
+// 		const m = new ModuleCreator(ASTs[ast].fullPath, ASTs[ast].sourceFile, ASTs);
+// 		await m.build();
+// 	}
+// 	timeEnd('Creating modules');
+// }
+
+// main();

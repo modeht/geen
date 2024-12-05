@@ -23,6 +23,11 @@ export type ReadOptions = {
 	depth?: number;
 };
 
+export type DeleteOptions = {
+	//
+	soft?: boolean;
+};
+
 @Injectable()
 export class AbstractService {
 	constructor(private datasource: DataSource) {}
@@ -77,7 +82,7 @@ export class AbstractService {
 				where: { id: id } as any,
 			});
 			if (!row) {
-				throw new NotFoundException('Element not found');
+				throw new NotFoundException("Can't update. Element not found");
 			}
 
 			for (const key in body) {
@@ -125,8 +130,45 @@ export class AbstractService {
 				order,
 				...pagination,
 			});
-			console.log(pagination);
+
 			return { data, meta: { total, ...pagination } };
+		} catch (error: any) {
+			//handle known pg errros
+			const pgError = PostgresErrorCode[error.code];
+			if (pgError) {
+				throw new UnprocessableEntityException(pgError, {
+					description: 'Database exception',
+					cause: error,
+				});
+			}
+
+			if (error instanceof HttpException) {
+				throw error;
+			}
+			throw new InternalServerErrorException(error.message);
+		}
+	}
+
+	async delete<T extends ObjectLiteral>(
+		entity: EntityTarget<T>,
+		id: number,
+		options: DeleteOptions = {
+			soft: false,
+		},
+	) {
+		try {
+			const row = await this.datasource.manager.findOne(entity, { where: { id } as any });
+			if (!row) {
+				throw new NotFoundException("Can't delete. Element not found");
+			}
+
+			if (options.soft) {
+				const softDeleted = await this.datasource.manager.softRemove(row);
+				return softDeleted;
+			}
+
+			const deleted = await this.datasource.manager.remove(row);
+			return deleted;
 		} catch (error: any) {
 			//handle known pg errros
 			const pgError = PostgresErrorCode[error.code];
