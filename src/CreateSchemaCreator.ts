@@ -13,10 +13,12 @@ export type CreateDtoInfo = {
 	fileName: string; //remove entity or model name from it
 	savedFileName: string; //remove entity or model name from it
 };
+
 export type ServiceFileInfo = {
 	serviceClassName: string;
 	serviceAbsPath: string;
 };
+
 export type ControllerFileInfo = {
 	controllerClassName: string;
 	controllerAbsPath: string;

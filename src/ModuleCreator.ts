@@ -22,6 +22,7 @@ export type ServiceFileInfo = {
 	serviceClassName: string;
 	serviceAbsPath: string;
 };
+
 export type ControllerFileInfo = {
 	controllerClassName: string;
 	controllerAbsPath: string;
@@ -33,6 +34,7 @@ export type ModuleFileInfo = {
 };
 
 export type TypeKeywords = 'One' | 'Many';
+
 export type Relationships = `${TypeKeywords}To${TypeKeywords}`;
 
 export class ModuleCreator {

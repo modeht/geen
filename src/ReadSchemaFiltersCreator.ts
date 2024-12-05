@@ -19,6 +19,7 @@ export type ServiceFileInfo = {
 	serviceClassName: string;
 	serviceAbsPath: string;
 };
+
 export type ControllerFileInfo = {
 	controllerClassName: string;
 	controllerAbsPath: string;
