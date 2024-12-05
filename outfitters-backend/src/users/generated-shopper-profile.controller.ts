@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateShopperProfileSchema, { TCreateShopperProfileSchemaInput, TCreateShopperProfileSchemaOutput } from './generated-schemas//create-shopper-profile.schema'
 import UpdateShopperProfileSchema, { TUpdateShopperProfileSchemaInput, TUpdateShopperProfileSchemaOutput } from './generated-schemas//update-shopper-profile.schema'
 import ReadShopperProfileSchema, { TReadShopperProfileSchemaInput, TReadShopperProfileSchemaOutput } from './generated-schemas//read-shopper-profile-query.schema'
@@ -63,7 +63,7 @@ export class ShopperProfileController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

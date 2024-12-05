@@ -12,8 +12,8 @@ program
 	.option('-t')
 	.option('-c')
 	.action((...args) => {
-		console.log(args);
-		console.log(process.cwd());
+		// console.log(args);
+		// console.log(process.cwd());
 		main();
 	});
 

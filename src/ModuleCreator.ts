@@ -184,7 +184,7 @@ export class ModuleCreator {
 	async _createController(create: SchemaInfo, update: SchemaInfo, read: SchemaInfo, serviceFileInfo: ServiceFileInfo) {
 		let controllerTemplate = await readFile(join(process.cwd(), 'templates/controller.template'), 'utf8');
 		const imports = new Set();
-		imports.add(`import { Controller, Post, Get, Put, Param } from '@nestjs/common';`);
+		imports.add(`import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';`);
 
 		imports.add(
 			`import ${create.schemaName}, { ${create.inputType}, ${create.outputType} } from './${
@@ -299,7 +299,7 @@ export class ModuleCreator {
 
 		const softDeleteMethod = `
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateCollectionSchema, { TCreateCollectionSchemaInput, TCreateCollectionSchemaOutput } from './generated-schemas//create-collection.schema'
 import UpdateCollectionSchema, { TUpdateCollectionSchemaInput, TUpdateCollectionSchemaOutput } from './generated-schemas//update-collection.schema'
 import ReadCollectionSchema, { TReadCollectionSchemaInput, TReadCollectionSchemaOutput } from './generated-schemas//read-collection-query.schema'
@@ -63,7 +63,7 @@ export class CollectionController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

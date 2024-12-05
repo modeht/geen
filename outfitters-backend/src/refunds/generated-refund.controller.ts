@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateRefundSchema, { TCreateRefundSchemaInput, TCreateRefundSchemaOutput } from './generated-schemas//create-refund.schema'
 import UpdateRefundSchema, { TUpdateRefundSchemaInput, TUpdateRefundSchemaOutput } from './generated-schemas//update-refund.schema'
 import ReadRefundSchema, { TReadRefundSchemaInput, TReadRefundSchemaOutput } from './generated-schemas//read-refund-query.schema'
@@ -63,7 +63,7 @@ export class RefundController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

@@ -1,72 +1,67 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
-import CreateCommentSchema, { TCreateCommentSchemaInput, TCreateCommentSchemaOutput } from './generated-schemas//create-comment.schema'
-import UpdateCommentSchema, { TUpdateCommentSchemaInput, TUpdateCommentSchemaOutput } from './generated-schemas//update-comment.schema'
-import ReadCommentSchema, { TReadCommentSchemaInput, TReadCommentSchemaOutput } from './generated-schemas//read-comment-query.schema'
-import { CommentEntity } from './entities/comment.entity'
-import { ApiBody, ApiQuery } from '@nestjs/swagger'
-import { SchemaDefs } from "../schema-defs"
-import { MoBody } from "../globals/decorators/mo-body.decorator"
-import { MoQuery } from "../globals/decorators/mo-query.decorator"
-import { CommentService } from './generated-comment.service'
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
+import CreateCommentSchema, {
+	TCreateCommentSchemaInput,
+	TCreateCommentSchemaOutput,
+} from './generated-schemas//create-comment.schema';
+import UpdateCommentSchema, {
+	TUpdateCommentSchemaInput,
+	TUpdateCommentSchemaOutput,
+} from './generated-schemas//update-comment.schema';
+import ReadCommentSchema, {
+	TReadCommentSchemaInput,
+	TReadCommentSchemaOutput,
+} from './generated-schemas//read-comment-query.schema';
+import { CommentEntity } from './entities/comment.entity';
+import { ApiBody, ApiQuery } from '@nestjs/swagger';
+import { SchemaDefs } from '../schema-defs';
+import { MoBody } from '../globals/decorators/mo-body.decorator';
+import { MoQuery } from '../globals/decorators/mo-query.decorator';
+import { CommentService } from './generated-comment.service';
 
 @Controller('comment')
 export class CommentController {
-  
-  constructor(private service: CommentService){}
-  
-			@Post()
-			@ApiBody({
-				schema:{
-					$ref: SchemaDefs.CreateComment
-				}
-			})
-			async create(
-				@MoBody(CreateCommentSchema) body: TCreateCommentSchemaOutput,
-			) {
-				return this.service.createRow(body);
-			}
-		
+	constructor(private service: CommentService) {}
 
-			@Put(':id')
-			@ApiBody({
-				schema:{
-					$ref: SchemaDefs.UpdateComment
-				}
-			})
-			async update(
-				@Param('id') id: string,
-				@MoBody(UpdateCommentSchema) body: TUpdateCommentSchemaOutput,
-			) {
-				return this.service.updateRow(+id, body);
-			}
-		
+	@Post()
+	@ApiBody({
+		schema: {
+			$ref: SchemaDefs.CreateComment,
+		},
+	})
+	async create(@MoBody(CreateCommentSchema) body: TCreateCommentSchemaOutput) {
+		return this.service.createRow(body);
+	}
 
-			@Get()
-			@ApiQuery({
-				schema:{
-					$ref: SchemaDefs.ReadCommentQuery
-				}
-			})
-			async read(
-				@MoQuery(ReadCommentSchema) query: TReadCommentSchemaOutput,
-			) {
-				return this.service.readRows(query);
-			}
-		
+	@Put(':id')
+	@ApiBody({
+		schema: {
+			$ref: SchemaDefs.UpdateComment,
+		},
+	})
+	async update(
+		@Param('id') id: string,
+		@MoBody(UpdateCommentSchema) body: TUpdateCommentSchemaOutput,
+	) {
+		return this.service.updateRow(+id, body);
+	}
 
-			@Delete(':id')
-			async delete(
-				@Param('id') id: string,
-			) {
-				return this.service.deleteRow(+id);
-			}
-		
+	@Get()
+	@ApiQuery({
+		schema: {
+			$ref: SchemaDefs.ReadCommentQuery,
+		},
+	})
+	async read(@MoQuery(ReadCommentSchema) query: TReadCommentSchemaOutput) {
+		return this.service.readRows(query);
+	}
 
-			@Delete(':id/soft')
-			async delete(
-				@Param('id') id: string,
-			) {
-				return this.service.softDeleteRow(+id);
-			}
-		
+	@Delete(':id')
+	async delete(@Param('id') id: string) {
+		return this.service.deleteRow(+id);
+	}
+
+	@Delete(':id/soft')
+	async softDelete(@Param('id') id: string) {
+		return this.service.softDeleteRow(+id);
+	}
 }

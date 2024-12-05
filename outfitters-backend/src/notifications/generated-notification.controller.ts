@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateNotificationSchema, { TCreateNotificationSchemaInput, TCreateNotificationSchemaOutput } from './generated-schemas//create-notification.schema'
 import UpdateNotificationSchema, { TUpdateNotificationSchemaInput, TUpdateNotificationSchemaOutput } from './generated-schemas//update-notification.schema'
 import ReadNotificationSchema, { TReadNotificationSchemaInput, TReadNotificationSchemaOutput } from './generated-schemas//read-notification-query.schema'
@@ -63,7 +63,7 @@ export class NotificationController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

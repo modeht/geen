@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateTranslationSchema, { TCreateTranslationSchemaInput, TCreateTranslationSchemaOutput } from './generated-schemas//create-translation.schema'
 import UpdateTranslationSchema, { TUpdateTranslationSchemaInput, TUpdateTranslationSchemaOutput } from './generated-schemas//update-translation.schema'
 import ReadTranslationSchema, { TReadTranslationSchemaInput, TReadTranslationSchemaOutput } from './generated-schemas//read-translation-query.schema'
@@ -63,7 +63,7 @@ export class TranslationController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

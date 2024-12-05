@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateProductOptionSchema, { TCreateProductOptionSchemaInput, TCreateProductOptionSchemaOutput } from './generated-schemas//create-product-option.schema'
 import UpdateProductOptionSchema, { TUpdateProductOptionSchemaInput, TUpdateProductOptionSchemaOutput } from './generated-schemas//update-product-option.schema'
 import ReadProductOptionSchema, { TReadProductOptionSchemaInput, TReadProductOptionSchemaOutput } from './generated-schemas//read-product-option-query.schema'
@@ -63,7 +63,7 @@ export class ProductOptionController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateTaggedProductSchema, { TCreateTaggedProductSchemaInput, TCreateTaggedProductSchemaOutput } from './generated-schemas//create-tagged-product.schema'
 import UpdateTaggedProductSchema, { TUpdateTaggedProductSchemaInput, TUpdateTaggedProductSchemaOutput } from './generated-schemas//update-tagged-product.schema'
 import ReadTaggedProductSchema, { TReadTaggedProductSchemaInput, TReadTaggedProductSchemaOutput } from './generated-schemas//read-tagged-product-query.schema'
@@ -63,7 +63,7 @@ export class TaggedProductController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateUserSchema, { TCreateUserSchemaInput, TCreateUserSchemaOutput } from './generated-schemas//create-user.schema'
 import UpdateUserSchema, { TUpdateUserSchemaInput, TUpdateUserSchemaOutput } from './generated-schemas//update-user.schema'
 import ReadUserSchema, { TReadUserSchemaInput, TReadUserSchemaOutput } from './generated-schemas//read-user-query.schema'
@@ -63,7 +63,7 @@ export class UserController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

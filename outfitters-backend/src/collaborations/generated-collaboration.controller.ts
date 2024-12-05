@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateCollaborationSchema, { TCreateCollaborationSchemaInput, TCreateCollaborationSchemaOutput } from './generated-schemas//create-collaboration.schema'
 import UpdateCollaborationSchema, { TUpdateCollaborationSchemaInput, TUpdateCollaborationSchemaOutput } from './generated-schemas//update-collaboration.schema'
 import ReadCollaborationSchema, { TReadCollaborationSchemaInput, TReadCollaborationSchemaOutput } from './generated-schemas//read-collaboration-query.schema'
@@ -63,7 +63,7 @@ export class CollaborationController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

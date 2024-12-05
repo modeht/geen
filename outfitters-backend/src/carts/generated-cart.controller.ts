@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateCartSchema, { TCreateCartSchemaInput, TCreateCartSchemaOutput } from './generated-schemas//create-cart.schema'
 import UpdateCartSchema, { TUpdateCartSchemaInput, TUpdateCartSchemaOutput } from './generated-schemas//update-cart.schema'
 import ReadCartSchema, { TReadCartSchemaInput, TReadCartSchemaOutput } from './generated-schemas//read-cart-query.schema'
@@ -63,7 +63,7 @@ export class CartController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

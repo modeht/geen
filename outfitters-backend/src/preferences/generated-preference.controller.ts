@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreatePreferenceSchema, { TCreatePreferenceSchemaInput, TCreatePreferenceSchemaOutput } from './generated-schemas//create-preference.schema'
 import UpdatePreferenceSchema, { TUpdatePreferenceSchemaInput, TUpdatePreferenceSchemaOutput } from './generated-schemas//update-preference.schema'
 import ReadPreferenceSchema, { TReadPreferenceSchemaInput, TReadPreferenceSchemaOutput } from './generated-schemas//read-preference-query.schema'
@@ -63,7 +63,7 @@ export class PreferenceController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

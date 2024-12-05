@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateShippingAddressSchema, { TCreateShippingAddressSchemaInput, TCreateShippingAddressSchemaOutput } from './generated-schemas//create-shipping-address.schema'
 import UpdateShippingAddressSchema, { TUpdateShippingAddressSchemaInput, TUpdateShippingAddressSchemaOutput } from './generated-schemas//update-shipping-address.schema'
 import ReadShippingAddressSchema, { TReadShippingAddressSchemaInput, TReadShippingAddressSchemaOutput } from './generated-schemas//read-shipping-address-query.schema'
@@ -63,7 +63,7 @@ export class ShippingAddressController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

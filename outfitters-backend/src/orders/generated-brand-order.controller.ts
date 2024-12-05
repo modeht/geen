@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateBrandOrderSchema, { TCreateBrandOrderSchemaInput, TCreateBrandOrderSchemaOutput } from './generated-schemas//create-brand-order.schema'
 import UpdateBrandOrderSchema, { TUpdateBrandOrderSchemaInput, TUpdateBrandOrderSchemaOutput } from './generated-schemas//update-brand-order.schema'
 import ReadBrandOrderSchema, { TReadBrandOrderSchemaInput, TReadBrandOrderSchemaOutput } from './generated-schemas//read-brand-order-query.schema'
@@ -63,7 +63,7 @@ export class BrandOrderController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

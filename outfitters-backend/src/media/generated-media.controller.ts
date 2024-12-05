@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateMediaSchema, { TCreateMediaSchemaInput, TCreateMediaSchemaOutput } from './generated-schemas//create-media.schema'
 import UpdateMediaSchema, { TUpdateMediaSchemaInput, TUpdateMediaSchemaOutput } from './generated-schemas//update-media.schema'
 import ReadMediaSchema, { TReadMediaSchemaInput, TReadMediaSchemaOutput } from './generated-schemas//read-media-query.schema'
@@ -63,7 +63,7 @@ export class MediaController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

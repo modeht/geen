@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreatePostLikesSchema, { TCreatePostLikesSchemaInput, TCreatePostLikesSchemaOutput } from './generated-schemas//create-post-likes.schema'
 import UpdatePostLikesSchema, { TUpdatePostLikesSchemaInput, TUpdatePostLikesSchemaOutput } from './generated-schemas//update-post-likes.schema'
 import ReadPostLikesSchema, { TReadPostLikesSchemaInput, TReadPostLikesSchemaOutput } from './generated-schemas//read-post-likes-query.schema'
@@ -63,7 +63,7 @@ export class PostLikesController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateSeasonalPromotionSchema, { TCreateSeasonalPromotionSchemaInput, TCreateSeasonalPromotionSchemaOutput } from './generated-schemas//create-seasonal-promotion.schema'
 import UpdateSeasonalPromotionSchema, { TUpdateSeasonalPromotionSchemaInput, TUpdateSeasonalPromotionSchemaOutput } from './generated-schemas//update-seasonal-promotion.schema'
 import ReadSeasonalPromotionSchema, { TReadSeasonalPromotionSchemaInput, TReadSeasonalPromotionSchemaOutput } from './generated-schemas//read-seasonal-promotion-query.schema'
@@ -63,7 +63,7 @@ export class SeasonalPromotionController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

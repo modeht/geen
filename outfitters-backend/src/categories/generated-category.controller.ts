@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateCategorySchema, { TCreateCategorySchemaInput, TCreateCategorySchemaOutput } from './generated-schemas//create-category.schema'
 import UpdateCategorySchema, { TUpdateCategorySchemaInput, TUpdateCategorySchemaOutput } from './generated-schemas//update-category.schema'
 import ReadCategorySchema, { TReadCategorySchemaInput, TReadCategorySchemaOutput } from './generated-schemas//read-category-query.schema'
@@ -63,7 +63,7 @@ export class CategoryController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

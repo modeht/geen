@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreatePromotionSchema, { TCreatePromotionSchemaInput, TCreatePromotionSchemaOutput } from './generated-schemas//create-promotion.schema'
 import UpdatePromotionSchema, { TUpdatePromotionSchemaInput, TUpdatePromotionSchemaOutput } from './generated-schemas//update-promotion.schema'
 import ReadPromotionSchema, { TReadPromotionSchemaInput, TReadPromotionSchemaOutput } from './generated-schemas//read-promotion-query.schema'
@@ -63,7 +63,7 @@ export class PromotionController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

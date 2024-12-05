@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateCountrySchema, { TCreateCountrySchemaInput, TCreateCountrySchemaOutput } from './generated-schemas//create-country.schema'
 import UpdateCountrySchema, { TUpdateCountrySchemaInput, TUpdateCountrySchemaOutput } from './generated-schemas//update-country.schema'
 import ReadCountrySchema, { TReadCountrySchemaInput, TReadCountrySchemaOutput } from './generated-schemas//read-country-query.schema'
@@ -63,7 +63,7 @@ export class CountryController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

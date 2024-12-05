@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateRecentSearchesSchema, { TCreateRecentSearchesSchemaInput, TCreateRecentSearchesSchemaOutput } from './generated-schemas//create-recent-searches.schema'
 import UpdateRecentSearchesSchema, { TUpdateRecentSearchesSchemaInput, TUpdateRecentSearchesSchemaOutput } from './generated-schemas//update-recent-searches.schema'
 import ReadRecentSearchesSchema, { TReadRecentSearchesSchemaInput, TReadRecentSearchesSchemaOutput } from './generated-schemas//read-recent-searches-query.schema'
@@ -63,7 +63,7 @@ export class RecentSearchesController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

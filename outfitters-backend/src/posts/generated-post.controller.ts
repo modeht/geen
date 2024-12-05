@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreatePostSchema, { TCreatePostSchemaInput, TCreatePostSchemaOutput } from './generated-schemas//create-post.schema'
 import UpdatePostSchema, { TUpdatePostSchemaInput, TUpdatePostSchemaOutput } from './generated-schemas//update-post.schema'
 import ReadPostSchema, { TReadPostSchemaInput, TReadPostSchemaOutput } from './generated-schemas//read-post-query.schema'
@@ -63,7 +63,7 @@ export class PostController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

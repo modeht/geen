@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateAffiliationLinkTrackingSchema, { TCreateAffiliationLinkTrackingSchemaInput, TCreateAffiliationLinkTrackingSchemaOutput } from './generated-schemas//create-affiliation-link-tracking.schema'
 import UpdateAffiliationLinkTrackingSchema, { TUpdateAffiliationLinkTrackingSchemaInput, TUpdateAffiliationLinkTrackingSchemaOutput } from './generated-schemas//update-affiliation-link-tracking.schema'
 import ReadAffiliationLinkTrackingSchema, { TReadAffiliationLinkTrackingSchemaInput, TReadAffiliationLinkTrackingSchemaOutput } from './generated-schemas//read-affiliation-link-tracking-query.schema'
@@ -63,7 +63,7 @@ export class AffiliationLinkTrackingController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);

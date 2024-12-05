@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Put, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
 import CreateConversationSchema, { TCreateConversationSchemaInput, TCreateConversationSchemaOutput } from './generated-schemas//create-conversation.schema'
 import UpdateConversationSchema, { TUpdateConversationSchemaInput, TUpdateConversationSchemaOutput } from './generated-schemas//update-conversation.schema'
 import ReadConversationSchema, { TReadConversationSchemaInput, TReadConversationSchemaOutput } from './generated-schemas//read-conversation-query.schema'
@@ -63,7 +63,7 @@ export class ConversationController {
 		
 
 			@Delete(':id/soft')
-			async delete(
+			async softDelete(
 				@Param('id') id: string,
 			) {
 				return this.service.softDeleteRow(+id);
