@@ -22,5 +22,13 @@ export class BrandOrderService {
 			async readRows(query: TReadBrandOrderSchemaOutput){
 				return await this.service.read(BrandOrderEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(BrandOrderEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(BrandOrderEntity, id, { soft: true });
+			}
 		
 }

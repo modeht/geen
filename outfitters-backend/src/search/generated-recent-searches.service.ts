@@ -22,5 +22,13 @@ export class RecentSearchesService {
 			async readRows(query: TReadRecentSearchesSchemaOutput){
 				return await this.service.read(RecentSearchesEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(RecentSearchesEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(RecentSearchesEntity, id, { soft: true });
+			}
 		
 }

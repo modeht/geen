@@ -22,5 +22,13 @@ export class SavedCollectionService {
 			async readRows(query: TReadSavedCollectionSchemaOutput){
 				return await this.service.read(SavedCollectionEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(SavedCollectionEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(SavedCollectionEntity, id, { soft: true });
+			}
 		
 }

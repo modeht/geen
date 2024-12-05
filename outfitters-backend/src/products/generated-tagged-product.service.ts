@@ -22,5 +22,13 @@ export class TaggedProductService {
 			async readRows(query: TReadTaggedProductSchemaOutput){
 				return await this.service.read(TaggedProductEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(TaggedProductEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(TaggedProductEntity, id, { soft: true });
+			}
 		
 }

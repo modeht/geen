@@ -22,5 +22,13 @@ export class MessageService {
 			async readRows(query: TReadMessageSchemaOutput){
 				return await this.service.read(MessageEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(MessageEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(MessageEntity, id, { soft: true });
+			}
 		
 }

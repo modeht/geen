@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
-import { projectPath } from './utils';
+import { projectPath } from './utils.js';
 
 export async function prereq() {
 	await writeFile(

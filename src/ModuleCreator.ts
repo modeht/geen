@@ -1,12 +1,11 @@
 import ts from 'typescript';
-import { Node, TreeParser } from './TreeParser';
 import { readFile, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
-import { ASTs } from './lib/types';
-import { appModulePath, globalsDirPath as globalsDirPath, projectPath } from './utils';
-import { CreateSchemaCreator } from './CreateSchemaCreator';
-import { UpdateSchemaCreator } from './UpdateSchemaCreator';
-import { ReadSchemaCreator } from './ReadSchemaCreator';
+import { ASTs } from './lib/types/index.js';
+import { appModulePath, globalsDirPath as globalsDirPath, projectPath } from './utils.js';
+import { CreateSchemaCreator } from './CreateSchemaCreator.js';
+import { UpdateSchemaCreator } from './UpdateSchemaCreator.js';
+import { ReadSchemaCreator } from './ReadSchemaCreator.js';
 
 export type SchemaInfo = {
 	absPath: string;

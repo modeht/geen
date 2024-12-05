@@ -8,7 +8,7 @@ const ReadNotificationSchema = v.optional(v.object({
 filters: v.optional(ReadNotificationFiltersSchema),
 relations: v.optional(ReadNotificationRelationsSchema),
 orders: v.optional(ReadNotificationOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadNotificationSchema;
 export type TReadNotificationSchemaInput = v.InferInput<typeof ReadNotificationSchema>;

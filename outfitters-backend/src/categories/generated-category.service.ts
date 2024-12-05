@@ -22,5 +22,13 @@ export class CategoryService {
 			async readRows(query: TReadCategorySchemaOutput){
 				return await this.service.read(CategoryEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(CategoryEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(CategoryEntity, id, { soft: true });
+			}
 		
 }

@@ -1,10 +1,10 @@
 import ts from 'typescript';
-import { Node, TreeParser } from './TreeParser';
+import { Node, TreeParser } from './TreeParser.js';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
-import { ASTs } from './lib/types';
+import { ASTs } from './lib/types/index.js';
 import { log, warn } from 'console';
-import { globalsDirPath } from './utils';
+import { globalsDirPath } from './utils.js';
 
 export type CreateDtoInfo = {
 	absPath: string;
@@ -316,7 +316,7 @@ export default ${this.schemaName};
 	_findImportAbsPath(enumType: string) {
 		const importFrom = this.parsedTree.imports?.find((i) => i.text?.includes(enumType!));
 		if (importFrom) {
-			const impPathRel = importFrom.module?.replaceAll("'", '').replaceAll('"', '');
+			const impPathRel = importFrom.module?.replace(/['"]/g, '');
 			const impPathAbs = join(dirname(this.entityPath), impPathRel!);
 			return {
 				importedFields: [enumType!],
@@ -373,7 +373,7 @@ export default ${this.schemaName};
 			relationClassImport = this.parsedTree.imports?.find(
 				(i) => i?.identifiers?.findIndex((id) => id?.expression === relationClass)! > -1
 			) || {
-				module: `import { ${relationClass!} } from '${this.entityPath.replaceAll('.ts', '')}'`,
+				module: `import { ${relationClass!} } from '${this.entityPath.replace('.ts', '')}'`,
 			};
 
 			relationFileImport = relationClassImport.module?.split('/')?.at(-1)?.replace("'", '');

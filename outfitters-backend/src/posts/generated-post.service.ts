@@ -22,5 +22,13 @@ export class PostService {
 			async readRows(query: TReadPostSchemaOutput){
 				return await this.service.read(PostEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(PostEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(PostEntity, id, { soft: true });
+			}
 		
 }

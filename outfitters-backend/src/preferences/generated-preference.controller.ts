@@ -53,4 +53,20 @@ export class PreferenceController {
 				return this.service.readRows(query);
 			}
 		
+
+			@Delete(':id')
+			async delete(
+				@Param('id') id: string,
+			) {
+				return this.service.deleteRow(+id);
+			}
+		
+
+			@Delete(':id/soft')
+			async delete(
+				@Param('id') id: string,
+			) {
+				return this.service.softDeleteRow(+id);
+			}
+		
 }

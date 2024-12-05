@@ -22,5 +22,13 @@ export class NotificationService {
 			async readRows(query: TReadNotificationSchemaOutput){
 				return await this.service.read(NotificationEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(NotificationEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(NotificationEntity, id, { soft: true });
+			}
 		
 }

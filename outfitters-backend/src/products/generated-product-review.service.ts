@@ -22,5 +22,13 @@ export class ProductReviewService {
 			async readRows(query: TReadProductReviewSchemaOutput){
 				return await this.service.read(ProductReviewEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(ProductReviewEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(ProductReviewEntity, id, { soft: true });
+			}
 		
 }

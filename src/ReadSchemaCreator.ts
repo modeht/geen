@@ -1,12 +1,12 @@
 import ts from 'typescript';
-import { Node, TreeParser } from './TreeParser';
+import { Node, TreeParser } from './TreeParser.js';
 import { mkdir, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
-import { ASTs } from './lib/types';
-import { globalsDirPath as globalsDirPath } from './utils';
-import { ReadSchemaFiltersCreator } from './ReadSchemaFiltersCreator';
-import { ReadSchemaRelationsCreator } from './ReadSchemaRelationsCreator';
-import { ReadSchemaOrdersCreator } from './ReadSchemaOrdersCreator';
+import { ASTs } from './lib/types/index.js';
+import { globalsDirPath as globalsDirPath } from './utils.js';
+import { ReadSchemaFiltersCreator } from './ReadSchemaFiltersCreator.js';
+import { ReadSchemaRelationsCreator } from './ReadSchemaRelationsCreator.js';
+import { ReadSchemaOrdersCreator } from './ReadSchemaOrdersCreator.js';
 
 export type ReadDtoInfo = {
 	absPath: string;

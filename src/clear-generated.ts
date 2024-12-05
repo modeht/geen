@@ -1,7 +1,7 @@
 import { error, log } from 'console';
 import { sync } from 'fast-glob';
 import { rm } from 'fs/promises';
-import { prereq } from './prereq';
+import { prereq } from './prereq.js';
 
 const dirs = sync('**/*/generated-*', {
 	onlyDirectories: true,

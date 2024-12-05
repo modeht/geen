@@ -8,7 +8,7 @@ const ReadCommentSchema = v.optional(v.object({
 filters: v.optional(ReadCommentFiltersSchema),
 relations: v.optional(ReadCommentRelationsSchema),
 orders: v.optional(ReadCommentOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadCommentSchema;
 export type TReadCommentSchemaInput = v.InferInput<typeof ReadCommentSchema>;

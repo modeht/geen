@@ -22,5 +22,13 @@ export class OrderItemService {
 			async readRows(query: TReadOrderItemSchemaOutput){
 				return await this.service.read(OrderItemEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(OrderItemEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(OrderItemEntity, id, { soft: true });
+			}
 		
 }

@@ -22,5 +22,13 @@ export class CartService {
 			async readRows(query: TReadCartSchemaOutput){
 				return await this.service.read(CartEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(CartEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(CartEntity, id, { soft: true });
+			}
 		
 }

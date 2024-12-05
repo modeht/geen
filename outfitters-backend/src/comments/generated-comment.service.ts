@@ -22,5 +22,13 @@ export class CommentService {
 			async readRows(query: TReadCommentSchemaOutput){
 				return await this.service.read(CommentEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(CommentEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(CommentEntity, id, { soft: true });
+			}
 		
 }

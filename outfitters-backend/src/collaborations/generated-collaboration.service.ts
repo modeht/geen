@@ -22,5 +22,13 @@ export class CollaborationService {
 			async readRows(query: TReadCollaborationSchemaOutput){
 				return await this.service.read(CollaborationEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(CollaborationEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(CollaborationEntity, id, { soft: true });
+			}
 		
 }

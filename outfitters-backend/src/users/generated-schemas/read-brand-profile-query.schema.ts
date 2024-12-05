@@ -8,7 +8,7 @@ const ReadBrandProfileSchema = v.optional(v.object({
 filters: v.optional(ReadBrandProfileFiltersSchema),
 relations: v.optional(ReadBrandProfileRelationsSchema),
 orders: v.optional(ReadBrandProfileOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadBrandProfileSchema;
 export type TReadBrandProfileSchemaInput = v.InferInput<typeof ReadBrandProfileSchema>;

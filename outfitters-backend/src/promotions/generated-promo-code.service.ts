@@ -22,5 +22,13 @@ export class PromoCodeService {
 			async readRows(query: TReadPromoCodeSchemaOutput){
 				return await this.service.read(PromoCodeEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(PromoCodeEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(PromoCodeEntity, id, { soft: true });
+			}
 		
 }

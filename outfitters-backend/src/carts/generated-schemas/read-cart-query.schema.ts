@@ -8,7 +8,7 @@ const ReadCartSchema = v.optional(v.object({
 filters: v.optional(ReadCartFiltersSchema),
 relations: v.optional(ReadCartRelationsSchema),
 orders: v.optional(ReadCartOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadCartSchema;
 export type TReadCartSchemaInput = v.InferInput<typeof ReadCartSchema>;

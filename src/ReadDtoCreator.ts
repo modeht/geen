@@ -1,9 +1,9 @@
 import ts from 'typescript';
-import { Node, TreeParser } from './TreeParser';
+import { Node, TreeParser } from './TreeParser.js';
 import { readFile, writeFile, mkdir } from 'fs/promises';
 import { dirname, join, relative, resolve, sep } from 'path';
-import { ASTs } from './lib/types';
-import { globalsDirPath } from './utils';
+import { ASTs } from './lib/types/index.js';
+import { globalsDirPath } from './utils.js';
 import { mkdirSync } from 'fs';
 
 export type SchemaInfo = {
@@ -49,12 +49,7 @@ export class ReadDtoCreator {
 	dtoDirRelPath: string;
 	dtoDirAbsPath: string;
 
-	constructor(
-		ast: ts.SourceFile,
-		ogPath: string,
-		asts: ASTs,
-		{ maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 }
-	) {
+	constructor(ast: ts.SourceFile, ogPath: string, asts: ASTs, { maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 }) {
 		this.parsedTree = TreeParser.parse(ast);
 		this.ogFilePath = ogPath;
 		this.maxDepth = maxDepth;
@@ -71,10 +66,7 @@ export class ReadDtoCreator {
 		mkdirSync(this.dtoDirAbsPath, { recursive: true });
 
 		//relative path to dto directory from entity
-		this.dtoDirRelPath = relative(
-			this.ogFilePath,
-			join(dirname(this.ogFilePath), '..', this.dtoDirPath)
-		);
+		this.dtoDirRelPath = relative(this.ogFilePath, join(dirname(this.ogFilePath), '..', this.dtoDirPath));
 	}
 
 	async build(parenClassName: string = '', parentFileName: string = '') {
@@ -85,15 +77,10 @@ export class ReadDtoCreator {
 		this._setEnums();
 
 		//the dto will be saved with this name
-		const savedFileName = `read${parentFileName ? '-' + parentFileName : ''}-${
-			this.fileName
-		}.dto.ts`;
+		const savedFileName = `read${parentFileName ? '-' + parentFileName : ''}-${this.fileName}.dto.ts`;
 
 		//path of the dto exactly
-		const newDtoFilePath = join(
-			this.ogFilePath,
-			`${this.dtoDirRelPath}/${savedFileName}`
-		);
+		const newDtoFilePath = join(this.ogFilePath, `${this.dtoDirRelPath}/${savedFileName}`);
 
 		//relative path from the new to be saved file to the original entity file for imports use
 		const ogDirRelPath = relative(dirname(newDtoFilePath), this.ogFilePath);
@@ -102,39 +89,24 @@ export class ReadDtoCreator {
 			...this.imports,
 			...this.absoluteImports?.map((i) => {
 				//take relative imports from main entity file and map those imports to the dto file with the correct relative paths
-				const relativePath = relative(dirname(newDtoFilePath), i.absPath)
-					.split(sep)
-					.join('/')
-					.replaceAll('.ts', '');
+				const relativePath = relative(dirname(newDtoFilePath), i.absPath).split(sep).join('/').replace('.ts', '');
 				return `import { ${i.importedFields.join(', ')} } from '${
 					relativePath.startsWith('.') ? relativePath : './' + relativePath
 				}'`;
 			}),
 		]);
 
-		let dtoTemplate = await readFile(
-			join(process.cwd(), 'templates/dto.template'),
-			'utf8'
-		);
-		dtoTemplate = dtoTemplate.replaceAll(
-			'<<imports>>',
-			Array.from(this.imports).join('\n')
-		);
-		dtoTemplate = dtoTemplate.replaceAll('<<enums>>', this.enums.join('\n'));
-		dtoTemplate = dtoTemplate.replaceAll('<<dtoClass>>', this.className!);
-		dtoTemplate = dtoTemplate.replaceAll('<<properties>>', this.properties.join('\n\n'));
-		dtoTemplate = dtoTemplate.replaceAll(
-			'<<validationsImports>>',
-			Array.from(this.validationsImports).join(', ')
-		);
-		dtoTemplate = dtoTemplate.replaceAll(
-			'<<transformationsImports>>',
+		let dtoTemplate = await readFile(join(process.cwd(), 'templates/dto.template'), 'utf8');
+		dtoTemplate = dtoTemplate.replace(/<<imports>>/g, Array.from(this.imports).join('\n'));
+		dtoTemplate = dtoTemplate.replace(/<<enums>>/g, this.enums.join('\n'));
+		dtoTemplate = dtoTemplate.replace(/<<dtoClass>>/g, this.className!);
+		dtoTemplate = dtoTemplate.replace(/<<properties>>/g, this.properties.join('\n\n'));
+		dtoTemplate = dtoTemplate.replace(/<<validationsImports>>/g, Array.from(this.validationsImports).join(', '));
+		dtoTemplate = dtoTemplate.replace(
+			/<<transformationsImports>>/g,
 			Array.from(this.transformationsImports).join(', ')
 		);
-		dtoTemplate = dtoTemplate.replaceAll(
-			'<<pathToOriginal>>',
-			ogDirRelPath.split(sep).join('/').replaceAll('.ts', '')
-		);
+		dtoTemplate = dtoTemplate.replace(/<<pathToOriginal>>/g, ogDirRelPath.split(sep).join('/').replace(/\.ts/g, ''));
 
 		await writeFile(newDtoFilePath, dtoTemplate);
 
@@ -146,9 +118,7 @@ export class ReadDtoCreator {
 	}
 
 	_setEntityName() {
-		const entityClass = this.parsedTree.classes?.find((c) =>
-			c.decorators?.find((d) => d.text?.startsWith('@Entity'))
-		);
+		const entityClass = this.parsedTree.classes?.find((c) => c.decorators?.find((d) => d.text?.startsWith('@Entity')));
 		if (!entityClass) throw new Error('no entity class found');
 		this.entityName = entityClass.name!;
 		this.entityClass = entityClass;
@@ -168,17 +138,17 @@ export class ReadDtoCreator {
 
 	_setDefaultImports() {
 		this.parsedTree.imports?.forEach((i) => {
-			i.module = i.module?.replaceAll("'", '');
+			i.module = i.module?.replace(/['"]/g, '');
 			if (i.module?.startsWith('.')) {
 				const targetDestAbs = join(dirname(this.ogFilePath), i.module);
 				this.absoluteImports.push({
-					absPath: targetDestAbs.replaceAll('.ts', ''),
+					absPath: targetDestAbs.replace('.ts', ''),
 					importedFields: i.identifiers?.map((i) => i.expression!)!,
 				});
 			} else if (i.module === 'typeorm') {
 				//do nothing
 			} else {
-				this.imports.add(i.text?.replaceAll('.ts', '')!);
+				this.imports.add(i.text?.replace('.ts', '')!);
 			}
 		});
 
@@ -187,16 +157,10 @@ export class ReadDtoCreator {
 		this.imports?.add('import { <<transformationsImports>> } from "class-transformer";');
 
 		//TODO: we need a script to make sure these important files exists
-		const relationDecoRelPath = relative(this.dtoDirAbsPath, globalsDirPath)
-			.split(sep)
-			.join('/');
+		const relationDecoRelPath = relative(this.dtoDirAbsPath, globalsDirPath).split(sep).join('/');
 
-		this.imports?.add(
-			`import { Relation } from '${relationDecoRelPath}/decorators/relation.decorator';`
-		);
-		this.imports.add(
-			`import { IsOptionalIf } from '${relationDecoRelPath}/validators/is-option-if.validator';`
-		);
+		this.imports?.add(`import { Relation } from '${relationDecoRelPath}/decorators/relation.decorator';`);
+		this.imports.add(`import { IsOptionalIf } from '${relationDecoRelPath}/validators/is-option-if.validator';`);
 	}
 
 	_setEnums() {

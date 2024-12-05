@@ -8,7 +8,7 @@ const ReadMediaSchema = v.optional(v.object({
 filters: v.optional(ReadMediaFiltersSchema),
 relations: v.optional(ReadMediaRelationsSchema),
 orders: v.optional(ReadMediaOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadMediaSchema;
 export type TReadMediaSchemaInput = v.InferInput<typeof ReadMediaSchema>;

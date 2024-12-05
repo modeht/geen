@@ -1,13 +1,11 @@
 import { readFile } from 'fs/promises';
-import { ASTs } from './lib/types';
+import { ASTs } from './lib/types/index.js';
 import { join, resolve } from 'path';
 import ts from 'typescript';
 import { randomBytes } from 'crypto';
 
 export async function parseFiles(entries: string[]): Promise<ASTs> {
-	const filesContent = await Promise.all(
-		entries.map((e) => readFile(resolve(e), 'utf8'))
-	);
+	const filesContent = await Promise.all(entries.map((e) => readFile(resolve(e), 'utf8')));
 
 	const parsedFiles = filesContent.map((f) =>
 		ts.createSourceFile(randomBytes(2).toString('hex'), f, ts.ScriptTarget.ESNext, true)

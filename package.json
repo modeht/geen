@@ -1,19 +1,23 @@
 {
-	"name": "repo_auto_gen",
-	"version": "1.0.0",
-	"scripts": {},
+	"name": "geen",
+	"version": "0.1.0",
+	"type": "module",
+	"scripts": {
+		"build": "tsc"
+	},
 	"keywords": [],
-	"author": "",
+	"bin": {
+		"geen": "./dist/index.js"
+	},
+	"author": "modeht",
 	"license": "ISC",
 	"description": "",
 	"dependencies": {
-		"@types/node": "^22.7.3",
-		"@typescript-eslint/parser": "^8.7.0",
-		"@typescript-eslint/typescript-estree": "^8.7.0",
-		"class-transformer": "^0.5.1",
 		"commander": "^12.1.0",
 		"fast-glob": "^3.3.2",
-		"reflect-metadata": "^0.2.2",
 		"typescript": "^5.6.2"
+	},
+	"devDependencies": {
+		"@types/node": "20"
 	}
 }

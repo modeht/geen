@@ -22,5 +22,13 @@ export class ShopperProfileService {
 			async readRows(query: TReadShopperProfileSchemaOutput){
 				return await this.service.read(ShopperProfileEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(ShopperProfileEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(ShopperProfileEntity, id, { soft: true });
+			}
 		
 }

@@ -8,7 +8,7 @@ const ReadPreferenceSchema = v.optional(v.object({
 filters: v.optional(ReadPreferenceFiltersSchema),
 relations: v.optional(ReadPreferenceRelationsSchema),
 orders: v.optional(ReadPreferenceOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadPreferenceSchema;
 export type TReadPreferenceSchemaInput = v.InferInput<typeof ReadPreferenceSchema>;

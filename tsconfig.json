@@ -1,17 +1,25 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
+		"target": "ES2020", // Modern JavaScript features without breaking Node.js compatibility.
 		"module": "NodeNext",
-		"moduleResolution": "nodenext",
-		"outDir": "./dist",
-		"rootDir": "./src",
-		"allowJs": true,
-		"strict": true,
+		"lib": ["ES2020"], // Includes ES2020 built-in objects and methods.
+		"outDir": "dist", // Compiled files output folder.
+		"rootDir": "src", // Ensures the source files are correctly mapped.
+		"strict": true, // Enables strict type checking.
+		"esModuleInterop": true, // Allows easier import of CommonJS modules.
+		"resolveJsonModule": true, // Allows importing JSON files.
+		"forceConsistentCasingInFileNames": true, // Enforce consistent casing in imports.
+		"noImplicitReturns": false,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
 		"noImplicitAny": false,
-		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
+		"skipLibCheck": true, // Speeds up compilation by skipping type checks in `.d.ts` files.
+		"declaration": true, // Generate `.d.ts` files for type declarations.
+		"sourceMap": true, // Generate `.map` files for debugging.
+		"moduleResolution": "nodenext",
+		"allowSyntheticDefaultImports": true, // Easier default import handling.
 		"strictPropertyInitialization": false
 	},
-	"include": ["src/**/*"],
-	"exclude": ["dist/**/*"]
+	"include": ["src/**/*"], // Include all source files.
+	"exclude": ["node_modules", "dist"] // Exclude compiled output and dependencies.
 }

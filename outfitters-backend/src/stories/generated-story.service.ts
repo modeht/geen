@@ -22,5 +22,13 @@ export class StoryService {
 			async readRows(query: TReadStorySchemaOutput){
 				return await this.service.read(StoryEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(StoryEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(StoryEntity, id, { soft: true });
+			}
 		
 }

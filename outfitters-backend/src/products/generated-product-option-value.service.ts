@@ -22,5 +22,13 @@ export class ProductOptionValueService {
 			async readRows(query: TReadProductOptionValueSchemaOutput){
 				return await this.service.read(ProductOptionValueEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(ProductOptionValueEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(ProductOptionValueEntity, id, { soft: true });
+			}
 		
 }

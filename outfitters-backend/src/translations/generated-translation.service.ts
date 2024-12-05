@@ -22,5 +22,13 @@ export class TranslationService {
 			async readRows(query: TReadTranslationSchemaOutput){
 				return await this.service.read(TranslationEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(TranslationEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(TranslationEntity, id, { soft: true });
+			}
 		
 }

@@ -22,5 +22,13 @@ export class StoryLikesService {
 			async readRows(query: TReadStoryLikesSchemaOutput){
 				return await this.service.read(StoryLikesEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(StoryLikesEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(StoryLikesEntity, id, { soft: true });
+			}
 		
 }

@@ -22,5 +22,13 @@ export class MediaService {
 			async readRows(query: TReadMediaSchemaOutput){
 				return await this.service.read(MediaEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(MediaEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(MediaEntity, id, { soft: true });
+			}
 		
 }

@@ -22,5 +22,13 @@ export class BrandProfileService {
 			async readRows(query: TReadBrandProfileSchemaOutput){
 				return await this.service.read(BrandProfileEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(BrandProfileEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(BrandProfileEntity, id, { soft: true });
+			}
 		
 }

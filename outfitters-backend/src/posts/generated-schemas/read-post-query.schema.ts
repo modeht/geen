@@ -8,7 +8,7 @@ const ReadPostSchema = v.optional(v.object({
 filters: v.optional(ReadPostFiltersSchema),
 relations: v.optional(ReadPostRelationsSchema),
 orders: v.optional(ReadPostOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadPostSchema;
 export type TReadPostSchemaInput = v.InferInput<typeof ReadPostSchema>;

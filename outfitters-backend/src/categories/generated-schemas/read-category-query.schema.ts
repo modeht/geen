@@ -8,7 +8,7 @@ const ReadCategorySchema = v.optional(v.object({
 filters: v.optional(ReadCategoryFiltersSchema),
 relations: v.optional(ReadCategoryRelationsSchema),
 orders: v.optional(ReadCategoryOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadCategorySchema;
 export type TReadCategorySchemaInput = v.InferInput<typeof ReadCategorySchema>;

@@ -8,7 +8,7 @@ const ReadAffiliationLinkSchema = v.optional(v.object({
 filters: v.optional(ReadAffiliationLinkFiltersSchema),
 relations: v.optional(ReadAffiliationLinkRelationsSchema),
 orders: v.optional(ReadAffiliationLinkOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadAffiliationLinkSchema;
 export type TReadAffiliationLinkSchemaInput = v.InferInput<typeof ReadAffiliationLinkSchema>;

@@ -8,7 +8,7 @@ const ReadRecentSearchesSchema = v.optional(v.object({
 filters: v.optional(ReadRecentSearchesFiltersSchema),
 relations: v.optional(ReadRecentSearchesRelationsSchema),
 orders: v.optional(ReadRecentSearchesOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadRecentSearchesSchema;
 export type TReadRecentSearchesSchemaInput = v.InferInput<typeof ReadRecentSearchesSchema>;

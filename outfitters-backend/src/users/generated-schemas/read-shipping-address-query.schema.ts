@@ -8,7 +8,7 @@ const ReadShippingAddressSchema = v.optional(v.object({
 filters: v.optional(ReadShippingAddressFiltersSchema),
 relations: v.optional(ReadShippingAddressRelationsSchema),
 orders: v.optional(ReadShippingAddressOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadShippingAddressSchema;
 export type TReadShippingAddressSchemaInput = v.InferInput<typeof ReadShippingAddressSchema>;

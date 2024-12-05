@@ -22,5 +22,13 @@ export class CountryService {
 			async readRows(query: TReadCountrySchemaOutput){
 				return await this.service.read(CountryEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(CountryEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(CountryEntity, id, { soft: true });
+			}
 		
 }

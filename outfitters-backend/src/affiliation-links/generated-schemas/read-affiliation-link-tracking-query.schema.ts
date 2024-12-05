@@ -8,7 +8,7 @@ const ReadAffiliationLinkTrackingSchema = v.optional(v.object({
 filters: v.optional(ReadAffiliationLinkTrackingFiltersSchema),
 relations: v.optional(ReadAffiliationLinkTrackingRelationsSchema),
 orders: v.optional(ReadAffiliationLinkTrackingOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadAffiliationLinkTrackingSchema;
 export type TReadAffiliationLinkTrackingSchemaInput = v.InferInput<typeof ReadAffiliationLinkTrackingSchema>;

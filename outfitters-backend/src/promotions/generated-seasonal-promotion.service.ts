@@ -22,5 +22,13 @@ export class SeasonalPromotionService {
 			async readRows(query: TReadSeasonalPromotionSchemaOutput){
 				return await this.service.read(SeasonalPromotionEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(SeasonalPromotionEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(SeasonalPromotionEntity, id, { soft: true });
+			}
 		
 }

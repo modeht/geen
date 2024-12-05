@@ -1,8 +1,8 @@
-import { sync } from 'fast-glob';
+import glob from 'fast-glob';
 import { join } from 'path';
 
 export const projectPath = join(process.cwd(), 'outfitters-backend');
-export const appModulePath = sync('generated-modules.ts', {
+export const appModulePath = glob.sync('generated-modules.ts', {
 	absolute: true,
 	onlyFiles: true,
 	deep: 0,

@@ -8,7 +8,7 @@ const ReadSavedCollectionSchema = v.optional(v.object({
 filters: v.optional(ReadSavedCollectionFiltersSchema),
 relations: v.optional(ReadSavedCollectionRelationsSchema),
 orders: v.optional(ReadSavedCollectionOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadSavedCollectionSchema;
 export type TReadSavedCollectionSchemaInput = v.InferInput<typeof ReadSavedCollectionSchema>;

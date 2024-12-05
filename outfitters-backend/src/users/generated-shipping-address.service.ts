@@ -22,5 +22,13 @@ export class ShippingAddressService {
 			async readRows(query: TReadShippingAddressSchemaOutput){
 				return await this.service.read(ShippingAddressEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(ShippingAddressEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(ShippingAddressEntity, id, { soft: true });
+			}
 		
 }

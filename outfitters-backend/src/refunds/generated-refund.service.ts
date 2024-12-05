@@ -22,5 +22,13 @@ export class RefundService {
 			async readRows(query: TReadRefundSchemaOutput){
 				return await this.service.read(RefundEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(RefundEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(RefundEntity, id, { soft: true });
+			}
 		
 }

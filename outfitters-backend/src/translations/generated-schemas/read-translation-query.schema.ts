@@ -8,7 +8,7 @@ const ReadTranslationSchema = v.optional(v.object({
 filters: v.optional(ReadTranslationFiltersSchema),
 relations: v.optional(ReadTranslationRelationsSchema),
 orders: v.optional(ReadTranslationOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadTranslationSchema;
 export type TReadTranslationSchemaInput = v.InferInput<typeof ReadTranslationSchema>;

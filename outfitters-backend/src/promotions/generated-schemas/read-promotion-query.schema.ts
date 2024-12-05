@@ -8,7 +8,7 @@ const ReadPromotionSchema = v.optional(v.object({
 filters: v.optional(ReadPromotionFiltersSchema),
 relations: v.optional(ReadPromotionRelationsSchema),
 orders: v.optional(ReadPromotionOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadPromotionSchema;
 export type TReadPromotionSchemaInput = v.InferInput<typeof ReadPromotionSchema>;

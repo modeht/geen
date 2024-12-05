@@ -22,5 +22,13 @@ export class UserService {
 			async readRows(query: TReadUserSchemaOutput){
 				return await this.service.read(UserEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(UserEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(UserEntity, id, { soft: true });
+			}
 		
 }

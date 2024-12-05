@@ -8,7 +8,7 @@ const ReadMessageSchema = v.optional(v.object({
 filters: v.optional(ReadMessageFiltersSchema),
 relations: v.optional(ReadMessageRelationsSchema),
 orders: v.optional(ReadMessageOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadMessageSchema;
 export type TReadMessageSchemaInput = v.InferInput<typeof ReadMessageSchema>;

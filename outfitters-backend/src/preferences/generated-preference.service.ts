@@ -22,5 +22,13 @@ export class PreferenceService {
 			async readRows(query: TReadPreferenceSchemaOutput){
 				return await this.service.read(PreferenceEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(PreferenceEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(PreferenceEntity, id, { soft: true });
+			}
 		
 }

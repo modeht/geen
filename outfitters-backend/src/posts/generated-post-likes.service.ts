@@ -22,5 +22,13 @@ export class PostLikesService {
 			async readRows(query: TReadPostLikesSchemaOutput){
 				return await this.service.read(PostLikesEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(PostLikesEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(PostLikesEntity, id, { soft: true });
+			}
 		
 }

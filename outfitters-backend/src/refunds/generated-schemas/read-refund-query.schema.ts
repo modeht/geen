@@ -8,7 +8,7 @@ const ReadRefundSchema = v.optional(v.object({
 filters: v.optional(ReadRefundFiltersSchema),
 relations: v.optional(ReadRefundRelationsSchema),
 orders: v.optional(ReadRefundOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadRefundSchema;
 export type TReadRefundSchemaInput = v.InferInput<typeof ReadRefundSchema>;

@@ -22,5 +22,13 @@ export class AffiliationLinkService {
 			async readRows(query: TReadAffiliationLinkSchemaOutput){
 				return await this.service.read(AffiliationLinkEntity, query);
 			}
+
+			async deleteRow(id: number){
+				return await this.service.delete(AffiliationLinkEntity, id);
+			}
+
+			async softDeleteRow(id: number){
+				return await this.service.delete(AffiliationLinkEntity, id, { soft: true });
+			}
 		
 }

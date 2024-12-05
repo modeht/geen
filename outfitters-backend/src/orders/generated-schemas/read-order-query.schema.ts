@@ -8,7 +8,7 @@ const ReadOrderSchema = v.optional(v.object({
 filters: v.optional(ReadOrderFiltersSchema),
 relations: v.optional(ReadOrderRelationsSchema),
 orders: v.optional(ReadOrderOrdersSchema),
-pagination: v.optional(ReadPaginationSchema),
+pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 }));
 export default ReadOrderSchema;
 export type TReadOrderSchemaInput = v.InferInput<typeof ReadOrderSchema>;
