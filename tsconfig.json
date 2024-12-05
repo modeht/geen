@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
-		"target": "ES2020", // Modern JavaScript features without breaking Node.js compatibility.
+		"target": "ES2016", // Modern JavaScript features without breaking Node.js compatibility.
 		"module": "NodeNext",
-		"lib": ["ES2020"], // Includes ES2020 built-in objects and methods.
+		"lib": ["ES2016"], // Includes ES2020 built-in objects and methods.
 		"outDir": "dist", // Compiled files output folder.
 		"rootDir": "src", // Ensures the source files are correctly mapped.
 		"strict": true, // Enables strict type checking.
