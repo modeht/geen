@@ -2,11 +2,12 @@ import ts from 'typescript';
 import { readFile, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types/index.js';
-import { appModulePath, globalsDirPath as globalsDirPath, prettierOptions, projectPath } from './utils.js';
+import { prettierOptions } from './utils.js';
 import { CreateSchemaCreator } from './CreateSchemaCreator.js';
 import { UpdateSchemaCreator } from './UpdateSchemaCreator.js';
 import { ReadSchemaCreator } from './ReadSchemaCreator.js';
 import prettier from 'prettier';
+import { Cwd } from './Cwd.js';
 
 export type SchemaInfo = {
 	absPath: string;
@@ -43,12 +44,13 @@ export class ModuleCreator {
 	private dtoDirPath: string;
 	private dtoDirAbsPath: string;
 	private dtoDirRelPath: string;
-
+	private appModulePath: string;
 	constructor(
 		private entityPath: string,
 		private entitySourceFile: ts.SourceFile,
 		private asts: ASTs
 	) {
+		this.appModulePath = join(Cwd.getInstance(), 'src/generated-modules.ts');
 		this._prepDir();
 	}
 
@@ -79,7 +81,7 @@ export class ModuleCreator {
 	}
 
 	async addToEntry(module: ModuleFileInfo) {
-		let moduleTemplate = await readFile(appModulePath, 'utf8');
+		let moduleTemplate = await readFile(this.appModulePath, 'utf8');
 
 		const importsToken = '//imports';
 		const modulesToken = '//modules';
@@ -101,7 +103,7 @@ export class ModuleCreator {
 		}
 		const importStr =
 			`\nimport { ${module.moduleClassName} as Generated${module.moduleClassName} } from "./` +
-			relative(dirname(appModulePath), module.moduleAbsPath).split(sep).join('/').replace('.ts', '') +
+			relative(dirname(this.appModulePath), module.moduleAbsPath).split(sep).join('/').replace('.ts', '') +
 			'";';
 
 		moduleTemplate = ''.concat(
@@ -110,7 +112,8 @@ export class ModuleCreator {
 			moduleTemplate.slice(importsStart + importsToken.length)
 		);
 
-		await writeFile(appModulePath, moduleTemplate);
+		moduleTemplate = await prettier.format(moduleTemplate, prettierOptions);
+		await writeFile(this.appModulePath, moduleTemplate);
 	}
 
 	async _createService(create: SchemaInfo, update: SchemaInfo, read: SchemaInfo) {
@@ -215,7 +218,10 @@ export class ModuleCreator {
 		);
 		imports.add(`import { ApiBody, ApiQuery } from '@nestjs/swagger'`);
 
-		const projectRelPath = relative(join(this.dtoDirAbsPath, '..'), join(projectPath, 'src')).split(sep).join('/');
+		const projectRelPath = relative(join(this.dtoDirAbsPath, '..'), join(Cwd.getInstance(), 'src'))
+			.split(sep)
+			.join('/');
+		const globalsDirPath = join(Cwd.getInstance(), 'src/globals');
 		const utilFileRelPath = relative(join(this.dtoDirAbsPath, '..'), globalsDirPath).split(sep).join('/');
 		imports.add(
 			`import { SchemaDefs } from "${projectRelPath.startsWith('.') ? '' : './'}${projectRelPath}/schema-defs"`

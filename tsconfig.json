@@ -1,11 +1,11 @@
 {
 	"compilerOptions": {
-		"target": "ES2020", // Modern JavaScript features without breaking Node.js compatibility.
+		"target": "ESNext",
 		"module": "NodeNext",
-		"lib": ["ES2020"], // Includes ES2020 built-in objects and methods.
-		"outDir": "dist", // Compiled files output folder.
-		"rootDir": "src", // Ensures the source files are correctly mapped.
-		"strict": true, // Enables strict type checking.
+		"lib": ["ESNext"],
+		"outDir": "dist",
+		"rootDir": "src",
+		"strict": true,
 		"esModuleInterop": true, // Allows easier import of CommonJS modules.
 		"resolveJsonModule": true, // Allows importing JSON files.
 		"forceConsistentCasingInFileNames": true, // Enforce consistent casing in imports.

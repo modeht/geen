@@ -3,11 +3,12 @@ import { Node, TreeParser } from './TreeParser.js';
 import { mkdir, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types/index.js';
-import { globalsDirPath as globalsDirPath, prettierOptions } from './utils.js';
+import { prettierOptions } from './utils.js';
 import { ReadSchemaFiltersCreator } from './ReadSchemaFiltersCreator.js';
 import { ReadSchemaRelationsCreator } from './ReadSchemaRelationsCreator.js';
 import { ReadSchemaOrdersCreator } from './ReadSchemaOrdersCreator.js';
 import prettier from 'prettier';
+import { Cwd } from './Cwd.js';
 
 export type ReadDtoInfo = {
 	absPath: string;
@@ -197,6 +198,7 @@ export type ${outputTypeName} = v.InferOutput<typeof ${schemaName}>;
 	}
 
 	_setDefaultImports() {
+		const globalsDirPath = join(Cwd.getInstance(), 'src/globals');
 		const utilFileRelPath = relative(this.dtoDirAbsPath, globalsDirPath).split(sep).join('/');
 		this.imports?.add(`import { ReadPaginationSchema } from "${utilFileRelPath}/schemas/pagination.schema"`);
 	}

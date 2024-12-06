@@ -5,15 +5,23 @@ import { time, timeEnd } from 'console';
 import { prereq } from './prereq.js';
 import { ModuleCreator } from './ModuleCreator.js';
 import { Command } from 'commander';
+import { Cwd } from './Cwd.js';
+import { isAbsolute, join, sep } from 'path';
 
 const program = new Command();
 
 program
-	.option('-t')
-	.option('-c')
-	.action((...args) => {
-		// console.log(args);
-		// console.log(process.cwd());
+	.option('-d, --dir <dir>', 'project directory, default is current working directory "process.cwd()"', process.cwd())
+	.action((opts, command: Command) => {
+		if (opts.dir) {
+			const newCwd = command.getOptionValue('dir');
+			console.log(newCwd);
+			if (newCwd.startsWith('.')) {
+				Cwd.setInstance(join(process.cwd(), newCwd.split(sep).join('/')));
+			} else if (isAbsolute(newCwd)) {
+				Cwd.setInstance(newCwd);
+			}
+		}
 		main();
 	});
 

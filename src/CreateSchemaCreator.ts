@@ -4,8 +4,10 @@ import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types/index.js';
 import { log, warn } from 'console';
-import { globalsDirPath, prettierOptions } from './utils.js';
+import { prettierOptions } from './utils.js';
 import prettier from 'prettier';
+import { Cwd } from './Cwd.js';
+
 export type CreateDtoInfo = {
 	absPath: string;
 	className: string;
@@ -433,6 +435,7 @@ export default ${this.schemaName};
 	}
 
 	_setDefaultImports() {
+		const globalsDirPath = join(Cwd.getInstance(), 'src/globals');
 		const utilFileRelPath = relative(this.dtoDirAbsPath, globalsDirPath).split(sep).join('/');
 		this.imports?.add(`import { modelSymbol } from "${utilFileRelPath}/constants/schema-symbols"`);
 		this.imports?.add("import * as v from 'valibot';");
