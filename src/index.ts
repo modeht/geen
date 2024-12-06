@@ -7,21 +7,15 @@ import { ModuleCreator } from './ModuleCreator.js';
 import { Command } from 'commander';
 import { Cwd } from './Cwd.js';
 import { isAbsolute, join, sep } from 'path';
+import { existsSync } from 'fs';
+import { cwd } from 'process';
 
 const program = new Command();
 
 program
 	.option('-d, --dir <dir>', 'project directory, default is current working directory "process.cwd()"', process.cwd())
 	.action((opts, command: Command) => {
-		if (opts.dir) {
-			const newCwd = command.getOptionValue('dir');
-			console.log(newCwd);
-			if (newCwd.startsWith('.')) {
-				Cwd.setInstance(join(process.cwd(), newCwd.split(sep).join('/')));
-			} else if (isAbsolute(newCwd)) {
-				Cwd.setInstance(newCwd);
-			}
-		}
+		handleDirOption(opts, command);
 		main();
 	});
 
@@ -50,4 +44,23 @@ async function main() {
 		await m.build();
 	}
 	timeEnd('Creating modules');
+}
+
+function handleDirOption(opts: Record<string, boolean>, command: Command) {
+	if (opts.dir) {
+		const newCwd = command.getOptionValue('dir');
+		if (newCwd.startsWith('.')) {
+			Cwd.setInstance(join(process.cwd(), newCwd.split(sep).join('/')));
+		} else if (isAbsolute(newCwd)) {
+			Cwd.setInstance(newCwd);
+		}
+	}
+	//check dir is nestjs project
+	//check if nest-cli.json exists,
+	//check if src dir exists
+	const nestCli = existsSync(join(Cwd.getInstance(), 'nest-cli.json'));
+	const srcDir = existsSync(join(Cwd.getInstance(), 'src/main.ts'));
+	if (!nestCli || !srcDir) {
+		throw new Error('Directory is not a valid Nest.js project');
+	}
 }

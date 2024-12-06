@@ -20,9 +20,9 @@ import { ProductVariantModule as GeneratedProductVariantModule } from './product
 import { ProductReviewModule as GeneratedProductReviewModule } from './products/generated-product-review.module';
 import { ProductOptionModule as GeneratedProductOptionModule } from './products/generated-product-option.module';
 import { ProductOptionValueModule as GeneratedProductOptionValueModule } from './products/generated-product-option-value.module';
+import { PreferenceModule as GeneratedPreferenceModule } from './preferences/generated-preference.module';
 import { PostLikesModule as GeneratedPostLikesModule } from './posts/generated-post-likes.module';
 import { PostModule as GeneratedPostModule } from './posts/generated-post.module';
-import { PreferenceModule as GeneratedPreferenceModule } from './preferences/generated-preference.module';
 import { OrderModule as GeneratedOrderModule } from './orders/generated-order.module';
 import { OrderItemModule as GeneratedOrderItemModule } from './orders/generated-order-item.module';
 import { BrandOrderModule as GeneratedBrandOrderModule } from './orders/generated-brand-order.module';
@@ -63,9 +63,9 @@ export const generatedModules = [
 	GeneratedProductReviewModule,
 	GeneratedProductOptionModule,
 	GeneratedProductOptionValueModule,
+	GeneratedPreferenceModule,
 	GeneratedPostLikesModule,
 	GeneratedPostModule,
-	GeneratedPreferenceModule,
 	GeneratedOrderModule,
 	GeneratedOrderItemModule,
 	GeneratedBrandOrderModule,
