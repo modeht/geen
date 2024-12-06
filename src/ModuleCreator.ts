@@ -2,10 +2,11 @@ import ts from 'typescript';
 import { readFile, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types/index.js';
-import { appModulePath, globalsDirPath as globalsDirPath, projectPath } from './utils.js';
+import { appModulePath, globalsDirPath as globalsDirPath, prettierOptions, projectPath } from './utils.js';
 import { CreateSchemaCreator } from './CreateSchemaCreator.js';
 import { UpdateSchemaCreator } from './UpdateSchemaCreator.js';
 import { ReadSchemaCreator } from './ReadSchemaCreator.js';
+import prettier from 'prettier';
 
 export type SchemaInfo = {
 	absPath: string;
@@ -43,7 +44,11 @@ export class ModuleCreator {
 	private dtoDirAbsPath: string;
 	private dtoDirRelPath: string;
 
-	constructor(private entityPath: string, private entitySourceFile: ts.SourceFile, private asts: ASTs) {
+	constructor(
+		private entityPath: string,
+		private entitySourceFile: ts.SourceFile,
+		private asts: ASTs
+	) {
 		this._prepDir();
 	}
 
@@ -176,6 +181,7 @@ export class ModuleCreator {
 
 		const serviceAbsPath = join(this.entityPath, '../..', 'generated-' + name + '.service.ts');
 
+		serviceTemplate = await prettier.format(serviceTemplate, prettierOptions);
 		await writeFile(serviceAbsPath, serviceTemplate);
 		return {
 			serviceClassName,
@@ -321,6 +327,7 @@ export class ModuleCreator {
 
 		const controllerAbsPath = join(this.dtoDirAbsPath, '..', 'generated-' + create.fileName + '.controller.ts');
 
+		controllerTemplate = await prettier.format(controllerTemplate, prettierOptions);
 		await writeFile(controllerAbsPath, controllerTemplate);
 		return {
 			controllerAbsPath: controllerAbsPath.split(sep).join('/'),
@@ -360,6 +367,7 @@ export class ModuleCreator {
 
 		const moduleAbsPath = join(this.dtoDirAbsPath, '..', 'generated-' + name + '.module.ts');
 
+		moduleTemplate = await prettier.format(moduleTemplate, prettierOptions);
 		await writeFile(moduleAbsPath, moduleTemplate);
 		return { moduleAbsPath: moduleAbsPath.split(sep).join('/'), moduleClassName };
 	}

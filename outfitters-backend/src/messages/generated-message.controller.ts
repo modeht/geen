@@ -1,72 +1,64 @@
 import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';
-import CreateMessageSchema, { TCreateMessageSchemaInput, TCreateMessageSchemaOutput } from './generated-schemas//create-message.schema'
-import UpdateMessageSchema, { TUpdateMessageSchemaInput, TUpdateMessageSchemaOutput } from './generated-schemas//update-message.schema'
-import ReadMessageSchema, { TReadMessageSchemaInput, TReadMessageSchemaOutput } from './generated-schemas//read-message-query.schema'
-import { MessageEntity } from './entities/message.entity'
-import { ApiBody, ApiQuery } from '@nestjs/swagger'
-import { SchemaDefs } from "../schema-defs"
-import { MoBody } from "../globals/decorators/mo-body.decorator"
-import { MoQuery } from "../globals/decorators/mo-query.decorator"
-import { MessageService } from './generated-message.service'
+import CreateMessageSchema, {
+	TCreateMessageSchemaInput,
+	TCreateMessageSchemaOutput,
+} from './generated-schemas//create-message.schema';
+import UpdateMessageSchema, {
+	TUpdateMessageSchemaInput,
+	TUpdateMessageSchemaOutput,
+} from './generated-schemas//update-message.schema';
+import ReadMessageSchema, {
+	TReadMessageSchemaInput,
+	TReadMessageSchemaOutput,
+} from './generated-schemas//read-message-query.schema';
+import { MessageEntity } from './entities/message.entity';
+import { ApiBody, ApiQuery } from '@nestjs/swagger';
+import { SchemaDefs } from '../schema-defs';
+import { MoBody } from '../globals/decorators/mo-body.decorator';
+import { MoQuery } from '../globals/decorators/mo-query.decorator';
+import { MessageService } from './generated-message.service';
 
 @Controller('message')
 export class MessageController {
-  
-  constructor(private service: MessageService){}
-  
-			@Post()
-			@ApiBody({
-				schema:{
-					$ref: SchemaDefs.CreateMessage
-				}
-			})
-			async create(
-				@MoBody(CreateMessageSchema) body: TCreateMessageSchemaOutput,
-			) {
-				return this.service.createRow(body);
-			}
-		
+	constructor(private service: MessageService) {}
 
-			@Put(':id')
-			@ApiBody({
-				schema:{
-					$ref: SchemaDefs.UpdateMessage
-				}
-			})
-			async update(
-				@Param('id') id: string,
-				@MoBody(UpdateMessageSchema) body: TUpdateMessageSchemaOutput,
-			) {
-				return this.service.updateRow(+id, body);
-			}
-		
+	@Post()
+	@ApiBody({
+		schema: {
+			$ref: SchemaDefs.CreateMessage,
+		},
+	})
+	async create(@MoBody(CreateMessageSchema) body: TCreateMessageSchemaOutput) {
+		return this.service.createRow(body);
+	}
 
-			@Get()
-			@ApiQuery({
-				schema:{
-					$ref: SchemaDefs.ReadMessageQuery
-				}
-			})
-			async read(
-				@MoQuery(ReadMessageSchema) query: TReadMessageSchemaOutput,
-			) {
-				return this.service.readRows(query);
-			}
-		
+	@Put(':id')
+	@ApiBody({
+		schema: {
+			$ref: SchemaDefs.UpdateMessage,
+		},
+	})
+	async update(@Param('id') id: string, @MoBody(UpdateMessageSchema) body: TUpdateMessageSchemaOutput) {
+		return this.service.updateRow(+id, body);
+	}
 
-			@Delete(':id')
-			async delete(
-				@Param('id') id: string,
-			) {
-				return this.service.deleteRow(+id);
-			}
-		
+	@Get()
+	@ApiQuery({
+		schema: {
+			$ref: SchemaDefs.ReadMessageQuery,
+		},
+	})
+	async read(@MoQuery(ReadMessageSchema) query: TReadMessageSchemaOutput) {
+		return this.service.readRows(query);
+	}
 
-			@Delete(':id/soft')
-			async softDelete(
-				@Param('id') id: string,
-			) {
-				return this.service.softDeleteRow(+id);
-			}
-		
+	@Delete(':id')
+	async delete(@Param('id') id: string) {
+		return this.service.deleteRow(+id);
+	}
+
+	@Delete(':id/soft')
+	async softDelete(@Param('id') id: string) {
+		return this.service.softDeleteRow(+id);
+	}
 }

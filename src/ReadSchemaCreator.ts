@@ -3,10 +3,11 @@ import { Node, TreeParser } from './TreeParser.js';
 import { mkdir, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types/index.js';
-import { globalsDirPath as globalsDirPath } from './utils.js';
+import { globalsDirPath as globalsDirPath, prettierOptions } from './utils.js';
 import { ReadSchemaFiltersCreator } from './ReadSchemaFiltersCreator.js';
 import { ReadSchemaRelationsCreator } from './ReadSchemaRelationsCreator.js';
 import { ReadSchemaOrdersCreator } from './ReadSchemaOrdersCreator.js';
+import prettier from 'prettier';
 
 export type ReadDtoInfo = {
 	absPath: string;
@@ -153,7 +154,7 @@ pagination: v.optional(ReadPaginationSchema, { skip: 0, take: 25 }),
 export type ${outputTypeName} = v.InferOutput<typeof ${schemaName}>;
 `;
 		file += typeInference;
-
+		file = await prettier.format(file, prettierOptions);
 		//save file
 		await writeFile(this.toBeSavedAbs, file);
 

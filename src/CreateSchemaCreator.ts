@@ -4,8 +4,8 @@ import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types/index.js';
 import { log, warn } from 'console';
-import { globalsDirPath } from './utils.js';
-
+import { globalsDirPath, prettierOptions } from './utils.js';
+import prettier from 'prettier';
 export type CreateDtoInfo = {
 	absPath: string;
 	className: string;
@@ -138,6 +138,8 @@ ${file}`;
 		const schemaTypeInference = `export type ${inputTypeName} = v.InferInput<typeof ${this.schemaName}>;
 export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 		file += `\n\n${schemaTypeInference}\n`;
+
+		file = await prettier.format(file, prettierOptions);
 
 		//save file
 		await writeFile(join(this.entityPath, this.dtoDirRelPath, this.toBeSaved), file);

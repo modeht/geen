@@ -3,9 +3,10 @@ import { Node, TreeParser } from './TreeParser.js';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types/index.js';
-import { appModulePath, globalsDirPath as globalsDirPath } from './utils.js';
+import { appModulePath, globalsDirPath as globalsDirPath, prettierOptions } from './utils.js';
 import { mkdirSync } from 'fs';
 import { dir, log, warn } from 'console';
+import prettier from 'prettier';
 
 export type ReadDtoInfo = {
 	absPath: string;
@@ -140,6 +141,7 @@ ${file}`;
 export type TRead${this.entityName}FiltersSchemaInput = v.InferInput<typeof ${this.filtersSchemaName}>;`;
 		file += `\n\n${schemaTypeInference}\n`;
 
+		file = await prettier.format(file, prettierOptions);
 		//save file
 		await writeFile(this.toBeSavedAbs, file);
 

@@ -1,34 +1,44 @@
-import { Injectable } from '@nestjs/common'
-import { DataSource } from 'typeorm'
-import { AbstractService } from '../globals/services/abstract-service'
-import CreateCartItemsSchema, { TCreateCartItemsSchemaInput, TCreateCartItemsSchemaOutput } from './generated-schemas//create-cart-items.schema'
-import UpdateCartItemsSchema, { TUpdateCartItemsSchemaInput, TUpdateCartItemsSchemaOutput } from './generated-schemas//update-cart-items.schema'
-import ReadCartItemsSchema, { TReadCartItemsSchemaInput, TReadCartItemsSchemaOutput } from './generated-schemas//read-cart-items-query.schema'
-import { CartItemsEntity } from './entities/cart-item.entity'
+import { Injectable } from '@nestjs/common';
+import { DataSource } from 'typeorm';
+import { AbstractService } from '../globals/services/abstract-service';
+import CreateCartItemsSchema, {
+	TCreateCartItemsSchemaInput,
+	TCreateCartItemsSchemaOutput,
+} from './generated-schemas//create-cart-items.schema';
+import UpdateCartItemsSchema, {
+	TUpdateCartItemsSchemaInput,
+	TUpdateCartItemsSchemaOutput,
+} from './generated-schemas//update-cart-items.schema';
+import ReadCartItemsSchema, {
+	TReadCartItemsSchemaInput,
+	TReadCartItemsSchemaOutput,
+} from './generated-schemas//read-cart-items-query.schema';
+import { CartItemsEntity } from './entities/cart-item.entity';
 
 @Injectable()
 export class CartItemsService {
-  
-  constructor(private datasource: DataSource, private service: AbstractService){}
-  
-			async createRow(body: TCreateCartItemsSchemaOutput){
-				return await this.service.create(CartItemsEntity, body);
-			}
+	constructor(
+		private datasource: DataSource,
+		private service: AbstractService,
+	) {}
 
-			async updateRow(id: number, body: TUpdateCartItemsSchemaOutput){
-				return await this.service.update(CartItemsEntity, id, body);
-			}
+	async createRow(body: TCreateCartItemsSchemaOutput) {
+		return await this.service.create(CartItemsEntity, body);
+	}
 
-			async readRows(query: TReadCartItemsSchemaOutput){
-				return await this.service.read(CartItemsEntity, query);
-			}
+	async updateRow(id: number, body: TUpdateCartItemsSchemaOutput) {
+		return await this.service.update(CartItemsEntity, id, body);
+	}
 
-			async deleteRow(id: number){
-				return await this.service.delete(CartItemsEntity, id);
-			}
+	async readRows(query: TReadCartItemsSchemaOutput) {
+		return await this.service.read(CartItemsEntity, query);
+	}
 
-			async softDeleteRow(id: number){
-				return await this.service.delete(CartItemsEntity, id, { soft: true });
-			}
-		
+	async deleteRow(id: number) {
+		return await this.service.delete(CartItemsEntity, id);
+	}
+
+	async softDeleteRow(id: number) {
+		return await this.service.delete(CartItemsEntity, id, { soft: true });
+	}
 }

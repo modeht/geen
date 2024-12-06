@@ -1,34 +1,44 @@
-import { Injectable } from '@nestjs/common'
-import { DataSource } from 'typeorm'
-import { AbstractService } from '../globals/services/abstract-service'
-import CreateTranslationSchema, { TCreateTranslationSchemaInput, TCreateTranslationSchemaOutput } from './generated-schemas//create-translation.schema'
-import UpdateTranslationSchema, { TUpdateTranslationSchemaInput, TUpdateTranslationSchemaOutput } from './generated-schemas//update-translation.schema'
-import ReadTranslationSchema, { TReadTranslationSchemaInput, TReadTranslationSchemaOutput } from './generated-schemas//read-translation-query.schema'
-import { TranslationEntity } from './entities/translation.entity'
+import { Injectable } from '@nestjs/common';
+import { DataSource } from 'typeorm';
+import { AbstractService } from '../globals/services/abstract-service';
+import CreateTranslationSchema, {
+	TCreateTranslationSchemaInput,
+	TCreateTranslationSchemaOutput,
+} from './generated-schemas//create-translation.schema';
+import UpdateTranslationSchema, {
+	TUpdateTranslationSchemaInput,
+	TUpdateTranslationSchemaOutput,
+} from './generated-schemas//update-translation.schema';
+import ReadTranslationSchema, {
+	TReadTranslationSchemaInput,
+	TReadTranslationSchemaOutput,
+} from './generated-schemas//read-translation-query.schema';
+import { TranslationEntity } from './entities/translation.entity';
 
 @Injectable()
 export class TranslationService {
-  
-  constructor(private datasource: DataSource, private service: AbstractService){}
-  
-			async createRow(body: TCreateTranslationSchemaOutput){
-				return await this.service.create(TranslationEntity, body);
-			}
+	constructor(
+		private datasource: DataSource,
+		private service: AbstractService,
+	) {}
 
-			async updateRow(id: number, body: TUpdateTranslationSchemaOutput){
-				return await this.service.update(TranslationEntity, id, body);
-			}
+	async createRow(body: TCreateTranslationSchemaOutput) {
+		return await this.service.create(TranslationEntity, body);
+	}
 
-			async readRows(query: TReadTranslationSchemaOutput){
-				return await this.service.read(TranslationEntity, query);
-			}
+	async updateRow(id: number, body: TUpdateTranslationSchemaOutput) {
+		return await this.service.update(TranslationEntity, id, body);
+	}
 
-			async deleteRow(id: number){
-				return await this.service.delete(TranslationEntity, id);
-			}
+	async readRows(query: TReadTranslationSchemaOutput) {
+		return await this.service.read(TranslationEntity, query);
+	}
 
-			async softDeleteRow(id: number){
-				return await this.service.delete(TranslationEntity, id, { soft: true });
-			}
-		
+	async deleteRow(id: number) {
+		return await this.service.delete(TranslationEntity, id);
+	}
+
+	async softDeleteRow(id: number) {
+		return await this.service.delete(TranslationEntity, id, { soft: true });
+	}
 }
