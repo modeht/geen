@@ -5,6 +5,8 @@ import { dirname, join, relative, sep } from 'path';
 import { ASTs } from './lib/types/index.js';
 import { log, warn } from 'console';
 import { Cwd } from './Cwd.js';
+import prettier from 'prettier';
+import { prettierOptions } from './utils.js';
 
 export type UpdateDtoInfo = {
 	absPath: string;
@@ -140,6 +142,7 @@ ${file}`;
 export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 		file += `\n\n${schemaTypeInference}\n`;
 
+		file = await prettier.format(file, prettierOptions);
 		//save file
 		await writeFile(join(this.entityPath, this.dtoDirRelPath, this.toBeSaved), file);
 

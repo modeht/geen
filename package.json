@@ -3,16 +3,15 @@
 	"version": "0.1.0",
 	"type": "module",
 	"scripts": {
-		"build": "tsc",
-		"start": "npm run build && geen"
+		"build": "tsc"
 	},
 	"keywords": [],
 	"bin": {
-		"geen": "./dist/index.js"
+		"geen": "./dist/main.js"
 	},
 	"author": "modeht",
 	"license": "ISC",
-	"description": "",
+	"description": "Generation Engine",
 	"dependencies": {
 		"commander": "^12.1.0",
 		"fast-glob": "^3.3.2",

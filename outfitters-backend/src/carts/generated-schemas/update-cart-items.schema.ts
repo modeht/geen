@@ -1,50 +1,75 @@
-import { modelSymbol } from "../../globals/constants/schema-symbols"
+import { modelSymbol } from '../../globals/constants/schema-symbols';
 import * as v from 'valibot';
 
-
-import { CartStatus } from '../entities/cart.entity'
-const UpdateCartItemsSchema = v.pipe(v.object({quantity: v.nullish(v.number()),
-cart: v.nullish(v.union([v.object({ id: v.number() }), v.object({status: v.enum(CartStatus),
-promoCodeId: v.nullish(v.number()),
-shopperId: v.nullish(v.number())})])),
-product: v.nullish(v.union([v.object({ id: v.number() }), v.object({isArchived: v.boolean(),
-title: v.nullish(v.string()),
-description: v.nullish(v.string()),
-basePrice: v.nullish(v.number()),
-sku: v.nullish(v.string()),
-currency: v.nullish(v.string()),
-stock: v.number(),
-lastStockUpdate: v.nullish(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())),
-isOutOfStock: v.boolean(),
-isFeatured: v.boolean(),
-deliveryEstimationInDays: v.number(),
-brandId: v.nullish(v.number()),
-categoryId: v.nullish(v.number()),
-subCategoryId: v.nullish(v.number()),
-averageRating: v.number(),
-isSaved: v.boolean()})])),
-variant: v.nullish(v.union([v.object({ id: v.number() }), v.object({isArchived: v.boolean(),
-stock: v.number(),
-price: v.nullish(v.number()),
-lastStockUpdate: v.nullish(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())),
-sku: v.nullish(v.string()),
-mainProductId: v.nullish(v.number())})])),
-affiliationLink: v.nullish(v.union([v.object({ id: v.number() }), v.object({isDisabled: v.boolean(),
-url: v.string(),
-productId: v.number(),
-shopperId: v.number()})])),
-cartId: v.optional(v.number()),
-productId: v.optional(v.number()),
-variantId: v.optional(v.number()),
-affiliationLinkId: v.optional(v.number()),
-totalPrice: v.optional(v.number()),
-totalDiscountedPrice: v.optional(v.number()),
-promoCodeApplied: v.optional(v.boolean()),
-appliedpromotionsIds: v.optional(v.array(v.number()))}),v.metadata({[modelSymbol]: 'CartItemsEntity',
-cart: 'CartEntity',
-product: 'ProductEntity',
-variant: 'ProductVariantEntity',
-affiliationLink: 'AffiliationLinkEntity'}));
+import { CartStatus } from '../entities/cart.entity';
+const UpdateCartItemsSchema = v.pipe(
+	v.object({
+		quantity: v.nullish(v.number()),
+		cart: v.nullish(
+			v.union([
+				v.object({ id: v.number() }),
+				v.object({ status: v.enum(CartStatus), promoCodeId: v.nullish(v.number()), shopperId: v.nullish(v.number()) }),
+			]),
+		),
+		product: v.nullish(
+			v.union([
+				v.object({ id: v.number() }),
+				v.object({
+					isArchived: v.boolean(),
+					title: v.nullish(v.string()),
+					description: v.nullish(v.string()),
+					basePrice: v.nullish(v.number()),
+					sku: v.nullish(v.string()),
+					currency: v.nullish(v.string()),
+					stock: v.number(),
+					lastStockUpdate: v.nullish(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())),
+					isOutOfStock: v.boolean(),
+					isFeatured: v.boolean(),
+					deliveryEstimationInDays: v.number(),
+					brandId: v.nullish(v.number()),
+					categoryId: v.nullish(v.number()),
+					subCategoryId: v.nullish(v.number()),
+					averageRating: v.number(),
+					isSaved: v.boolean(),
+				}),
+			]),
+		),
+		variant: v.nullish(
+			v.union([
+				v.object({ id: v.number() }),
+				v.object({
+					isArchived: v.boolean(),
+					stock: v.number(),
+					price: v.nullish(v.number()),
+					lastStockUpdate: v.nullish(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())),
+					sku: v.nullish(v.string()),
+					mainProductId: v.nullish(v.number()),
+				}),
+			]),
+		),
+		affiliationLink: v.nullish(
+			v.union([
+				v.object({ id: v.number() }),
+				v.object({ isDisabled: v.boolean(), url: v.string(), productId: v.number(), shopperId: v.number() }),
+			]),
+		),
+		cartId: v.optional(v.number()),
+		productId: v.optional(v.number()),
+		variantId: v.optional(v.number()),
+		affiliationLinkId: v.optional(v.number()),
+		totalPrice: v.optional(v.number()),
+		totalDiscountedPrice: v.optional(v.number()),
+		promoCodeApplied: v.optional(v.boolean()),
+		appliedpromotionsIds: v.optional(v.array(v.number())),
+	}),
+	v.metadata({
+		[modelSymbol]: 'CartItemsEntity',
+		cart: 'CartEntity',
+		product: 'ProductEntity',
+		variant: 'ProductVariantEntity',
+		affiliationLink: 'AffiliationLinkEntity',
+	}),
+);
 export default UpdateCartItemsSchema;
 
 export type TUpdateCartItemsSchemaInput = v.InferInput<typeof UpdateCartItemsSchema>;
