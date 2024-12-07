@@ -45,11 +45,14 @@ export class ModuleCreator {
 	private dtoDirAbsPath: string;
 	private dtoDirRelPath: string;
 	private appModulePath: string;
+	private entityPath: string;
+	private entitySourceFile: ts.SourceFile;
 	constructor(
-		private entityPath: string,
-		private entitySourceFile: ts.SourceFile,
+		private ast: string,
 		private asts: ASTs
 	) {
+		this.entityPath = this.asts[this.ast].fullPath;
+		this.entitySourceFile = this.asts[this.ast].sourceFile;
 		this.appModulePath = join(Cwd.getInstance(), 'src/generated-modules.ts');
 		this._prepDir();
 	}
@@ -65,9 +68,9 @@ export class ModuleCreator {
 		//build create,update,read schemas
 		//create serivce, controller, and module for all of them
 
-		const c = new CreateSchemaCreator(this.entitySourceFile, this.entityPath, this.asts);
-		const u = new UpdateSchemaCreator(this.entitySourceFile, this.entityPath, this.asts);
-		const r = new ReadSchemaCreator(this.entitySourceFile, this.entityPath, this.asts);
+		const c = new CreateSchemaCreator(this.ast, this.asts);
+		const u = new UpdateSchemaCreator(this.ast, this.asts);
+		const r = new ReadSchemaCreator(this.ast, this.asts);
 		r.baseSetup();
 
 		const [create, update, read] = await Promise.all([c.buildFile(), u.buildFile(), r.build()]);

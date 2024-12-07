@@ -1,6 +1,6 @@
-import ts from 'typescript';
+import type { SourceFile } from 'typescript';
 
-export type ASTs = Record<string, { fullPath: string; sourceFile: ts.SourceFile }>;
+export type ASTs = Record<string, { fullPath: string; sourceFile: SourceFile; relations?: Record<string, boolean> }>;
 
 export type RelationDecoratorParams = {
 	entity: string;

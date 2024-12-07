@@ -10,6 +10,10 @@ import { isAbsolute, join, sep } from 'path';
 import { existsSync } from 'fs';
 import chok from 'chokidar';
 import { ASTs } from './lib/types/index.js';
+import { CreateSchemaCreator } from './CreateSchemaCreator.js';
+import { UpdateSchemaCreator } from './UpdateSchemaCreator.js';
+import { ReadSchemaCreator } from './ReadSchemaCreator.js';
+import { Asts } from './Asts.js';
 
 const program = new Command();
 
@@ -28,11 +32,10 @@ program
 
 program.parse();
 
-let initASTs: ASTs;
 async function init(allEntities: string[] = []) {
 	time('Parsing');
-	initASTs = await parseFiles(allEntities);
-	console.log(Object.keys(initASTs));
+	const initASTs = await parseFiles(allEntities);
+	Asts.setInstance(initASTs);
 	timeEnd('Parsing');
 
 	time('Prerequistes');
@@ -41,23 +44,27 @@ async function init(allEntities: string[] = []) {
 
 	time('Init Modules');
 	for (const ast in initASTs) {
-		const m = new ModuleCreator(initASTs[ast].fullPath, initASTs[ast].sourceFile, initASTs);
+		const m = new ModuleCreator(ast, initASTs);
 		await m.build();
 	}
 	timeEnd('Init Modules');
+	// console.log(Asts);
 }
 
 async function change(entity: string) {
 	time('New Parse');
 	const newASTs = await parseFiles([entity]);
-	const ASTs = { ...initASTs, ...newASTs };
+	const ASTs = { ...Asts.getInstance(), ...newASTs };
 	console.log(Object.keys(ASTs));
 	timeEnd('New Parse');
 
-	const currAST = newASTs[Object.keys(newASTs)[0]];
+	// const currAST = newASTs[Object.keys(newASTs)[0]];
+	// const c = new CreateSchemaCreator(currAST.sourceFile, currAST.fullPath, ASTs);
+	// const u = new UpdateSchemaCreator(currAST.sourceFile, currAST.fullPath, ASTs);
+	// const r = new ReadSchemaCreator(currAST.sourceFile, currAST.fullPath, ASTs);
+	// r.baseSetup();
 
-	// console.log(currAST);
-	// console.log(ASTs);
+	// await Promise.all([c.buildFile(), u.buildFile(), r.build()]);
 }
 
 // async function add(entity: string) {

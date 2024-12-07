@@ -57,6 +57,7 @@ export class ReadSchemaCreator {
 	imports: Set<string> = new Set();
 	asts: ASTs;
 	ast: ts.SourceFile;
+	astKey: string;
 	dtoDirName: string;
 	dtoDirPath: string;
 	dtoDirRelPath: string;
@@ -64,11 +65,12 @@ export class ReadSchemaCreator {
 	toBeSaved: string;
 	toBeSavedAbs: string;
 
-	constructor(ast: ts.SourceFile, entityPath: string, asts: ASTs) {
-		this.ast = ast;
-		this.parsedTree = TreeParser.parse(ast);
-		this.entityPath = entityPath;
+	constructor(ast: string, asts: ASTs) {
 		this.asts = asts;
+		this.astKey = ast;
+		this.ast = this.asts[ast].sourceFile;
+		this.entityPath = this.asts[ast].fullPath;
+		this.parsedTree = TreeParser.parse(this.ast);
 	}
 
 	baseSetup() {

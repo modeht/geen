@@ -7,6 +7,7 @@ import { log, warn } from 'console';
 import { prettierOptions } from './utils.js';
 import prettier from 'prettier';
 import { Cwd } from './Cwd.js';
+import { Asts } from './Asts.js';
 
 export type CreateDtoInfo = {
 	absPath: string;
@@ -62,6 +63,8 @@ export class CreateSchemaCreator {
 	validationsImports: Set<string> = new Set();
 	transformationsImports: Set<string> = new Set();
 	asts: ASTs;
+	ast: ts.SourceFile;
+	astKey: string;
 	dtoDirName: string;
 	dtoDirPath: string;
 	dtoDirRelPath: string;
@@ -70,18 +73,16 @@ export class CreateSchemaCreator {
 	toBeSaved: string;
 	toBeSavedAbs: string;
 
-	constructor(
-		ast: ts.SourceFile,
-		entityPath: string,
-		asts: ASTs,
-		{ maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 }
-	) {
-		this.parsedTree = TreeParser.parse(ast);
-		// console.dir(this.parsedTree.imports, { depth: null });
-		this.entityPath = entityPath;
+	constructor(ast: string, asts: ASTs, { maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 }) {
+		// this.fileName
+		this.asts = asts;
+		this.astKey = ast;
+		this.ast = this.asts[ast].sourceFile;
+		this.entityPath = this.asts[ast].fullPath;
+		this.parsedTree = TreeParser.parse(this.ast);
+
 		this.maxDepth = maxDepth;
 		this.currDepth = currDepth;
-		this.asts = asts;
 		//some defaults
 		this.baseSetup();
 	}
@@ -266,11 +267,19 @@ export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 					warn(`relation field ${field.name!} ast not found`);
 					continue;
 				}
-				const ast = this.asts[relationFileImport];
-				const nestedCreateSchema = new CreateSchemaCreator(ast.sourceFile, ast.fullPath, this.asts, {
+
+				//add relation to original
+				this.asts[this.astKey]!.relations = {
+					...this.asts[this.astKey].relations,
+					[relationFileImport]: true,
+				};
+				Asts.setInstance(this.asts);
+
+				const nestedCreateSchema = new CreateSchemaCreator(relationFileImport, this.asts, {
 					currDepth: this.currDepth + 1,
 					maxDepth: this.maxDepth - this.currDepth,
 				});
+
 				const nestedFields = nestedCreateSchema.parseFields();
 				this.enumAbsoluteImports = [...this.enumAbsoluteImports, ...nestedCreateSchema.enumAbsoluteImports];
 				this.enums = [...this.enums, ...nestedCreateSchema.enums];

@@ -62,6 +62,8 @@ export class UpdateSchemaCreator {
 	validationsImports: Set<string> = new Set();
 	transformationsImports: Set<string> = new Set();
 	asts: ASTs;
+	ast: ts.SourceFile;
+	astKey: string;
 	dtoDirName: string;
 	dtoDirPath: string;
 	dtoDirRelPath: string;
@@ -70,18 +72,16 @@ export class UpdateSchemaCreator {
 	toBeSaved: string;
 	toBeSavedAbs: string;
 
-	constructor(
-		ast: ts.SourceFile,
-		entityPath: string,
-		asts: ASTs,
-		{ maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 }
-	) {
-		this.parsedTree = TreeParser.parse(ast);
-		// console.dir(this.parsedTree.imports, { depth: null });
-		this.entityPath = entityPath;
+	constructor(ast: string, asts: ASTs, { maxDepth, currDepth } = { currDepth: 0, maxDepth: 1 }) {
+		this.asts = asts;
+		this.astKey = ast;
+		this.ast = this.asts[ast].sourceFile;
+		this.entityPath = this.asts[ast].fullPath;
+		this.parsedTree = TreeParser.parse(this.ast);
+
 		this.maxDepth = maxDepth;
 		this.currDepth = currDepth;
-		this.asts = asts;
+
 		//some defaults
 		this.baseSetup();
 	}
@@ -270,8 +270,8 @@ export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 					warn(`relation field ${field.name!} ast not found`);
 					continue;
 				}
-				const ast = this.asts[relationFileImport];
-				const nestedUpdateSchema = new UpdateSchemaCreator(ast.sourceFile, ast.fullPath, this.asts, {
+
+				const nestedUpdateSchema = new UpdateSchemaCreator(relationFileImport, this.asts, {
 					currDepth: this.currDepth + 1,
 					maxDepth: this.maxDepth - this.currDepth,
 				});
