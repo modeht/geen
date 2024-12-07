@@ -19,7 +19,6 @@ import ReadProductOrdersSchema, {
 
 export class ReadAffiliationLinkOrders {
 	isDisabled?: OrderDirectionEnum;
-	t?: OrderDirectionEnum;
 	url?: OrderDirectionEnum;
 	taggedProducts?: ReadTaggedProductOrders | OrderDirectionEnum;
 	cartItems?: ReadCartItemsOrders | OrderDirectionEnum;
@@ -32,7 +31,6 @@ export class ReadAffiliationLinkOrders {
 
 const ReadAffiliationLinkOrdersSchema: v.GenericSchema<ReadAffiliationLinkOrders> = v.object({
 	isDisabled: v.optional(OrderDirectionSchema),
-	t: v.optional(OrderDirectionSchema),
 	url: v.optional(OrderDirectionSchema),
 	taggedProducts: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadTaggedProductOrdersSchema)])),
 	cartItems: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadCartItemsOrdersSchema)])),

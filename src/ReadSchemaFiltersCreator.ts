@@ -168,8 +168,8 @@ export type TRead${this.entityName}FiltersSchemaInput = v.InferInput<typeof ${th
 		for (const field of fields) {
 			if (this.excludedFields.includes(field.name!)) continue;
 
-			const fieldTypes = field.type!.split('|').map((t) => t.trim());
-
+			const fieldTypes = field.type?.split('|').map((t) => t.trim());
+			if (!fieldTypes) continue;
 			//filters are optionals by default
 
 			const fieldOptional = true;

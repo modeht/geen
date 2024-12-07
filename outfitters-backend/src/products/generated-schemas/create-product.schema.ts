@@ -81,15 +81,7 @@ const CreateProductSchema = v.pipe(
 		affiliationLinks: v.nullish(
 			v.union([
 				v.array(v.object({ id: v.number() })),
-				v.array(
-					v.object({
-						isDisabled: v.boolean(),
-						t: v.string(),
-						url: v.string(),
-						productId: v.number(),
-						shopperId: v.number(),
-					}),
-				),
+				v.array(v.object({ isDisabled: v.boolean(), url: v.string(), productId: v.number(), shopperId: v.number() })),
 			]),
 		),
 		notifications: v.nullish(

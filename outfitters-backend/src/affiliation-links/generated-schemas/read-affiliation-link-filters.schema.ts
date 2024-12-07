@@ -18,7 +18,6 @@ import ReadProductFiltersSchema, {
 
 export class ReadAffiliationLinkFiltersSchemaFilters {
 	isDisabled?: GenericComparable<'bool'> | null;
-	t?: GenericComparable<'string'> | null;
 	url?: GenericComparable<'string'> | null;
 	taggedProducts?: ReadTaggedProductFiltersSchemaFilters | null;
 	cartItems?: ReadCartItemsFiltersSchemaFilters | null;
@@ -31,7 +30,6 @@ export class ReadAffiliationLinkFiltersSchemaFilters {
 
 const ReadAffiliationLinkFiltersSchema: v.GenericSchema<ReadAffiliationLinkFiltersSchemaFilters> = v.object({
 	isDisabled: v.nullish(comparable('bool')),
-	t: v.nullish(comparable('string')),
 	url: v.nullish(comparable('string')),
 	taggedProducts: v.nullish(v.lazy(() => ReadTaggedProductFiltersSchema)),
 	cartItems: v.nullish(v.lazy(() => ReadCartItemsFiltersSchema)),

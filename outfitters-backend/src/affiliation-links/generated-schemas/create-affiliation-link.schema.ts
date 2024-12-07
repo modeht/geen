@@ -5,7 +5,6 @@ import { GenderEnum } from '../../users/entities/shopper-profile.entity';
 const CreateAffiliationLinkSchema = v.pipe(
 	v.object({
 		isDisabled: v.boolean(),
-		t: v.string(),
 		url: v.string(),
 		taggedProducts: v.nullish(
 			v.union([

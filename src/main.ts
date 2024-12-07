@@ -24,10 +24,10 @@ program
 		const allFiles = loadEntities();
 		await init(allFiles);
 
-		const handleChange = async (path: string) => {
-			await change(path);
-		};
-		chok.watch(allFiles, { persistent: true }).on('change', handleChange);
+		// const handleChange = async (path: string) => {
+		// 	await change(path);
+		// };
+		// chok.watch(allFiles, { persistent: true }).on('change', handleChange);
 	});
 
 program.parse();
@@ -51,20 +51,36 @@ async function init(allEntities: string[] = []) {
 	// console.log(Asts);
 }
 
+//TODO: how to deal with not correct entities
 async function change(entity: string) {
 	time('New Parse');
 	const newASTs = await parseFiles([entity]);
-	const ASTs = { ...Asts.getInstance(), ...newASTs };
-	console.log(Object.keys(ASTs));
+	// it is only one
+	const newAstsKey = Object.keys(newASTs)[0];
+
+	//find all asts that has relation with this schema
+	const asts = { ...Asts.getInstance(), ...newASTs };
+	const astsToUpdate: Record<string, any> = {
+		[newAstsKey]: newASTs[newAstsKey],
+	};
+	Object.entries(asts).forEach(([key, value]) => {
+		if (value.relations?.[newAstsKey]) {
+			astsToUpdate[key] = value;
+		}
+	});
 	timeEnd('New Parse');
 
-	// const currAST = newASTs[Object.keys(newASTs)[0]];
-	// const c = new CreateSchemaCreator(currAST.sourceFile, currAST.fullPath, ASTs);
-	// const u = new UpdateSchemaCreator(currAST.sourceFile, currAST.fullPath, ASTs);
-	// const r = new ReadSchemaCreator(currAST.sourceFile, currAST.fullPath, ASTs);
-	// r.baseSetup();
+	const r = new ReadSchemaCreator(newAstsKey, asts);
+	r.baseSetup();
+	await r.build();
 
-	// await Promise.all([c.buildFile(), u.buildFile(), r.build()]);
+	time('Update Schema');
+	for (const k in astsToUpdate) {
+		const c = new CreateSchemaCreator(k, asts);
+		const u = new UpdateSchemaCreator(k, asts);
+		await Promise.all([c.buildFile(), u.buildFile()]);
+	}
+	timeEnd('Update Schema');
 }
 
 // async function add(entity: string) {

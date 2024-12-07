@@ -8,13 +8,7 @@ const UpdateAffiliationLinkTrackingSchema = v.pipe(
 		affiliationLink: v.nullish(
 			v.union([
 				v.object({ id: v.number() }),
-				v.object({
-					isDisabled: v.boolean(),
-					t: v.string(),
-					url: v.string(),
-					productId: v.number(),
-					shopperId: v.number(),
-				}),
+				v.object({ isDisabled: v.boolean(), url: v.string(), productId: v.number(), shopperId: v.number() }),
 			]),
 		),
 		user: v.nullish(
