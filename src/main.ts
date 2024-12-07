@@ -8,40 +8,80 @@ import { Command } from 'commander';
 import { Cwd } from './Cwd.js';
 import { isAbsolute, join, sep } from 'path';
 import { existsSync } from 'fs';
+import chok from 'chokidar';
+import { ASTs } from './lib/types/index.js';
 
 const program = new Command();
+
 program
 	.option('-d, --dir <dir>', 'project directory, default is current working directory "process.cwd()"', process.cwd())
-	.action((opts, command: Command) => {
+	.action(async (opts, command: Command) => {
 		handleDirOption(opts, command);
-		main();
+		const allFiles = loadEntities();
+		await init(allFiles);
+
+		const handleChange = async (path: string) => {
+			await change(path);
+		};
+		chok.watch(allFiles, { persistent: true }).on('change', handleChange);
 	});
 
 program.parse();
 
-async function main() {
-	time('Loading entities');
-	const allEntities = await glob.async('**/*/*.entity.ts', {
-		absolute: true,
-		onlyFiles: true,
-		ignore: ['**/node_modules'],
-	});
-	timeEnd('Loading entities');
-
+let initASTs: ASTs;
+async function init(allEntities: string[] = []) {
 	time('Parsing');
-	const ASTs = await parseFiles(allEntities);
+	initASTs = await parseFiles(allEntities);
+	console.log(Object.keys(initASTs));
 	timeEnd('Parsing');
 
 	time('Prerequistes');
 	await prereq();
 	timeEnd('Prerequistes');
 
-	time('Creating modules');
-	for (const ast in ASTs) {
-		const m = new ModuleCreator(ASTs[ast].fullPath, ASTs[ast].sourceFile, ASTs);
+	time('Init Modules');
+	for (const ast in initASTs) {
+		const m = new ModuleCreator(initASTs[ast].fullPath, initASTs[ast].sourceFile, initASTs);
 		await m.build();
 	}
-	timeEnd('Creating modules');
+	timeEnd('Init Modules');
+}
+
+async function change(entity: string) {
+	time('New Parse');
+	const newASTs = await parseFiles([entity]);
+	const ASTs = { ...initASTs, ...newASTs };
+	console.log(Object.keys(ASTs));
+	timeEnd('New Parse');
+
+	const currAST = newASTs[Object.keys(newASTs)[0]];
+
+	// console.log(currAST);
+	// console.log(ASTs);
+}
+
+// async function add(entity: string) {
+// 	time('Parsing');
+// 	const newASTs = await parseFiles([entity]);
+// 	const ASTs = { ...initASTs, ...newASTs };
+// 	timeEnd('Parsing');
+
+// 	const currAST = newASTs[Object.keys(newASTs)[0]];
+
+// 	console.log(currAST);
+// 	console.log(ASTs);
+// }
+
+function loadEntities() {
+	time('Loading entities');
+	const allFiles = glob.sync('**/*/*.entity.ts', {
+		cwd: Cwd.getInstance(),
+		absolute: true,
+		onlyFiles: true,
+		ignore: ['**/node_modules', '**/dist'],
+	});
+	timeEnd('Loading entities');
+	return allFiles;
 }
 
 function handleDirOption(opts: Record<string, boolean>, command: Command) {

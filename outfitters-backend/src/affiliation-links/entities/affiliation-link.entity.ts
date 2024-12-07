@@ -30,6 +30,8 @@ export class AffiliationLinkEntity {
 	@Column({ type: 'boolean', default: false })
 	isDisabled: boolean = false;
 
+	t: string;
+
 	// Should this be auto-generated?
 	@Column({ type: 'text', nullable: false })
 	url: string;

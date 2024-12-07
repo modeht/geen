@@ -1,6 +1,6 @@
 import { readFile } from 'fs/promises';
 import { ASTs } from './lib/types/index.js';
-import { join, resolve } from 'path';
+import { join, resolve, sep } from 'path';
 import ts from 'typescript';
 import { randomBytes } from 'crypto';
 
@@ -13,7 +13,8 @@ export async function parseFiles(entries: string[]): Promise<ASTs> {
 
 	const r = {};
 	for (let i = 0; i < entries.length; i++) {
-		const key = entries[i].split('/').at(-1)?.replace('.ts', '');
+		entries[i] = entries[i].replaceAll(sep, '/');
+		let key = entries[i].split('/').at(-1)?.replace('.ts', '');
 
 		if (key)
 			r[key] = {
