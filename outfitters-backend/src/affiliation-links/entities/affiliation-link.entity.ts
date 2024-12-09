@@ -3,6 +3,7 @@ import { TaggedProductEntity } from 'src/products/entities/tagged-product.entity
 import {
 	Column,
 	CreateDateColumn,
+	DeleteDateColumn,
 	Entity,
 	JoinColumn,
 	ManyToOne,
@@ -23,6 +24,9 @@ export class AffiliationLinkEntity {
 
 	@CreateDateColumn()
 	createdAt: Date;
+
+	@DeleteDateColumn()
+	deletedAt: Date;
 
 	@UpdateDateColumn()
 	updatedAt: Date;
