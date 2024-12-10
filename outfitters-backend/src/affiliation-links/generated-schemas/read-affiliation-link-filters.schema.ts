@@ -17,6 +17,7 @@ import ReadProductFiltersSchema, {
 } from '../../products/generated-schemas/read-product-filters.schema';
 
 export class ReadAffiliationLinkFiltersSchemaFilters {
+	deletedAt?: GenericComparable<'date'> | null;
 	isDisabled?: GenericComparable<'bool'> | null;
 	url?: GenericComparable<'string'> | null;
 	taggedProducts?: ReadTaggedProductFiltersSchemaFilters | null;
@@ -29,6 +30,7 @@ export class ReadAffiliationLinkFiltersSchemaFilters {
 }
 
 const ReadAffiliationLinkFiltersSchema: v.GenericSchema<ReadAffiliationLinkFiltersSchemaFilters> = v.object({
+	deletedAt: v.nullish(comparable('date')),
 	isDisabled: v.nullish(comparable('bool')),
 	url: v.nullish(comparable('string')),
 	taggedProducts: v.nullish(v.lazy(() => ReadTaggedProductFiltersSchema)),

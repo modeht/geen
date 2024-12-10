@@ -22,10 +22,10 @@ program
 		const allFiles = loadEntities();
 		await init(allFiles);
 
-		// const handleChange = async (path: string) => {
-		// 	await change(path);
-		// };
-		// chok.watch(allFiles, { persistent: true }).on('change', handleChange);
+		const handleChange = async (path: string) => {
+			await change(path);
+		};
+		chok.watch(allFiles, { persistent: true }).on('change', handleChange);
 	});
 
 program.parse();

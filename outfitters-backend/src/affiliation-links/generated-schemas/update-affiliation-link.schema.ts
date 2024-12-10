@@ -4,6 +4,7 @@ import * as v from 'valibot';
 import { GenderEnum } from '../../users/entities/shopper-profile.entity';
 const UpdateAffiliationLinkSchema = v.pipe(
 	v.object({
+		deletedAt: v.optional(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())),
 		isDisabled: v.optional(v.boolean()),
 		url: v.optional(v.string()),
 		taggedProducts: v.nullish(

@@ -58,7 +58,13 @@ const CreateTaggedProductSchema = v.pipe(
 		affiliationLink: v.nullish(
 			v.union([
 				v.object({ id: v.number() }),
-				v.object({ isDisabled: v.boolean(), url: v.string(), productId: v.number(), shopperId: v.number() }),
+				v.object({
+					deletedAt: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
+					isDisabled: v.boolean(),
+					url: v.string(),
+					productId: v.number(),
+					shopperId: v.number(),
+				}),
 			]),
 		),
 		productId: v.nullish(v.number()),
