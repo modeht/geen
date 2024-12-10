@@ -8,8 +8,6 @@ import { Command } from 'commander';
 import { Cwd } from './Cwd.js';
 import { isAbsolute, join, sep } from 'path';
 import { existsSync } from 'fs';
-import chok from 'chokidar';
-import { ASTs } from './lib/types/index.js';
 import { CreateSchemaCreator } from './CreateSchemaCreator.js';
 import { UpdateSchemaCreator } from './UpdateSchemaCreator.js';
 import { ReadSchemaCreator } from './ReadSchemaCreator.js';
@@ -48,7 +46,6 @@ async function init(allEntities: string[] = []) {
 		await m.build();
 	}
 	timeEnd('Init Modules');
-	// console.log(Asts);
 }
 
 //TODO: how to deal with not correct entities

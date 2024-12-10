@@ -1,7 +1,4 @@
-import glob from 'fast-glob';
-import { join } from 'path';
 import prettier from 'prettier';
-import { Cwd } from './Cwd.js';
 
 export const prettierOptions: prettier.Options = {
 	endOfLine: 'lf',
