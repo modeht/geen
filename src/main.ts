@@ -25,7 +25,7 @@ program
 		//
 		handleDirOption(opts);
 		const globCwd = handleEntityCwd(opts.cwd);
-		let allEntities = loadEntities();
+		let allEntities = loadEntities({ pattern: opts.glob });
 		let selectedEntities: string[] = [];
 		if (globCwd) {
 			selectedEntities = allEntities.filter((e) => e.startsWith(globCwd));
@@ -119,12 +119,11 @@ async function change(entity: string) {
 
 export type EntitiesOptions = {
 	pattern?: string;
-	cwd?: string;
 };
 
-function loadEntities() {
+function loadEntities(opts: EntitiesOptions = {}) {
 	time('Loading entities');
-	const allFiles = glob.sync('**/*/*.entity.ts', {
+	const allFiles = glob.sync(opts.pattern || '**/*/*.entity.ts', {
 		cwd: Cwd.getInstance(),
 		absolute: true,
 		onlyFiles: true,
@@ -133,21 +132,6 @@ function loadEntities() {
 	timeEnd('Loading entities');
 	return allFiles;
 }
-
-function loadSpecific(opts: EntitiesOptions = {}) {
-	time('Loading entities');
-	const allFiles = glob.sync(opts.pattern || '**/*/*.entities.ts', {
-		cwd: opts.cwd || Cwd.getInstance(),
-		absolute: true,
-		onlyFiles: true,
-		ignore: ['**/node_modules', '**/dist'],
-	});
-	timeEnd('Loading entities');
-	return allFiles;
-}
-
-// load all entities anyway it doesn't take too much time
-// parse all but only generate the selected entities
 
 function handleDirOption(opts: Record<string, string>) {
 	if (opts.dir) {
