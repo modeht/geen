@@ -37,7 +37,11 @@ program
 		const handleChange = async (path: string) => {
 			await change(path);
 		};
-		chok.watch(allEntities, { persistent: true }).on('change', handleChange);
+
+		//watch for changes
+		chok
+			.watch(selectedEntities?.length ? selectedEntities : allEntities, { persistent: true })
+			.on('change', handleChange);
 	});
 
 program.parse();
