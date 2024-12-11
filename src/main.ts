@@ -12,28 +12,48 @@ import { CreateSchemaCreator } from './CreateSchemaCreator.js';
 import { UpdateSchemaCreator } from './UpdateSchemaCreator.js';
 import { ReadSchemaCreator } from './ReadSchemaCreator.js';
 import { Asts } from './Asts.js';
+import chok from 'chokidar';
+import { ASTs } from './lib/types/index.js';
 
 const program = new Command();
 
 program
 	.option('-d, --dir <dir>', 'project directory, default is current working directory "process.cwd()"', process.cwd())
+	.option('-g, --glob <glob>', 'entity files glob pattern', '**/*/*.entity.ts')
+	.option('-w, --cwd <cwd>', 'entities cwd, default is <<project dir>>/src')
 	.action(async (opts, command: Command) => {
-		handleDirOption(opts, command);
-		const allFiles = loadEntities();
-		await init(allFiles);
+		//
+		handleDirOption(opts);
+		const globCwd = handleEntityCwd(opts.cwd);
+		let allEntities = loadEntities();
+		let selectedEntities: string[] = [];
+		if (globCwd) {
+			selectedEntities = allEntities.filter((e) => e.startsWith(globCwd));
+			allEntities = allEntities.filter((e) => !selectedEntities.includes(e));
+		}
+
+		await init(allEntities, selectedEntities);
 
 		const handleChange = async (path: string) => {
 			await change(path);
 		};
-		chok.watch(allFiles, { persistent: true }).on('change', handleChange);
+		chok.watch(allEntities, { persistent: true }).on('change', handleChange);
 	});
 
 program.parse();
 
-async function init(allEntities: string[] = []) {
+async function init(allEntities: string[] = [], selectedEntities?: string[]) {
 	time('Parsing');
-	const initASTs = await parseFiles(allEntities);
-	Asts.setInstance(initASTs);
+
+	const rest = await parseFiles(allEntities);
+	Asts.setInstance(rest);
+
+	let curr: ASTs;
+	if (selectedEntities?.length) {
+		curr = await parseFiles(selectedEntities);
+	} else {
+		curr = rest;
+	}
 	timeEnd('Parsing');
 
 	time('Prerequistes');
@@ -41,8 +61,9 @@ async function init(allEntities: string[] = []) {
 	timeEnd('Prerequistes');
 
 	time('Init Modules');
-	for (const ast in initASTs) {
-		const m = new ModuleCreator(ast, initASTs);
+	//loop over the selected entities
+	for (const ast in curr) {
+		const m = new ModuleCreator(ast, { ...rest, ...curr });
 		await m.build();
 	}
 	timeEnd('Init Modules');
@@ -92,6 +113,11 @@ async function change(entity: string) {
 // 	console.log(ASTs);
 // }
 
+export type EntitiesOptions = {
+	pattern?: string;
+	cwd?: string;
+};
+
 function loadEntities() {
 	time('Loading entities');
 	const allFiles = glob.sync('**/*/*.entity.ts', {
@@ -104,18 +130,41 @@ function loadEntities() {
 	return allFiles;
 }
 
-function handleDirOption(opts: Record<string, boolean>, command: Command) {
+function loadSpecific(opts: EntitiesOptions = {}) {
+	time('Loading entities');
+	const allFiles = glob.sync(opts.pattern || '**/*/*.entities.ts', {
+		cwd: opts.cwd || Cwd.getInstance(),
+		absolute: true,
+		onlyFiles: true,
+		ignore: ['**/node_modules', '**/dist'],
+	});
+	timeEnd('Loading entities');
+	return allFiles;
+}
+
+// load all entities anyway it doesn't take too much time
+// parse all but only generate the selected entities
+
+function handleDirOption(opts: Record<string, string>) {
 	if (opts.dir) {
-		const newCwd = command.getOptionValue('dir');
-		if (newCwd.startsWith('.')) {
-			Cwd.setInstance(join(process.cwd(), newCwd.split(sep).join('/')));
-		} else if (isAbsolute(newCwd)) {
-			Cwd.setInstance(newCwd);
+		if (opts.dir.startsWith('.')) {
+			Cwd.setInstance(join(process.cwd(), opts.dir.split(sep).join('/')));
+		} else if (isAbsolute(opts.dir)) {
+			Cwd.setInstance(opts.dir);
 		}
 	}
 	const nestCli = existsSync(join(Cwd.getInstance(), 'nest-cli.json'));
 	const srcDir = existsSync(join(Cwd.getInstance(), 'src/main.ts'));
 	if (!nestCli || !srcDir) {
 		throw new Error('Directory is not a valid Nest.js project');
+	}
+}
+
+function handleEntityCwd(path?: string) {
+	if (!path) return undefined;
+	if (isAbsolute(path)) {
+		return path.split(sep).join('/');
+	} else {
+		return join(Cwd.getInstance(), 'src', path).split(sep).join('/');
 	}
 }

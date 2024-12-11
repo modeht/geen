@@ -13,8 +13,7 @@ export async function parseFiles(entries: string[]): Promise<ASTs> {
 
 	const r = {};
 	for (let i = 0; i < entries.length; i++) {
-		entries[i] = entries[i].replaceAll(sep, '/');
-		let key = entries[i].split('/').at(-1)?.replace('.ts', '');
+		let key = getEntityName(entries[i]);
 
 		if (key)
 			r[key] = {
@@ -23,4 +22,9 @@ export async function parseFiles(entries: string[]): Promise<ASTs> {
 			};
 	}
 	return r;
+}
+
+export function getEntityName(path: string) {
+	path = path.replaceAll(sep, '/');
+	return path.split('/').at(-1)?.replace('.ts', '');
 }

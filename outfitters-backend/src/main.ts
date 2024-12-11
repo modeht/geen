@@ -14,6 +14,7 @@ import { GeneralExceptionFilter } from './globals/filters/exception.filter';
 import { ResponseInterceptor } from './globals/interceptors/response.interceptor';
 import 'reflect-metadata';
 import { createComponentsSchemas } from './generate-openapi-components';
+import { writeFile } from 'fs/promises';
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(
@@ -92,7 +93,7 @@ async function bootstrap() {
 		.setTitle('Outfitters')
 		.addBearerAuth()
 		.setDescription('Outfitters API description')
-		.setVersion('0.1')
+		.setVersion('0.5.0')
 		.setExternalDoc('Postman Collection', '/docs-json')
 		.build();
 
@@ -104,7 +105,7 @@ async function bootstrap() {
 		...componentsSchemas,
 	};
 	SwaggerModule.setup('docs', app, document);
-	// writeFile('./openapi.json', JSON.stringify(document, null, 4));
+	writeFile('./openapi.json', JSON.stringify(document, null, 4));
 
 	const configService = app.get(ConfigService);
 	const PORT = configService.get('DOCKER_PORT') || configService.get('PORT');
