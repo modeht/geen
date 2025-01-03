@@ -84,6 +84,7 @@ const CreateProductSchema = v.pipe(
 				v.array(
 					v.object({
 						deletedAt: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
+						test: v.any(),
 						isDisabled: v.boolean(),
 						url: v.string(),
 						productId: v.number(),
@@ -171,13 +172,23 @@ const CreateProductSchema = v.pipe(
 		category: v.nullish(
 			v.union([
 				v.object({ id: v.number() }),
-				v.object({ name: v.string(), isArchived: v.boolean(), superCategoryId: v.nullish(v.number()) }),
+				v.object({
+					name: v.string(),
+					isArchived: v.boolean(),
+					superCategoryId: v.nullish(v.number()),
+					test: v.nullish(v.any()),
+				}),
 			]),
 		),
 		subCategory: v.nullish(
 			v.union([
 				v.object({ id: v.number() }),
-				v.object({ name: v.string(), isArchived: v.boolean(), superCategoryId: v.nullish(v.number()) }),
+				v.object({
+					name: v.string(),
+					isArchived: v.boolean(),
+					superCategoryId: v.nullish(v.number()),
+					test: v.nullish(v.any()),
+				}),
 			]),
 		),
 		collections: v.nullish(

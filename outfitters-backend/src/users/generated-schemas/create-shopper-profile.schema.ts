@@ -105,6 +105,7 @@ const CreateShopperProfileSchema = v.pipe(
 				v.array(v.object({ id: v.number() })),
 				v.array(
 					v.object({
+						transactions: v.nullish(v.any()),
 						paymentMethod: v.enum(OrderPaymentMethod),
 						paymentStatus: v.nullish(v.enum(OrderPaymentStatusEnum)),
 						totalSalePrice: v.nullish(v.number()),
@@ -138,6 +139,7 @@ const CreateShopperProfileSchema = v.pipe(
 				v.array(
 					v.object({
 						deletedAt: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
+						test: v.any(),
 						isDisabled: v.boolean(),
 						url: v.string(),
 						productId: v.number(),

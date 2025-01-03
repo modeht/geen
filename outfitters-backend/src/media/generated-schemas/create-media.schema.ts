@@ -104,7 +104,12 @@ const CreateMediaSchema = v.pipe(
 		category: v.nullish(
 			v.union([
 				v.object({ id: v.number() }),
-				v.object({ name: v.string(), isArchived: v.boolean(), superCategoryId: v.nullish(v.number()) }),
+				v.object({
+					name: v.string(),
+					isArchived: v.boolean(),
+					superCategoryId: v.nullish(v.number()),
+					test: v.nullish(v.any()),
+				}),
 			]),
 		),
 		country: v.nullish(
@@ -115,6 +120,7 @@ const CreateMediaSchema = v.pipe(
 					code: v.string(),
 					dialCode: v.string(),
 					isSupported: v.boolean(),
+					brands: v.any(),
 					iconId: v.number(),
 				}),
 			]),

@@ -3,7 +3,7 @@ import * as v from 'valibot';
 
 import { LanguageEnum } from '../../../lib/enums';
 const CreateTranslationSchema = v.pipe(
-	v.object({ language: v.enum(LanguageEnum) }),
+	v.object({ columns: v.nullish(v.any()), language: v.enum(LanguageEnum) }),
 	v.metadata({ [modelSymbol]: 'TranslationEntity' }),
 );
 export default CreateTranslationSchema;

@@ -186,12 +186,26 @@ const CreateBrandProfileSchema = v.pipe(
 		),
 		categories: v.nullish(
 			v.union([
-				v.array(v.object({ name: v.string(), isArchived: v.boolean(), superCategoryId: v.nullish(v.number()) })),
+				v.array(
+					v.object({
+						name: v.string(),
+						isArchived: v.boolean(),
+						superCategoryId: v.nullish(v.number()),
+						test: v.nullish(v.any()),
+					}),
+				),
 			]),
 		),
 		subCategories: v.nullish(
 			v.union([
-				v.array(v.object({ name: v.string(), isArchived: v.boolean(), superCategoryId: v.nullish(v.number()) })),
+				v.array(
+					v.object({
+						name: v.string(),
+						isArchived: v.boolean(),
+						superCategoryId: v.nullish(v.number()),
+						test: v.nullish(v.any()),
+					}),
+				),
 			]),
 		),
 		countries: v.nullish(
@@ -202,6 +216,7 @@ const CreateBrandProfileSchema = v.pipe(
 						code: v.string(),
 						dialCode: v.string(),
 						isSupported: v.boolean(),
+						brands: v.any(),
 						iconId: v.number(),
 					}),
 				),

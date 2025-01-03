@@ -19,31 +19,10 @@ const CreateCountrySchema = v.pipe(
 				}),
 			]),
 		),
-		brands: v.nullish(
-			v.union([
-				v.array(
-					v.object({
-						storeName: v.nullish(v.string()),
-						brandName: v.nullish(v.string()),
-						storeBio: v.nullish(v.string()),
-						website: v.nullish(v.string()),
-						isPublished: v.boolean(),
-						shippingCost: v.nullish(v.number()),
-						currency: v.nullish(v.string()),
-						brandManagerFullName: v.nullish(v.string()),
-						logoId: v.nullish(v.number()),
-						isFollowing: v.nullish(v.boolean()),
-						hasStory: v.nullish(v.boolean()),
-						followersCount: v.nullish(v.number()),
-						followingCount: v.nullish(v.number()),
-						postsCount: v.nullish(v.number()),
-					}),
-				),
-			]),
-		),
+		brands: v.any(),
 		iconId: v.number(),
 	}),
-	v.metadata({ [modelSymbol]: 'CountryEntity', icon: 'MediaEntity', brands: 'BrandProfileEntity' }),
+	v.metadata({ [modelSymbol]: 'CountryEntity', icon: 'MediaEntity' }),
 );
 export default CreateCountrySchema;
 

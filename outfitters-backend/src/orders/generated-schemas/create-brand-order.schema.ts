@@ -60,6 +60,7 @@ const CreateBrandOrderSchema = v.pipe(
 			v.union([
 				v.object({ id: v.number() }),
 				v.object({
+					transactions: v.nullish(v.any()),
 					paymentMethod: v.enum(OrderPaymentMethod),
 					paymentStatus: v.nullish(v.enum(OrderPaymentStatusEnum)),
 					totalSalePrice: v.nullish(v.number()),

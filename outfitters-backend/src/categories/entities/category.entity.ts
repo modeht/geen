@@ -76,4 +76,9 @@ export class CategoryEntity {
 		(seasonalPromotion) => seasonalPromotion.subCategories,
 	)
 	seasonalPromotions: SeasonalPromotionEntity[];
+
+	@Column({ type: 'jsonb', nullable: true })
+	test: {
+		a: true;
+	} | null;
 }

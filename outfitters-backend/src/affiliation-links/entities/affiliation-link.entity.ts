@@ -11,6 +11,8 @@ import {
 	PrimaryGeneratedColumn,
 	Unique,
 	UpdateDateColumn,
+	Point,
+	Decimal128,
 } from 'typeorm';
 import { ShopperProfileEntity } from '../../users/entities/shopper-profile.entity';
 import { AffiliationLinkTrackingEntity } from './affiliation-link-tracking.entity';
@@ -30,6 +32,9 @@ export class AffiliationLinkEntity {
 
 	@UpdateDateColumn()
 	updatedAt: Date;
+
+	@Column('int')
+	test: Point;
 
 	@Column({ type: 'boolean', default: false })
 	isDisabled: boolean = false;

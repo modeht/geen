@@ -60,6 +60,7 @@ const CreateTaggedProductSchema = v.pipe(
 				v.object({ id: v.number() }),
 				v.object({
 					deletedAt: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
+					test: v.any(),
 					isDisabled: v.boolean(),
 					url: v.string(),
 					productId: v.number(),

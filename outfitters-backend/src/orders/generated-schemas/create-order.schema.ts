@@ -8,6 +8,7 @@ import { OrderStatusEnum } from '../entities/brand-orders.entity';
 import { GenderEnum } from '../../users/entities/shopper-profile.entity';
 const CreateOrderSchema = v.pipe(
 	v.object({
+		transactions: v.nullish(v.any()),
 		paymentMethod: v.enum(OrderPaymentMethod),
 		paymentStatus: v.nullish(v.enum(OrderPaymentStatusEnum)),
 		totalSalePrice: v.nullish(v.number()),

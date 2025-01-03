@@ -213,9 +213,10 @@ export type TRead${this.entityName}OrdersSchemaInput = v.InferInput<typeof ${thi
 				relationRequired,
 				relationFileImport,
 				relationType,
+				fieldNotRelation,
 			} = this._extractRelationInfo(field);
 
-			if (fieldNotSupported) {
+			if (fieldNotSupported || fieldNotRelation) {
 				continue;
 			}
 
@@ -348,6 +349,7 @@ export default ${this.ordersSchemaName};
 		let fieldRelationMeta: Node | undefined;
 		let fieldRelationHasFk: boolean = false;
 		let fieldNotSupported = false;
+		let fieldNotRelation = false;
 		let relationFn: Node | undefined;
 		let relationType: Orderships | undefined;
 		let relationClass: string | undefined;
@@ -368,6 +370,8 @@ export default ${this.ordersSchemaName};
 				//TODO: handle conjuction table
 			} else if (d.text?.match(/Tree(Parent|Children)/)?.length) {
 				fieldNotSupported = true;
+			} else {
+				if (!fieldRelation) fieldNotRelation = true;
 			}
 		});
 
@@ -402,6 +406,7 @@ export default ${this.ordersSchemaName};
 			fieldRelationMeta,
 			fieldRelationHasFk,
 			fieldNotSupported,
+			fieldNotRelation,
 			relationType,
 			relationClass,
 			relationClassImport,

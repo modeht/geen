@@ -21,13 +21,25 @@ const CreateCategorySchema = v.pipe(
 		subCategories: v.nullish(
 			v.union([
 				v.array(v.object({ id: v.number() })),
-				v.array(v.object({ name: v.string(), isArchived: v.boolean(), superCategoryId: v.nullish(v.number()) })),
+				v.array(
+					v.object({
+						name: v.string(),
+						isArchived: v.boolean(),
+						superCategoryId: v.nullish(v.number()),
+						test: v.nullish(v.any()),
+					}),
+				),
 			]),
 		),
 		superCategory: v.nullish(
 			v.union([
 				v.object({ id: v.number() }),
-				v.object({ name: v.string(), isArchived: v.boolean(), superCategoryId: v.nullish(v.number()) }),
+				v.object({
+					name: v.string(),
+					isArchived: v.boolean(),
+					superCategoryId: v.nullish(v.number()),
+					test: v.nullish(v.any()),
+				}),
 			]),
 		),
 		superCategoryId: v.nullish(v.number()),
@@ -114,6 +126,7 @@ const CreateCategorySchema = v.pipe(
 				),
 			]),
 		),
+		test: v.nullish(v.any()),
 	}),
 	v.metadata({
 		[modelSymbol]: 'CategoryEntity',

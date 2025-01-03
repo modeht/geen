@@ -36,10 +36,10 @@ export enum PrimitiveTypes {
 	'number',
 	'string',
 	'boolean',
+	'Date',
 	'string[]',
 	'number[]',
 	'boolean[]',
-	'Date',
 	'Date[]',
 }
 
@@ -241,7 +241,20 @@ export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 				relationRequired,
 				relationFileImport,
 				relationType,
+				fieldNotRelation,
 			} = this._extractRelationInfo(field);
+
+			//not a relation but a complex type that is not a primitive, ccould be
+			//class or object or custom type/interface
+			//could be nested as well
+			if (fieldNotRelation) {
+				let t = 'v.any()';
+				t = this._handleEmptyStates(t, fieldNullable, fieldUndefindable);
+
+				fieldAsString = `${field.name}: ${t}`;
+				schema.push(fieldAsString);
+				continue;
+			}
 
 			if (fieldNotSupported) {
 				continue;
@@ -347,6 +360,7 @@ export default ${this.schemaName};
 		let fieldRelationMeta: Node | undefined;
 		let fieldRelationHasFk: boolean = false;
 		let fieldNotSupported = false;
+		let fieldNotRelation = false;
 		let relationFn: Node | undefined;
 		let relationType: Relationships | undefined;
 		let relationClass: string | undefined;
@@ -367,6 +381,8 @@ export default ${this.schemaName};
 				//TODO: handle conjuction table
 			} else if (d.text?.match(/Tree(Parent|Children)/)?.length) {
 				fieldNotSupported = true;
+			} else {
+				if (!fieldRelation) fieldNotRelation = true;
 			}
 		});
 
@@ -397,6 +413,7 @@ export default ${this.schemaName};
 
 		return {
 			fieldEnum,
+			fieldNotRelation,
 			fieldRelation,
 			fieldRelationMeta,
 			fieldRelationHasFk,
