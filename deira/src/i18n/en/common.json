@@ -1,0 +1,8 @@
+{
+  "favorited": "Added to favorites",
+  "unfavorited": "Removed from favorites",
+  "chargeWallet": "Add balance",
+  "publishAd": "Publish {plan} Ad",
+  "gotFeedback": "Message recieved",
+  "notifyAddPublished": "Your ad \"{adTitle}\". has been published"
+}

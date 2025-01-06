@@ -462,7 +462,7 @@ export default ${this.schemaName};
 	}
 
 	_setDefaultImports() {
-		const globalsDirPath = join(Cwd.getInstance(), 'src/globals');
+		const globalsDirPath = join(Cwd.getInstance(), 'src/geen');
 		const utilFileRelPath = relative(this.dtoDirAbsPath, globalsDirPath).split(sep).join('/');
 		this.imports?.add(`import { modelSymbol } from "${utilFileRelPath}/constants/schema-symbols"`);
 		this.imports?.add("import * as v from 'valibot';");

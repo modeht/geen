@@ -478,7 +478,7 @@ export default ${this.filtersSchemaName};
 	}
 
 	_setDefaultImports() {
-		const globalsDirPath = join(Cwd.getInstance(), 'src/globals');
+		const globalsDirPath = join(Cwd.getInstance(), 'src/geen');
 		const utilFileRelPath = relative(this.dtoDirAbsPath, globalsDirPath).split(sep).join('/');
 		this.imports?.add(`import { GenericComparable, comparable } from "${utilFileRelPath}/lib/comparable"`);
 		this.imports?.add("import * as v from 'valibot';");

@@ -28,7 +28,7 @@ export class CategoryEntity {
 	updatedAt: Date;
 
 	@Column({
-		type: 'text',
+		type: 'time',
 		nullable: false,
 	})
 	@Index()

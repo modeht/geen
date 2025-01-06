@@ -243,10 +243,20 @@ export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 				relationClassImport,
 				relationRequired,
 				relationFileImport,
+				fieldNotRelation,
 				relationType,
 			} = this._extractRelationInfo(field);
 
 			if (fieldNotSupported) {
+				continue;
+			}
+
+			if (fieldNotRelation) {
+				let t = 'v.any()';
+				t = this._handleEmptyStates(t, fieldNullable, fieldUndefindable);
+
+				fieldAsString = `${field.name}: ${t}`;
+				schema.push(fieldAsString);
 				continue;
 			}
 
@@ -341,6 +351,7 @@ export default ${this.schemaName};`;
 		let fieldRelationMeta: Node | undefined;
 		let fieldRelationHasFk: boolean = false;
 		let fieldNotSupported = false;
+		let fieldNotRelation = false;
 		let relationFn: Node | undefined;
 		let relationType: Relationships | undefined;
 		let relationClass: string | undefined;
@@ -361,6 +372,8 @@ export default ${this.schemaName};`;
 				//TODO: handle conjuction table
 			} else if (d.text?.match(/Tree(Parent|Children)/)?.length) {
 				fieldNotSupported = true;
+			} else {
+				if (!fieldRelation) fieldNotRelation = true;
 			}
 		});
 
@@ -400,6 +413,7 @@ export default ${this.schemaName};`;
 			relationClassImport,
 			relationFileImport,
 			relationRequired,
+			fieldNotRelation,
 		};
 	}
 
@@ -439,7 +453,7 @@ export default ${this.schemaName};`;
 	}
 
 	_setDefaultImports() {
-		const globalsDirPath = join(Cwd.getInstance(), 'src/globals');
+		const globalsDirPath = join(Cwd.getInstance(), 'src/geen');
 		const utilFileRelPath = relative(this.dtoDirAbsPath, globalsDirPath).split(sep).join('/');
 		this.imports?.add(`import { modelSymbol } from "${utilFileRelPath}/constants/schema-symbols"`);
 		this.imports?.add("import * as v from 'valibot';");

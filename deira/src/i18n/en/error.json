@@ -1,0 +1,20 @@
+{
+  "generic": {
+    "notFound": "Record not found",
+    "updatedZeroRecord": "No record was updated",
+    "noneNullableField": "Field \"{key}\" cannot be null",
+    "invalidReferrerCode": "Invalid referrer code",
+    "internalError": "Something went wrong. please report the issue",
+    "invalidAction": "Invalid action",
+    "notMultipart": "Request is not multipart"
+  },
+  "auth": {
+    "phoneExists": "Phone already exists",
+    "phoneMismatch": "Phone sent doesn't match verified phone"
+  },
+  "ads": {
+    "exceededMediaLimit": "Exceeded media limit",
+    "exceededVideoLimit": "Exceeded video limit",
+    "unsufficientFunds": "You don't have enough balance"
+  }
+}

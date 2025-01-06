@@ -1,0 +1,20 @@
+{
+  "generic": {
+    "notFound": "العنصر غير موجودة",
+    "updatedZeroRecord": "لم يتم تحديث اي عنصر",
+    "noneNullableField": "لا يمكن للحقل {key} ان يكون فارغ",
+    "invalidReferrerCode": "كود الإحالة غير صحيح",
+    "internalError": "حدث خطأ داخلي. برجاء التبليغ عن المشكلة",
+    "invalidAction": "فعل غير مسموح",
+    "notMultipart": "هذا الطلب ليس من النوع المطلوب"
+  },
+  "auth": {
+    "phoneExists": "الرقم موجود مسبقاً",
+    "phoneMismatch": "الرقم المرسل لا يتطابق مع الرقم المحقق"
+  },
+  "ads": {
+    "exceededMediaLimit": "تخطيت عدد الوسائط المسموح بها",
+    "exceededVideoLimit": "تخطيت عدد الفيديوهات المسموح بها",
+    "unsufficientFunds": "لا تمتلك رصيد كافي"
+  }
+}
