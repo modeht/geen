@@ -148,12 +148,6 @@ async function verifyAppModuleImports() {
 	}
 }
 
-verifyAppModule().then(() => {
-	verifyAppModuleImports().then(() => {
-		process.exit(0);
-	});
-});
-
 const geenModulesTemplate = `//auto generated, don't modify
 //imports
 
