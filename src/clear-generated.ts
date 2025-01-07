@@ -17,7 +17,7 @@ dirs.forEach((dir) => {
 const controllers = sync('**/*/generated-*', {
 	absolute: true,
 	onlyFiles: true,
-	ignore: ['generated-modules'],
+	ignore: ['geen-modules'],
 });
 
 controllers.forEach((co) => {

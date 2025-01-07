@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Socket } from 'socket.io';
-import { SessionToken } from './auth/types';
 
 @Injectable()
 export class SocketClientService {
@@ -25,12 +24,9 @@ export class SocketClientService {
         throw new Error('Authorization token missing');
       }
 
-      const payload = await this.jwtService.verifyAsync<SessionToken>(
-        token[1],
-        {
-          secret: this.configService.getOrThrow('JWT_SECRET'),
-        },
-      );
+      const payload = await this.jwtService.verifyAsync<any>(token[1], {
+        secret: this.configService.getOrThrow('JWT_SECRET'),
+      });
       client.session = payload;
     } catch (error) {
       client.emit('auth/error', {

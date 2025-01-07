@@ -53,7 +53,7 @@ export class ModuleCreator {
 	) {
 		this.entityPath = this.asts[this.ast].fullPath;
 		this.entitySourceFile = this.asts[this.ast].sourceFile;
-		this.appModulePath = join(Cwd.getInstance(), 'src/generated-modules.ts');
+		this.appModulePath = join(Cwd.getInstance(), 'src/geen-modules.ts');
 		this._prepDir();
 	}
 
@@ -79,7 +79,7 @@ export class ModuleCreator {
 		const controller = await this._createController(create, update, read, service);
 		const module = await this._createModule(create, service, controller);
 
-		//add module to generated-modules.ts
+		//add module to geen-modules.ts
 		await this.addToEntry(module);
 	}
 
@@ -124,7 +124,7 @@ export class ModuleCreator {
 		const imports = new Set();
 		imports.add(`import { Injectable } from '@nestjs/common'`);
 		imports.add(`import { DataSource } from 'typeorm'`);
-		imports.add(`import { AbstractService } from '../globals/services/abstract-service'`);
+		imports.add(`import { AbstractService } from '../geen/services/abstract-service'`);
 
 		imports.add(
 			`import ${create.schemaName}, { ${create.inputType}, ${create.outputType} } from './${
@@ -224,8 +224,8 @@ export class ModuleCreator {
 		const projectRelPath = relative(join(this.dtoDirAbsPath, '..'), join(Cwd.getInstance(), 'src'))
 			.split(sep)
 			.join('/');
-		const globalsDirPath = join(Cwd.getInstance(), 'src/globals');
-		const utilFileRelPath = relative(join(this.dtoDirAbsPath, '..'), globalsDirPath).split(sep).join('/');
+		const geenDirPath = join(Cwd.getInstance(), 'src/geen');
+		const utilFileRelPath = relative(join(this.dtoDirAbsPath, '..'), geenDirPath).split(sep).join('/');
 		imports.add(
 			`import { SchemaDefs } from "${projectRelPath.startsWith('.') ? '' : './'}${projectRelPath}/schema-defs"`
 		);

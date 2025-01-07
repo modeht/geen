@@ -1,26 +1,28 @@
 {
-	"name": "geen",
-	"version": "0.1.0",
-	"type": "module",
-	"scripts": {
-		"build": "tsc"
-	},
-	"keywords": [],
-	"bin": {
-		"geen": "./dist/main.js"
-	},
-	"author": "modeht",
-	"license": "ISC",
-	"description": "Generation Engine",
-	"dependencies": {
-		"chokidar": "^4.0.1",
-		"commander": "^12.1.0",
-		"fast-glob": "^3.3.2",
-		"prettier": "^3.4.2",
-		"typescript": "^5.6.2"
-	},
-	"devDependencies": {
-		"@types/node": "20",
-		"tsx": "^4.19.2"
-	}
+  "name": "geen",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "bin": {
+    "geen": "./dist/main.js"
+  },
+  "author": "modeht",
+  "license": "ISC",
+  "description": "Generation Engine",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "chokidar": "^4.0.1",
+    "commander": "^12.1.0",
+    "fast-glob": "^3.3.2",
+    "prettier": "^3.4.2",
+    "typescript": "^5.6.2",
+    "valibot": "1.0.0-beta.10"
+  },
+  "devDependencies": {
+    "@types/node": "20",
+    "tsx": "^4.19.2"
+  }
 }

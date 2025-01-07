@@ -3,7 +3,6 @@ dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 import { DataSource } from 'typeorm';
 import { entities } from '../src/db/db.module';
 import { CategoryEntity } from '../src/categories/entities/category.entity';
-import { CreateCategoryFilterDto } from '../src/category-fitlers/dto/category-filter.dto';
 import { CategoryFilterEntity } from '../src/category-fitlers/entities/category-filters.entity';
 console.log(process.env);
 const datasource = new DataSource({

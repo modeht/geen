@@ -17,12 +17,13 @@ import { ASTs } from './lib/types/index.js';
 
 const program = new Command();
 
+let initRun = true;
+
 program
 	.option('-d, --dir <dir>', 'project directory, default is current working directory "process.cwd()"', process.cwd())
 	.option('-g, --glob <glob>', 'entity files glob pattern', '**/*/*.entity.ts')
 	.option('-w, --cwd <cwd>', 'entities cwd, default is <<project dir>>/src')
 	.action(async (opts, command: Command) => {
-		//
 		handleDirOption(opts);
 		const globCwd = handleEntityCwd(opts.cwd);
 		let allEntities = loadEntities({ pattern: opts.glob });
@@ -30,6 +31,11 @@ program
 		if (globCwd) {
 			selectedEntities = allEntities.filter((e) => e.startsWith(globCwd));
 			allEntities = allEntities.filter((e) => !selectedEntities.includes(e));
+		}
+
+		if (initRun) {
+			await prereq();
+			initRun = false;
 		}
 
 		await init(allEntities, selectedEntities);

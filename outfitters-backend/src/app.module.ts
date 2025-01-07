@@ -41,7 +41,7 @@ import { StoriesModule } from './stories/stories.module';
 import { UiModule } from './ui/ui.module';
 import { UsersModule } from './users/users.module';
 import { GlobalModule } from './globals/global.module';
-import { generatedModules } from './generated-modules';
+import { generatedModules } from './geen-modules';
 
 @Module({
 	imports: [

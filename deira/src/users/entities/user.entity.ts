@@ -22,7 +22,6 @@ import { RatingEntity } from '../../ratings/entities/rating.entity';
 import { ConversationEntity } from '../../conversations/entities/conversation.entity';
 import { MessageEntity } from '../../messages/entities/message.entity';
 import { FeedbackEntity } from '../../feedback/entities/feedback.entity';
-import { RecursivePartial } from '../../auth/decorators/permissions.decorator';
 import { permissions } from '../../globals/permissions';
 import { CategoryEntity } from '../../categories/entities/category.entity';
 import { UserInterestEntity } from './user-interests.entity';
@@ -221,7 +220,7 @@ export class UserEntity {
   role: RoleEnum | null;
 
   @Column({ type: 'json', nullable: true })
-  permissions: RecursivePartial<typeof permissions>;
+  permissions: any;
 
   @OneToMany(() => UserInterestEntity, (interest) => interest.user, {
     nullable: true,

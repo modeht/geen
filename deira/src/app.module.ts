@@ -1,3 +1,4 @@
+import { GeenGlobalModule } from './geen/geen-global.module';
 import { geenModules } from './geen-modules';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
@@ -11,7 +12,6 @@ import {
   QueryResolver,
 } from 'nestjs-i18n';
 import { join } from 'path';
-import { SocketClientService } from './app.gateway';
 @Module({
   imports: [
     I18nModule.forRoot({
@@ -48,9 +48,10 @@ import { SocketClientService } from './app.gateway';
     }),
     DbModule,
     ...geenModules,
+    GeenGlobalModule,
   ],
   controllers: [AppController],
-  providers: [AppService, SocketClientService],
+  providers: [AppService],
   exports: [],
 })
-class AppModule {}
+export class AppModule {}

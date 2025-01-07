@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      chalk:
+        specifier: ^5.4.1
+        version: 5.4.1
       chokidar:
         specifier: ^4.0.1
         version: 4.0.1
@@ -23,6 +26,9 @@ importers:
       typescript:
         specifier: ^5.6.2
         version: 5.6.2
+      valibot:
+        specifier: 1.0.0-beta.10
+        version: 1.0.0-beta.10(typescript@5.6.2)
     devDependencies:
       '@types/node':
         specifier: '20'
@@ -196,6 +202,10 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
+  chalk@5.4.1:
+    resolution: {integrity: sha512-zgVZuo2WcZgfUEmsn6eO3kINexW8RAE4maiQ8QNs8CtpPCSyMiYsULR3HQYkm3w8FIA3SberyMJMSldGsW+U3w==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+
   chokidar@4.0.1:
     resolution: {integrity: sha512-n8enUVCED/KVRQlab1hr3MVpcVMvxtZjmEa956u+4YijlmQED223XMSYj2tLuKvr4jcCTzNNMpQDUer72MMmzA==}
     engines: {node: '>= 14.16.0'}
@@ -295,6 +305,14 @@ packages:
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
+  valibot@1.0.0-beta.10:
+    resolution: {integrity: sha512-nmo3nxvXRrxwDYZznK3aTgYv7ZA/SUZJ/s+pLY4Tqsex/fgwZ9XrrQ14jjozjUaeduQ9PhXHE2Xx1uMb0HePYw==}
+    peerDependencies:
+      typescript: '>=5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
 snapshots:
 
   '@esbuild/aix-ppc64@0.23.1':
@@ -388,6 +406,8 @@ snapshots:
   braces@3.0.3:
     dependencies:
       fill-range: 7.1.1
+
+  chalk@5.4.1: {}
 
   chokidar@4.0.1:
     dependencies:
@@ -494,3 +514,7 @@ snapshots:
   typescript@5.6.2: {}
 
   undici-types@6.19.8: {}
+
+  valibot@1.0.0-beta.10(typescript@5.6.2):
+    optionalDependencies:
+      typescript: 5.6.2
