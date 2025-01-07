@@ -13,21 +13,22 @@ export async function prereq() {
 		mkdir(join(Cwd.getInstance(), 'src', 'geen', 'schemas'), { recursive: true }),
 		mkdir(join(Cwd.getInstance(), 'src', 'geen', 'services'), { recursive: true }),
 		mkdir(join(Cwd.getInstance(), 'src', 'geen', 'decorators'), { recursive: true }),
+		mkdir(join(Cwd.getInstance(), 'src', 'geen', 'openapi'), { recursive: true }),
 	]);
 
 	await Promise.all([
 		verifyAppModule(),
 		writeFile(
 			join(Cwd.getInstance(), 'src', 'schema-defs.ts'),
-			await readFile(join(process.cwd(), 'src/prerequisites', 'schema-defs.template'), 'utf8')
+			await readFile(join(process.cwd(), 'src/prerequisites/openapi', 'schema-defs.template'), 'utf8')
 		),
 		writeFile(
-			join(Cwd.getInstance(), 'src', 'parse-schemas.ts'),
-			await readFile(join(process.cwd(), 'src/prerequisites/parse-schemas.template'), 'utf8')
+			join(Cwd.getInstance(), 'src', 'geen/openapi/parse-schemas.ts'),
+			await readFile(join(process.cwd(), 'src/prerequisites/openapi', 'parse-schemas.template'), 'utf8')
 		),
 		writeFile(
-			join(Cwd.getInstance(), 'src', 'generate-openapi-components.ts'),
-			await readFile(join(process.cwd(), 'src/prerequisites/generate-openapi-components.template'), 'utf8')
+			join(Cwd.getInstance(), 'src', 'geen/openapi/generate-openapi-components.ts'),
+			await readFile(join(process.cwd(), 'src/prerequisites/openapi', 'generate-openapi-components.template'), 'utf8')
 		),
 	]);
 

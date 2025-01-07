@@ -22,7 +22,7 @@ import { I18nService } from 'nestjs-i18n';
 import { ValidationError } from 'class-validator';
 import { writeFile } from 'fs/promises';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { createComponentsSchemas } from './generate-openapi-components';
+import { createComponentsSchemas } from './geen/openapi/generate-openapi-components';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
