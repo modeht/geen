@@ -21,6 +21,14 @@ export async function prereq() {
 			join(Cwd.getInstance(), 'src', 'schema-defs.ts'),
 			await readFile(join(process.cwd(), 'src/prerequisites', 'schema-defs.template'), 'utf8')
 		),
+		writeFile(
+			join(Cwd.getInstance(), 'src', 'parse-schemas.ts'),
+			await readFile(join(process.cwd(), 'src/prerequisites/parse-schemas.template'), 'utf8')
+		),
+		writeFile(
+			join(Cwd.getInstance(), 'src', 'generate-openapi-components.ts'),
+			await readFile(join(process.cwd(), 'src/prerequisites/generate-openapi-components.template'), 'utf8')
+		),
 	]);
 
 	await Promise.all([
@@ -91,6 +99,16 @@ async function verifyPackageJson() {
 
 	if (!packageJsonObj.dependencies['qs']) {
 		packageJsonObj.dependencies['qs'] = '^6.13.0';
+		installPackages = true;
+	}
+
+	if (!packageJsonObj.scripts['@valibot/to-json-schema']) {
+		packageJsonObj.dependencies['@valibot/to-json-schema'] = '1.0.0-beta.2';
+		installPackages = true;
+	}
+
+	if (!packageJsonObj.scripts['@openapi-contrib/json-schema-to-openapi-schema']) {
+		packageJsonObj.dependencies['@openapi-contrib/json-schema-to-openapi-schema'] = '^3.0.3';
 		installPackages = true;
 	}
 

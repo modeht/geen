@@ -20,6 +20,9 @@ import { ConfigService } from '@nestjs/config';
 import { GeneralExceptionFilter } from './globals/filters/exception.filter';
 import { I18nService } from 'nestjs-i18n';
 import { ValidationError } from 'class-validator';
+import { writeFile } from 'fs/promises';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { createComponentsSchemas } from './generate-openapi-components';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -77,6 +80,24 @@ async function bootstrap() {
       fileSize: 20 * 1e6,
     },
   });
+
+  const config = new DocumentBuilder()
+    .setTitle('Deira')
+    .addBearerAuth()
+    .setDescription('Deira API description')
+    .setVersion('0.1.0')
+    .setExternalDoc('Postman Collection', '/docs-json')
+    .build();
+
+  const componentsSchemas = await createComponentsSchemas();
+  const document = SwaggerModule.createDocument(app, config);
+
+  document.components.schemas = {
+    ...document.components.schemas,
+    ...componentsSchemas,
+  };
+  SwaggerModule.setup('docs', app, document);
+  writeFile('./openapi.json', JSON.stringify(document, null, 4));
 
   const configService = app.get(ConfigService);
   const PORT = configService.get('DOCKER_PORT') || configService.get('PORT');
