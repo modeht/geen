@@ -68,7 +68,7 @@ const CreateUserSchema = v.pipe(
 		fbId: v.nullish(v.string()),
 		emailVerified: v.nullish(v.boolean()),
 		defaultLang: v.nullish(v.enum(LanguageEnum)),
-		dateOfBirth: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
+		dateOfBirth: v.nullish(v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp())),
 		isBlocked: v.nullish(v.boolean()),
 		country: v.nullish(v.union([v.object({ id: v.number() }), v.object({ name: v.string() })])),
 		governorate: v.nullish(v.union([v.object({ id: v.number() }), v.object({ name: v.string() })])),
@@ -83,7 +83,7 @@ const CreateUserSchema = v.pipe(
 						enableWhatsapp: v.boolean(),
 						enablePhone: v.boolean(),
 						paymentStatus: v.nullish(v.enum(PaymentStatusEnum)),
-						title: v.nullish(v.string()),
+						title: v.nullish(v.pipe(v.string(), v.maxLength(255))),
 						description: v.nullish(v.string()),
 						isBlocked: v.nullish(v.boolean()),
 						viewsCount: v.nullish(v.number()),
@@ -124,7 +124,7 @@ const CreateUserSchema = v.pipe(
 		reviewsCount: v.nullish(v.number()),
 		gender: v.nullish(v.enum(GenderEnum)),
 		role: v.nullish(v.enum(RoleEnum)),
-		permissions: v.any(),
+		permissions: v.nullish(v.any()),
 		interests: v.nullish(
 			v.union([
 				v.array(v.object({ id: v.number() })),

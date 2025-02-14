@@ -8,6 +8,7 @@ import { prettierOptions } from './utils.js';
 import prettier from 'prettier';
 import { Cwd } from './Cwd.js';
 import { Asts } from './Asts.js';
+import { mapStringOptions } from './valibot-options.js';
 
 export type CreateDtoInfo = {
 	absPath: string;
@@ -162,6 +163,28 @@ export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 	//for fields parsing
 	excludedFields: string[] = ['id', 'updatedAt', 'createdAt', 'updated_at', 'created_at'];
 
+	extractOptions(field: Node) {
+		const args = field.decorators
+			?.find((d) => d.text?.startsWith('@Column'))
+			?.functions?.find((f) => f.expression === 'Column')?.props;
+
+		const mapped =
+			args?.map((a) => {
+				const split = a.statement?.split(':') ?? [];
+				return { key: split?.[0]?.trim()?.replaceAll("'", ''), value: split?.[1]?.trim()?.replaceAll("'", '') };
+			}) ?? [];
+
+		return mapped;
+	}
+
+	addValibotOptions(t: string, mapper: (options: ColumnOption[]) => string[], options: ColumnOption[]) {
+		const pipeline = mapper(options);
+		if (pipeline.length > 0) {
+			t = `v.pipe(${t}, ${pipeline.join(', ')})`;
+		}
+		return t;
+	}
+
 	parseFields({ fields }: { fields?: Node[] } = {}) {
 		if (!fields) {
 			if (!this.entityClass?.properties) {
@@ -179,13 +202,11 @@ export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 			const fieldTypes = field.type?.split('|').map((t) => t.trim());
 			if (!fieldTypes) continue;
 
-			const fieldOptional = Boolean(field.optional);
-			const columnNullable =
-				field.decorators
-					?.find((d) => d.text?.startsWith('@Column'))
-					?.props?.find((p) => p.statement?.startsWith('nullable'))
-					?.statement?.includes('true') || false;
+			const fieldOptions = this.extractOptions(field);
+			console.log(fieldOptions);
 
+			const fieldOptional = Boolean(field.optional);
+			const columnNullable = fieldOptions?.find((o) => o.key === 'nullable')?.value === 'true' || false;
 			let fieldPrimitive: number | undefined;
 			let fieldNullable: boolean = columnNullable;
 			let fieldUndefindable: boolean = fieldOptional;
@@ -203,17 +224,22 @@ export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 			let fieldAsString = '';
 			if (fieldPrimitive !== undefined) {
 				//handle primitives
+				//todo: convert this to use type option in the column not the ts type
+				//
 				let t = '';
 				if (fieldPrimitive === PrimitiveTypes['number']) {
 					t = 'v.number()';
 				} else if (fieldPrimitive === PrimitiveTypes['string']) {
 					t = 'v.string()';
+					t = this.addValibotOptions(t, mapStringOptions, fieldOptions);
 				} else if (fieldPrimitive === PrimitiveTypes['boolean']) {
 					t = 'v.boolean()';
 				} else if (fieldPrimitive === PrimitiveTypes['number[]']) {
 					t = 'v.array(v.number())';
 				} else if (fieldPrimitive === PrimitiveTypes['string[]']) {
-					t = 'v.array(v.string())';
+					t = 'v.string()';
+					t = this.addValibotOptions(t, mapStringOptions, fieldOptions);
+					t = `v.array(${t})`;
 				} else if (fieldPrimitive === PrimitiveTypes['boolean[]']) {
 					t = 'v.array(v.boolean())';
 				} else if (fieldPrimitive === PrimitiveTypes['Date']) {
@@ -244,7 +270,7 @@ export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 				fieldNotRelation,
 			} = this._extractRelationInfo(field);
 
-			//not a relation but a complex type that is not a primitive, ccould be
+			//not a relation but a complex type that is not a primitive, could be
 			//class or object or custom type/interface
 			//could be nested as well
 			if (fieldNotRelation) {
@@ -490,3 +516,5 @@ export default ${this.schemaName};
 		});
 	}
 }
+
+export type ColumnOption = { key: string; value: string };

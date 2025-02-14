@@ -10,6 +10,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  Geometry,
 } from 'typeorm';
 import { UserEntity } from '../../users/entities/user.entity';
 import { GovernorateEntity } from '../../governorate/entities/governorate.entity';
@@ -123,7 +124,7 @@ export class AdEntity {
   })
   paymentStatus: PaymentStatusEnum | null;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', nullable: true, length: 255 })
   @Index()
   title: string | null;
 

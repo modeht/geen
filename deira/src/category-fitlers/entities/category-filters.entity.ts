@@ -31,7 +31,7 @@ export class CategoryFilterEntity {
   )
   translations: TranslationEntity[] | null;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'varchar' })
   name: string | null;
 
   @ManyToOne(() => CategoryEntity, (category) => category.filters, {

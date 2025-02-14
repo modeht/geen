@@ -3,8 +3,8 @@ import * as v from 'valibot';
 
 const CreateStaticSchema = v.pipe(
 	v.object({
-		whatsapp: v.string(),
-		email: v.string(),
+		whatsapp: v.nullish(v.string()),
+		email: v.nullish(v.string()),
 		phoneNumber: v.nullish(v.string()),
 		facebook: v.nullish(v.string()),
 		instagram: v.nullish(v.string()),

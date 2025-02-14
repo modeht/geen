@@ -15,7 +15,7 @@ const CreateMediaSchema = v.pipe(
 					enableWhatsapp: v.boolean(),
 					enablePhone: v.boolean(),
 					paymentStatus: v.nullish(v.enum(PaymentStatusEnum)),
-					title: v.nullish(v.string()),
+					title: v.nullish(v.pipe(v.string(), v.maxLength(255))),
 					description: v.nullish(v.string()),
 					isBlocked: v.nullish(v.boolean()),
 					viewsCount: v.nullish(v.number()),

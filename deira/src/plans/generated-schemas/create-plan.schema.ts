@@ -9,9 +9,9 @@ const CreatePlanSchema = v.pipe(
 		name: v.nullish(v.string()),
 		description: v.nullish(v.string()),
 		price: v.nullish(v.number()),
-		mediaLimit: v.number(),
-		videoLimit: v.number(),
-		durationDays: v.number(),
+		mediaLimit: v.nullish(v.number()),
+		videoLimit: v.nullish(v.number()),
+		durationDays: v.nullish(v.number()),
 		index: v.nullish(v.number()),
 		ads: v.nullish(
 			v.union([
@@ -24,7 +24,7 @@ const CreatePlanSchema = v.pipe(
 						enableWhatsapp: v.boolean(),
 						enablePhone: v.boolean(),
 						paymentStatus: v.nullish(v.enum(PaymentStatusEnum)),
-						title: v.nullish(v.string()),
+						title: v.nullish(v.pipe(v.string(), v.maxLength(255))),
 						description: v.nullish(v.string()),
 						isBlocked: v.nullish(v.boolean()),
 						viewsCount: v.nullish(v.number()),
