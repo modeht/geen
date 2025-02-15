@@ -1,5 +1,6 @@
 import fastify from 'fastify';
 import cluster from 'node:cluster';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { cpus } from 'node:os';
 import process from 'node:process';
 
@@ -36,9 +37,20 @@ if (cluster.isPrimary) {
 	});
 
 	server.post('/api/geen', async (request, reply) => {
-		const body = request.body;
+		const body = request.body as Array<{
+			entityName: string;
+			moduleName: string;
+			content: string;
+		}>;
 
-		reply.send(body);
+		for (const entity of body) {
+			const dirpath = `nest-template/src/${entity.moduleName}/entities`;
+			mkdir(dirpath, { recursive: true }).then(() => {
+				writeFile(`${dirpath}/${entity.moduleName}.entity.ts`, entity.content);
+			});
+		}
+
+		reply.send({ success: true, message: 'in progress' });
 	});
 
 	const start = async () => {

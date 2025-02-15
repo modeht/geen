@@ -32,7 +32,7 @@ export async function getDefs() {
 		const fileImport = await import('./' + relativePathToFile).then((m) => m.default);
 
 		let fileName = file.split('/').at(-1).replace('.schema.js', '');
-		if (fileImport.default) {
+		if (fileImport?.default) {
 			fileName = fileName
 				.split('-')
 				.map((s) => s.charAt(0).toUpperCase() + s.slice(1))
