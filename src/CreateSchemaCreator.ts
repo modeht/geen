@@ -203,8 +203,7 @@ export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 			if (!fieldTypes) continue;
 
 			const fieldOptions = this.extractOptions(field);
-			console.log(fieldOptions);
-
+			
 			const fieldOptional = Boolean(field.optional);
 			const columnNullable = fieldOptions?.find((o) => o.key === 'nullable')?.value === 'true' || false;
 			let fieldPrimitive: number | undefined;

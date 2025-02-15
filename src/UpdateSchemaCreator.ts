@@ -7,6 +7,8 @@ import { log, warn } from 'console';
 import { Cwd } from './Cwd.js';
 import prettier from 'prettier';
 import { prettierOptions } from './utils.js';
+import { ColumnOption } from './CreateSchemaCreator.js';
+import { mapStringOptions } from './valibot-options.js';
 
 export type UpdateDtoInfo = {
 	absPath: string;
@@ -163,6 +165,28 @@ export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 	//for fields parsing
 	excludedFields: string[] = ['id', 'updatedAt', 'createdAt', 'created_at', 'updated_at'];
 
+	extractOptions(field: Node) {
+		const args = field.decorators
+			?.find((d) => d.text?.startsWith('@Column'))
+			?.functions?.find((f) => f.expression === 'Column')?.props;
+
+		const mapped =
+			args?.map((a) => {
+				const split = a.statement?.split(':') ?? [];
+				return { key: split?.[0]?.trim()?.replaceAll("'", ''), value: split?.[1]?.trim()?.replaceAll("'", '') };
+			}) ?? [];
+
+		return mapped;
+	}
+
+	addValibotOptions(t: string, mapper: (options: ColumnOption[]) => string[], options: ColumnOption[]) {
+		const pipeline = mapper(options);
+		if (pipeline.length > 0) {
+			t = `v.pipe(${t}, ${pipeline.join(', ')})`;
+		}
+		return t;
+	}
+
 	parseFields({ fields }: { fields?: Node[] } = {}) {
 		if (!fields) {
 			if (!this.entityClass?.properties) {
@@ -180,15 +204,11 @@ export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 			const fieldTypes = field.type?.split('|').map((t) => t.trim());
 			if (!fieldTypes) continue;
 
+			const fieldOptions = this.extractOptions(field);
+
 			const fieldOptional = Boolean(field.optional);
 			const optionalByDefault = this.currDepth === 0 ? true : false;
-
-			const columnNullable =
-				field.decorators
-					?.find((d) => d.text?.startsWith('@Column'))
-					?.props?.find((p) => p.statement?.startsWith('nullable'))
-					?.statement?.includes('true') || false;
-
+			const columnNullable = fieldOptions?.find((o) => o.key === 'nullable')?.value === 'true' || false;
 			let fieldPrimitive: number | undefined;
 			let fieldNullable: boolean = columnNullable;
 			let fieldUndefindable: boolean = fieldOptional || optionalByDefault;
@@ -211,12 +231,15 @@ export type ${outputTypeName} = v.InferOutput<typeof ${this.schemaName}>;`;
 					t = 'v.number()';
 				} else if (fieldPrimitive === PrimitiveTypes['string']) {
 					t = 'v.string()';
+					t = this.addValibotOptions(t, mapStringOptions, fieldOptions);
 				} else if (fieldPrimitive === PrimitiveTypes['boolean']) {
 					t = 'v.boolean()';
 				} else if (fieldPrimitive === PrimitiveTypes['number[]']) {
 					t = 'v.array(v.number())';
 				} else if (fieldPrimitive === PrimitiveTypes['string[]']) {
-					t = 'v.array(v.string())';
+					t = 'v.string()';
+					t = this.addValibotOptions(t, mapStringOptions, fieldOptions);
+					t = `v.array(${t})`;
 				} else if (fieldPrimitive === PrimitiveTypes['boolean[]']) {
 					t = 'v.array(v.boolean())';
 				} else if (fieldPrimitive === PrimitiveTypes['Date']) {
