@@ -70,7 +70,7 @@ async function bootstrap() {
 		.setTitle('Nestjs Template API')
 		.addBearerAuth()
 		.setVersion('0.1.0')
-		.setExternalDoc('Postman Collection', '/jsondocs')
+		.setExternalDoc('Postman Collection', '/docs-json')
 		.build();
 
 	const componentsSchemas = await createComponentsSchemas();

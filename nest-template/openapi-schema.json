@@ -283,6 +283,6 @@
     },
     "externalDocs": {
         "description": "Postman Collection",
-        "url": "/jsondocs"
+        "url": "/docs-json"
     }
 }
