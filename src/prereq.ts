@@ -2,7 +2,6 @@ import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, join } from 'path';
 import { Cwd } from './Cwd.js';
 import ts from 'typescript';
-import { exec } from 'child_process';
 import chalk from 'chalk';
 
 export async function prereq() {

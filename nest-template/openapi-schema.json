@@ -1,0 +1,38 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "AppController_hello",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        }
+    },
+    "info": {
+        "title": "Nestjs Template API",
+        "description": "",
+        "version": "0.1.0",
+        "contact": {}
+    },
+    "tags": [],
+    "servers": [],
+    "components": {
+        "securitySchemes": {
+            "bearer": {
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "type": "http"
+            }
+        },
+        "schemas": {}
+    },
+    "externalDocs": {
+        "description": "Postman Collection",
+        "url": "/jsondocs"
+    }
+}
