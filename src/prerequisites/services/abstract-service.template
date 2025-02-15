@@ -167,8 +167,8 @@ export class AbstractService {
 				return softDeleted;
 			}
 
-			const deleted = await this.datasource.manager.remove(row);
-			return deleted;
+			await this.datasource.manager.remove(row);
+			return true;
 		} catch (error: any) {
 			//handle known pg errros
 			const pgError = PostgresErrorCode[error.code];

@@ -20,7 +20,9 @@
                     "required": true,
                     "content": {
                         "application/json": {
-                            "schema": {}
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateUsers"
+                            }
                         }
                     }
                 },
@@ -37,7 +39,9 @@
                         "name": "",
                         "required": true,
                         "in": "query",
-                        "schema": {}
+                        "schema": {
+                            "$ref": "#/components/schemas/ReadUsersQuery"
+                        }
                     }
                 ],
                 "responses": {
@@ -64,7 +68,9 @@
                     "required": true,
                     "content": {
                         "application/json": {
-                            "schema": {}
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUsers"
+                            }
                         }
                     }
                 },
@@ -130,7 +136,150 @@
                 "type": "http"
             }
         },
-        "schemas": {}
+        "schemas": {
+            "CreateUsers": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255
+                    }
+                },
+                "required": [
+                    "name"
+                ],
+                "additionalProperties": false
+            },
+            "ReadUsersFilters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "object",
+                        "properties": {
+                            "$val": {
+                                "type": "string"
+                            },
+                            "$op": {
+                                "enum": [
+                                    "Eq",
+                                    "NotEq",
+                                    "Contains",
+                                    "StartsWith",
+                                    "EndsWith",
+                                    "IsNull",
+                                    "IsNotNull"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "$op"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                    },
+                    "test": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            {
+                                "type": "number",
+                                "nullable": true
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "test"
+                ],
+                "additionalProperties": false
+            },
+            "ReadUsersOrders": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ]
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
+            "ReadUsersQuery": {
+                "type": "object",
+                "properties": {
+                    "filters": {
+                        "$ref": "#/components/schemas/ReadUsersFilters"
+                    },
+                    "relations": {
+                        "type": "object",
+                        "properties": {},
+                        "required": [],
+                        "additionalProperties": false
+                    },
+                    "orders": {
+                        "$ref": "#/components/schemas/ReadUsersOrders"
+                    },
+                    "pagination": {
+                        "type": "object",
+                        "properties": {
+                            "skip": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number",
+                                "default": 0
+                            },
+                            "take": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number",
+                                "default": 25
+                            }
+                        },
+                        "required": [],
+                        "additionalProperties": false,
+                        "default": {
+                            "skip": 0,
+                            "take": 25
+                        }
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
+            "ReadUsersRelations": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
+            },
+            "UpdateUsers": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            }
+        }
     },
     "externalDocs": {
         "description": "Postman Collection",

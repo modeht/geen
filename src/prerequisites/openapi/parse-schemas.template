@@ -29,7 +29,7 @@ export async function getDefs() {
 	for (const file of files) {
 		const relativePathToFile = relative(__dirname, file).split(sep).join('/');
 
-		const fileImport = await import('./' + relativePathToFile).then((m) => m.default);
+		const fileImport = await import('./' + relativePathToFile).then((m) => m);
 
 		let fileName = file.split('/').at(-1).replace('.schema.js', '');
 		if (fileImport?.default) {

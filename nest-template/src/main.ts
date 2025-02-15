@@ -80,6 +80,7 @@ async function bootstrap() {
 		...document.components.schemas,
 		...componentsSchemas,
 	};
+	//
 	SwaggerModule.setup('docs', app, document);
 	writeFile('./openapi-schema.json', JSON.stringify(document, null, 4));
 

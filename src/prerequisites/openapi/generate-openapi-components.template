@@ -40,11 +40,7 @@ export const SchemaDefs: ISchemaDefs = {
 	const replaceRefs = (obj: any) => {
 		if (typeof obj === 'object' && obj !== null) {
 			for (const key in obj) {
-				if (
-					key === '$ref' &&
-					typeof obj[key] === 'string' &&
-					obj[key].startsWith('#/$defs/')
-				) {
+				if (key === '$ref' && typeof obj[key] === 'string' && obj[key].startsWith('#/$defs/')) {
 					obj[key] = obj[key].replace('#/$defs/', '#/components/schemas/');
 				} else {
 					replaceRefs(obj[key]);
@@ -52,10 +48,37 @@ export const SchemaDefs: ISchemaDefs = {
 			}
 		}
 	};
-
 	replaceRefs(convertedSchema);
+
 	const finalComponents = structuredClone(convertedSchema['x-$defs']);
 	delete convertedSchema['x-$defs'];
+
+	const fixNulls = (obj: any) => {
+		if (typeof obj === 'object' && obj !== null) {
+			for (const key in obj) {
+				if (key === 'anyOf' && Array.isArray(obj[key])) {
+					const hasNullObj = obj[key].findIndex((item: any) => item?.type === 'null');
+					if (hasNullObj > -1 && obj[key].length === 2) {
+						obj[key][0].nullable = true;
+						Object.assign(obj, obj[key][0]);
+						delete obj[key];
+						fixNulls(obj);
+					} else if (hasNullObj > -1 && obj[key].length > 2) {
+						obj[key].splice(hasNullObj, 1);
+						for (const k in obj[key]) {
+							obj[key][k].nullable = true;
+						}
+						fixNulls(obj[key]);
+					} else {
+						fixNulls(obj[key]);
+					}
+				} else {
+					fixNulls(obj[key]);
+				}
+			}
+		}
+	};
+	fixNulls(finalComponents);
 
 	return finalComponents;
 }

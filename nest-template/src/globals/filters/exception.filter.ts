@@ -20,7 +20,9 @@ export class GeneralExceptionFilter implements ExceptionFilter {
 		const request = ctx.getRequest<FastifyRequest>();
 
 		request.log.error({
-			msg: 'Failed request',
+			msg: 'Failed request ' + exception.message,
+			error: exception,
+			stack: exception.stack,
 			timestamp: new Date().toISOString(),
 			body: request.body,
 			headers: request.headers,

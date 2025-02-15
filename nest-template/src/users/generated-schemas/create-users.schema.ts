@@ -1,7 +1,10 @@
 import { modelSymbol } from '../../geen/constants/schema-symbols';
 import * as v from 'valibot';
 
-const CreateUsersSchema = v.pipe(v.object({}), v.metadata({ [modelSymbol]: 'UsersEntity' }));
+const CreateUsersSchema = v.pipe(
+	v.object({ name: v.pipe(v.string(), v.maxLength(255)) }),
+	v.metadata({ [modelSymbol]: 'UsersEntity' }),
+);
 export default CreateUsersSchema;
 
 export type TCreateUsersSchemaInput = v.InferInput<typeof CreateUsersSchema>;
