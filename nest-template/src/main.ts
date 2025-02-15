@@ -12,12 +12,14 @@ import { I18nService } from 'nestjs-i18n';
 import { writeFile } from 'fs/promises';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { createComponentsSchemas } from './geen/openapi/generate-openapi-components';
+import { stdout } from 'process';
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(
 		AppModule,
 		new FastifyAdapter({
 			logger: {
+				stream: stdout,
 				transport: {
 					target: 'pino-pretty',
 					options: {
@@ -40,11 +42,11 @@ async function bootstrap() {
 		engine: {
 			handlebars: Handlebars,
 		},
-		templates: join(process.cwd(), 'src/ui/views'),
+		templates: join(process.cwd(), 'src/views'),
 	});
 
 	//global exception filter
-	// app.useGlobalFilters(new GeneralExceptionFilter(app.get(I18nService)));
+	app.useGlobalFilters(new GeneralExceptionFilter(app.get(I18nService)));
 
 	//set prefix and versioning
 	// app.enableVersioning({
@@ -63,23 +65,23 @@ async function bootstrap() {
 		},
 	});
 
-	//generate documentation
-	// const config = new DocumentBuilder()
-	// 	.setTitle('Nestjs Template API')
-	// 	.addBearerAuth()
-	// 	.setVersion('0.1.0')
-	// 	.setExternalDoc('Postman Collection', '/jsondocs')
-	// 	.build();
+	// generate documentation
+	const config = new DocumentBuilder()
+		.setTitle('Nestjs Template API')
+		.addBearerAuth()
+		.setVersion('0.1.0')
+		.setExternalDoc('Postman Collection', '/jsondocs')
+		.build();
 
-	// const componentsSchemas = await createComponentsSchemas();
-	// const document = SwaggerModule.createDocument(app, config);
+	const componentsSchemas = await createComponentsSchemas();
+	const document = SwaggerModule.createDocument(app, config);
 
-	// document.components.schemas = {
-	// 	...document.components.schemas,
-	// 	...componentsSchemas,
-	// };
-	// SwaggerModule.setup('docs', app, document);
-	// writeFile('./openapi-schema.json', JSON.stringify(document, null, 4));
+	document.components.schemas = {
+		...document.components.schemas,
+		...componentsSchemas,
+	};
+	SwaggerModule.setup('docs', app, document);
+	writeFile('./openapi-schema.json', JSON.stringify(document, null, 4));
 
 	const configService = app.get(ConfigService);
 	const PORT = configService.get('PORT');
