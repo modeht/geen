@@ -44,7 +44,7 @@ if (cluster.isPrimary) {
 		}>;
 
 		for (const entity of body) {
-			const dirpath = `nest-template/src/${entity.moduleName}/entities`;
+			const dirpath = `nest-template/src/${entity.moduleName}-feature/entities`;
 			mkdir(dirpath, { recursive: true }).then(() => {
 				writeFile(`${dirpath}/${entity.moduleName}.entity.ts`, entity.content);
 			});

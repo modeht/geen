@@ -142,12 +142,11 @@
                 "properties": {
                     "name": {
                         "type": "string",
-                        "maxLength": 255
+                        "maxLength": 222,
+                        "nullable": true
                     }
                 },
-                "required": [
-                    "name"
-                ],
+                "required": [],
                 "additionalProperties": false
             },
             "ReadUsersFilters": {
@@ -176,23 +175,9 @@
                         ],
                         "additionalProperties": false,
                         "nullable": true
-                    },
-                    "test": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "nullable": true
-                            },
-                            {
-                                "type": "number",
-                                "nullable": true
-                            }
-                        ]
                     }
                 },
-                "required": [
-                    "test"
-                ],
+                "required": [],
                 "additionalProperties": false
             },
             "ReadUsersOrders": {
@@ -273,7 +258,8 @@
                 "properties": {
                     "name": {
                         "type": "string",
-                        "maxLength": 255
+                        "maxLength": 222,
+                        "nullable": true
                     }
                 },
                 "required": [],

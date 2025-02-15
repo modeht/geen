@@ -7,7 +7,6 @@ export class ReadUsersFiltersSchemaFilters {
 
 const ReadUsersFiltersSchema: v.GenericSchema<ReadUsersFiltersSchemaFilters> = v.object({
 	name: v.nullish(comparable('string')),
-	test: v.union([v.string(), v.null(), v.number()]),
 });
 
 export default ReadUsersFiltersSchema;

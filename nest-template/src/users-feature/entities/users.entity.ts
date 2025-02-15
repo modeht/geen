@@ -13,5 +13,5 @@ import {
 @Entity('users')
 export class UsersEntity {
 	@PrimaryColumn({ type: 'int', generated: 'increment' }) id: number;
-	@Column({ type: 'character', length: 255, nullable: false }) name: string;
+	@Column({ type: 'character', nullable: true, length: 222 }) name: string;
 }
