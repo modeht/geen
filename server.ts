@@ -1,8 +1,12 @@
 import fastify from 'fastify';
+import { exec, execFile } from 'node:child_process';
 import cluster from 'node:cluster';
+import { log } from 'node:console';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { cpus } from 'node:os';
+import { join } from 'node:path';
 import process from 'node:process';
+import { clearGenerated, runEngine } from './lib';
 
 if (cluster.isPrimary) {
 	const numCPUs = 1; //cpus().length;
@@ -36,6 +40,11 @@ if (cluster.isPrimary) {
 		},
 	});
 
+	server.get('/', async (request, reply) => {
+		// runEngine();
+		return true;
+	});
+
 	server.post('/api/geen', async (request, reply) => {
 		const body = request.body as Array<{
 			entityName: string;
@@ -43,12 +52,17 @@ if (cluster.isPrimary) {
 			content: string;
 		}>;
 
+		await clearGenerated();
+
+		const prs: any[] = [];
 		for (const entity of body) {
 			const dirpath = `nest-template/src/${entity.moduleName}-feature/entities`;
-			mkdir(dirpath, { recursive: true }).then(() => {
+			const make = mkdir(dirpath, { recursive: true }).then(() => {
 				writeFile(`${dirpath}/${entity.moduleName}.entity.ts`, entity.content);
 			});
+			prs.push(make);
 		}
+		Promise.all(prs).then(() => runEngine());
 
 		reply.send({ success: true, message: 'in progress' });
 	});

@@ -40,14 +40,14 @@ program
 
 		await init(allEntities, selectedEntities);
 
-		const handleChange = async (path: string) => {
-			await change(path);
-		};
+		// const handleChange = async (path: string) => {
+		// 	await change(path);
+		// };
 
 		//watch for changes
-		chok
-			.watch(selectedEntities?.length ? selectedEntities : allEntities, { persistent: true })
-			.on('change', handleChange);
+		// chok
+		// 	.watch(selectedEntities?.length ? selectedEntities : allEntities, { persistent: true })
+		// 	.on('change', handleChange);
 	});
 
 program.parse();

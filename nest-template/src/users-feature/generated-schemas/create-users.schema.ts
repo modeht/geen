@@ -2,7 +2,7 @@ import { modelSymbol } from '../../geen/constants/schema-symbols';
 import * as v from 'valibot';
 
 const CreateUsersSchema = v.pipe(
-	v.object({ name: v.nullish(v.pipe(v.string(), v.maxLength(222))) }),
+	v.object({ username: v.nullish(v.string()) }),
 	v.metadata({ [modelSymbol]: 'UsersEntity' }),
 );
 export default CreateUsersSchema;

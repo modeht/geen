@@ -2,11 +2,11 @@ import { GenericComparable, comparable } from '../../geen/lib/comparable';
 import * as v from 'valibot';
 
 export class ReadUsersFiltersSchemaFilters {
-	name?: GenericComparable<'string'> | null;
+	username?: GenericComparable<'string'> | null;
 }
 
 const ReadUsersFiltersSchema: v.GenericSchema<ReadUsersFiltersSchemaFilters> = v.object({
-	name: v.nullish(comparable('string')),
+	username: v.nullish(comparable('string')),
 });
 
 export default ReadUsersFiltersSchema;

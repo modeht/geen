@@ -3,10 +3,12 @@ import { OrderDirectionSchema, OrderDirectionEnum } from '../../geen/schemas/ord
 import * as v from 'valibot';
 
 export class ReadUsersOrders {
-	name?: OrderDirectionEnum;
+	username?: OrderDirectionEnum;
 }
 
-const ReadUsersOrdersSchema: v.GenericSchema<ReadUsersOrders> = v.object({ name: v.optional(OrderDirectionSchema) });
+const ReadUsersOrdersSchema: v.GenericSchema<ReadUsersOrders> = v.object({
+	username: v.optional(OrderDirectionSchema),
+});
 
 export default ReadUsersOrdersSchema;
 
