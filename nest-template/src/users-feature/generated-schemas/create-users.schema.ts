@@ -2,8 +2,8 @@ import { modelSymbol } from '../../geen/constants/schema-symbols';
 import * as v from 'valibot';
 
 const CreateUsersSchema = v.pipe(
-	v.object({ username: v.nullish(v.string()) }),
-	v.metadata({ [modelSymbol]: 'UsersEntity' }),
+	v.object({ profile: v.nullish(v.union([v.object({ id: v.number() }), v.object({})])) }),
+	v.metadata({ [modelSymbol]: 'UsersEntity', profile: 'ProfilesEntity' }),
 );
 export default CreateUsersSchema;
 

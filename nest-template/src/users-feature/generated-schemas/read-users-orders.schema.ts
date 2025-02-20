@@ -1,13 +1,16 @@
 import { GenericComparable, comparable } from '../../geen/lib/comparable';
 import { OrderDirectionSchema, OrderDirectionEnum } from '../../geen/schemas/order.schema';
 import * as v from 'valibot';
+import ReadProfilesOrdersSchema, {
+	ReadProfilesOrders,
+} from '../../profiles-feature/generated-schemas/read-profiles-orders.schema';
 
 export class ReadUsersOrders {
-	username?: OrderDirectionEnum;
+	profile?: ReadProfilesOrders | OrderDirectionEnum;
 }
 
 const ReadUsersOrdersSchema: v.GenericSchema<ReadUsersOrders> = v.object({
-	username: v.optional(OrderDirectionSchema),
+	profile: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProfilesOrdersSchema)])),
 });
 
 export default ReadUsersOrdersSchema;

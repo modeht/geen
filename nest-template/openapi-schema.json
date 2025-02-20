@@ -118,6 +118,113 @@
                     }
                 }
             }
+        },
+        "/profiles": {
+            "post": {
+                "operationId": "ProfilesController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateProfiles"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                }
+            },
+            "get": {
+                "operationId": "ProfilesController_read",
+                "parameters": [
+                    {
+                        "name": "",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/components/schemas/ReadProfilesQuery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/profiles/{id}": {
+            "put": {
+                "operationId": "ProfilesController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateProfiles"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "ProfilesController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/profiles/{id}/soft": {
+            "delete": {
+                "operationId": "ProfilesController_softDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
         }
     },
     "info": {
@@ -137,12 +244,159 @@
             }
         },
         "schemas": {
+            "CreateProfiles": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "nullable": true
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
+            "ReadProfilesFilters": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "$ref": "#/components/schemas/ReadUsersFilters",
+                        "nullable": true
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
+            "ReadProfilesOrders": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "anyOf": [
+                            {
+                                "enum": [
+                                    "asc",
+                                    "desc"
+                                ]
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadUsersOrders"
+                            }
+                        ]
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
+            "ReadProfilesQuery": {
+                "type": "object",
+                "properties": {
+                    "filters": {
+                        "$ref": "#/components/schemas/ReadProfilesFilters"
+                    },
+                    "relations": {
+                        "type": "object",
+                        "properties": {
+                            "user": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadUsersRelations"
+                                    }
+                                ]
+                            }
+                        },
+                        "required": [],
+                        "additionalProperties": false
+                    },
+                    "orders": {
+                        "$ref": "#/components/schemas/ReadProfilesOrders"
+                    },
+                    "pagination": {
+                        "type": "object",
+                        "properties": {
+                            "skip": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number",
+                                "default": 0
+                            },
+                            "take": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number",
+                                "default": 25
+                            }
+                        },
+                        "required": [],
+                        "additionalProperties": false,
+                        "default": {
+                            "skip": 0,
+                            "take": 25
+                        }
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
+            "ReadProfilesRelations": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "anyOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "boolean"
+                                    }
+                                ],
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadUsersRelations"
+                            }
+                        ]
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
+            "UpdateProfiles": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "nullable": true
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
             "CreateUsers": {
                 "type": "object",
                 "properties": {
-                    "name": {
-                        "type": "string",
-                        "maxLength": 222,
+                    "profile": {
                         "nullable": true
                     }
                 },
@@ -152,28 +406,8 @@
             "ReadUsersFilters": {
                 "type": "object",
                 "properties": {
-                    "name": {
-                        "type": "object",
-                        "properties": {
-                            "$val": {
-                                "type": "string"
-                            },
-                            "$op": {
-                                "enum": [
-                                    "Eq",
-                                    "NotEq",
-                                    "Contains",
-                                    "StartsWith",
-                                    "EndsWith",
-                                    "IsNull",
-                                    "IsNotNull"
-                                ]
-                            }
-                        },
-                        "required": [
-                            "$op"
-                        ],
-                        "additionalProperties": false,
+                    "profile": {
+                        "$ref": "#/components/schemas/ReadProfilesFilters",
                         "nullable": true
                     }
                 },
@@ -183,10 +417,17 @@
             "ReadUsersOrders": {
                 "type": "object",
                 "properties": {
-                    "name": {
-                        "enum": [
-                            "asc",
-                            "desc"
+                    "profile": {
+                        "anyOf": [
+                            {
+                                "enum": [
+                                    "asc",
+                                    "desc"
+                                ]
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadProfilesOrders"
+                            }
                         ]
                     }
                 },
@@ -201,7 +442,26 @@
                     },
                     "relations": {
                         "type": "object",
-                        "properties": {},
+                        "properties": {
+                            "profile": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadProfilesRelations"
+                                    }
+                                ]
+                            }
+                        },
                         "required": [],
                         "additionalProperties": false
                     },
@@ -249,16 +509,33 @@
             },
             "ReadUsersRelations": {
                 "type": "object",
-                "properties": {},
+                "properties": {
+                    "profile": {
+                        "anyOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "boolean"
+                                    }
+                                ],
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadProfilesRelations"
+                            }
+                        ]
+                    }
+                },
                 "required": [],
                 "additionalProperties": false
             },
             "UpdateUsers": {
                 "type": "object",
                 "properties": {
-                    "name": {
-                        "type": "string",
-                        "maxLength": 222,
+                    "profile": {
                         "nullable": true
                     }
                 },
