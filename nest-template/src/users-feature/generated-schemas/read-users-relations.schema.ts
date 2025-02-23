@@ -5,11 +5,11 @@ import ReadProfilesRelationsSchema, {
 } from '../../profiles-feature/generated-schemas/read-profiles-relations.schema';
 
 export class ReadUsersRelations {
-	profile?: ReadProfilesRelations | string | boolean;
+	profiles?: ReadProfilesRelations | string | boolean;
 }
 
 const ReadUsersRelationsSchema: v.GenericSchema<ReadUsersRelations> = v.object({
-	profile: v.optional(
+	profiles: v.optional(
 		v.union([
 			v.pipe(
 				v.union([v.string(), v.boolean()]),

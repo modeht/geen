@@ -13,18 +13,21 @@
   "license": "ISC",
   "description": "Generation Engine",
   "dependencies": {
+    "@fastify/cors": "^10.0.2",
+    "@nestjs/swagger": "^7.4.0",
+    "@openapi-contrib/json-schema-to-openapi-schema": "^3.0.3",
+    "@valibot/to-json-schema": "1.0.0-beta.2",
     "chalk": "^5.4.1",
     "chokidar": "^4.0.1",
     "commander": "^12.1.0",
     "fast-glob": "^3.3.2",
     "fastify": "^5.2.1",
+    "openai": "^4.85.4",
+    "pino-pretty": "^13.0.0",
     "prettier": "^3.4.2",
-    "typescript": "^5.6.2",
-    "valibot": "1.0.0-beta.10",
-    "@nestjs/swagger": "^7.4.0",
     "qs": "^6.13.0",
-    "@valibot/to-json-schema": "1.0.0-beta.2",
-    "@openapi-contrib/json-schema-to-openapi-schema": "^3.0.3"
+    "typescript": "^5.6.2",
+    "valibot": "1.0.0-beta.10"
   },
   "devDependencies": {
     "@types/node": "20",

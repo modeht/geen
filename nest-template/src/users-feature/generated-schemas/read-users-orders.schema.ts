@@ -6,11 +6,11 @@ import ReadProfilesOrdersSchema, {
 } from '../../profiles-feature/generated-schemas/read-profiles-orders.schema';
 
 export class ReadUsersOrders {
-	profile?: ReadProfilesOrders | OrderDirectionEnum;
+	profiles?: ReadProfilesOrders | OrderDirectionEnum;
 }
 
 const ReadUsersOrdersSchema: v.GenericSchema<ReadUsersOrders> = v.object({
-	profile: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProfilesOrdersSchema)])),
+	profiles: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProfilesOrdersSchema)])),
 });
 
 export default ReadUsersOrdersSchema;

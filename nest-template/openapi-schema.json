@@ -396,7 +396,7 @@
             "CreateUsers": {
                 "type": "object",
                 "properties": {
-                    "profile": {
+                    "profiles": {
                         "nullable": true
                     }
                 },
@@ -406,7 +406,7 @@
             "ReadUsersFilters": {
                 "type": "object",
                 "properties": {
-                    "profile": {
+                    "profiles": {
                         "$ref": "#/components/schemas/ReadProfilesFilters",
                         "nullable": true
                     }
@@ -417,7 +417,7 @@
             "ReadUsersOrders": {
                 "type": "object",
                 "properties": {
-                    "profile": {
+                    "profiles": {
                         "anyOf": [
                             {
                                 "enum": [
@@ -443,7 +443,7 @@
                     "relations": {
                         "type": "object",
                         "properties": {
-                            "profile": {
+                            "profiles": {
                                 "anyOf": [
                                     {
                                         "anyOf": [
@@ -510,7 +510,7 @@
             "ReadUsersRelations": {
                 "type": "object",
                 "properties": {
-                    "profile": {
+                    "profiles": {
                         "anyOf": [
                             {
                                 "anyOf": [
@@ -535,7 +535,7 @@
             "UpdateUsers": {
                 "type": "object",
                 "properties": {
-                    "profile": {
+                    "profiles": {
                         "nullable": true
                     }
                 },

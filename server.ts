@@ -1,12 +1,10 @@
 import fastify from 'fastify';
-import { exec, execFile } from 'node:child_process';
 import cluster from 'node:cluster';
-import { log } from 'node:console';
 import { mkdir, writeFile } from 'node:fs/promises';
-import { cpus } from 'node:os';
-import { join } from 'node:path';
 import process from 'node:process';
 import { clearGenerated, runEngine } from './lib';
+import { OpenAI } from 'openai';
+import { SchemaBuilderAssistant } from './ai-schema-assistant';
 
 if (cluster.isPrimary) {
 	const numCPUs = 1; //cpus().length;
@@ -39,10 +37,33 @@ if (cluster.isPrimary) {
 			},
 		},
 	});
+	const openai = new OpenAI({
+		apiKey: '',
+	});
+
+	server.register(import('@fastify/cors'), {
+		origin: '*',
+	});
 
 	server.get('/', async (request, reply) => {
 		// runEngine();
 		return true;
+	});
+
+	server.post('/api/ai', async (request, reply) => {
+		const body = request.body as {
+			prompt: string;
+		};
+
+		const response = await openai.chat.completions.create({
+			model: 'gpt-4o',
+			messages: [
+				{ role: 'assistant', content: SchemaBuilderAssistant },
+				{ role: 'user', content: body.prompt },
+			],
+		});
+		console.dir(response.choices, { depth: null });
+		reply.send({ success: true, message: response.choices.at(-1)?.message.content });
 	});
 
 	server.post('/api/geen', async (request, reply) => {

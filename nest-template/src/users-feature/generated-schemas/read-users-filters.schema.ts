@@ -5,11 +5,11 @@ import ReadProfilesFiltersSchema, {
 } from '../../profiles-feature/generated-schemas/read-profiles-filters.schema';
 
 export class ReadUsersFiltersSchemaFilters {
-	profile?: ReadProfilesFiltersSchemaFilters | null;
+	profiles?: ReadProfilesFiltersSchemaFilters | null;
 }
 
 const ReadUsersFiltersSchema: v.GenericSchema<ReadUsersFiltersSchemaFilters> = v.object({
-	profile: v.nullish(v.lazy(() => ReadProfilesFiltersSchema)),
+	profiles: v.nullish(v.lazy(() => ReadProfilesFiltersSchema)),
 });
 
 export default ReadUsersFiltersSchema;
