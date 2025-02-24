@@ -1,4 +1,4 @@
-import { DataSource, EntitySchema, EntityTarget, ObjectLiteral } from 'typeorm';
+import { DataSource, EntityTarget, ObjectLiteral } from 'typeorm';
 import {
 	HttpException,
 	Injectable,
@@ -106,6 +106,39 @@ export class AbstractService {
 					cause: error,
 				});
 			}
+			if (error instanceof HttpException) {
+				throw error;
+			}
+			throw new InternalServerErrorException(error.message);
+		}
+	}
+
+	async readOne<T extends ObjectLiteral>(
+		entity: EntityTarget<T>,
+		id: number,
+		query: Record<string, any>,
+		options: ReadOptions = { depth: 0 },
+	) {
+		try {
+			const where = createWhere(query);
+			const relations = createRelations(query, { depth: options.depth });
+
+			const data = await this.datasource.manager.findOne(entity, {
+				where: { ...where, id } as any,
+				relations,
+			});
+
+			return { data };
+		} catch (error: any) {
+			//handle known pg errros
+			const pgError = PostgresErrorCode[error.code];
+			if (pgError) {
+				throw new UnprocessableEntityException(pgError, {
+					description: 'Database exception',
+					cause: error,
+				});
+			}
+
 			if (error instanceof HttpException) {
 				throw error;
 			}

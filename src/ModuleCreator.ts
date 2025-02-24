@@ -74,9 +74,10 @@ export class ModuleCreator {
 		r.baseSetup();
 
 		const [create, update, read] = await Promise.all([c.buildFile(), u.buildFile(), r.build()]);
+		const readOne = await r.buildOne();
 
-		const service = await this._createService(create, update, read);
-		const controller = await this._createController(create, update, read, service);
+		const service = await this._createService(create, update, read, readOne);
+		const controller = await this._createController(create, update, read, readOne, service);
 		const module = await this._createModule(create, service, controller);
 
 		//add module to geen-modules.ts
@@ -119,7 +120,7 @@ export class ModuleCreator {
 		await writeFile(this.appModulePath, moduleTemplate);
 	}
 
-	async _createService(create: SchemaInfo, update: SchemaInfo, read: SchemaInfo) {
+	async _createService(create: SchemaInfo, update: SchemaInfo, read: SchemaInfo, readOne: SchemaInfo) {
 		let serviceTemplate = await readFile(join(process.cwd(), 'templates/service.template'), 'utf8');
 		const imports = new Set();
 		imports.add(`import { Injectable } from '@nestjs/common'`);
@@ -140,6 +141,11 @@ export class ModuleCreator {
 			`import ${read.schemaName}, { ${read.inputType}, ${read.outputType} } from './${
 				this.dtoDirPath
 			}/${read.savedFileName?.replace('.ts', '')}'`
+		);
+		imports.add(
+			`import ${readOne.schemaName}, { ${readOne.inputType}, ${readOne.outputType} } from './${
+				this.dtoDirPath
+			}/${readOne.savedFileName?.replace('.ts', '')}'`
 		);
 		imports.add(
 			`import { ${create.fullEntityName} } from './entities/${this.entityPath.split('/').at(-1)?.replace('.ts', '')}'`
@@ -170,6 +176,10 @@ export class ModuleCreator {
 				return await this.service.read(${read.fullEntityName}, query);
 			}
 
+			async readOneRow(id: number, query: ${readOne.outputType}){
+				return await this.service.readOne(${read.fullEntityName}, id, query);
+			}
+
 			async deleteRow(id: number){
 				return await this.service.delete(${read.fullEntityName}, id);
 			}
@@ -195,7 +205,13 @@ export class ModuleCreator {
 		};
 	}
 
-	async _createController(create: SchemaInfo, update: SchemaInfo, read: SchemaInfo, serviceFileInfo: ServiceFileInfo) {
+	async _createController(
+		create: SchemaInfo,
+		update: SchemaInfo,
+		read: SchemaInfo,
+		readOne: SchemaInfo,
+		serviceFileInfo: ServiceFileInfo
+	) {
 		let controllerTemplate = await readFile(join(process.cwd(), 'templates/controller.template'), 'utf8');
 		const imports = new Set();
 		imports.add(`import { Controller, Post, Get, Put, Param, Delete } from '@nestjs/common';`);
@@ -214,6 +230,11 @@ export class ModuleCreator {
 			`import ${read.schemaName}, { ${read.inputType}, ${read.outputType} } from './${
 				this.dtoDirPath
 			}/${read.savedFileName?.replace('.ts', '')}'`
+		);
+		imports.add(
+			`import ${readOne.schemaName}, { ${readOne.inputType}, ${readOne.outputType} } from './${
+				this.dtoDirPath
+			}/${readOne.savedFileName?.replace('.ts', '')}'`
 		);
 
 		imports.add(
@@ -261,6 +282,7 @@ export class ModuleCreator {
 		const createSchemaName = create.savedFileName.split('.')[0].split('-').map(capitalize).join('');
 		const updateSchemaName = update.savedFileName.split('.')[0].split('-').map(capitalize).join('');
 		const readSchemaName = read.savedFileName.split('.')[0].split('-').map(capitalize).join('');
+		const readOneSchemaName = readOne.savedFileName.split('.')[0].split('-').map(capitalize).join('');
 
 		const createMethod = `
 			@Post()
@@ -288,6 +310,21 @@ export class ModuleCreator {
 				@MoBody(${update.schemaName}) body: ${update.outputType},
 			) {
 				return this.service.updateRow(+id, body);
+			}
+		`;
+
+		const readOneMethod = `
+			@Get(':id')
+			@ApiQuery({
+				schema:{
+					$ref: SchemaDefs.${readOneSchemaName}
+				}
+			})
+			async readOne(
+				@Param('id') id: string,
+				@MoQuery(${readOne.schemaName}) query: ${readOne.outputType},
+			) {
+				return this.service.readOneRow(+id, query);
 			}
 		`;
 
@@ -329,6 +366,7 @@ export class ModuleCreator {
 		methods.add(readMethod);
 		methods.add(deleteMethod);
 		methods.add(softDeleteMethod);
+		methods.add(readOneMethod);
 
 		controllerTemplate = controllerTemplate.replace('<<classMethods>>', Array.from(methods).join('\n'));
 

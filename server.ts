@@ -37,17 +37,13 @@ if (cluster.isPrimary) {
 			},
 		},
 	});
+
 	const openai = new OpenAI({
-		apiKey: '',
+		apiKey: process.env.OPENAI_API_KEY,
 	});
 
 	server.register(import('@fastify/cors'), {
 		origin: '*',
-	});
-
-	server.get('/', async (request, reply) => {
-		// runEngine();
-		return true;
 	});
 
 	server.post('/api/ai', async (request, reply) => {
@@ -62,7 +58,7 @@ if (cluster.isPrimary) {
 				{ role: 'user', content: body.prompt },
 			],
 		});
-		console.dir(response.choices, { depth: null });
+
 		reply.send({ success: true, message: response.choices.at(-1)?.message.content });
 	});
 

@@ -1,15 +1,16 @@
 import { GenericComparable, comparable } from '../../geen/lib/comparable';
 import * as v from 'valibot';
-import ReadProfilesFiltersSchema, {
-	ReadProfilesFiltersSchemaFilters,
-} from '../../profiles-feature/generated-schemas/read-profiles-filters.schema';
 
 export class ReadUsersFiltersSchemaFilters {
-	profiles?: ReadProfilesFiltersSchemaFilters | null;
+	username?: GenericComparable<'string'> | null;
+	email?: GenericComparable<'string'> | null;
+	password_hash?: GenericComparable<'string'> | null;
 }
 
 const ReadUsersFiltersSchema: v.GenericSchema<ReadUsersFiltersSchemaFilters> = v.object({
-	profiles: v.nullish(v.lazy(() => ReadProfilesFiltersSchema)),
+	username: v.nullish(comparable('string')),
+	email: v.nullish(comparable('string')),
+	password_hash: v.nullish(comparable('string')),
 });
 
 export default ReadUsersFiltersSchema;

@@ -217,6 +217,13 @@ Guidelines:
 - Analyze the provided PRD and generate the JSON schema based solely on that input.
 - Do not ask any follow-up questions; use the information in the PRD to produce the output.
 - Ensure that column types and their associated options match the available options listed above.
+- For timestamp columns tracking creation or modification times:
+  * Always use the createdAt or updatedAt options from the Date options section
+  * Use "timestamp with time zone" as the column type
+- Use only PostgreSQL-valid default values, specifically:
+  * For timestamps/dates use "NOW()" instead of "CURRENT_TIMESTAMP"
+  * For serial/uuid columns, use the "generated" option instead of defaults
+  * For other types, ensure defaults match PostgreSQL syntax requirements
 - For relation types (e.g., 'has one', 'belongs to', etc.), the subOptions object must:
   * Have a key that exactly matches the value specified in options.references
   * Have a value that is the actual column name representing the relationship (not the id column)

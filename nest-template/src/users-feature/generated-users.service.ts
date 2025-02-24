@@ -13,6 +13,10 @@ import ReadUsersSchema, {
 	TReadUsersSchemaInput,
 	TReadUsersSchemaOutput,
 } from './generated-schemas//read-users-query.schema';
+import ReadOneUsersSchema, {
+	TReadOneUsersSchemaInput,
+	TReadOneUsersSchemaOutput,
+} from './generated-schemas//read-one-users-query.schema';
 import { UsersEntity } from './entities/users.entity';
 
 @Injectable()
@@ -32,6 +36,10 @@ export class UsersService {
 
 	async readRows(query: TReadUsersSchemaOutput) {
 		return await this.service.read(UsersEntity, query);
+	}
+
+	async readOneRow(id: number, query: TReadOneUsersSchemaOutput) {
+		return await this.service.readOne(UsersEntity, id, query);
 	}
 
 	async deleteRow(id: number) {

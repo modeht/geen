@@ -11,6 +11,10 @@ import ReadUsersSchema, {
 	TReadUsersSchemaInput,
 	TReadUsersSchemaOutput,
 } from './generated-schemas//read-users-query.schema';
+import ReadOneUsersSchema, {
+	TReadOneUsersSchemaInput,
+	TReadOneUsersSchemaOutput,
+} from './generated-schemas//read-one-users-query.schema';
 import { UsersEntity } from './entities/users.entity';
 import { ApiBody, ApiQuery } from '@nestjs/swagger';
 import { SchemaDefs } from '../schema-defs';
@@ -60,5 +64,15 @@ export class UsersController {
 	@Delete(':id/soft')
 	async softDelete(@Param('id') id: string) {
 		return this.service.softDeleteRow(+id);
+	}
+
+	@Get(':id')
+	@ApiQuery({
+		schema: {
+			$ref: SchemaDefs.ReadOneUsersQuery,
+		},
+	})
+	async readOne(@Param('id') id: string, @MoQuery(ReadOneUsersSchema) query: TReadOneUsersSchemaOutput) {
+		return this.service.readOneRow(+id, query);
 	}
 }

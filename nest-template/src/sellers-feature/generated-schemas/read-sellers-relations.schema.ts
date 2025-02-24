@@ -4,12 +4,12 @@ import ReadUsersRelationsSchema, {
 	ReadUsersRelations,
 } from '../../users-feature/generated-schemas/read-users-relations.schema';
 
-export class ReadProfilesRelations {
-	user?: ReadUsersRelations | string | boolean;
+export class ReadSellersRelations {
+	user_id?: ReadUsersRelations | string | boolean;
 }
 
-const ReadProfilesRelationsSchema: v.GenericSchema<ReadProfilesRelations> = v.object({
-	user: v.optional(
+const ReadSellersRelationsSchema: v.GenericSchema<ReadSellersRelations> = v.object({
+	user_id: v.optional(
 		v.union([
 			v.pipe(
 				v.union([v.string(), v.boolean()]),
@@ -21,7 +21,7 @@ const ReadProfilesRelationsSchema: v.GenericSchema<ReadProfilesRelations> = v.ob
 	),
 });
 
-export default ReadProfilesRelationsSchema;
+export default ReadSellersRelationsSchema;
 
-export type TReadProfilesRelationsSchemaOutput = v.InferOutput<typeof ReadProfilesRelationsSchema>;
-export type TReadProfilesRelationsSchemaInput = v.InferInput<typeof ReadProfilesRelationsSchema>;
+export type TReadSellersRelationsSchemaOutput = v.InferOutput<typeof ReadSellersRelationsSchema>;
+export type TReadSellersRelationsSchemaInput = v.InferInput<typeof ReadSellersRelationsSchema>;

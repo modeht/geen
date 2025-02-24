@@ -1,13 +1,43 @@
 
 interface ISchemaDefs {
   [key: string]: string;
-		CreateProfiles: string;
-	ReadProfilesFilters: string;
-	ReadProfilesOrders: string;
-	ReadProfilesQuery: string;
-	ReadProfilesRelations: string;
-	UpdateProfiles: string;
+		CreateOrders: string;
+	ReadOneOrdersQuery: string;
+	ReadOrdersFilters: string;
+	ReadOrdersOrders: string;
+	ReadOrdersQuery: string;
+	ReadOrdersRelations: string;
+	UpdateOrders: string;
+	CreateOrder_items: string;
+	ReadOneOrder_itemsQuery: string;
+	ReadOrder_itemsFilters: string;
+	ReadOrder_itemsOrders: string;
+	ReadOrder_itemsQuery: string;
+	ReadOrder_itemsRelations: string;
+	UpdateOrder_items: string;
+	CreateProducts: string;
+	ReadOneProductsQuery: string;
+	ReadProductsFilters: string;
+	ReadProductsOrders: string;
+	ReadProductsQuery: string;
+	ReadProductsRelations: string;
+	UpdateProducts: string;
+	CreateReviews: string;
+	ReadOneReviewsQuery: string;
+	ReadReviewsFilters: string;
+	ReadReviewsOrders: string;
+	ReadReviewsQuery: string;
+	ReadReviewsRelations: string;
+	UpdateReviews: string;
+	CreateSellers: string;
+	ReadOneSellersQuery: string;
+	ReadSellersFilters: string;
+	ReadSellersOrders: string;
+	ReadSellersQuery: string;
+	ReadSellersRelations: string;
+	UpdateSellers: string;
 	CreateUsers: string;
+	ReadOneUsersQuery: string;
 	ReadUsersFilters: string;
 	ReadUsersOrders: string;
 	ReadUsersQuery: string;
@@ -16,13 +46,43 @@ interface ISchemaDefs {
 }
 
 export const SchemaDefs: ISchemaDefs = {
-			CreateProfiles: '#/components/schemas/CreateProfiles',
-	ReadProfilesFilters: '#/components/schemas/ReadProfilesFilters',
-	ReadProfilesOrders: '#/components/schemas/ReadProfilesOrders',
-	ReadProfilesQuery: '#/components/schemas/ReadProfilesQuery',
-	ReadProfilesRelations: '#/components/schemas/ReadProfilesRelations',
-	UpdateProfiles: '#/components/schemas/UpdateProfiles',
+			CreateOrders: '#/components/schemas/CreateOrders',
+	ReadOneOrdersQuery: '#/components/schemas/ReadOneOrdersQuery',
+	ReadOrdersFilters: '#/components/schemas/ReadOrdersFilters',
+	ReadOrdersOrders: '#/components/schemas/ReadOrdersOrders',
+	ReadOrdersQuery: '#/components/schemas/ReadOrdersQuery',
+	ReadOrdersRelations: '#/components/schemas/ReadOrdersRelations',
+	UpdateOrders: '#/components/schemas/UpdateOrders',
+	CreateOrder_items: '#/components/schemas/CreateOrder_items',
+	ReadOneOrder_itemsQuery: '#/components/schemas/ReadOneOrder_itemsQuery',
+	ReadOrder_itemsFilters: '#/components/schemas/ReadOrder_itemsFilters',
+	ReadOrder_itemsOrders: '#/components/schemas/ReadOrder_itemsOrders',
+	ReadOrder_itemsQuery: '#/components/schemas/ReadOrder_itemsQuery',
+	ReadOrder_itemsRelations: '#/components/schemas/ReadOrder_itemsRelations',
+	UpdateOrder_items: '#/components/schemas/UpdateOrder_items',
+	CreateProducts: '#/components/schemas/CreateProducts',
+	ReadOneProductsQuery: '#/components/schemas/ReadOneProductsQuery',
+	ReadProductsFilters: '#/components/schemas/ReadProductsFilters',
+	ReadProductsOrders: '#/components/schemas/ReadProductsOrders',
+	ReadProductsQuery: '#/components/schemas/ReadProductsQuery',
+	ReadProductsRelations: '#/components/schemas/ReadProductsRelations',
+	UpdateProducts: '#/components/schemas/UpdateProducts',
+	CreateReviews: '#/components/schemas/CreateReviews',
+	ReadOneReviewsQuery: '#/components/schemas/ReadOneReviewsQuery',
+	ReadReviewsFilters: '#/components/schemas/ReadReviewsFilters',
+	ReadReviewsOrders: '#/components/schemas/ReadReviewsOrders',
+	ReadReviewsQuery: '#/components/schemas/ReadReviewsQuery',
+	ReadReviewsRelations: '#/components/schemas/ReadReviewsRelations',
+	UpdateReviews: '#/components/schemas/UpdateReviews',
+	CreateSellers: '#/components/schemas/CreateSellers',
+	ReadOneSellersQuery: '#/components/schemas/ReadOneSellersQuery',
+	ReadSellersFilters: '#/components/schemas/ReadSellersFilters',
+	ReadSellersOrders: '#/components/schemas/ReadSellersOrders',
+	ReadSellersQuery: '#/components/schemas/ReadSellersQuery',
+	ReadSellersRelations: '#/components/schemas/ReadSellersRelations',
+	UpdateSellers: '#/components/schemas/UpdateSellers',
 	CreateUsers: '#/components/schemas/CreateUsers',
+	ReadOneUsersQuery: '#/components/schemas/ReadOneUsersQuery',
 	ReadUsersFilters: '#/components/schemas/ReadUsersFilters',
 	ReadUsersOrders: '#/components/schemas/ReadUsersOrders',
 	ReadUsersQuery: '#/components/schemas/ReadUsersQuery',
