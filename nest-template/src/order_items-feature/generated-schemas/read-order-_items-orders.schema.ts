@@ -9,17 +9,21 @@ import ReadProductsOrdersSchema, {
 } from '../../products-feature/generated-schemas/read-products-orders.schema';
 
 export class ReadOrder_itemsOrders {
-	order_id?: ReadOrdersOrders | OrderDirectionEnum;
-	product_id?: ReadProductsOrders | OrderDirectionEnum;
+	order_id?: OrderDirectionEnum;
+	order_item_order?: ReadOrdersOrders | OrderDirectionEnum;
+	product_id?: OrderDirectionEnum;
+	order_item_product?: ReadProductsOrders | OrderDirectionEnum;
 	quantity?: OrderDirectionEnum;
-	price_at_purchase?: OrderDirectionEnum;
+	unit_price?: OrderDirectionEnum;
 }
 
 const ReadOrder_itemsOrdersSchema: v.GenericSchema<ReadOrder_itemsOrders> = v.object({
-	order_id: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadOrdersOrdersSchema)])),
-	product_id: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductsOrdersSchema)])),
+	order_id: v.optional(OrderDirectionSchema),
+	order_item_order: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadOrdersOrdersSchema)])),
+	product_id: v.optional(OrderDirectionSchema),
+	order_item_product: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductsOrdersSchema)])),
 	quantity: v.optional(OrderDirectionSchema),
-	price_at_purchase: v.optional(OrderDirectionSchema),
+	unit_price: v.optional(OrderDirectionSchema),
 });
 
 export default ReadOrder_itemsOrdersSchema;

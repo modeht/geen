@@ -52,7 +52,7 @@ if (cluster.isPrimary) {
 		};
 
 		const response = await openai.chat.completions.create({
-			model: 'gpt-4o',
+			model: 'o3-mini',
 			messages: [
 				{ role: 'assistant', content: SchemaBuilderAssistant },
 				{ role: 'user', content: body.prompt },

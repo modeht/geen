@@ -1,7 +1,14 @@
 
 interface ISchemaDefs {
   [key: string]: string;
-		CreateOrders: string;
+		CreateCart_items: string;
+	ReadCart_itemsFilters: string;
+	ReadCart_itemsOrders: string;
+	ReadCart_itemsQuery: string;
+	ReadCart_itemsRelations: string;
+	ReadOneCart_itemsQuery: string;
+	UpdateCart_items: string;
+	CreateOrders: string;
 	ReadOneOrdersQuery: string;
 	ReadOrdersFilters: string;
 	ReadOrdersOrders: string;
@@ -29,13 +36,6 @@ interface ISchemaDefs {
 	ReadReviewsQuery: string;
 	ReadReviewsRelations: string;
 	UpdateReviews: string;
-	CreateSellers: string;
-	ReadOneSellersQuery: string;
-	ReadSellersFilters: string;
-	ReadSellersOrders: string;
-	ReadSellersQuery: string;
-	ReadSellersRelations: string;
-	UpdateSellers: string;
 	CreateUsers: string;
 	ReadOneUsersQuery: string;
 	ReadUsersFilters: string;
@@ -46,7 +46,14 @@ interface ISchemaDefs {
 }
 
 export const SchemaDefs: ISchemaDefs = {
-			CreateOrders: '#/components/schemas/CreateOrders',
+			CreateCart_items: '#/components/schemas/CreateCart_items',
+	ReadCart_itemsFilters: '#/components/schemas/ReadCart_itemsFilters',
+	ReadCart_itemsOrders: '#/components/schemas/ReadCart_itemsOrders',
+	ReadCart_itemsQuery: '#/components/schemas/ReadCart_itemsQuery',
+	ReadCart_itemsRelations: '#/components/schemas/ReadCart_itemsRelations',
+	ReadOneCart_itemsQuery: '#/components/schemas/ReadOneCart_itemsQuery',
+	UpdateCart_items: '#/components/schemas/UpdateCart_items',
+	CreateOrders: '#/components/schemas/CreateOrders',
 	ReadOneOrdersQuery: '#/components/schemas/ReadOneOrdersQuery',
 	ReadOrdersFilters: '#/components/schemas/ReadOrdersFilters',
 	ReadOrdersOrders: '#/components/schemas/ReadOrdersOrders',
@@ -74,13 +81,6 @@ export const SchemaDefs: ISchemaDefs = {
 	ReadReviewsQuery: '#/components/schemas/ReadReviewsQuery',
 	ReadReviewsRelations: '#/components/schemas/ReadReviewsRelations',
 	UpdateReviews: '#/components/schemas/UpdateReviews',
-	CreateSellers: '#/components/schemas/CreateSellers',
-	ReadOneSellersQuery: '#/components/schemas/ReadOneSellersQuery',
-	ReadSellersFilters: '#/components/schemas/ReadSellersFilters',
-	ReadSellersOrders: '#/components/schemas/ReadSellersOrders',
-	ReadSellersQuery: '#/components/schemas/ReadSellersQuery',
-	ReadSellersRelations: '#/components/schemas/ReadSellersRelations',
-	UpdateSellers: '#/components/schemas/UpdateSellers',
 	CreateUsers: '#/components/schemas/CreateUsers',
 	ReadOneUsersQuery: '#/components/schemas/ReadOneUsersQuery',
 	ReadUsersFilters: '#/components/schemas/ReadUsersFilters',

@@ -3,31 +3,35 @@ import * as v from 'valibot';
 
 const CreateReviewsSchema = v.pipe(
 	v.object({
-		user_id: v.nullish(
+		product_id: v.nullish(v.number()),
+		review_product: v.nullish(
 			v.union([
 				v.object({ id: v.number() }),
 				v.object({
-					username: v.pipe(v.string(), v.maxLength(50)),
-					email: v.pipe(v.string(), v.maxLength(100)),
-					password_hash: v.pipe(v.string(), v.maxLength(255)),
+					seller_id: v.nullish(v.number()),
+					name: v.pipe(v.string(), v.maxLength(255)),
+					description: v.nullish(v.string()),
+					price: v.number(),
+					stock: v.number(),
 				}),
 			]),
 		),
-		product_id: v.nullish(
+		user_id: v.nullish(v.number()),
+		review_user: v.nullish(
 			v.union([
 				v.object({ id: v.number() }),
 				v.object({
-					name: v.pipe(v.string(), v.maxLength(100)),
-					description: v.nullish(v.string()),
-					price: v.number(),
-					inventory_count: v.number(),
+					username: v.pipe(v.string(), v.maxLength(255)),
+					email: v.pipe(v.string(), v.maxLength(255)),
+					password: v.pipe(v.string(), v.maxLength(255)),
+					role: v.pipe(v.string(), v.maxLength(50)),
 				}),
 			]),
 		),
 		rating: v.number(),
-		review_text: v.nullish(v.string()),
+		comment: v.nullish(v.string()),
 	}),
-	v.metadata({ [modelSymbol]: 'ReviewsEntity', user_id: 'UsersEntity', product_id: 'ProductsEntity' }),
+	v.metadata({ [modelSymbol]: 'ReviewsEntity', review_product: 'ProductsEntity', review_user: 'UsersEntity' }),
 );
 export default CreateReviewsSchema;
 

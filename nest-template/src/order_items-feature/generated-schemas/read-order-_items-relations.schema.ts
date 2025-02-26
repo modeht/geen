@@ -8,12 +8,12 @@ import ReadProductsRelationsSchema, {
 } from '../../products-feature/generated-schemas/read-products-relations.schema';
 
 export class ReadOrder_itemsRelations {
-	order_id?: ReadOrdersRelations | string | boolean;
-	product_id?: ReadProductsRelations | string | boolean;
+	order_item_order?: ReadOrdersRelations | string | boolean;
+	order_item_product?: ReadProductsRelations | string | boolean;
 }
 
 const ReadOrder_itemsRelationsSchema: v.GenericSchema<ReadOrder_itemsRelations> = v.object({
-	order_id: v.optional(
+	order_item_order: v.optional(
 		v.union([
 			v.pipe(
 				v.union([v.string(), v.boolean()]),
@@ -23,7 +23,7 @@ const ReadOrder_itemsRelationsSchema: v.GenericSchema<ReadOrder_itemsRelations> 
 			v.lazy(() => ReadOrdersRelationsSchema),
 		]),
 	),
-	product_id: v.optional(
+	order_item_product: v.optional(
 		v.union([
 			v.pipe(
 				v.union([v.string(), v.boolean()]),

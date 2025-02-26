@@ -5,10 +5,13 @@ import { OrdersEntity } from '../../orders-feature/entities/orders.entity';
 import { Order_itemsEntity } from '../../order_items-feature/entities/order_items.entity';
 import { ReviewsEntity } from '../../reviews-feature/entities/reviews.entity';
 
-@Entity('sellers')
-export class SellersEntity {
+@Entity('cart_items')
+export class Cart_itemsEntity {
 @PrimaryColumn({ type: 'int', generated: 'increment' }) id: number;
-@OneToOne(() => UsersEntity, (users) => users.id) user_id: UsersEntity;
-@Column({ type: 'character varying', nullable: false, length: 100 }) store_name: string;
-@CreateDateColumn({ type: 'timestamp with time zone', default: 'NOW()' }) created_at: Date;
+@Column({ type: 'int', nullable: true }) user_id: number;
+@ManyToOne(() => UsersEntity, (e) => e.user_cart_items) cart_item_user: UsersEntity;
+@Column({ type: 'int', nullable: true }) product_id: number;
+@ManyToOne(() => ProductsEntity, (e) => e.product_cart_items) cart_item_product: ProductsEntity;
+@Column({ type: 'integer', nullable: false, default: '1' }) quantity: number;
+@CreateDateColumn({ type: 'timestamp with time zone', nullable: false, default: 'NOW()' }) added_at: Date;
 }

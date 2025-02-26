@@ -1,24 +1,28 @@
 import { GenericComparable, comparable } from '../../geen/lib/comparable';
 import * as v from 'valibot';
-import ReadUsersFiltersSchema, {
-	ReadUsersFiltersSchemaFilters,
-} from '../../users-feature/generated-schemas/read-users-filters.schema';
 import ReadProductsFiltersSchema, {
 	ReadProductsFiltersSchemaFilters,
 } from '../../products-feature/generated-schemas/read-products-filters.schema';
+import ReadUsersFiltersSchema, {
+	ReadUsersFiltersSchemaFilters,
+} from '../../users-feature/generated-schemas/read-users-filters.schema';
 
 export class ReadReviewsFiltersSchemaFilters {
-	user_id?: ReadUsersFiltersSchemaFilters | null;
-	product_id?: ReadProductsFiltersSchemaFilters | null;
+	product_id?: GenericComparable<'number'> | null;
+	review_product?: ReadProductsFiltersSchemaFilters | null;
+	user_id?: GenericComparable<'number'> | null;
+	review_user?: ReadUsersFiltersSchemaFilters | null;
 	rating?: GenericComparable<'number'> | null;
-	review_text?: GenericComparable<'string'> | null;
+	comment?: GenericComparable<'string'> | null;
 }
 
 const ReadReviewsFiltersSchema: v.GenericSchema<ReadReviewsFiltersSchemaFilters> = v.object({
-	user_id: v.nullish(v.lazy(() => ReadUsersFiltersSchema)),
-	product_id: v.nullish(v.lazy(() => ReadProductsFiltersSchema)),
+	product_id: v.nullish(comparable('number')),
+	review_product: v.nullish(v.lazy(() => ReadProductsFiltersSchema)),
+	user_id: v.nullish(comparable('number')),
+	review_user: v.nullish(v.lazy(() => ReadUsersFiltersSchema)),
 	rating: v.nullish(comparable('number')),
-	review_text: v.nullish(comparable('string')),
+	comment: v.nullish(comparable('string')),
 });
 
 export default ReadReviewsFiltersSchema;

@@ -145,139 +145,6 @@
                 }
             }
         },
-        "/sellers": {
-            "post": {
-                "operationId": "SellersController_create",
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CreateSellers"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": ""
-                    }
-                }
-            },
-            "get": {
-                "operationId": "SellersController_read",
-                "parameters": [
-                    {
-                        "name": "",
-                        "required": true,
-                        "in": "query",
-                        "schema": {
-                            "$ref": "#/components/schemas/ReadSellersQuery"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/sellers/{id}": {
-            "put": {
-                "operationId": "SellersController_update",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdateSellers"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "SellersController_delete",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            },
-            "get": {
-                "operationId": "SellersController_readOne",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "",
-                        "required": true,
-                        "in": "query",
-                        "schema": {
-                            "$ref": "#/components/schemas/ReadOneSellersQuery"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/sellers/{id}/soft": {
-            "delete": {
-                "operationId": "SellersController_softDelete",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
         "/reviews": {
             "post": {
                 "operationId": "ReviewsController_create",
@@ -809,6 +676,139 @@
                     }
                 }
             }
+        },
+        "/cart-_items": {
+            "post": {
+                "operationId": "Cart_itemsController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateCart_items"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                }
+            },
+            "get": {
+                "operationId": "Cart_itemsController_read",
+                "parameters": [
+                    {
+                        "name": "",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/components/schemas/ReadCart_itemsQuery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/cart-_items/{id}": {
+            "put": {
+                "operationId": "Cart_itemsController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateCart_items"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "Cart_itemsController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            },
+            "get": {
+                "operationId": "Cart_itemsController_readOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/components/schemas/ReadOneCart_itemsQuery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/cart-_items/{id}/soft": {
+            "delete": {
+                "operationId": "Cart_itemsController_softDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
         }
     },
     "info": {
@@ -828,33 +828,244 @@
             }
         },
         "schemas": {
-            "CreateOrders": {
+            "CreateCart_items": {
                 "type": "object",
                 "properties": {
                     "user_id": {
+                        "type": "number",
                         "nullable": true
                     },
-                    "total_amount": {
+                    "cart_item_user": {
+                        "nullable": true
+                    },
+                    "product_id": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "cart_item_product": {
+                        "nullable": true
+                    },
+                    "quantity": {
                         "type": "number"
                     },
-                    "placed_at": {
+                    "added_at": {
                         "type": "string",
                         "format": "date-time"
                     }
                 },
                 "required": [
-                    "total_amount",
-                    "placed_at"
+                    "quantity",
+                    "added_at"
                 ],
                 "additionalProperties": false
             },
-            "ReadOneOrdersQuery": {
+            "ReadCart_itemsFilters": {
                 "type": "object",
                 "properties": {
+                    "user_id": {
+                        "type": "object",
+                        "properties": {
+                            "$val": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number"
+                            },
+                            "$op": {
+                                "enum": [
+                                    "Eq",
+                                    "NotEq",
+                                    "GreaterThan",
+                                    "LessThan",
+                                    "GreaterThanOrEq",
+                                    "LessThanOrEq",
+                                    "IsNull",
+                                    "IsNotNull"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "$op"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                    },
+                    "cart_item_user": {
+                        "$ref": "#/components/schemas/ReadUsersFilters",
+                        "nullable": true
+                    },
+                    "product_id": {
+                        "type": "object",
+                        "properties": {
+                            "$val": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number"
+                            },
+                            "$op": {
+                                "enum": [
+                                    "Eq",
+                                    "NotEq",
+                                    "GreaterThan",
+                                    "LessThan",
+                                    "GreaterThanOrEq",
+                                    "LessThanOrEq",
+                                    "IsNull",
+                                    "IsNotNull"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "$op"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                    },
+                    "cart_item_product": {
+                        "$ref": "#/components/schemas/ReadProductsFilters",
+                        "nullable": true
+                    },
+                    "quantity": {
+                        "type": "object",
+                        "properties": {
+                            "$val": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number"
+                            },
+                            "$op": {
+                                "enum": [
+                                    "Eq",
+                                    "NotEq",
+                                    "GreaterThan",
+                                    "LessThan",
+                                    "GreaterThanOrEq",
+                                    "LessThanOrEq",
+                                    "IsNull",
+                                    "IsNotNull"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "$op"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                    },
+                    "added_at": {
+                        "type": "object",
+                        "properties": {
+                            "$val": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "$op": {
+                                "enum": [
+                                    "Eq",
+                                    "NotEq",
+                                    "GreaterThan",
+                                    "LessThan",
+                                    "GreaterThanOrEq",
+                                    "LessThanOrEq",
+                                    "IsNull",
+                                    "IsNotNull"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "$op"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
+            "ReadCart_itemsOrders": {
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ]
+                    },
+                    "cart_item_user": {
+                        "anyOf": [
+                            {
+                                "enum": [
+                                    "asc",
+                                    "desc"
+                                ]
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadUsersOrders"
+                            }
+                        ]
+                    },
+                    "product_id": {
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ]
+                    },
+                    "cart_item_product": {
+                        "anyOf": [
+                            {
+                                "enum": [
+                                    "asc",
+                                    "desc"
+                                ]
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadProductsOrders"
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ]
+                    },
+                    "added_at": {
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ]
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
+            "ReadCart_itemsQuery": {
+                "type": "object",
+                "properties": {
+                    "filters": {
+                        "$ref": "#/components/schemas/ReadCart_itemsFilters"
+                    },
                     "relations": {
                         "type": "object",
                         "properties": {
-                            "user_id": {
+                            "cart_item_user": {
                                 "anyOf": [
                                     {
                                         "anyOf": [
@@ -871,6 +1082,220 @@
                                         "$ref": "#/components/schemas/ReadUsersRelations"
                                     }
                                 ]
+                            },
+                            "cart_item_product": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadProductsRelations"
+                                    }
+                                ]
+                            }
+                        },
+                        "required": [],
+                        "additionalProperties": false
+                    },
+                    "orders": {
+                        "$ref": "#/components/schemas/ReadCart_itemsOrders"
+                    },
+                    "pagination": {
+                        "type": "object",
+                        "properties": {
+                            "skip": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number",
+                                "default": 0
+                            },
+                            "take": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number",
+                                "default": 25
+                            }
+                        },
+                        "required": [],
+                        "additionalProperties": false,
+                        "default": {
+                            "skip": 0,
+                            "take": 25
+                        }
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
+            "ReadCart_itemsRelations": {
+                "type": "object",
+                "properties": {
+                    "cart_item_user": {
+                        "anyOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "boolean"
+                                    }
+                                ],
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadUsersRelations"
+                            }
+                        ]
+                    },
+                    "cart_item_product": {
+                        "anyOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "boolean"
+                                    }
+                                ],
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadProductsRelations"
+                            }
+                        ]
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
+            "ReadOneCart_itemsQuery": {
+                "type": "object",
+                "properties": {
+                    "relations": {
+                        "$ref": "#/components/schemas/ReadCart_itemsRelations"
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
+            "UpdateCart_items": {
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "cart_item_user": {
+                        "nullable": true
+                    },
+                    "product_id": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "cart_item_product": {
+                        "nullable": true
+                    },
+                    "quantity": {
+                        "type": "number"
+                    },
+                    "added_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [],
+                "additionalProperties": false
+            },
+            "CreateOrders": {
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "order_user": {
+                        "nullable": true
+                    },
+                    "total_amount": {
+                        "type": "number"
+                    },
+                    "order_status": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "order_order_items": {
+                        "nullable": true
+                    }
+                },
+                "required": [
+                    "total_amount",
+                    "order_status"
+                ],
+                "additionalProperties": false
+            },
+            "ReadOneOrdersQuery": {
+                "type": "object",
+                "properties": {
+                    "relations": {
+                        "type": "object",
+                        "properties": {
+                            "order_user": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadUsersRelations"
+                                    }
+                                ]
+                            },
+                            "order_order_items": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadOrder_itemsRelations"
+                                    }
+                                ]
                             }
                         },
                         "required": [],
@@ -884,6 +1309,39 @@
                 "type": "object",
                 "properties": {
                     "user_id": {
+                        "type": "object",
+                        "properties": {
+                            "$val": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number"
+                            },
+                            "$op": {
+                                "enum": [
+                                    "Eq",
+                                    "NotEq",
+                                    "GreaterThan",
+                                    "LessThan",
+                                    "GreaterThanOrEq",
+                                    "LessThanOrEq",
+                                    "IsNull",
+                                    "IsNotNull"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "$op"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                    },
+                    "order_user": {
                         "$ref": "#/components/schemas/ReadUsersFilters",
                         "nullable": true
                     },
@@ -920,21 +1378,19 @@
                         "additionalProperties": false,
                         "nullable": true
                     },
-                    "placed_at": {
+                    "order_status": {
                         "type": "object",
                         "properties": {
                             "$val": {
-                                "type": "string",
-                                "format": "date-time"
+                                "type": "string"
                             },
                             "$op": {
                                 "enum": [
                                     "Eq",
                                     "NotEq",
-                                    "GreaterThan",
-                                    "LessThan",
-                                    "GreaterThanOrEq",
-                                    "LessThanOrEq",
+                                    "Contains",
+                                    "StartsWith",
+                                    "EndsWith",
                                     "IsNull",
                                     "IsNotNull"
                                 ]
@@ -945,6 +1401,10 @@
                         ],
                         "additionalProperties": false,
                         "nullable": true
+                    },
+                    "order_order_items": {
+                        "$ref": "#/components/schemas/ReadOrder_itemsFilters",
+                        "nullable": true
                     }
                 },
                 "required": [],
@@ -954,6 +1414,12 @@
                 "type": "object",
                 "properties": {
                     "user_id": {
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ]
+                    },
+                    "order_user": {
                         "anyOf": [
                             {
                                 "enum": [
@@ -972,10 +1438,23 @@
                             "desc"
                         ]
                     },
-                    "placed_at": {
+                    "order_status": {
                         "enum": [
                             "asc",
                             "desc"
+                        ]
+                    },
+                    "order_order_items": {
+                        "anyOf": [
+                            {
+                                "enum": [
+                                    "asc",
+                                    "desc"
+                                ]
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadOrder_itemsOrders"
+                            }
                         ]
                     }
                 },
@@ -991,7 +1470,7 @@
                     "relations": {
                         "type": "object",
                         "properties": {
-                            "user_id": {
+                            "order_user": {
                                 "anyOf": [
                                     {
                                         "anyOf": [
@@ -1006,6 +1485,24 @@
                                     },
                                     {
                                         "$ref": "#/components/schemas/ReadUsersRelations"
+                                    }
+                                ]
+                            },
+                            "order_order_items": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadOrder_itemsRelations"
                                     }
                                 ]
                             }
@@ -1058,7 +1555,7 @@
             "ReadOrdersRelations": {
                 "type": "object",
                 "properties": {
-                    "user_id": {
+                    "order_user": {
                         "anyOf": [
                             {
                                 "anyOf": [
@@ -1075,6 +1572,24 @@
                                 "$ref": "#/components/schemas/ReadUsersRelations"
                             }
                         ]
+                    },
+                    "order_order_items": {
+                        "anyOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "boolean"
+                                    }
+                                ],
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadOrder_itemsRelations"
+                            }
+                        ]
                     }
                 },
                 "required": [],
@@ -1084,14 +1599,21 @@
                 "type": "object",
                 "properties": {
                     "user_id": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "order_user": {
                         "nullable": true
                     },
                     "total_amount": {
                         "type": "number"
                     },
-                    "placed_at": {
+                    "order_status": {
                         "type": "string",
-                        "format": "date-time"
+                        "maxLength": 50
+                    },
+                    "order_order_items": {
+                        "nullable": true
                     }
                 },
                 "required": [],
@@ -1101,21 +1623,29 @@
                 "type": "object",
                 "properties": {
                     "order_id": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "order_item_order": {
                         "nullable": true
                     },
                     "product_id": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "order_item_product": {
                         "nullable": true
                     },
                     "quantity": {
                         "type": "number"
                     },
-                    "price_at_purchase": {
+                    "unit_price": {
                         "type": "number"
                     }
                 },
                 "required": [
                     "quantity",
-                    "price_at_purchase"
+                    "unit_price"
                 ],
                 "additionalProperties": false
             },
@@ -1125,7 +1655,7 @@
                     "relations": {
                         "type": "object",
                         "properties": {
-                            "order_id": {
+                            "order_item_order": {
                                 "anyOf": [
                                     {
                                         "anyOf": [
@@ -1143,7 +1673,7 @@
                                     }
                                 ]
                             },
-                            "product_id": {
+                            "order_item_product": {
                                 "anyOf": [
                                     {
                                         "anyOf": [
@@ -1173,10 +1703,76 @@
                 "type": "object",
                 "properties": {
                     "order_id": {
+                        "type": "object",
+                        "properties": {
+                            "$val": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number"
+                            },
+                            "$op": {
+                                "enum": [
+                                    "Eq",
+                                    "NotEq",
+                                    "GreaterThan",
+                                    "LessThan",
+                                    "GreaterThanOrEq",
+                                    "LessThanOrEq",
+                                    "IsNull",
+                                    "IsNotNull"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "$op"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                    },
+                    "order_item_order": {
                         "$ref": "#/components/schemas/ReadOrdersFilters",
                         "nullable": true
                     },
                     "product_id": {
+                        "type": "object",
+                        "properties": {
+                            "$val": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number"
+                            },
+                            "$op": {
+                                "enum": [
+                                    "Eq",
+                                    "NotEq",
+                                    "GreaterThan",
+                                    "LessThan",
+                                    "GreaterThanOrEq",
+                                    "LessThanOrEq",
+                                    "IsNull",
+                                    "IsNotNull"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "$op"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                    },
+                    "order_item_product": {
                         "$ref": "#/components/schemas/ReadProductsFilters",
                         "nullable": true
                     },
@@ -1213,7 +1809,7 @@
                         "additionalProperties": false,
                         "nullable": true
                     },
-                    "price_at_purchase": {
+                    "unit_price": {
                         "type": "object",
                         "properties": {
                             "$val": {
@@ -1254,6 +1850,12 @@
                 "type": "object",
                 "properties": {
                     "order_id": {
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ]
+                    },
+                    "order_item_order": {
                         "anyOf": [
                             {
                                 "enum": [
@@ -1267,6 +1869,12 @@
                         ]
                     },
                     "product_id": {
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ]
+                    },
+                    "order_item_product": {
                         "anyOf": [
                             {
                                 "enum": [
@@ -1285,7 +1893,7 @@
                             "desc"
                         ]
                     },
-                    "price_at_purchase": {
+                    "unit_price": {
                         "enum": [
                             "asc",
                             "desc"
@@ -1304,7 +1912,7 @@
                     "relations": {
                         "type": "object",
                         "properties": {
-                            "order_id": {
+                            "order_item_order": {
                                 "anyOf": [
                                     {
                                         "anyOf": [
@@ -1322,7 +1930,7 @@
                                     }
                                 ]
                             },
-                            "product_id": {
+                            "order_item_product": {
                                 "anyOf": [
                                     {
                                         "anyOf": [
@@ -1389,7 +1997,7 @@
             "ReadOrder_itemsRelations": {
                 "type": "object",
                 "properties": {
-                    "order_id": {
+                    "order_item_order": {
                         "anyOf": [
                             {
                                 "anyOf": [
@@ -1407,7 +2015,7 @@
                             }
                         ]
                     },
-                    "product_id": {
+                    "order_item_product": {
                         "anyOf": [
                             {
                                 "anyOf": [
@@ -1433,15 +2041,23 @@
                 "type": "object",
                 "properties": {
                     "order_id": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "order_item_order": {
                         "nullable": true
                     },
                     "product_id": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "order_item_product": {
                         "nullable": true
                     },
                     "quantity": {
                         "type": "number"
                     },
-                    "price_at_purchase": {
+                    "unit_price": {
                         "type": "number"
                     }
                 },
@@ -1452,11 +2068,15 @@
                 "type": "object",
                 "properties": {
                     "seller_id": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "product_seller": {
                         "nullable": true
                     },
                     "name": {
                         "type": "string",
-                        "maxLength": 100
+                        "maxLength": 255
                     },
                     "description": {
                         "type": "string",
@@ -1465,14 +2085,23 @@
                     "price": {
                         "type": "number"
                     },
-                    "inventory_count": {
+                    "stock": {
                         "type": "number"
+                    },
+                    "product_order_items": {
+                        "nullable": true
+                    },
+                    "product_reviews": {
+                        "nullable": true
+                    },
+                    "product_cart_items": {
+                        "nullable": true
                     }
                 },
                 "required": [
                     "name",
                     "price",
-                    "inventory_count"
+                    "stock"
                 ],
                 "additionalProperties": false
             },
@@ -1482,7 +2111,7 @@
                     "relations": {
                         "type": "object",
                         "properties": {
-                            "seller_id": {
+                            "product_seller": {
                                 "anyOf": [
                                     {
                                         "anyOf": [
@@ -1496,7 +2125,61 @@
                                         "type": "boolean"
                                     },
                                     {
-                                        "$ref": "#/components/schemas/ReadSellersRelations"
+                                        "$ref": "#/components/schemas/ReadUsersRelations"
+                                    }
+                                ]
+                            },
+                            "product_order_items": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadOrder_itemsRelations"
+                                    }
+                                ]
+                            },
+                            "product_reviews": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadReviewsRelations"
+                                    }
+                                ]
+                            },
+                            "product_cart_items": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadCart_itemsRelations"
                                     }
                                 ]
                             }
@@ -1512,7 +2195,40 @@
                 "type": "object",
                 "properties": {
                     "seller_id": {
-                        "$ref": "#/components/schemas/ReadSellersFilters",
+                        "type": "object",
+                        "properties": {
+                            "$val": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number"
+                            },
+                            "$op": {
+                                "enum": [
+                                    "Eq",
+                                    "NotEq",
+                                    "GreaterThan",
+                                    "LessThan",
+                                    "GreaterThanOrEq",
+                                    "LessThanOrEq",
+                                    "IsNull",
+                                    "IsNotNull"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "$op"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                    },
+                    "product_seller": {
+                        "$ref": "#/components/schemas/ReadUsersFilters",
                         "nullable": true
                     },
                     "name": {
@@ -1596,7 +2312,7 @@
                         "additionalProperties": false,
                         "nullable": true
                     },
-                    "inventory_count": {
+                    "stock": {
                         "type": "object",
                         "properties": {
                             "$val": {
@@ -1627,6 +2343,18 @@
                             "$op"
                         ],
                         "additionalProperties": false,
+                        "nullable": true
+                    },
+                    "product_order_items": {
+                        "$ref": "#/components/schemas/ReadOrder_itemsFilters",
+                        "nullable": true
+                    },
+                    "product_reviews": {
+                        "$ref": "#/components/schemas/ReadReviewsFilters",
+                        "nullable": true
+                    },
+                    "product_cart_items": {
+                        "$ref": "#/components/schemas/ReadCart_itemsFilters",
                         "nullable": true
                     }
                 },
@@ -1637,6 +2365,12 @@
                 "type": "object",
                 "properties": {
                     "seller_id": {
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ]
+                    },
+                    "product_seller": {
                         "anyOf": [
                             {
                                 "enum": [
@@ -1645,7 +2379,7 @@
                                 ]
                             },
                             {
-                                "$ref": "#/components/schemas/ReadSellersOrders"
+                                "$ref": "#/components/schemas/ReadUsersOrders"
                             }
                         ]
                     },
@@ -1667,10 +2401,49 @@
                             "desc"
                         ]
                     },
-                    "inventory_count": {
+                    "stock": {
                         "enum": [
                             "asc",
                             "desc"
+                        ]
+                    },
+                    "product_order_items": {
+                        "anyOf": [
+                            {
+                                "enum": [
+                                    "asc",
+                                    "desc"
+                                ]
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadOrder_itemsOrders"
+                            }
+                        ]
+                    },
+                    "product_reviews": {
+                        "anyOf": [
+                            {
+                                "enum": [
+                                    "asc",
+                                    "desc"
+                                ]
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadReviewsOrders"
+                            }
+                        ]
+                    },
+                    "product_cart_items": {
+                        "anyOf": [
+                            {
+                                "enum": [
+                                    "asc",
+                                    "desc"
+                                ]
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadCart_itemsOrders"
+                            }
                         ]
                     }
                 },
@@ -1686,7 +2459,7 @@
                     "relations": {
                         "type": "object",
                         "properties": {
-                            "seller_id": {
+                            "product_seller": {
                                 "anyOf": [
                                     {
                                         "anyOf": [
@@ -1700,7 +2473,61 @@
                                         "type": "boolean"
                                     },
                                     {
-                                        "$ref": "#/components/schemas/ReadSellersRelations"
+                                        "$ref": "#/components/schemas/ReadUsersRelations"
+                                    }
+                                ]
+                            },
+                            "product_order_items": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadOrder_itemsRelations"
+                                    }
+                                ]
+                            },
+                            "product_reviews": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadReviewsRelations"
+                                    }
+                                ]
+                            },
+                            "product_cart_items": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadCart_itemsRelations"
                                     }
                                 ]
                             }
@@ -1753,7 +2580,7 @@
             "ReadProductsRelations": {
                 "type": "object",
                 "properties": {
-                    "seller_id": {
+                    "product_seller": {
                         "anyOf": [
                             {
                                 "anyOf": [
@@ -1767,7 +2594,61 @@
                                 "type": "boolean"
                             },
                             {
-                                "$ref": "#/components/schemas/ReadSellersRelations"
+                                "$ref": "#/components/schemas/ReadUsersRelations"
+                            }
+                        ]
+                    },
+                    "product_order_items": {
+                        "anyOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "boolean"
+                                    }
+                                ],
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadOrder_itemsRelations"
+                            }
+                        ]
+                    },
+                    "product_reviews": {
+                        "anyOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "boolean"
+                                    }
+                                ],
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadReviewsRelations"
+                            }
+                        ]
+                    },
+                    "product_cart_items": {
+                        "anyOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "boolean"
+                                    }
+                                ],
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadCart_itemsRelations"
                             }
                         ]
                     }
@@ -1779,11 +2660,15 @@
                 "type": "object",
                 "properties": {
                     "seller_id": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "product_seller": {
                         "nullable": true
                     },
                     "name": {
                         "type": "string",
-                        "maxLength": 100
+                        "maxLength": 255
                     },
                     "description": {
                         "type": "string",
@@ -1792,8 +2677,17 @@
                     "price": {
                         "type": "number"
                     },
-                    "inventory_count": {
+                    "stock": {
                         "type": "number"
+                    },
+                    "product_order_items": {
+                        "nullable": true
+                    },
+                    "product_reviews": {
+                        "nullable": true
+                    },
+                    "product_cart_items": {
+                        "nullable": true
                     }
                 },
                 "required": [],
@@ -1802,16 +2696,24 @@
             "CreateReviews": {
                 "type": "object",
                 "properties": {
-                    "user_id": {
+                    "product_id": {
+                        "type": "number",
                         "nullable": true
                     },
-                    "product_id": {
+                    "review_product": {
+                        "nullable": true
+                    },
+                    "user_id": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "review_user": {
                         "nullable": true
                     },
                     "rating": {
                         "type": "number"
                     },
-                    "review_text": {
+                    "comment": {
                         "type": "string",
                         "nullable": true
                     }
@@ -1827,25 +2729,7 @@
                     "relations": {
                         "type": "object",
                         "properties": {
-                            "user_id": {
-                                "anyOf": [
-                                    {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "type": "boolean"
-                                            }
-                                        ],
-                                        "type": "boolean"
-                                    },
-                                    {
-                                        "$ref": "#/components/schemas/ReadUsersRelations"
-                                    }
-                                ]
-                            },
-                            "product_id": {
+                            "review_product": {
                                 "anyOf": [
                                     {
                                         "anyOf": [
@@ -1862,6 +2746,24 @@
                                         "$ref": "#/components/schemas/ReadProductsRelations"
                                     }
                                 ]
+                            },
+                            "review_user": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadUsersRelations"
+                                    }
+                                ]
                             }
                         },
                         "required": [],
@@ -1874,12 +2776,78 @@
             "ReadReviewsFilters": {
                 "type": "object",
                 "properties": {
-                    "user_id": {
-                        "$ref": "#/components/schemas/ReadUsersFilters",
+                    "product_id": {
+                        "type": "object",
+                        "properties": {
+                            "$val": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number"
+                            },
+                            "$op": {
+                                "enum": [
+                                    "Eq",
+                                    "NotEq",
+                                    "GreaterThan",
+                                    "LessThan",
+                                    "GreaterThanOrEq",
+                                    "LessThanOrEq",
+                                    "IsNull",
+                                    "IsNotNull"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "$op"
+                        ],
+                        "additionalProperties": false,
                         "nullable": true
                     },
-                    "product_id": {
+                    "review_product": {
                         "$ref": "#/components/schemas/ReadProductsFilters",
+                        "nullable": true
+                    },
+                    "user_id": {
+                        "type": "object",
+                        "properties": {
+                            "$val": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "number"
+                                    }
+                                ],
+                                "type": "number"
+                            },
+                            "$op": {
+                                "enum": [
+                                    "Eq",
+                                    "NotEq",
+                                    "GreaterThan",
+                                    "LessThan",
+                                    "GreaterThanOrEq",
+                                    "LessThanOrEq",
+                                    "IsNull",
+                                    "IsNotNull"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "$op"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                    },
+                    "review_user": {
+                        "$ref": "#/components/schemas/ReadUsersFilters",
                         "nullable": true
                     },
                     "rating": {
@@ -1915,7 +2883,7 @@
                         "additionalProperties": false,
                         "nullable": true
                     },
-                    "review_text": {
+                    "comment": {
                         "type": "object",
                         "properties": {
                             "$val": {
@@ -1946,20 +2914,13 @@
             "ReadReviewsOrders": {
                 "type": "object",
                 "properties": {
-                    "user_id": {
-                        "anyOf": [
-                            {
-                                "enum": [
-                                    "asc",
-                                    "desc"
-                                ]
-                            },
-                            {
-                                "$ref": "#/components/schemas/ReadUsersOrders"
-                            }
+                    "product_id": {
+                        "enum": [
+                            "asc",
+                            "desc"
                         ]
                     },
-                    "product_id": {
+                    "review_product": {
                         "anyOf": [
                             {
                                 "enum": [
@@ -1972,13 +2933,32 @@
                             }
                         ]
                     },
+                    "user_id": {
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ]
+                    },
+                    "review_user": {
+                        "anyOf": [
+                            {
+                                "enum": [
+                                    "asc",
+                                    "desc"
+                                ]
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadUsersOrders"
+                            }
+                        ]
+                    },
                     "rating": {
                         "enum": [
                             "asc",
                             "desc"
                         ]
                     },
-                    "review_text": {
+                    "comment": {
                         "enum": [
                             "asc",
                             "desc"
@@ -1997,25 +2977,7 @@
                     "relations": {
                         "type": "object",
                         "properties": {
-                            "user_id": {
-                                "anyOf": [
-                                    {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "type": "boolean"
-                                            }
-                                        ],
-                                        "type": "boolean"
-                                    },
-                                    {
-                                        "$ref": "#/components/schemas/ReadUsersRelations"
-                                    }
-                                ]
-                            },
-                            "product_id": {
+                            "review_product": {
                                 "anyOf": [
                                     {
                                         "anyOf": [
@@ -2030,6 +2992,24 @@
                                     },
                                     {
                                         "$ref": "#/components/schemas/ReadProductsRelations"
+                                    }
+                                ]
+                            },
+                            "review_user": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadUsersRelations"
                                     }
                                 ]
                             }
@@ -2082,25 +3062,7 @@
             "ReadReviewsRelations": {
                 "type": "object",
                 "properties": {
-                    "user_id": {
-                        "anyOf": [
-                            {
-                                "anyOf": [
-                                    {
-                                        "type": "string"
-                                    },
-                                    {
-                                        "type": "boolean"
-                                    }
-                                ],
-                                "type": "boolean"
-                            },
-                            {
-                                "$ref": "#/components/schemas/ReadUsersRelations"
-                            }
-                        ]
-                    },
-                    "product_id": {
+                    "review_product": {
                         "anyOf": [
                             {
                                 "anyOf": [
@@ -2117,217 +3079,8 @@
                                 "$ref": "#/components/schemas/ReadProductsRelations"
                             }
                         ]
-                    }
-                },
-                "required": [],
-                "additionalProperties": false
-            },
-            "UpdateReviews": {
-                "type": "object",
-                "properties": {
-                    "user_id": {
-                        "nullable": true
                     },
-                    "product_id": {
-                        "nullable": true
-                    },
-                    "rating": {
-                        "type": "number"
-                    },
-                    "review_text": {
-                        "type": "string",
-                        "nullable": true
-                    }
-                },
-                "required": [],
-                "additionalProperties": false
-            },
-            "CreateSellers": {
-                "type": "object",
-                "properties": {
-                    "user_id": {
-                        "nullable": true
-                    },
-                    "store_name": {
-                        "type": "string",
-                        "maxLength": 100
-                    }
-                },
-                "required": [
-                    "store_name"
-                ],
-                "additionalProperties": false
-            },
-            "ReadOneSellersQuery": {
-                "type": "object",
-                "properties": {
-                    "relations": {
-                        "type": "object",
-                        "properties": {
-                            "user_id": {
-                                "anyOf": [
-                                    {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "type": "boolean"
-                                            }
-                                        ],
-                                        "type": "boolean"
-                                    },
-                                    {
-                                        "$ref": "#/components/schemas/ReadUsersRelations"
-                                    }
-                                ]
-                            }
-                        },
-                        "required": [],
-                        "additionalProperties": false
-                    }
-                },
-                "required": [],
-                "additionalProperties": false
-            },
-            "ReadSellersFilters": {
-                "type": "object",
-                "properties": {
-                    "user_id": {
-                        "$ref": "#/components/schemas/ReadUsersFilters",
-                        "nullable": true
-                    },
-                    "store_name": {
-                        "type": "object",
-                        "properties": {
-                            "$val": {
-                                "type": "string"
-                            },
-                            "$op": {
-                                "enum": [
-                                    "Eq",
-                                    "NotEq",
-                                    "Contains",
-                                    "StartsWith",
-                                    "EndsWith",
-                                    "IsNull",
-                                    "IsNotNull"
-                                ]
-                            }
-                        },
-                        "required": [
-                            "$op"
-                        ],
-                        "additionalProperties": false,
-                        "nullable": true
-                    }
-                },
-                "required": [],
-                "additionalProperties": false
-            },
-            "ReadSellersOrders": {
-                "type": "object",
-                "properties": {
-                    "user_id": {
-                        "anyOf": [
-                            {
-                                "enum": [
-                                    "asc",
-                                    "desc"
-                                ]
-                            },
-                            {
-                                "$ref": "#/components/schemas/ReadUsersOrders"
-                            }
-                        ]
-                    },
-                    "store_name": {
-                        "enum": [
-                            "asc",
-                            "desc"
-                        ]
-                    }
-                },
-                "required": [],
-                "additionalProperties": false
-            },
-            "ReadSellersQuery": {
-                "type": "object",
-                "properties": {
-                    "filters": {
-                        "$ref": "#/components/schemas/ReadSellersFilters"
-                    },
-                    "relations": {
-                        "type": "object",
-                        "properties": {
-                            "user_id": {
-                                "anyOf": [
-                                    {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "type": "boolean"
-                                            }
-                                        ],
-                                        "type": "boolean"
-                                    },
-                                    {
-                                        "$ref": "#/components/schemas/ReadUsersRelations"
-                                    }
-                                ]
-                            }
-                        },
-                        "required": [],
-                        "additionalProperties": false
-                    },
-                    "orders": {
-                        "$ref": "#/components/schemas/ReadSellersOrders"
-                    },
-                    "pagination": {
-                        "type": "object",
-                        "properties": {
-                            "skip": {
-                                "anyOf": [
-                                    {
-                                        "type": "string"
-                                    },
-                                    {
-                                        "type": "number"
-                                    }
-                                ],
-                                "type": "number",
-                                "default": 0
-                            },
-                            "take": {
-                                "anyOf": [
-                                    {
-                                        "type": "string"
-                                    },
-                                    {
-                                        "type": "number"
-                                    }
-                                ],
-                                "type": "number",
-                                "default": 25
-                            }
-                        },
-                        "required": [],
-                        "additionalProperties": false,
-                        "default": {
-                            "skip": 0,
-                            "take": 25
-                        }
-                    }
-                },
-                "required": [],
-                "additionalProperties": false
-            },
-            "ReadSellersRelations": {
-                "type": "object",
-                "properties": {
-                    "user_id": {
+                    "review_user": {
                         "anyOf": [
                             {
                                 "anyOf": [
@@ -2349,15 +3102,29 @@
                 "required": [],
                 "additionalProperties": false
             },
-            "UpdateSellers": {
+            "UpdateReviews": {
                 "type": "object",
                 "properties": {
-                    "user_id": {
+                    "product_id": {
+                        "type": "number",
                         "nullable": true
                     },
-                    "store_name": {
+                    "review_product": {
+                        "nullable": true
+                    },
+                    "user_id": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "review_user": {
+                        "nullable": true
+                    },
+                    "rating": {
+                        "type": "number"
+                    },
+                    "comment": {
                         "type": "string",
-                        "maxLength": 100
+                        "nullable": true
                     }
                 },
                 "required": [],
@@ -2368,21 +3135,38 @@
                 "properties": {
                     "username": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 255
                     },
                     "email": {
                         "type": "string",
-                        "maxLength": 100
+                        "maxLength": 255
                     },
-                    "password_hash": {
+                    "password": {
                         "type": "string",
                         "maxLength": 255
+                    },
+                    "role": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "seller_products": {
+                        "nullable": true
+                    },
+                    "user_orders": {
+                        "nullable": true
+                    },
+                    "user_reviews": {
+                        "nullable": true
+                    },
+                    "user_cart_items": {
+                        "nullable": true
                     }
                 },
                 "required": [
                     "username",
                     "email",
-                    "password_hash"
+                    "password",
+                    "role"
                 ],
                 "additionalProperties": false
             },
@@ -2391,7 +3175,80 @@
                 "properties": {
                     "relations": {
                         "type": "object",
-                        "properties": {},
+                        "properties": {
+                            "seller_products": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadProductsRelations"
+                                    }
+                                ]
+                            },
+                            "user_orders": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadOrdersRelations"
+                                    }
+                                ]
+                            },
+                            "user_reviews": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadReviewsRelations"
+                                    }
+                                ]
+                            },
+                            "user_cart_items": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadCart_itemsRelations"
+                                    }
+                                ]
+                            }
+                        },
                         "required": [],
                         "additionalProperties": false
                     }
@@ -2450,7 +3307,7 @@
                         "additionalProperties": false,
                         "nullable": true
                     },
-                    "password_hash": {
+                    "password": {
                         "type": "object",
                         "properties": {
                             "$val": {
@@ -2473,6 +3330,46 @@
                         ],
                         "additionalProperties": false,
                         "nullable": true
+                    },
+                    "role": {
+                        "type": "object",
+                        "properties": {
+                            "$val": {
+                                "type": "string"
+                            },
+                            "$op": {
+                                "enum": [
+                                    "Eq",
+                                    "NotEq",
+                                    "Contains",
+                                    "StartsWith",
+                                    "EndsWith",
+                                    "IsNull",
+                                    "IsNotNull"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "$op"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                    },
+                    "seller_products": {
+                        "$ref": "#/components/schemas/ReadProductsFilters",
+                        "nullable": true
+                    },
+                    "user_orders": {
+                        "$ref": "#/components/schemas/ReadOrdersFilters",
+                        "nullable": true
+                    },
+                    "user_reviews": {
+                        "$ref": "#/components/schemas/ReadReviewsFilters",
+                        "nullable": true
+                    },
+                    "user_cart_items": {
+                        "$ref": "#/components/schemas/ReadCart_itemsFilters",
+                        "nullable": true
                     }
                 },
                 "required": [],
@@ -2493,10 +3390,68 @@
                             "desc"
                         ]
                     },
-                    "password_hash": {
+                    "password": {
                         "enum": [
                             "asc",
                             "desc"
+                        ]
+                    },
+                    "role": {
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ]
+                    },
+                    "seller_products": {
+                        "anyOf": [
+                            {
+                                "enum": [
+                                    "asc",
+                                    "desc"
+                                ]
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadProductsOrders"
+                            }
+                        ]
+                    },
+                    "user_orders": {
+                        "anyOf": [
+                            {
+                                "enum": [
+                                    "asc",
+                                    "desc"
+                                ]
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadOrdersOrders"
+                            }
+                        ]
+                    },
+                    "user_reviews": {
+                        "anyOf": [
+                            {
+                                "enum": [
+                                    "asc",
+                                    "desc"
+                                ]
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadReviewsOrders"
+                            }
+                        ]
+                    },
+                    "user_cart_items": {
+                        "anyOf": [
+                            {
+                                "enum": [
+                                    "asc",
+                                    "desc"
+                                ]
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadCart_itemsOrders"
+                            }
                         ]
                     }
                 },
@@ -2511,7 +3466,80 @@
                     },
                     "relations": {
                         "type": "object",
-                        "properties": {},
+                        "properties": {
+                            "seller_products": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadProductsRelations"
+                                    }
+                                ]
+                            },
+                            "user_orders": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadOrdersRelations"
+                                    }
+                                ]
+                            },
+                            "user_reviews": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadReviewsRelations"
+                                    }
+                                ]
+                            },
+                            "user_cart_items": {
+                                "anyOf": [
+                                    {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ],
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ReadCart_itemsRelations"
+                                    }
+                                ]
+                            }
+                        },
                         "required": [],
                         "additionalProperties": false
                     },
@@ -2559,7 +3587,80 @@
             },
             "ReadUsersRelations": {
                 "type": "object",
-                "properties": {},
+                "properties": {
+                    "seller_products": {
+                        "anyOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "boolean"
+                                    }
+                                ],
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadProductsRelations"
+                            }
+                        ]
+                    },
+                    "user_orders": {
+                        "anyOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "boolean"
+                                    }
+                                ],
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadOrdersRelations"
+                            }
+                        ]
+                    },
+                    "user_reviews": {
+                        "anyOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "boolean"
+                                    }
+                                ],
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadReviewsRelations"
+                            }
+                        ]
+                    },
+                    "user_cart_items": {
+                        "anyOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "boolean"
+                                    }
+                                ],
+                                "type": "boolean"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ReadCart_itemsRelations"
+                            }
+                        ]
+                    }
+                },
                 "required": [],
                 "additionalProperties": false
             },
@@ -2568,15 +3669,31 @@
                 "properties": {
                     "username": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 255
                     },
                     "email": {
                         "type": "string",
-                        "maxLength": 100
+                        "maxLength": 255
                     },
-                    "password_hash": {
+                    "password": {
                         "type": "string",
                         "maxLength": 255
+                    },
+                    "role": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "seller_products": {
+                        "nullable": true
+                    },
+                    "user_orders": {
+                        "nullable": true
+                    },
+                    "user_reviews": {
+                        "nullable": true
+                    },
+                    "user_cart_items": {
+                        "nullable": true
                     }
                 },
                 "required": [],

@@ -3,30 +3,38 @@ import * as v from 'valibot';
 
 const UpdateOrder_itemsSchema = v.pipe(
 	v.object({
-		order_id: v.nullish(
+		order_id: v.nullish(v.number()),
+		order_item_order: v.nullish(
 			v.union([
 				v.object({ id: v.number() }),
 				v.object({
+					user_id: v.nullish(v.number()),
 					total_amount: v.number(),
-					placed_at: v.pipe(v.string('Invalid type: Expected ISO timestamp string'), v.isoTimestamp()),
+					order_status: v.pipe(v.string(), v.maxLength(50)),
 				}),
 			]),
 		),
-		product_id: v.nullish(
+		product_id: v.nullish(v.number()),
+		order_item_product: v.nullish(
 			v.union([
 				v.object({ id: v.number() }),
 				v.object({
-					name: v.pipe(v.string(), v.maxLength(100)),
+					seller_id: v.nullish(v.number()),
+					name: v.pipe(v.string(), v.maxLength(255)),
 					description: v.nullish(v.string()),
 					price: v.number(),
-					inventory_count: v.number(),
+					stock: v.number(),
 				}),
 			]),
 		),
 		quantity: v.optional(v.number()),
-		price_at_purchase: v.optional(v.number()),
+		unit_price: v.optional(v.number()),
 	}),
-	v.metadata({ [modelSymbol]: 'Order_itemsEntity', order_id: 'OrdersEntity', product_id: 'ProductsEntity' }),
+	v.metadata({
+		[modelSymbol]: 'Order_itemsEntity',
+		order_item_order: 'OrdersEntity',
+		order_item_product: 'ProductsEntity',
+	}),
 );
 export default UpdateOrder_itemsSchema;
 

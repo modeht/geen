@@ -8,17 +8,21 @@ import ReadProductsFiltersSchema, {
 } from '../../products-feature/generated-schemas/read-products-filters.schema';
 
 export class ReadOrder_itemsFiltersSchemaFilters {
-	order_id?: ReadOrdersFiltersSchemaFilters | null;
-	product_id?: ReadProductsFiltersSchemaFilters | null;
+	order_id?: GenericComparable<'number'> | null;
+	order_item_order?: ReadOrdersFiltersSchemaFilters | null;
+	product_id?: GenericComparable<'number'> | null;
+	order_item_product?: ReadProductsFiltersSchemaFilters | null;
 	quantity?: GenericComparable<'number'> | null;
-	price_at_purchase?: GenericComparable<'number'> | null;
+	unit_price?: GenericComparable<'number'> | null;
 }
 
 const ReadOrder_itemsFiltersSchema: v.GenericSchema<ReadOrder_itemsFiltersSchemaFilters> = v.object({
-	order_id: v.nullish(v.lazy(() => ReadOrdersFiltersSchema)),
-	product_id: v.nullish(v.lazy(() => ReadProductsFiltersSchema)),
+	order_id: v.nullish(comparable('number')),
+	order_item_order: v.nullish(v.lazy(() => ReadOrdersFiltersSchema)),
+	product_id: v.nullish(comparable('number')),
+	order_item_product: v.nullish(v.lazy(() => ReadProductsFiltersSchema)),
 	quantity: v.nullish(comparable('number')),
-	price_at_purchase: v.nullish(comparable('number')),
+	unit_price: v.nullish(comparable('number')),
 });
 
 export default ReadOrder_itemsFiltersSchema;

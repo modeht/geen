@@ -13,7 +13,7 @@ The expected JSON schema should follow this structure:
           "name": "<column name>",
           "type": "<column type>", // e.g., serial, character, integer, boolean, etc.
           "options": { /* key-value pairs based on type. For example: { "primary": true, "generated": "increment" } */ },
-          "subOptions": { /* For relation types, key must match the 'references' value in options, and value is the mapped column name (not the id) */ }
+          "subOptions": { /* For relation types only, key must match the 'references' value in options, and value can be any of the primary columns of the referenced table */ }
         }
       ]
     }
@@ -35,16 +35,6 @@ Here's a concrete example showing how to structure relationships between tables:
             "primary": true,
             "generated": "increment"
           }
-        },
-        {
-          "name": "profile",
-          "type": "has one",
-          "options": {
-            "references": "profiles"
-          },
-          "subOptions": {
-            "profiles": "user_profile"  // key matches 'references' value, maps to the column name in profiles table
-          }
         }
       ]
     },
@@ -60,13 +50,13 @@ Here's a concrete example showing how to structure relationships between tables:
           }
         },
         {
-          "name": "user_profile",
-          "type": "belongs to",
+          "name": "user_id",
+          "type": "many to one",
           "options": {
             "references": "users"
           },
           "subOptions": {
-            "users": "profile"  // key matches 'references' value, maps to the column name in users table
+            "users": "id"
           }
         }
       ]
@@ -140,11 +130,8 @@ Other Types:
   - txid_snapshot
 
 Relation Types:
-  - has one
-  - belongs to
-  - has many
+  - one to one
   - many to one
-  - belongs to many
 
 
 Available Options:
@@ -210,8 +197,7 @@ Foreign Key Options:
   - onDelete: options (values: "CASCADE", "SET NULL", "SET DEFAULT", "RESTRICT", "NO ACTION")
   - onUpdate: options (values: "CASCADE", "SET NULL", "SET DEFAULT", "RESTRICT", "NO ACTION")
   - match: options (values: "SIMPLE", "FULL", "PARTIAL")
-  Note: When using references, the corresponding subOptions object must have a key that exactly matches the 'references' value, 
-  and its value should be the actual column name (not the id) that represents the relationship in the referenced table.
+  - subOptions: options (derived from available columns of selected referenced table)
 
 Guidelines:
 - Analyze the provided PRD and generate the JSON schema based solely on that input.
@@ -224,12 +210,10 @@ Guidelines:
   * For timestamps/dates use "NOW()" instead of "CURRENT_TIMESTAMP"
   * For serial/uuid columns, use the "generated" option instead of defaults
   * For other types, ensure defaults match PostgreSQL syntax requirements
-- For relation types (e.g., 'has one', 'belongs to', etc.), the subOptions object must:
-  * Have a key that exactly matches the value specified in options.references
-  * Have a value that is the actual column name representing the relationship (not the id column)
-  * Example: if options.references is "users", then subOptions should be {"users": "actual_column_name"}
+- For relation types (e.g., 'one to one', 'many to one'), the subOptions object must exist and must follow these rules:
+  * The key must match the value specified in options.references
+  * The value can be any of the primary columns of the referenced table
 - Return your final output strictly as valid JSON containing the final schema, without any additional text or formatting.
-- Follow the example above for setting up relationships between tables, using the appropriate relation types and subOptions.
 `;
 
 export const SchemaBuilderJsonSchema = {
@@ -319,11 +303,8 @@ export const SchemaBuilderJsonSchema = {
 										'pg_snapshot',
 										'txid_snapshot',
 										// Relation types
-										'has one',
-										'belongs to',
-										'has many',
+										'one to one',
 										'many to one',
-										'belongs to many',
 									],
 								},
 								options: {

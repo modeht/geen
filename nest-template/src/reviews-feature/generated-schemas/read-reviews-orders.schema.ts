@@ -1,23 +1,27 @@
 import { GenericComparable, comparable } from '../../geen/lib/comparable';
 import { OrderDirectionSchema, OrderDirectionEnum } from '../../geen/schemas/order.schema';
 import * as v from 'valibot';
-import ReadUsersOrdersSchema, { ReadUsersOrders } from '../../users-feature/generated-schemas/read-users-orders.schema';
 import ReadProductsOrdersSchema, {
 	ReadProductsOrders,
 } from '../../products-feature/generated-schemas/read-products-orders.schema';
+import ReadUsersOrdersSchema, { ReadUsersOrders } from '../../users-feature/generated-schemas/read-users-orders.schema';
 
 export class ReadReviewsOrders {
-	user_id?: ReadUsersOrders | OrderDirectionEnum;
-	product_id?: ReadProductsOrders | OrderDirectionEnum;
+	product_id?: OrderDirectionEnum;
+	review_product?: ReadProductsOrders | OrderDirectionEnum;
+	user_id?: OrderDirectionEnum;
+	review_user?: ReadUsersOrders | OrderDirectionEnum;
 	rating?: OrderDirectionEnum;
-	review_text?: OrderDirectionEnum;
+	comment?: OrderDirectionEnum;
 }
 
 const ReadReviewsOrdersSchema: v.GenericSchema<ReadReviewsOrders> = v.object({
-	user_id: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUsersOrdersSchema)])),
-	product_id: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductsOrdersSchema)])),
+	product_id: v.optional(OrderDirectionSchema),
+	review_product: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadProductsOrdersSchema)])),
+	user_id: v.optional(OrderDirectionSchema),
+	review_user: v.optional(v.union([OrderDirectionSchema, v.lazy(() => ReadUsersOrdersSchema)])),
 	rating: v.optional(OrderDirectionSchema),
-	review_text: v.optional(OrderDirectionSchema),
+	comment: v.optional(OrderDirectionSchema),
 });
 
 export default ReadReviewsOrdersSchema;
